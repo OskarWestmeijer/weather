@@ -1,5 +1,9 @@
 # car-rental-service
 
-Request available cars. 
+docker-compose down
+docker-compose down --volumes
+docker-compose up
 
-Rent a car.
+docker exec -it <db> sh
+psql -U username1
+\l \c carrental \d

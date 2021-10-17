@@ -1,0 +1,13 @@
+version: '3.6'
+
+services:
+  database:
+    image: postgres:14.0
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./src/main/resources/db/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+      - ./src/main/resources/db/data.sql:/docker-entrypoint-initdb.d/2-data.sql
+    environment:
+      POSTGRES_USER: username1
+      POSTGRES_PASSWORD: password1
