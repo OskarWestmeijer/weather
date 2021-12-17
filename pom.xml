@@ -4,9 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>westmeijer.oskar</groupId>
-	<artifactId>car-rental-service</artifactId>
-	<name>car-rental-service</name>
-	<description>Rent a car.</description>
+	<artifactId>weather-api</artifactId>
+	<description>Provides current weather information.</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
