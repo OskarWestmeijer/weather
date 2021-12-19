@@ -14,8 +14,8 @@
         <appender-ref ref="Console"/>
     </root>
 
-    <!-- LOG "westmeijer.oskar*" at TRACE level -->
-    <logger name="westmeijer.oskar" level="trace" additivity="false">
+    <!-- LOG "westmeijer.oskar*" at INFO level -->
+    <logger name="westmeijer.oskar" level="info" additivity="false">
         <appender-ref ref="Console"/>
     </logger>
 
