@@ -1,7 +1,7 @@
-\c carrental
+\c weather
 
-CREATE TABLE garage
+CREATE TABLE temperature
 (
-    id    int,
-    brand varchar(255)
+    id    UUID,
+    temperature bigint
 );

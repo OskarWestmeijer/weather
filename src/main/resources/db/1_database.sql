@@ -1,1 +1,1 @@
-CREATE DATABASE carrental;
+CREATE DATABASE weather;
