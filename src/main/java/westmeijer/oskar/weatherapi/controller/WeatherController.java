@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import westmeijer.oskar.weatherapi.service.WeatherService;
 
 @Controller
@@ -32,6 +33,12 @@ public class WeatherController {
         } else {
             return ResponseEntity.badRequest().body("Unknown zip code!");
         }
+    }
+
+    @PostMapping("/api/retrieve")
+    public ResponseEntity<String> requestOpenApi() {
+        weatherService.requestOpenWeatherApi();
+        return ResponseEntity.ok().body("Success!");
     }
 
 }

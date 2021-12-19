@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/data/test"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "id": 1245,
+      "message": "Hello Webflux!"
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
