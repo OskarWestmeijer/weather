@@ -8,8 +8,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import westmeijer.oskar.weatherapi.controller.WeatherController;
+import westmeijer.oskar.weatherapi.repository.WeatherEntity;
 import westmeijer.oskar.weatherapi.service.Weather;
 import westmeijer.oskar.weatherapi.service.WeatherService;
+
+import java.util.List;
+import java.util.UUID;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -28,19 +32,18 @@ public class WeatherControllerLayerTest {
 
     @Test
     public void requestWeatherKnownZipCode() throws Exception {
-        when(weatherService.getWeather()).thenReturn(new Weather(5));
+
+        when(weatherService.getWeather()).thenReturn(List.of(new WeatherEntity(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5L)));
 
         mockMvc.perform(get("/api/weather/23552"))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("{'temperature': 5}"));
+                .andExpect(content().json("[{'id': a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11, 'temperature': 5}]"));
     }
 
     @Test
     public void requestWeatherUnknownZipCode() throws Exception {
         mockMvc.perform(get("/api/weather/46286"))
-                .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("Unknown zip code!"));
     }

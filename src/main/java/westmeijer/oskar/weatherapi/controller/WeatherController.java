@@ -7,14 +7,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import westmeijer.oskar.weatherapi.repository.WeatherEntity;
+import westmeijer.oskar.weatherapi.service.Weather;
 import westmeijer.oskar.weatherapi.service.WeatherService;
+
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 public class WeatherController {
 
     Logger logger = LoggerFactory.getLogger(WeatherController.class);
 
-    private WeatherService weatherService;
+    private final WeatherService weatherService;
 
     private static final int ZIP_CODE_LUEBECK = 23552;
 
@@ -28,16 +34,26 @@ public class WeatherController {
         logger.info("Received Weather request for zip code: {}", zipCode);
 
         if (zipCode == ZIP_CODE_LUEBECK) {
+            List<WeatherEntity> weatherEntities = weatherService.getWeather();
 
-            return ResponseEntity.ok(weatherService.getWeather());
+            List<Weather> weatherList = weatherEntities.stream()
+                    .map(weatherEntity -> new Weather(weatherEntity.getId(), weatherEntity.getTemperature()))
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.ok(weatherList);
         } else {
             return ResponseEntity.badRequest().body("Unknown zip code!");
         }
     }
 
+    @GetMapping("/api/test")
+    public ResponseEntity<Weather> test() {
+        return ResponseEntity.ok(new Weather(UUID.randomUUID(), 10));
+    }
+
     @PostMapping("/api/retrieve")
-    public ResponseEntity<String> requestOpenApi() {
-        weatherService.requestOpenWeatherApi();
+    public ResponseEntity<String> refreshWeather() {
+        weatherService.refreshWeather();
         return ResponseEntity.ok().body("Success!");
     }
 

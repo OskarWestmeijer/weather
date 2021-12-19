@@ -1,14 +1,23 @@
 package westmeijer.oskar.weatherapi.service;
 
+import java.util.UUID;
+
 public class Weather {
 
-    private int temperature;
+    private final UUID id;
 
-    public Weather(int temperature) {
+    private final long temperature;
+
+    public Weather(UUID id, long temperature) {
+        this.id = id;
         this.temperature = temperature;
     }
 
-    public int getTemperature() {
+    public UUID getId() {
+        return id;
+    }
+
+    public long getTemperature() {
         return temperature;
     }
 }
