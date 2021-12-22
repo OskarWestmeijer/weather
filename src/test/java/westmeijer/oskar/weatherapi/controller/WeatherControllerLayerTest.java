@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi;
+package westmeijer.oskar.weatherapi.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,10 +6,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import westmeijer.oskar.weatherapi.controller.WeatherController;
 import westmeijer.oskar.weatherapi.repository.WeatherEntity;
-import westmeijer.oskar.weatherapi.service.Weather;
 import westmeijer.oskar.weatherapi.service.WeatherService;
 
 import java.util.List;
@@ -17,7 +15,6 @@ import java.util.UUID;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
