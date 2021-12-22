@@ -7,12 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import westmeijer.oskar.weatherapi.repository.WeatherEntity;
-import westmeijer.oskar.weatherapi.service.Weather;
+import westmeijer.oskar.weatherapi.model.WeatherDTOBuilder;
+import westmeijer.oskar.weatherapi.model.WeatherEntity;
+import westmeijer.oskar.weatherapi.model.WeatherDTO;
 import westmeijer.oskar.weatherapi.service.WeatherService;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
@@ -41,8 +41,9 @@ public class WeatherController {
         if (zipCode == ZIP_CODE_LUEBECK) {
             List<WeatherEntity> weatherEntities = weatherService.getWeather();
 
-            List<Weather> weatherList = weatherEntities.stream()
-                    .map(weatherEntity -> new Weather(weatherEntity.getId(), weatherEntity.getTemperature()))
+            List<WeatherDTO> weatherList = weatherEntities.stream()
+                    .map(weatherEntity -> new WeatherDTOBuilder().setId(weatherEntity.getId())
+                            .setTemperature(weatherEntity.getTemperature()).createWeatherDTO())
                     .collect(Collectors.toList());
 
             return ResponseEntity.ok(weatherList);
@@ -51,10 +52,9 @@ public class WeatherController {
         }
     }
 
-    @PostMapping("/api/refresh")
-    public ResponseEntity<String> refreshWeather() {
-        weatherService.refreshWeather();
-        return ResponseEntity.ok().body("Success!");
+    @PostMapping("/api/weather/refresh")
+    public ResponseEntity refreshWeather() {
+        return ResponseEntity.ok("Success!");
     }
 
 }

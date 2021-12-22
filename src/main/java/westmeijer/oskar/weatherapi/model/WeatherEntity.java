@@ -1,17 +1,20 @@
-package westmeijer.oskar.weatherapi.repository;
+package westmeijer.oskar.weatherapi.model;
 
 import javax.persistence.*;
 import java.util.UUID;
 
+/**
+ * Weather representation used by the service and repository layer.
+ *
+ */
 @Table(name = "temperature")
 @Entity
 public class WeatherEntity {
 
     public WeatherEntity() {
-
     }
 
-    public WeatherEntity(UUID id, Long temperature) {
+    protected WeatherEntity(UUID id, Long temperature) {
         this.id = id;
         this.temperature = temperature;
     }
@@ -29,4 +32,7 @@ public class WeatherEntity {
     public Long getTemperature() {
         return temperature;
     }
+
+
+
 }

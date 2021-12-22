@@ -6,8 +6,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import westmeijer.oskar.weatherapi.controller.WeatherController;
-import westmeijer.oskar.weatherapi.repository.WeatherEntity;
+import westmeijer.oskar.weatherapi.model.WeatherEntityBuilder;
 import westmeijer.oskar.weatherapi.service.WeatherService;
 
 import java.util.List;
@@ -30,7 +29,9 @@ public class WeatherControllerLayerTest {
     @Test
     public void requestWeatherKnownZipCode() throws Exception {
 
-        when(weatherService.getWeather()).thenReturn(List.of(new WeatherEntity(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5L)));
+        when(weatherService.getWeather()).thenReturn(List.of(
+                new WeatherEntityBuilder().setId(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"))
+                        .setTemperature(5L).createWeatherEntity()));
 
         mockMvc.perform(get("/api/weather/23552"))
                 .andExpect(status().isOk())

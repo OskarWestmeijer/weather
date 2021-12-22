@@ -1,14 +1,17 @@
-package westmeijer.oskar.weatherapi.service;
+package westmeijer.oskar.weatherapi.model;
 
 import java.util.UUID;
 
-public class Weather {
+/**
+ * Weather representation used by the web layer.
+ */
+public class WeatherDTO {
 
     private final UUID id;
 
     private final long temperature;
 
-    public Weather(UUID id, long temperature) {
+    protected WeatherDTO(UUID id, long temperature) {
         this.id = id;
         this.temperature = temperature;
     }
