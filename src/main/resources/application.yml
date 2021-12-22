@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: weather-api
+
+  datasource:
+    name: weather
+    url: jdbc:postgresql://localhost:5432/weather
+    username: username1
+    password: password1
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 10
+
+  jpa:
+    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+
+server:
+  tomcat:
+    accesslog:
+      enabled: false
+      suffix: .log
+      prefix: access_log
+      file-date-format: .yyyy-MM-dd
+      directory: tomcat
+      pattern: common
+    basedir: logs
+    max-connections: 2
+
