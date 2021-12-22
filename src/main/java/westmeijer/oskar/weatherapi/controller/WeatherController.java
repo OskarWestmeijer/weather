@@ -28,6 +28,11 @@ public class WeatherController {
         this.weatherService = weatherService;
     }
 
+    @GetMapping("/api/ping")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("pong");
+    }
+
     @GetMapping("/api/weather/{zipCode}")
     public ResponseEntity getWeather(@PathVariable int zipCode) {
 
@@ -46,12 +51,7 @@ public class WeatherController {
         }
     }
 
-    @GetMapping("/api/test")
-    public ResponseEntity<Weather> test() {
-        return ResponseEntity.ok(new Weather(UUID.randomUUID(), 10));
-    }
-
-    @PostMapping("/api/retrieve")
+    @PostMapping("/api/refresh")
     public ResponseEntity<String> refreshWeather() {
         weatherService.refreshWeather();
         return ResponseEntity.ok().body("Success!");

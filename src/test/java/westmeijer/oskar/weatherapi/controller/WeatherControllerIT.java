@@ -8,6 +8,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import westmeijer.oskar.weatherapi.SystemTest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -25,5 +26,15 @@ public class WeatherControllerIT extends SystemTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json("[{'id': a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11, 'temperature': 10},{'id':'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12','temperature':20}]"));
     }
+
+    @Test
+    public void triggerOpenApiRequest() throws Exception {
+
+        mockMvc.perform(post("/api/refresh"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("success!"));
+    }
+
 
 }
