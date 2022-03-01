@@ -1,7 +1,9 @@
-\c weather
+\c
+weather
 
 CREATE TABLE temperature
 (
-    id    UUID,
-    temperature bigint
+    id          UUID,
+    temperature bigint,
+    timestamp   TIMESTAMP
 );

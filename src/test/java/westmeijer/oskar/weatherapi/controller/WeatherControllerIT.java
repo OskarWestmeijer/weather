@@ -24,17 +24,14 @@ public class WeatherControllerIT extends SystemTest {
         mockMvc.perform(get("/api/weather/23552"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("[{'id': a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11, 'temperature': 10},{'id':'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12','temperature':20}]"));
+                .andExpect(content().json("""
+                        [{
+                        'id': a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11,
+                        'temperature': 10
+                        },
+                        {'id':'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
+                        'temperature':20
+                        }]"""));
     }
-
-    @Test
-    public void triggerOpenApiRequest() throws Exception {
-
-        mockMvc.perform(post("/api/refresh"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("success!"));
-    }
-
 
 }

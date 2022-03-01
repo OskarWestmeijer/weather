@@ -1,5 +1,6 @@
 package westmeijer.oskar.weatherapi.model;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -11,9 +12,12 @@ public class WeatherDTO {
 
     private final long temperature;
 
-    protected WeatherDTO(UUID id, long temperature) {
+    private final LocalDateTime timestamp;
+
+    protected WeatherDTO(UUID id, long temperature, LocalDateTime timestamp) {
         this.id = id;
         this.temperature = temperature;
+        this.timestamp = timestamp;
     }
 
     public UUID getId() {
@@ -22,5 +26,9 @@ public class WeatherDTO {
 
     public long getTemperature() {
         return temperature;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
     }
 }

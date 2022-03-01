@@ -1,6 +1,7 @@
 package westmeijer.oskar.weatherapi.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -14,9 +15,10 @@ public class WeatherEntity {
     public WeatherEntity() {
     }
 
-    protected WeatherEntity(UUID id, Long temperature) {
+    protected WeatherEntity(UUID id, Long temperature, LocalDateTime timestamp) {
         this.id = id;
         this.temperature = temperature;
+        this.timestamp = timestamp;
     }
 
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,6 +26,12 @@ public class WeatherEntity {
     private UUID id;
 
     private Long temperature;
+
+    private LocalDateTime timestamp;
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
 
     public UUID getId() {
         return id;

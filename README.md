@@ -6,7 +6,7 @@ https://www.notion.so/Openweather-API-0c064fb6e37144c38cd1cca9b6ade21d
 
 Docker compose initializes the database on startup.
 
-```docker-compose down
+```
 
 docker-compose down --volumes
 

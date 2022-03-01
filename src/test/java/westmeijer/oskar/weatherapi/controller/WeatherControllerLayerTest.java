@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import westmeijer.oskar.weatherapi.model.WeatherEntityBuilder;
 import westmeijer.oskar.weatherapi.service.WeatherService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,15 +29,22 @@ public class WeatherControllerLayerTest {
 
     @Test
     public void requestWeatherKnownZipCode() throws Exception {
+        LocalDateTime instant = LocalDateTime.now();
 
         when(weatherService.getWeather()).thenReturn(List.of(
                 new WeatherEntityBuilder().setId(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"))
-                        .setTemperature(5L).createWeatherEntity()));
+                        .setTemperature(5L).setTimestamp(instant).createWeatherEntity()));
 
         mockMvc.perform(get("/api/weather/23552"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("[{'id': a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11, 'temperature': 5}]"));
+                .andExpect(content().json("""
+                        [{"id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+                        "temperature": 5,
+                        "timestamp":"
+                        """ + instant
+                        + """
+                        "}]"""));
     }
 
     @Test

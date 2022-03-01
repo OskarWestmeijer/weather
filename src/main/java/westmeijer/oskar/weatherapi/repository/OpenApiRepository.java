@@ -8,6 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import westmeijer.oskar.weatherapi.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.model.WeatherEntityBuilder;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,13 +27,13 @@ public class OpenApiRepository {
     }
 
     public WeatherEntity requestOpenWeatherApi() {
-        logger.debug("Requesting OpenWeatherApi");
+        logger.info("Requesting OpenWeatherApi.");
         ObjectNode json = webClient.get().uri(OPEN_WEATHER_API_LUEBECK).retrieve().bodyToMono(ObjectNode.class).block();
         logger.debug(String.valueOf(json));
         long temp = json.path("main").path("temp").asLong();
-        logger.info("Current temperature: {}", temp);
+        logger.info("Current temperature: {} - {}", temp, LocalDateTime.now());
 
-        return new WeatherEntityBuilder().setId(UUID.randomUUID()).setTemperature(temp)
+        return new WeatherEntityBuilder().setId(UUID.randomUUID()).setTemperature(temp).setTimestamp(LocalDateTime.now())
                 .createWeatherEntity();
     }
 

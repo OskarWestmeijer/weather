@@ -42,19 +42,19 @@ public class WeatherController {
             List<WeatherEntity> weatherEntities = weatherService.getWeather();
 
             List<WeatherDTO> weatherList = weatherEntities.stream()
-                    .map(weatherEntity -> new WeatherDTOBuilder().setId(weatherEntity.getId())
-                            .setTemperature(weatherEntity.getTemperature()).createWeatherDTO())
+                    .map(this::mapWeatherObject)
                     .collect(Collectors.toList());
 
             return ResponseEntity.ok(weatherList);
         } else {
+            logger.info("Unknown zip code! Bad request.");
             return ResponseEntity.badRequest().body("Unknown zip code!");
         }
     }
 
-    @PostMapping("/api/weather/refresh")
-    public ResponseEntity refreshWeather() {
-        return ResponseEntity.ok("Success!");
+    private WeatherDTO mapWeatherObject(WeatherEntity weatherEntity){
+        return new WeatherDTOBuilder().setId(weatherEntity.getId())
+                .setTemperature(weatherEntity.getTemperature()).setTimestmap(weatherEntity.getTimestamp()).createWeatherDTO();
     }
 
 }

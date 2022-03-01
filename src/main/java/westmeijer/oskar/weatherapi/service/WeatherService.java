@@ -24,6 +24,11 @@ public class WeatherService {
         this.openApiRepository = openApiRepository;
     }
 
+    /**
+     * Retrieve all Weather Entities from database.
+     *
+     * @return
+     */
     public List<WeatherEntity> getWeather() {
         List<WeatherEntity> weatherEntities = (List<WeatherEntity>) weatherRepository.findAll();
         return weatherEntities;
@@ -34,9 +39,10 @@ public class WeatherService {
      */
     @Scheduled(fixedDelay = 60000)
     public void refreshWeather() {
+        logger.info("Start refreshing weather.");
         WeatherEntity currentWeather = openApiRepository.requestOpenWeatherApi();
         weatherRepository.save(currentWeather);
-        logger.info("Refreshed weather!");
+        logger.info("Finish refreshing weather!");
     }
 
 }
