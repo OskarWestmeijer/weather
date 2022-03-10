@@ -1,5 +1,4 @@
-\c
-weather
+\c weather
 
 CREATE TABLE temperature
 (
