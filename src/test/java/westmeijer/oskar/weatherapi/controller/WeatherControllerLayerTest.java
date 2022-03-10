@@ -10,6 +10,7 @@ import westmeijer.oskar.weatherapi.model.WeatherEntityBuilder;
 import westmeijer.oskar.weatherapi.service.WeatherService;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,7 +30,7 @@ public class WeatherControllerLayerTest {
 
     @Test
     public void requestWeatherKnownZipCode() throws Exception {
-        LocalDateTime instant = LocalDateTime.now();
+        LocalDateTime instant = LocalDateTime.of(2022, Month.APRIL, 1, 12, 10, 10);
 
         when(weatherService.getWeather()).thenReturn(List.of(
                 new WeatherEntityBuilder().setId(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"))
@@ -41,10 +42,8 @@ public class WeatherControllerLayerTest {
                 .andExpect(content().json("""
                         [{"id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
                         "temperature": 5,
-                        "timestamp":"
-                        """ + instant
-                        + """
-                        "}]"""));
+                        "timestamp":"2022-04-01T12:10:10"
+                        }]"""));
     }
 
     @Test
