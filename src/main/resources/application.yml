@@ -16,16 +16,3 @@ spring:
     properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: none
-
-server:
-  tomcat:
-    accesslog:
-      enabled: false
-      suffix: .log
-      prefix: access_log
-      file-date-format: .yyyy-MM-dd
-      directory: tomcat
-      pattern: common
-    basedir: logs
-    max-connections: 2
-

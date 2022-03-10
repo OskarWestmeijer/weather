@@ -18,7 +18,7 @@ public class WebFluxConfig {
     @Scope("singleton")
     public WebClient getWebClient() {
         return WebClient.builder()
-                .baseUrl("http://localhost:9000")
+                .baseUrl("http://api.openweathermap.org")
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
     }
