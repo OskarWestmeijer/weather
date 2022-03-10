@@ -39,10 +39,14 @@ public class WeatherService {
      */
     @Scheduled(fixedDelay = 60000)
     public void refreshWeather() {
-        logger.info("Start refreshing weather.");
-        WeatherEntity currentWeather = openApiRepository.requestOpenWeatherApi();
-        weatherRepository.save(currentWeather);
-        logger.info("Finish refreshing weather!");
+        try {
+            logger.info("Start refreshing weather.");
+            WeatherEntity currentWeather = openApiRepository.requestOpenWeatherApi();
+            weatherRepository.save(currentWeather);
+            logger.info("Finish refreshing weather!");
+        } catch (Exception e) {
+            logger.error("OpenApi request failed!", e);
+        }
     }
 
 }
