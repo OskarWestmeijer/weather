@@ -2,6 +2,7 @@ package westmeijer.oskar.weatherapi.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 /**
@@ -18,7 +19,7 @@ public class WeatherEntity {
     protected WeatherEntity(UUID id, Long temperature, LocalDateTime timestamp) {
         this.id = id;
         this.temperature = temperature;
-        this.timestamp = timestamp;
+        this.timestamp = timestamp.truncatedTo(ChronoUnit.SECONDS);
     }
 
     @GeneratedValue(strategy = GenerationType.AUTO)

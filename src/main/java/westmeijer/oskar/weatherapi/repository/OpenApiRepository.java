@@ -9,7 +9,7 @@ import westmeijer.oskar.weatherapi.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.model.WeatherEntityBuilder;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @Repository
@@ -26,14 +26,21 @@ public class OpenApiRepository {
         this.webClient = webClient;
     }
 
+    /**
+     * Requests the public OpenWeatherApi.
+     *
+     * @return
+     */
     public WeatherEntity requestOpenWeatherApi() {
         logger.info("Requesting OpenWeatherApi.");
         ObjectNode json = webClient.get().uri(OPEN_WEATHER_API_LUEBECK).retrieve().bodyToMono(ObjectNode.class).block();
         logger.debug(String.valueOf(json));
         long temp = json.path("main").path("temp").asLong();
-        logger.info("Current temperature: {} - {}", temp, LocalDateTime.now());
+        LocalDateTime time = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 
-        return new WeatherEntityBuilder().setId(UUID.randomUUID()).setTemperature(temp).setTimestamp(LocalDateTime.now())
+        logger.info("Current temperature: {} - {}", temp, time);
+
+        return new WeatherEntityBuilder().setId(UUID.randomUUID()).setTemperature(temp).setTimestamp(time)
                 .createWeatherEntity();
     }
 
