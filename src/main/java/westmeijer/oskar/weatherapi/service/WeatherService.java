@@ -10,6 +10,7 @@ import westmeijer.oskar.weatherapi.openapi.OpenApiClient;
 import westmeijer.oskar.weatherapi.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.repository.WeatherRepository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,10 +34,11 @@ public class WeatherService {
      * @return
      */
     public List<WeatherDTO> getWeather() {
-        List<WeatherEntity> weatherEntities = (List<WeatherEntity>) weatherRepository.findAll();
+        List<WeatherEntity> weatherEntities = weatherRepository.getLatestEntries();
 
         return weatherEntities.stream()
                 .map(this::map)
+                .sorted(Comparator.comparing(WeatherDTO::getTimestamp).reversed())
                 .toList();
     }
 
