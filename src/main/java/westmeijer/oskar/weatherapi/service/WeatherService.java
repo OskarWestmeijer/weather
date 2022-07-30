@@ -4,11 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import westmeijer.oskar.weatherapi.model.WeatherDTO;
+import westmeijer.oskar.weatherapi.model.WeatherDTOBuilder;
 import westmeijer.oskar.weatherapi.openapi.OpenApiClient;
 import westmeijer.oskar.weatherapi.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.repository.WeatherRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class WeatherService {
@@ -29,9 +32,17 @@ public class WeatherService {
      *
      * @return
      */
-    public List<WeatherEntity> getWeather() {
+    public List<WeatherDTO> getWeather() {
         List<WeatherEntity> weatherEntities = (List<WeatherEntity>) weatherRepository.findAll();
-        return weatherEntities;
+
+        return weatherEntities.stream()
+                .map(this::map)
+                .toList();
+    }
+
+    private WeatherDTO map(WeatherEntity weatherEntity) {
+        return new WeatherDTOBuilder().setId(weatherEntity.getId())
+                .setTemperature(weatherEntity.getTemperature()).setTimestmap(weatherEntity.getTimestamp()).createWeatherDTO();
     }
 
     /**

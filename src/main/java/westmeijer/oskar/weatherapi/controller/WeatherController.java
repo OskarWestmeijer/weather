@@ -34,17 +34,12 @@ public class WeatherController {
     }
 
     @GetMapping("/api/weather/{zipCode}")
-    public ResponseEntity getWeather(@PathVariable int zipCode) {
+    public ResponseEntity<?> getWeather(@PathVariable int zipCode) {
 
         logger.info("Received Weather request for zip code: {}", zipCode);
 
         if (zipCode == ZIP_CODE_LUEBECK) {
-            List<WeatherEntity> weatherEntities = weatherService.getWeather();
-
-            List<WeatherDTO> weatherList = weatherEntities.stream()
-                    .map(this::mapWeatherObject)
-                    .collect(Collectors.toList());
-
+            List<WeatherDTO> weatherList = weatherService.getWeather();
             return ResponseEntity.ok(weatherList);
         } else {
             logger.info("Unknown zip code! Bad request.");
@@ -52,9 +47,6 @@ public class WeatherController {
         }
     }
 
-    private WeatherDTO mapWeatherObject(WeatherEntity weatherEntity){
-        return new WeatherDTOBuilder().setId(weatherEntity.getId())
-                .setTemperature(weatherEntity.getTemperature()).setTimestmap(weatherEntity.getTimestamp()).createWeatherDTO();
-    }
+
 
 }
