@@ -13,16 +13,16 @@ import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @Repository
-public class OpenApiRepository {
+public class OpenApiClient {
 
     private final WebClient webClient;
 
     private static final String OPEN_WEATHER_API_LUEBECK =
             "data/2.5/weather?id=2875601&units=metric&appid=d48670897d08c4876ce92adb0780d59b";
 
-    private static final Logger logger = LoggerFactory.getLogger(OpenApiRepository.class);
+    private static final Logger logger = LoggerFactory.getLogger(OpenApiClient.class);
 
-    public OpenApiRepository(WebClient webClient) {
+    public OpenApiClient(WebClient webClient) {
         this.webClient = webClient;
     }
 

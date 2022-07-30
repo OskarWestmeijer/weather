@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import westmeijer.oskar.weatherapi.repository.OpenApiRepository;
+import westmeijer.oskar.weatherapi.repository.OpenApiClient;
 import westmeijer.oskar.weatherapi.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.repository.WeatherRepository;
 
@@ -17,11 +17,11 @@ public class WeatherService {
 
     private final WeatherRepository weatherRepository;
 
-    private final OpenApiRepository openApiRepository;
+    private final OpenApiClient openApiClient;
 
-    public WeatherService(WeatherRepository weatherRepository, OpenApiRepository openApiRepository) {
+    public WeatherService(WeatherRepository weatherRepository, OpenApiClient openApiClient) {
         this.weatherRepository = weatherRepository;
-        this.openApiRepository = openApiRepository;
+        this.openApiClient = openApiClient;
     }
 
     /**
@@ -41,7 +41,7 @@ public class WeatherService {
     public void refreshWeather() {
         try {
             logger.info("Start refreshing weather.");
-            WeatherEntity currentWeather = openApiRepository.requestOpenWeatherApi();
+            WeatherEntity currentWeather = openApiClient.requestOpenWeatherApi();
             weatherRepository.save(currentWeather);
             logger.info("Finish refreshing weather!");
         } catch (Exception e) {
