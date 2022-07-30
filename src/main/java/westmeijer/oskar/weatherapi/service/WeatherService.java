@@ -41,7 +41,7 @@ public class WeatherService {
     public void refreshWeather() {
         try {
             logger.info("Start refreshing weather.");
-            WeatherEntity currentWeather = openApiClient.requestOpenWeatherApi();
+            WeatherEntity currentWeather = openApiClient.requestCurrentWeather();
             weatherRepository.save(currentWeather);
             logger.info("Finish refreshing weather!");
         } catch (Exception e) {

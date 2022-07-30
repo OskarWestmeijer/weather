@@ -29,9 +29,9 @@ public class OpenApiClient {
     /**
      * Requests the public OpenWeatherApi.
      *
-     * @return
+     * @return WeatherEntity - object containing current weather
      */
-    public WeatherEntity requestOpenWeatherApi() {
+    public WeatherEntity requestCurrentWeather() {
         logger.info("Requesting OpenWeatherApi.");
         ObjectNode json = webClient.get().uri(OPEN_WEATHER_API_LUEBECK).retrieve().bodyToMono(ObjectNode.class).block();
         logger.debug(String.valueOf(json));
