@@ -4,11 +4,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import westmeijer.oskar.weatherapi.repository.OpenApiRepository;
+import westmeijer.oskar.weatherapi.model.WeatherDTO;
+import westmeijer.oskar.weatherapi.model.WeatherDTOBuilder;
+import westmeijer.oskar.weatherapi.openapi.OpenApiClient;
 import westmeijer.oskar.weatherapi.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.repository.WeatherRepository;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class WeatherService {
@@ -17,11 +21,11 @@ public class WeatherService {
 
     private final WeatherRepository weatherRepository;
 
-    private final OpenApiRepository openApiRepository;
+    private final OpenApiClient openApiClient;
 
-    public WeatherService(WeatherRepository weatherRepository, OpenApiRepository openApiRepository) {
+    public WeatherService(WeatherRepository weatherRepository, OpenApiClient openApiClient) {
         this.weatherRepository = weatherRepository;
-        this.openApiRepository = openApiRepository;
+        this.openApiClient = openApiClient;
     }
 
     /**
@@ -29,9 +33,18 @@ public class WeatherService {
      *
      * @return
      */
-    public List<WeatherEntity> getWeather() {
-        List<WeatherEntity> weatherEntities = (List<WeatherEntity>) weatherRepository.findAll();
-        return weatherEntities;
+    public List<WeatherDTO> getWeather() {
+        List<WeatherEntity> weatherEntities = weatherRepository.getLatestEntries();
+
+        return weatherEntities.stream()
+                .map(this::map)
+                .sorted(Comparator.comparing(WeatherDTO::getTimestamp).reversed())
+                .toList();
+    }
+
+    private WeatherDTO map(WeatherEntity weatherEntity) {
+        return new WeatherDTOBuilder().setId(weatherEntity.getId())
+                .setTemperature(weatherEntity.getTemperature()).setTimestmap(weatherEntity.getTimestamp()).createWeatherDTO();
     }
 
     /**
@@ -41,7 +54,7 @@ public class WeatherService {
     public void refreshWeather() {
         try {
             logger.info("Start refreshing weather.");
-            WeatherEntity currentWeather = openApiRepository.requestOpenWeatherApi();
+            WeatherEntity currentWeather = openApiClient.requestCurrentWeather();
             weatherRepository.save(currentWeather);
             logger.info("Finish refreshing weather!");
         } catch (Exception e) {

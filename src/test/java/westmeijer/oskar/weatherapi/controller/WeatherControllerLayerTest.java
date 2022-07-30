@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import westmeijer.oskar.weatherapi.model.WeatherDTOBuilder;
 import westmeijer.oskar.weatherapi.model.WeatherEntityBuilder;
 import westmeijer.oskar.weatherapi.service.WeatherService;
 
@@ -33,8 +34,8 @@ public class WeatherControllerLayerTest {
         LocalDateTime instant = LocalDateTime.of(2022, Month.APRIL, 1, 12, 10, 10);
 
         when(weatherService.getWeather()).thenReturn(List.of(
-                new WeatherEntityBuilder().setId(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"))
-                        .setTemperature(5L).setTimestamp(instant).createWeatherEntity()));
+                new WeatherDTOBuilder().setId(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"))
+                        .setTemperature(5L).setTimestmap(instant).createWeatherDTO()));
 
         mockMvc.perform(get("/api/weather/23552"))
                 .andExpect(status().isOk())
