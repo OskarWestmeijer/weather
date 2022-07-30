@@ -33,13 +33,22 @@ public class OpenApiClient {
      */
     public WeatherEntity requestCurrentWeather() {
         logger.info("Requesting OpenWeatherApi.");
-        ObjectNode json = webClient.get().uri(OPEN_WEATHER_API_LUEBECK).retrieve().bodyToMono(ObjectNode.class).block();
-        logger.debug(String.valueOf(json));
-        long temp = json.path("main").path("temp").asLong();
+        ObjectNode responseJson = webClient.get().uri(OPEN_WEATHER_API_LUEBECK).retrieve().bodyToMono(ObjectNode.class).block();
+        return map(responseJson);
+    }
+
+    /**
+     * Maps OpenApi Response to Entity object.
+     *
+     * @param responseJson
+     * @return
+     */
+    private WeatherEntity map(ObjectNode responseJson) {
+        logger.debug(String.valueOf(responseJson));
+        long temp = responseJson.path("main").path("temp").asLong();
         LocalDateTime time = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 
         logger.info("Current temperature: {} - {}", temp, time);
-
         return new WeatherEntityBuilder().setId(UUID.randomUUID()).setTemperature(temp).setTimestamp(time)
                 .createWeatherEntity();
     }
