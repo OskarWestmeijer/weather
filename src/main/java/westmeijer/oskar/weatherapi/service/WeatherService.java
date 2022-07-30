@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import westmeijer.oskar.weatherapi.repository.OpenApiClient;
+import westmeijer.oskar.weatherapi.openapi.OpenApiClient;
 import westmeijer.oskar.weatherapi.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.repository.WeatherRepository;
 
