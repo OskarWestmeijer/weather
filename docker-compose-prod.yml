@@ -12,5 +12,5 @@ services:
       - SPRING_DATASOURCE_PASSWORD=password1
 networks:
   default:
-    name: homepage_proxy
+    name: homepage-proxy
     external: true
