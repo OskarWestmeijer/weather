@@ -2,7 +2,7 @@ version: '3.6'
 
 services:
   app:
-    image: oskarwestmeijer/weather-api:1.0.0
+    image: oskarwestmeijer/weather-api:1.0.1
     container_name: app
     expose:
       - "8080"
