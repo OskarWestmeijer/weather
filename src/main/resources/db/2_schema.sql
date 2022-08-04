@@ -3,6 +3,6 @@
 CREATE TABLE temperature
 (
     id          UUID,
-    temperature bigint,
+    temperature decimal,
     timestamp   TIMESTAMP
 );

@@ -10,11 +10,11 @@ public class WeatherDTO {
 
     private final UUID id;
 
-    private final long temperature;
+    private final double temperature;
 
     private final LocalDateTime timestamp;
 
-    protected WeatherDTO(UUID id, long temperature, LocalDateTime timestamp) {
+    protected WeatherDTO(UUID id, double temperature, LocalDateTime timestamp) {
         this.id = id;
         this.temperature = temperature;
         this.timestamp = timestamp;
@@ -24,7 +24,7 @@ public class WeatherDTO {
         return id;
     }
 
-    public long getTemperature() {
+    public double getTemperature() {
         return temperature;
     }
 
