@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class WeatherDTOBuilder {
     private UUID id;
-    private long temperature;
+    private double temperature;
     private LocalDateTime timestamp;
 
     public WeatherDTOBuilder setId(UUID id) {
@@ -13,7 +13,7 @@ public class WeatherDTOBuilder {
         return this;
     }
 
-    public WeatherDTOBuilder setTemperature(long temperature) {
+    public WeatherDTOBuilder setTemperature(double temperature) {
         this.temperature = temperature;
         return this;
     }

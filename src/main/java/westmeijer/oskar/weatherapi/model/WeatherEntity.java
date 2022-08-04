@@ -16,7 +16,7 @@ public class WeatherEntity {
     public WeatherEntity() {
     }
 
-    protected WeatherEntity(UUID id, Long temperature, LocalDateTime timestamp) {
+    protected WeatherEntity(UUID id, double temperature, LocalDateTime timestamp) {
         this.id = id;
         this.temperature = temperature;
         this.timestamp = timestamp.truncatedTo(ChronoUnit.SECONDS);
@@ -26,7 +26,7 @@ public class WeatherEntity {
     @Id
     private UUID id;
 
-    private Long temperature;
+    private double temperature;
 
     private LocalDateTime timestamp;
 
@@ -38,7 +38,7 @@ public class WeatherEntity {
         return id;
     }
 
-    public Long getTemperature() {
+    public double getTemperature() {
         return temperature;
     }
 

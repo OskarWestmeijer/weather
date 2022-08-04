@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class WeatherEntityBuilder {
     private UUID id;
-    private Long temperature;
+    private double temperature;
     private LocalDateTime timestamp;
 
     public WeatherEntityBuilder setId(UUID id) {
@@ -13,7 +13,7 @@ public class WeatherEntityBuilder {
         return this;
     }
 
-    public WeatherEntityBuilder setTemperature(Long temperature) {
+    public WeatherEntityBuilder setTemperature(double temperature) {
         this.temperature = temperature;
         return this;
     }
