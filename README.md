@@ -60,3 +60,6 @@ psql -U username1
 ### private link for further documentation
 
 https://www.notion.so/Openweather-API-0c064fb6e37144c38cd1cca9b6ade21d
+
+Inject database files this way.
+cat ./2_schema.sql | docker exec -i database psql -U username1
