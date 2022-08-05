@@ -6,7 +6,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import westmeijer.oskar.weatherapi.model.WeatherDTO;
 import westmeijer.oskar.weatherapi.model.WeatherDTOBuilder;
-import westmeijer.oskar.weatherapi.openweatherapi.OpenApiClient;
+import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiClient;
 import westmeijer.oskar.weatherapi.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.repository.WeatherRepository;
 
@@ -20,17 +20,17 @@ public class WeatherService {
 
     private final WeatherRepository weatherRepository;
 
-    private final OpenApiClient openApiClient;
+    private final OpenWeatherApiClient openWeatherApiClient;
 
-    public WeatherService(WeatherRepository weatherRepository, OpenApiClient openApiClient) {
+    public WeatherService(WeatherRepository weatherRepository, OpenWeatherApiClient openWeatherApiClient) {
         this.weatherRepository = weatherRepository;
-        this.openApiClient = openApiClient;
+        this.openWeatherApiClient = openWeatherApiClient;
     }
 
     /**
      * Retrieve all Weather Entities from database.
      *
-     * @return
+     * @return list of dtos
      */
     public List<WeatherDTO> getWeather() {
         List<WeatherEntity> weatherEntities = weatherRepository.getLatestEntries();
@@ -53,7 +53,7 @@ public class WeatherService {
     public void refreshWeather() {
         try {
             logger.info("Start refreshing weather.");
-            WeatherEntity currentWeather = openApiClient.requestCurrentWeather();
+            WeatherEntity currentWeather = openWeatherApiClient.requestCurrentWeather();
             weatherRepository.save(currentWeather);
             logger.info("Finish refreshing weather!");
         } catch (Exception e) {

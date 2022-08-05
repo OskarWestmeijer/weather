@@ -14,16 +14,16 @@ import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @Repository
-public class OpenApiClient {
+public class OpenWeatherApiClient {
 
     private final WebClient webClient;
 
 
     private final String urlPathLuebeck;
 
-    private static final Logger logger = LoggerFactory.getLogger(OpenApiClient.class);
+    private static final Logger logger = LoggerFactory.getLogger(OpenWeatherApiClient.class);
 
-    public OpenApiClient(WebClient webClient, @Value("${openweatherapi.urlPath}") String urlPathLuebeck) {
+    public OpenWeatherApiClient(WebClient webClient, @Value("${openweatherapi.urlPath}") String urlPathLuebeck) {
         this.webClient = webClient;
         this.urlPathLuebeck = urlPathLuebeck;
     }
@@ -43,8 +43,8 @@ public class OpenApiClient {
     /**
      * Maps OpenApi Response to Entity object.
      *
-     * @param apiResponse
-     * @return
+     * @param apiResponse to be mapped
+     * @return response
      */
     private WeatherEntity map(OpenApiResponse apiResponse) {
         LocalDateTime time = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
