@@ -22,7 +22,7 @@ This app provides an endpoint to request the stored temperatures for Luebeck.
 - Github Actions for CI
 ```
 
-### run all tests
+### build & test
 
 This projects uses testcontainers with pre initialized data.
 
@@ -42,9 +42,10 @@ docker-compose -f compose-dev.yml up -d
 
 ### release image
 
-Publish image to Dockerhub. Remember to increase the tag version in the compose-prod.yml
+Build a new target folder. Publish image to Dockerhub. Remember to increase the tag version in the compose-prod.yml
 
 ```
+./mvnw clean package
 docker login
 docker build -t oskarwestmeijer/weather-api:tag .
 docker push oskarwestmeijer/weather-api:tag
