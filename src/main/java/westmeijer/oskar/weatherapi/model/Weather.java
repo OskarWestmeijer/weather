@@ -11,12 +11,12 @@ import java.util.UUID;
  */
 @Table(name = "temperature")
 @Entity
-public class WeatherEntity {
+public class Weather {
 
-    public WeatherEntity() {
+    public Weather() {
     }
 
-    protected WeatherEntity(UUID id, double temperature, LocalDateTime timestamp) {
+    protected Weather(UUID id, double temperature, LocalDateTime timestamp) {
         this.id = id;
         this.temperature = temperature;
         this.timestamp = timestamp.truncatedTo(ChronoUnit.SECONDS);

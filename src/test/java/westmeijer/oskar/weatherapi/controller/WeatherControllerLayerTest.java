@@ -7,7 +7,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import westmeijer.oskar.weatherapi.model.WeatherDTOBuilder;
-import westmeijer.oskar.weatherapi.model.WeatherEntityBuilder;
 import westmeijer.oskar.weatherapi.service.WeatherService;
 
 import java.time.LocalDateTime;

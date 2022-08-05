@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
-import westmeijer.oskar.weatherapi.model.WeatherEntity;
-import westmeijer.oskar.weatherapi.model.WeatherEntityBuilder;
+import westmeijer.oskar.weatherapi.model.Weather;
+import westmeijer.oskar.weatherapi.model.WeatherBuilder;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -32,7 +32,7 @@ public class OpenWeatherApiClient {
      *
      * @return WeatherEntity - object containing current weather
      */
-    public WeatherEntity requestCurrentWeather() {
+    public Weather requestCurrentWeather() {
         logger.info("Requesting OpenWeatherApi.");
         OpenWeatherApiResponse apiResponse = webClient.get().uri(urlPathLuebeck).retrieve().bodyToMono(OpenWeatherApiResponse.class).block();
         logger.info(String.valueOf(apiResponse));
@@ -45,11 +45,11 @@ public class OpenWeatherApiClient {
      * @param apiResponse to be mapped
      * @return response
      */
-    private WeatherEntity map(OpenWeatherApiResponse apiResponse) {
+    private Weather map(OpenWeatherApiResponse apiResponse) {
         LocalDateTime time = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 
         logger.info("Current weather: {} - {}", apiResponse, time);
-        return new WeatherEntityBuilder().setId(UUID.randomUUID()).setTemperature(apiResponse.getTemperature()).setTimestamp(time)
+        return new WeatherBuilder().setId(UUID.randomUUID()).setTemperature(apiResponse.getTemperature()).setTimestamp(time)
                 .createWeatherEntity();
     }
 

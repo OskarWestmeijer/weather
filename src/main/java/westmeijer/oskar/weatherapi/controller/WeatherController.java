@@ -6,14 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import westmeijer.oskar.weatherapi.model.WeatherDTOBuilder;
-import westmeijer.oskar.weatherapi.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.model.WeatherDTO;
 import westmeijer.oskar.weatherapi.service.WeatherService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class WeatherController {
