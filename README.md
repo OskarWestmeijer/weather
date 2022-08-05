@@ -37,7 +37,9 @@ Docker compose initializes the database on startup.
 ```
 docker-compose -f compose-dev.yml down
 docker-compose -f compose-dev.yml up -d
-./mvnw spring-boot:run
+
+./mvnw spring-boot:run (uses dev profile)
+
 ```
 
 ### release image
