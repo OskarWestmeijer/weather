@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.repository;
+package westmeijer.oskar.weatherapi.dal.database;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

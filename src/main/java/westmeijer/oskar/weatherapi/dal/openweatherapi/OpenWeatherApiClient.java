@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.openweatherapi;
+package westmeijer.oskar.weatherapi.dal.openweatherapi;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

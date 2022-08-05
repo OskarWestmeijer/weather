@@ -6,9 +6,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import westmeijer.oskar.weatherapi.web.model.WeatherDTO;
 import westmeijer.oskar.weatherapi.web.model.WeatherDTOBuilder;
-import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiClient;
+import westmeijer.oskar.weatherapi.dal.openweatherapi.OpenWeatherApiClient;
 import westmeijer.oskar.weatherapi.model.Weather;
-import westmeijer.oskar.weatherapi.repository.WeatherRepository;
+import westmeijer.oskar.weatherapi.dal.database.WeatherRepository;
 
 import java.util.Comparator;
 import java.util.List;
