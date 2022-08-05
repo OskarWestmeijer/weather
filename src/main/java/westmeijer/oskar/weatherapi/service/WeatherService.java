@@ -6,13 +6,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import westmeijer.oskar.weatherapi.model.WeatherDTO;
 import westmeijer.oskar.weatherapi.model.WeatherDTOBuilder;
-import westmeijer.oskar.weatherapi.openapi.OpenApiClient;
+import westmeijer.oskar.weatherapi.openweatherapi.OpenApiClient;
 import westmeijer.oskar.weatherapi.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.repository.WeatherRepository;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class WeatherService {
