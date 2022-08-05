@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.service;
+package westmeijer.oskar.weatherapi.business;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
