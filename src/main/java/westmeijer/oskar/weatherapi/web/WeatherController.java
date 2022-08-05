@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.controller;
+package westmeijer.oskar.weatherapi.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import westmeijer.oskar.weatherapi.model.WeatherDTO;
+import westmeijer.oskar.weatherapi.web.model.WeatherDTO;
 import westmeijer.oskar.weatherapi.service.WeatherService;
 
 import java.util.List;

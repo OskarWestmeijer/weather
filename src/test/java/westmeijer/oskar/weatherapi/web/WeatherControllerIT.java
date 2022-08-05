@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.controller;
+package westmeijer.oskar.weatherapi.web;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

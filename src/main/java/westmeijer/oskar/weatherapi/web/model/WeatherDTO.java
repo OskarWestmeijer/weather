@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.model;
+package westmeijer.oskar.weatherapi.web.model;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
