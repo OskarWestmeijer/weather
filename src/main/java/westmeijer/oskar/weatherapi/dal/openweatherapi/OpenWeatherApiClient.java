@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
-import westmeijer.oskar.weatherapi.model.Weather;
-import westmeijer.oskar.weatherapi.model.WeatherBuilder;
+import westmeijer.oskar.weatherapi.entity.Weather;
+import westmeijer.oskar.weatherapi.entity.WeatherBuilder;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;

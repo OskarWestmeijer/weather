@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.model;
+package westmeijer.oskar.weatherapi.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

@@ -2,7 +2,7 @@ package westmeijer.oskar.weatherapi.dal.database;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import westmeijer.oskar.weatherapi.model.Weather;
+import westmeijer.oskar.weatherapi.entity.Weather;
 
 import java.util.List;
 import java.util.UUID;
