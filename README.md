@@ -13,22 +13,20 @@ This app provides an endpoint to request the stored temperatures for Luebeck.
 ```
 - Java
 - Maven
-- Spring Boot
+- Spring-Boot
 - Hibernate
 - Docker and docker-compose
 - PostgreSQL
-- Testcontainers
+- Testcontainers & Wiremock
 - OpenWeatherApi (Api access)
 - Github Actions for CI
 ```
 
-### run all tests
+### build & test
 
 This projects uses testcontainers with pre initialized data.
 
 ```
-start docker daemon
-
 ./mvnw clean verify
 ```
 
@@ -37,29 +35,31 @@ start docker daemon
 Docker compose initializes the database on startup.
 
 ```
-start docker daemon
+docker-compose -f compose-dev.yml down
+docker-compose -f compose-dev.yml up -d
 
-docker-compose down --volumes
-
-docker-compose up
-
-./mvnw spring-boot:run
-```
-
-### access database container
+./mvnw spring-boot:run (uses dev profile)
 
 ```
-docker exec -it <db> sh
 
-psql -U username1
-\l (list databases)
-\c carrental
-\d (list tables)
+### release image
+
+Build a new target folder. Publish image to Dockerhub. Remember to increase the tag version in the compose-prod.yml
+
+```
+./mvnw clean package
+docker login
+docker build -t oskarwestmeijer/weather-api:tag .
+docker push oskarwestmeijer/weather-api:tag
 ```
 
-### private link for further documentation
+### deployment
 
-https://www.notion.so/Openweather-API-0c064fb6e37144c38cd1cca9b6ade21d
+```
+ssh on Server
 
-Inject database files this way.
-cat ./2_schema.sql | docker exec -i database psql -U username1
+pull https://github.com/OskarWestmeijer/weather-api
+
+docker-compose -f compose-prod.yml down
+docker-compose -f compose-prod.yml up -d
+```

@@ -23,10 +23,15 @@ spring:
   profiles: dev
   datasource:
     url: jdbc:postgresql://localhost:5432/weather
-
+openweatherapi:
+  baseUrl: "http://localhost:9000"
+  urlPath: "/data/2.5/weather?id=2875601&units=metric&appid=d48670897d08c4876ce92adb0780d59b"
 
 ---
 spring:
   profiles: prod
   datasource:
     url: jdbc:postgresql://database:5432/weather
+openweatherapi:
+  baseUrl: "http://api.openweathermap.org"
+  urlPath: "/data/2.5/weather?id=2875601&units=metric&appid=d48670897d08c4876ce92adb0780d59b"
