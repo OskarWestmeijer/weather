@@ -18,5 +18,3 @@ services:
       - "9000:8080"
     volumes:
       - ./src/test/resources/mappings:/home/wiremock/mappings
-      - ./src/test/resources/__files:/home/wiremock/__files
-
