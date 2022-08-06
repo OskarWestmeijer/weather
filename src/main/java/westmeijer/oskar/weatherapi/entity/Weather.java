@@ -13,6 +13,12 @@ import java.util.UUID;
 @Entity
 public class Weather {
 
+    /**
+     * Default constructor for Hibernate. Should never be used.
+     */
+    private Weather() {
+    }
+
     public Weather(UUID id, double temperature, LocalDateTime timestamp) {
         this.id = id;
         this.temperature = temperature;
