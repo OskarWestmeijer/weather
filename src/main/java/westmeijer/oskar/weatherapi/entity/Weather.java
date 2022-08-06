@@ -3,6 +3,7 @@ package westmeijer.oskar.weatherapi.entity;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -45,6 +46,17 @@ public class Weather {
         return temperature;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Weather weather = (Weather) o;
+        return Double.compare(weather.temperature, temperature) == 0 && Objects.equals(id, weather.id) && Objects.equals(timestamp, weather.timestamp);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, temperature, timestamp);
+    }
 
 }
