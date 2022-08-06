@@ -1,7 +1,7 @@
-package westmeijer.oskar.weatherapi.web.transformer;
+package westmeijer.oskar.weatherapi.web;
 
 import westmeijer.oskar.weatherapi.entity.Weather;
-import westmeijer.oskar.weatherapi.web.model.WeatherDTO;
+import westmeijer.oskar.weatherapi.web.WeatherDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;

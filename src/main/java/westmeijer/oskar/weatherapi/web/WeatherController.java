@@ -7,9 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import westmeijer.oskar.weatherapi.entity.Weather;
-import westmeijer.oskar.weatherapi.web.model.WeatherDTO;
 import westmeijer.oskar.weatherapi.business.WeatherService;
-import westmeijer.oskar.weatherapi.web.transformer.WeatherTransformer;
 
 import java.util.List;
 

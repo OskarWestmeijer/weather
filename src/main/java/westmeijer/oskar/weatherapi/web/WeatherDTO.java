@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.web.model;
+package westmeijer.oskar.weatherapi.web;
 
 import westmeijer.oskar.weatherapi.entity.Weather;
 
