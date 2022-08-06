@@ -6,8 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import westmeijer.oskar.weatherapi.entity.Weather;
 import westmeijer.oskar.weatherapi.web.model.WeatherDTO;
 import westmeijer.oskar.weatherapi.business.WeatherService;
+import westmeijer.oskar.weatherapi.web.transformer.WeatherTransformer;
 
 import java.util.List;
 
@@ -35,14 +37,14 @@ public class WeatherController {
         logger.info("Received Weather request for zip code: {}", zipCode);
 
         if (zipCode == ZIP_CODE_LUEBECK) {
-            List<WeatherDTO> weatherList = weatherService.getWeather();
-            return ResponseEntity.ok(weatherList);
+            List<Weather> weatherData = weatherService.getWeather();
+            WeatherDTO weatherDTO = WeatherTransformer.map(String.valueOf(zipCode), weatherData);
+            return ResponseEntity.ok(weatherDTO);
         } else {
             logger.info("Unknown zip code! Bad request.");
             return ResponseEntity.badRequest().body("Unknown zip code!");
         }
     }
-
 
 
 }

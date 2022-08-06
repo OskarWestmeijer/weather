@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import westmeijer.oskar.weatherapi.web.model.WeatherDTO;
-import westmeijer.oskar.weatherapi.web.model.WeatherDTOBuilder;
 import westmeijer.oskar.weatherapi.dal.openweatherapi.OpenWeatherApiClient;
 import westmeijer.oskar.weatherapi.entity.Weather;
 import westmeijer.oskar.weatherapi.dal.database.WeatherRepository;
@@ -32,18 +31,12 @@ public class WeatherService {
      *
      * @return list of dtos
      */
-    public List<WeatherDTO> getWeather() {
+    public List<Weather> getWeather() {
         List<Weather> weatherEntities = weatherRepository.getLatestEntries();
 
         return weatherEntities.stream()
-                .map(this::map)
-                .sorted(Comparator.comparing(WeatherDTO::getTimestamp).reversed())
+                .sorted(Comparator.comparing(Weather::getTimestamp).reversed())
                 .toList();
-    }
-
-    private WeatherDTO map(Weather weather) {
-        return new WeatherDTOBuilder().setId(weather.getId())
-                .setTemperature(weather.getTemperature()).setTimestmap(weather.getTimestamp()).createWeatherDTO();
     }
 
     /**

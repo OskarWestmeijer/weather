@@ -1,34 +1,37 @@
 package westmeijer.oskar.weatherapi.web.model;
 
+import westmeijer.oskar.weatherapi.entity.Weather;
+
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 /**
  * Weather representation used by the web layer.
  */
 public class WeatherDTO {
 
-    private final UUID id;
+    private final String zipCode;
 
-    private final double temperature;
+    private final LocalDateTime responseTime;
 
-    private final LocalDateTime timestamp;
+    private final List<Weather> weatherData;
 
-    protected WeatherDTO(UUID id, double temperature, LocalDateTime timestamp) {
-        this.id = id;
-        this.temperature = temperature;
-        this.timestamp = timestamp;
+    public WeatherDTO(String zipCode, LocalDateTime responseTime, List<Weather> weatherData) {
+        this.zipCode = zipCode;
+        this.responseTime = responseTime.truncatedTo(ChronoUnit.SECONDS);
+        this.weatherData = weatherData;
     }
 
-    public UUID getId() {
-        return id;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public double getTemperature() {
-        return temperature;
+    public LocalDateTime getResponseTime() {
+        return responseTime;
     }
 
-    public LocalDateTime getTimestamp() {
-        return timestamp;
+    public List<Weather> getWeatherData() {
+        return weatherData;
     }
 }

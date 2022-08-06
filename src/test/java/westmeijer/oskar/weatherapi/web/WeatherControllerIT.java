@@ -25,13 +25,11 @@ public class WeatherControllerIT extends SystemTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json("""
-                        [{
-                        'id': a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11,
-                        'temperature': 10
-                        },
-                        {'id':'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
-                        'temperature':20
-                        }]"""));
+                        {
+                        "zipCode" : "23552",
+                        "weatherData": [{ 'id': a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11, 'temperature': 10.45},
+                                        {'id':'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12', 'temperature':20.75}]
+                        }"""));
     }
 
 }

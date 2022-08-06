@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 import westmeijer.oskar.weatherapi.entity.Weather;
-import westmeijer.oskar.weatherapi.entity.WeatherBuilder;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -49,8 +48,7 @@ public class OpenWeatherApiClient {
         LocalDateTime time = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 
         logger.info("Current weather: {} - {}", apiResponse, time);
-        return new WeatherBuilder().setId(UUID.randomUUID()).setTemperature(apiResponse.getTemperature()).setTimestamp(time)
-                .createWeatherEntity();
+        return new Weather(UUID.randomUUID(), apiResponse.getTemperature(), time);
     }
 
 }

@@ -13,10 +13,7 @@ import java.util.UUID;
 @Entity
 public class Weather {
 
-    public Weather() {
-    }
-
-    protected Weather(UUID id, double temperature, LocalDateTime timestamp) {
+    public Weather(UUID id, double temperature, LocalDateTime timestamp) {
         this.id = id;
         this.temperature = temperature;
         this.timestamp = timestamp.truncatedTo(ChronoUnit.SECONDS);
