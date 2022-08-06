@@ -5,24 +5,22 @@ spring:
     active: "dev"
   datasource:
     name: weather
-    username: username1
-    password: password1
     driver-class-name: org.postgresql.Driver
     hikari:
       minimum-idle: 1
       maximum-pool-size: 10
-
   jpa:
     properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: none
-
 
 ---
 spring:
   profiles: dev
   datasource:
     url: jdbc:postgresql://localhost:5432/weather
+    username: username1
+    password: password1
 openweatherapi:
   baseUrl: "http://localhost:9000"
   urlPath: "/data/2.5/weather?id=2875601&units=metric&appid=d48670897d08c4876ce92adb0780d59b"
@@ -32,6 +30,8 @@ spring:
   profiles: prod
   datasource:
     url: jdbc:postgresql://database:5432/weather
+    username:
+    password:
 openweatherapi:
   baseUrl: "http://api.openweathermap.org"
   urlPath: "/data/2.5/weather?id=2875601&units=metric&appid=d48670897d08c4876ce92adb0780d59b"

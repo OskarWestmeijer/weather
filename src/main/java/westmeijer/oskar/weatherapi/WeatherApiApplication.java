@@ -9,6 +9,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.env.Environment;
 
 import java.util.Arrays;
+import java.util.TimeZone;
 
 @SpringBootApplication
 public class WeatherApiApplication {
@@ -17,17 +18,16 @@ public class WeatherApiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(WeatherApiApplication.class, args);
+
+        // the server and the requested cities are running in germany.
+        TimeZone.setDefault(TimeZone.getTimeZone("Germany"));
     }
 
     @EventListener
     public void handleContextRefresh(ContextRefreshedEvent event) {
         final Environment env = event.getApplicationContext()
                 .getEnvironment();
-
         logger.info("Active profiles: {}", Arrays.toString(env.getActiveProfiles()));
-        logger.info("Default profiles: {}", Arrays.toString(env.getDefaultProfiles()));
-
-
     }
 
 
