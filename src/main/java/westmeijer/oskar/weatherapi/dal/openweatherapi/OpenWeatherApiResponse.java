@@ -1,21 +1,18 @@
-package westmeijer.oskar.weatherapi.model;
+package westmeijer.oskar.weatherapi.dal.openweatherapi;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import com.google.common.base.Preconditions;
 
-import java.time.LocalDateTime;
 import java.util.Map;
-import java.util.UUID;
 
-public class OpenApiResponse {
+public class OpenWeatherApiResponse {
 
 
     private double temperature;
 
     @JsonCreator
-    public OpenApiResponse(@JsonProperty("main") Map<String, String> main) {
+    public OpenWeatherApiResponse(@JsonProperty("main") Map<String, String> main) {
         Preconditions.checkNotNull(main);
         this.temperature = Double.parseDouble(main.get("temp"));
     }

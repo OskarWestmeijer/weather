@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.controller;
+package westmeijer.oskar.weatherapi.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,14 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import westmeijer.oskar.weatherapi.model.WeatherDTOBuilder;
-import westmeijer.oskar.weatherapi.model.WeatherEntity;
-import westmeijer.oskar.weatherapi.model.WeatherDTO;
-import westmeijer.oskar.weatherapi.service.WeatherService;
+import westmeijer.oskar.weatherapi.entity.Weather;
+import westmeijer.oskar.weatherapi.business.WeatherService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class WeatherController {
@@ -39,14 +35,14 @@ public class WeatherController {
         logger.info("Received Weather request for zip code: {}", zipCode);
 
         if (zipCode == ZIP_CODE_LUEBECK) {
-            List<WeatherDTO> weatherList = weatherService.getWeather();
-            return ResponseEntity.ok(weatherList);
+            List<Weather> weatherData = weatherService.getWeather();
+            WeatherDTO weatherDTO = WeatherMapper.map(String.valueOf(zipCode), weatherData);
+            return ResponseEntity.ok(weatherDTO);
         } else {
             logger.info("Unknown zip code! Bad request.");
             return ResponseEntity.badRequest().body("Unknown zip code!");
         }
     }
-
 
 
 }
