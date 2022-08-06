@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/data/2.5/weather?id=2875601&units=metric&appid=d48670897d08c4876ce92adb0780d59b"
+    "url": "/data/2.5/weather?id=2875601&units=metric&appid=1234random"
   },
   "response": {
     "status": 200,

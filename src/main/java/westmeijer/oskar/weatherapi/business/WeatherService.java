@@ -46,10 +46,11 @@ public class WeatherService {
         try {
             logger.info("Start refreshing weather.");
             Weather currentWeather = openWeatherApiClient.requestCurrentWeather();
+            logger.info("Current weather: {}", currentWeather);
             weatherRepository.save(currentWeather);
             logger.info("Finish refreshing weather!");
         } catch (Exception e) {
-            logger.error("OpenApi request failed!", e);
+            logger.error("OpenWeatherApi request failed!", e);
         }
     }
 

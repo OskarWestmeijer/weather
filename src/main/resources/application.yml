@@ -23,7 +23,7 @@ spring:
     password: password1
 openweatherapi:
   baseUrl: "http://localhost:9000"
-  urlPath: "/data/2.5/weather?id=2875601&units=metric&appid=d48670897d08c4876ce92adb0780d59b"
+  urlPath: "/data/2.5/weather?id=2875601&units=metric&appid=1234random"
 
 ---
 spring:
@@ -34,4 +34,4 @@ spring:
     password:
 openweatherapi:
   baseUrl: "http://api.openweathermap.org"
-  urlPath: "/data/2.5/weather?id=2875601&units=metric&appid=d48670897d08c4876ce92adb0780d59b"
+  urlPath:

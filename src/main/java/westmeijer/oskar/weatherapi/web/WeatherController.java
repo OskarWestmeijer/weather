@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import westmeijer.oskar.weatherapi.entity.Weather;
 import westmeijer.oskar.weatherapi.business.WeatherService;
 
+import java.time.Instant;
 import java.util.List;
 
 @Controller

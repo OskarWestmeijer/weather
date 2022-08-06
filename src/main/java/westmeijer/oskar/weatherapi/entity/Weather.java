@@ -62,4 +62,12 @@ public class Weather {
         return Objects.hash(id, temperature, timestamp);
     }
 
+    @Override
+    public String toString() {
+        return "Weather{" +
+                "id=" + id +
+                ", temperature=" + temperature +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }
