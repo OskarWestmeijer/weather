@@ -36,7 +36,7 @@ public class WeatherController {
 
         if (zipCode == ZIP_CODE_LUEBECK) {
             List<Weather> weatherData = weatherService.getWeather();
-            WeatherDTO weatherDTO = WeatherTransformer.map(String.valueOf(zipCode), weatherData);
+            WeatherDTO weatherDTO = WeatherMapper.map(String.valueOf(zipCode), weatherData);
             return ResponseEntity.ok(weatherDTO);
         } else {
             logger.info("Unknown zip code! Bad request.");

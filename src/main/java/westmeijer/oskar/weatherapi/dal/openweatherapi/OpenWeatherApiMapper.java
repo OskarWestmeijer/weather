@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
-public class OpenWeatherApiTransformer {
+public class OpenWeatherApiMapper {
 
     /**
      * Maps OpenApi Response to Entity object.
@@ -15,7 +15,7 @@ public class OpenWeatherApiTransformer {
      * @param apiResponse to be mapped
      * @return response
      */
-    public static Weather transform(OpenWeatherApiResponse apiResponse) {
+    public static Weather map(OpenWeatherApiResponse apiResponse) {
         Preconditions.checkNotNull(apiResponse);
         LocalDateTime time = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         return new Weather(UUID.randomUUID(), apiResponse.getTemperature(), time);

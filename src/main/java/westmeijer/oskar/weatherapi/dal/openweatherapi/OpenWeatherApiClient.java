@@ -7,10 +7,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 import westmeijer.oskar.weatherapi.entity.Weather;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.UUID;
-
 @Repository
 public class OpenWeatherApiClient {
 
@@ -35,7 +31,7 @@ public class OpenWeatherApiClient {
         logger.info("Requesting OpenWeatherApi.");
         OpenWeatherApiResponse apiResponse = webClient.get().uri(urlPathLuebeck).retrieve().bodyToMono(OpenWeatherApiResponse.class).block();
         logger.debug(String.valueOf(apiResponse));
-        return OpenWeatherApiTransformer.transform(apiResponse);
+        return OpenWeatherApiMapper.map(apiResponse);
     }
 
 
