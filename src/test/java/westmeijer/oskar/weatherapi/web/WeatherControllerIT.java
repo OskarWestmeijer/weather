@@ -27,8 +27,8 @@ public class WeatherControllerIT extends IntegrationTestContainers {
                 .andExpect(content().json("""
                         {
                         "zipCode" : "23552",
-                        "weatherData": [{ 'id': a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11, 'temperature': 10.45},
-                                        {'id':'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12', 'temperature':20.75}]
+                        "weatherData": [{'temperature': 10.45},
+                                        {'temperature':20.75}]
                         }"""));
     }
 

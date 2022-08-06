@@ -1,5 +1,7 @@
 package westmeijer.oskar.weatherapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -26,6 +28,7 @@ public class Weather {
         this.timestamp = timestamp.truncatedTo(ChronoUnit.SECONDS);
     }
 
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private UUID id;

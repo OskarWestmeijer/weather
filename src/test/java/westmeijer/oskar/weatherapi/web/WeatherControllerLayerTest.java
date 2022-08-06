@@ -41,7 +41,7 @@ public class WeatherControllerLayerTest {
                 .andExpect(content().json("""
                         {
                             "zipCode" : "23552",
-                            "weatherData" : [{"id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", "temperature": 5.45, "timestamp":"2022-04-01T12:10:10"}]
+                            "weatherData" : [{"temperature": 5.45, "timestamp":"2022-04-01T12:10:10"}]
                         }"""));
     }
 
