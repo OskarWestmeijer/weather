@@ -32,9 +32,9 @@ public class WeatherService {
      * @return list of dtos
      */
     public List<Weather> getWeather() {
-        List<Weather> weatherEntities = weatherRepository.getLatestEntries();
+        List<Weather> weatherData = weatherRepository.getLatestEntries();
 
-        return weatherEntities.stream()
+        return weatherData.stream()
                 .sorted(Comparator.comparing(Weather::getTimestamp).reversed())
                 .toList();
     }

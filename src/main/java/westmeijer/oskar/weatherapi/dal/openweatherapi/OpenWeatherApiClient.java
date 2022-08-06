@@ -34,21 +34,9 @@ public class OpenWeatherApiClient {
     public Weather requestCurrentWeather() {
         logger.info("Requesting OpenWeatherApi.");
         OpenWeatherApiResponse apiResponse = webClient.get().uri(urlPathLuebeck).retrieve().bodyToMono(OpenWeatherApiResponse.class).block();
-        logger.info(String.valueOf(apiResponse));
-        return map(apiResponse);
+        logger.debug(String.valueOf(apiResponse));
+        return OpenWeatherApiTransformer.transform(apiResponse);
     }
 
-    /**
-     * Maps OpenApi Response to Entity object.
-     *
-     * @param apiResponse to be mapped
-     * @return response
-     */
-    private Weather map(OpenWeatherApiResponse apiResponse) {
-        LocalDateTime time = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-
-        logger.info("Current weather: {} - {}", apiResponse, time);
-        return new Weather(UUID.randomUUID(), apiResponse.getTemperature(), time);
-    }
 
 }
