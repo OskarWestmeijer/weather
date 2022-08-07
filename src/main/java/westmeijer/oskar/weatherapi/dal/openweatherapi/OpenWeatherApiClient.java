@@ -1,5 +1,6 @@
 package westmeijer.oskar.weatherapi.dal.openweatherapi;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,9 +30,9 @@ public class OpenWeatherApiClient {
      */
     public Weather requestCurrentWeather() {
         logger.info("Requesting OpenWeatherApi.");
-        OpenWeatherApiResponse apiResponse = webClient.get().uri(urlPathLuebeck).retrieve().bodyToMono(OpenWeatherApiResponse.class).block();
-        logger.debug(String.valueOf(apiResponse));
-        return OpenWeatherApiMapper.map(apiResponse);
+        ObjectNode responseJson = webClient.get().uri(urlPathLuebeck).retrieve().bodyToMono(ObjectNode.class).block();
+        logger.debug(String.valueOf(responseJson));
+        return OpenWeatherApiMapper.map(responseJson);
     }
 
 

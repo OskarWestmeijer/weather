@@ -42,7 +42,7 @@ public class WeatherDTO {
         return zipCode;
     }
 
-    public Instant getApiResponseTimestamp() {
+    public Instant getResponseTimestamp() {
         return responseTimestamp;
     }
 

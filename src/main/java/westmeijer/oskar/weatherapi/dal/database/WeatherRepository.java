@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface WeatherRepository extends CrudRepository<Weather, UUID> {
 
-    @Query(value = "SELECT * FROM temperature ORDER BY timestamp DESC LIMIT 100", nativeQuery = true)
+    @Query(value = "SELECT * FROM weather ORDER BY timestamp DESC LIMIT 100", nativeQuery = true)
     List<Weather> getLatestEntries();
 
 }
