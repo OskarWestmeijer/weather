@@ -29,9 +29,9 @@ public class WeatherControllerLayerTest {
 
     @Test
     public void requestWeatherKnownZipCode() throws Exception {
-        LocalDateTime instant = LocalDateTime.of(2022, Month.APRIL, 1, 12, 10, 10);
+        Instant instant = Instant.now();
 
-        List<Weather> weatherData = List.of(new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, Instant.now()));
+        List<Weather> weatherData = List.of(new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, instant));
         when(weatherService.getWeather()).thenReturn(weatherData);
 
         mockMvc.perform(get("/api/weather/23552"))
@@ -39,8 +39,11 @@ public class WeatherControllerLayerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json("""
                         {
+                            "timeFormat" : "UTC",
+                            "location" : "Lübeck",
                             "zipCode" : "23552",
-                            "weatherData" : [{"temperature": 5.45, "timestamp":"2022-04-01T12:10:10"}]
+                            "country" : "Germany",
+                            "weatherData" : [{"temperature": 5.45}]
                         }"""));
     }
 

@@ -17,9 +17,6 @@ public class WeatherApiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(WeatherApiApplication.class, args);
-
-        // the server and the requested cities are running in germany.
-        //TimeZone.setDefault(TimeZone.getTimeZone("Germany"));
     }
 
     @EventListener

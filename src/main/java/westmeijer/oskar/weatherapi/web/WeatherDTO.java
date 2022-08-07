@@ -19,14 +19,14 @@ public class WeatherDTO {
 
     private final String country;
 
-    private final Instant apiResponseTimestamp;
+    private final Instant responseTimestamp;
 
     private final List<Weather> weatherData;
 
     public WeatherDTO(String zipCode, String country, Instant responseTime, List<Weather> weatherData) {
         this.zipCode = zipCode;
         this.country = country;
-        this.apiResponseTimestamp = responseTime.truncatedTo(ChronoUnit.SECONDS);
+        this.responseTimestamp = responseTime.truncatedTo(ChronoUnit.SECONDS);
         this.weatherData = weatherData;
     }
 
@@ -43,7 +43,7 @@ public class WeatherDTO {
     }
 
     public Instant getApiResponseTimestamp() {
-        return apiResponseTimestamp;
+        return responseTimestamp;
     }
 
     public List<Weather> getWeatherData() {

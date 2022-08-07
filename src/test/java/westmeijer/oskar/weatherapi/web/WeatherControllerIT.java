@@ -26,7 +26,10 @@ public class WeatherControllerIT extends IntegrationTestContainers {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json("""
                         {
+                        "timeFormat" : "UTC",
+                        "location" : "Lübeck",
                         "zipCode" : "23552",
+                        "country" : "Germany",
                         "weatherData": [{'temperature': 10.45},
                                         {'temperature':20.75}]
                         }"""));
