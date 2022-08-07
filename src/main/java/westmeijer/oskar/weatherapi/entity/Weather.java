@@ -3,30 +3,17 @@ package westmeijer.oskar.weatherapi.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.UUID;
 
 /**
  * Weather representation used by the service and repository layer.
- *
  */
 @Table(name = "temperature")
 @Entity
 public class Weather {
-
-    /**
-     * Default constructor for Hibernate. Should never be used.
-     */
-    private Weather() {
-    }
-
-    public Weather(UUID id, double temperature, LocalDateTime timestamp) {
-        this.id = id;
-        this.temperature = temperature;
-        this.timestamp = timestamp.truncatedTo(ChronoUnit.SECONDS);
-    }
 
     @JsonIgnore
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,10 +22,23 @@ public class Weather {
 
     private double temperature;
 
-    private LocalDateTime timestamp;
+    @Column(name = "timestamp")
+    private Instant recordedAt;
 
-    public LocalDateTime getTimestamp() {
-        return timestamp;
+    /**
+     * Default constructor for Hibernate. Should never be used.
+     */
+    private Weather() {
+    }
+
+    public Weather(UUID id, double temperature, Instant timestamp) {
+        this.id = id;
+        this.temperature = temperature;
+        this.recordedAt = timestamp.truncatedTo(ChronoUnit.SECONDS);
+    }
+
+    public Instant getRecordedAt() {
+        return recordedAt;
     }
 
     public UUID getId() {
@@ -49,17 +49,21 @@ public class Weather {
         return temperature;
     }
 
+    public void setRecordedAt(Instant recordedAt) {
+        this.recordedAt = recordedAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Weather weather = (Weather) o;
-        return Double.compare(weather.temperature, temperature) == 0 && Objects.equals(id, weather.id) && Objects.equals(timestamp, weather.timestamp);
+        return Double.compare(weather.temperature, temperature) == 0 && Objects.equals(id, weather.id) && Objects.equals(recordedAt, weather.recordedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, temperature, timestamp);
+        return Objects.hash(id, temperature, recordedAt);
     }
 
     @Override
@@ -67,7 +71,7 @@ public class Weather {
         return "Weather{" +
                 "id=" + id +
                 ", temperature=" + temperature +
-                ", timestamp=" + timestamp +
+                ", timestamp=" + recordedAt +
                 '}';
     }
 }

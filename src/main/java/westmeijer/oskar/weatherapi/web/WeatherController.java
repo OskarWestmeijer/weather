@@ -6,16 +6,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import westmeijer.oskar.weatherapi.entity.Weather;
 import westmeijer.oskar.weatherapi.business.WeatherService;
+import westmeijer.oskar.weatherapi.entity.Weather;
 
-import java.time.Instant;
 import java.util.List;
 
 @Controller
 public class WeatherController {
 
-    Logger logger = LoggerFactory.getLogger(WeatherController.class);
+    private static final Logger logger = LoggerFactory.getLogger(WeatherController.class);
 
     private final WeatherService weatherService;
 

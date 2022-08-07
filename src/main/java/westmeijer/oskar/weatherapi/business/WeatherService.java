@@ -4,9 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import westmeijer.oskar.weatherapi.dal.database.WeatherRepository;
 import westmeijer.oskar.weatherapi.dal.openweatherapi.OpenWeatherApiClient;
 import westmeijer.oskar.weatherapi.entity.Weather;
-import westmeijer.oskar.weatherapi.dal.database.WeatherRepository;
 
 import java.util.Comparator;
 import java.util.List;
@@ -34,7 +34,7 @@ public class WeatherService {
         List<Weather> weatherData = weatherRepository.getLatestEntries();
 
         return weatherData.stream()
-                .sorted(Comparator.comparing(Weather::getTimestamp).reversed())
+                .sorted(Comparator.comparing(Weather::getRecordedAt).reversed())
                 .toList();
     }
 

@@ -4,5 +4,5 @@ CREATE TABLE temperature
 (
     id          UUID,
     temperature decimal,
-    timestamp   TIMESTAMP
+    timestamp   timestamptz
 );

@@ -8,15 +8,10 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.env.Environment;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.Arrays;
-import java.util.TimeZone;
 
 @SpringBootApplication
 public class WeatherApiApplication {
-
-    public static final ZoneId TIMEZONE_GERMANY = ZoneId.of("Europe/Berlin");
 
     private static final Logger logger = LoggerFactory.getLogger(WeatherApiApplication.class);
 
@@ -24,7 +19,7 @@ public class WeatherApiApplication {
         SpringApplication.run(WeatherApiApplication.class, args);
 
         // the server and the requested cities are running in germany.
-        TimeZone.setDefault(TimeZone.getTimeZone("Germany"));
+        //TimeZone.setDefault(TimeZone.getTimeZone("Germany"));
     }
 
     @EventListener

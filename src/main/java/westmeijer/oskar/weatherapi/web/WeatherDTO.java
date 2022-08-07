@@ -2,8 +2,7 @@ package westmeijer.oskar.weatherapi.web;
 
 import westmeijer.oskar.weatherapi.entity.Weather;
 
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -12,27 +11,46 @@ import java.util.List;
  */
 public class WeatherDTO {
 
+    private final String timeFormat = "UTC";
+
+    private final String location = "Lübeck";
+
     private final String zipCode;
 
-    private final ZonedDateTime responseTime;
+    private final String country;
+
+    private final Instant apiResponseTimestamp;
 
     private final List<Weather> weatherData;
 
-    public WeatherDTO(String zipCode, ZonedDateTime responseTime, List<Weather> weatherData) {
+    public WeatherDTO(String zipCode, String country, Instant responseTime, List<Weather> weatherData) {
         this.zipCode = zipCode;
-        this.responseTime = responseTime.truncatedTo(ChronoUnit.SECONDS);
+        this.country = country;
+        this.apiResponseTimestamp = responseTime.truncatedTo(ChronoUnit.SECONDS);
         this.weatherData = weatherData;
+    }
+
+    public String getTimeFormat() {
+        return timeFormat;
+    }
+
+    public String getCountry() {
+        return country;
     }
 
     public String getZipCode() {
         return zipCode;
     }
 
-    public ZonedDateTime getResponseTime() {
-        return responseTime;
+    public Instant getApiResponseTimestamp() {
+        return apiResponseTimestamp;
     }
 
     public List<Weather> getWeatherData() {
         return weatherData;
+    }
+
+    public String getLocation() {
+        return location;
     }
 }
