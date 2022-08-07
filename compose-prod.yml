@@ -2,12 +2,12 @@ version: '3.6'
 
 services:
   app:
-    image: oskarwestmeijer/weather-api:1.0.4
+    image: oskarwestmeijer/weather-api:1.0.6
     container_name: app
     expose:
       - "8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/weather
+      - SPRING_DATASOURCE_URL=${POSTGRES_URL}
       - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
       - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASS}
       - OPENWEATHERAPI_URLPATH=${POSTGRES_PASS}
