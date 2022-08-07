@@ -2,14 +2,14 @@ version: '3.6'
 
 services:
   app:
-    image: oskarwestmeijer/weather-api:1.0.7
+    image: oskarwestmeijer/weather-api:1.0.8
     container_name: app
     deploy:
       resources:
         limits:
-          memory: 2G
+          memory: 1G
         reservations:
-          memory: 2G
+          memory: 1G
     expose:
       - "8080"
     restart: always

@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import westmeijer.oskar.weatherapi.business.WeatherService;
 import westmeijer.oskar.weatherapi.entity.Weather;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class WeatherController {
@@ -42,6 +44,17 @@ public class WeatherController {
             logger.info("Unknown zip code! Bad request.");
             return ResponseEntity.badRequest().body("Unknown zip code!");
         }
+    }
+
+    @GetMapping("/api/memory")
+    public ResponseEntity<Map<String, Long>> getMemoryStatistics() {
+        long byteToLong = 1000000;
+        Map<String, Long> mem = new HashMap<>();
+        mem.put("TotalMem", Runtime.getRuntime().totalMemory() / byteToLong);
+        mem.put("MaxMem", Runtime.getRuntime().maxMemory() / byteToLong);
+        mem.put("FreeMem", Runtime.getRuntime().freeMemory() / byteToLong);
+        logger.info("Memory: {}", mem.toString());
+        return ResponseEntity.ok(mem);
     }
 
 
