@@ -49,8 +49,8 @@ Build a new target folder. Publish image to Dockerhub. Remember to increase the 
 ```
 ./mvnw clean package
 docker login
-docker build -t oskarwestmeijer/weather-api:1.0.6 .
-docker push oskarwestmeijer/weather-api:1.0.6
+docker build -t oskarwestmeijer/weather-api:1.0.7 .
+docker push oskarwestmeijer/weather-api:1.0.7
 ```
 
 ### deployment
