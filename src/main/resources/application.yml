@@ -26,6 +26,7 @@ openweatherapi:
   urlPath: "/data/2.5/weather?id=2875601&units=metric&appid=1234random"
 
 ---
+# obtained from secrets in production
 spring:
   profiles: prod
   datasource:
