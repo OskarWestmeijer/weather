@@ -2,14 +2,14 @@ version: '3.6'
 
 services:
   app:
-    image: oskarwestmeijer/weather-api:1.0.8
+    image: oskarwestmeijer/weather-api:1.0.9
     container_name: app
     deploy:
       resources:
         limits:
-          memory: 2G
+          memory: 1G
         reservations:
-          memory: 2G
+          memory: 1G
     expose:
       - "8080"
     restart: always
@@ -18,6 +18,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
       - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
       - OPENWEATHERAPI_URLPATH=${OPENWEATHERAPI_URLPATH}
+      - "SPRING_PROFILES_ACTIVE=prod"
 networks:
   default:
     name: homepage-proxy

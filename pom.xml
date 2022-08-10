@@ -16,7 +16,7 @@
     <properties>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.version>1.0.7</project.version>
+        <project.version>1.0.9</project.version>
     </properties>
 
     <dependencies>
@@ -82,6 +82,9 @@
                         -Xms750m
                         -Xmx750m
                     </jvmArguments>
+                    <profiles>
+                        <profile>dev</profile>
+                    </profiles>
                 </configuration>
             </plugin>
 

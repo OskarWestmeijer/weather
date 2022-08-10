@@ -38,7 +38,7 @@ Docker compose initializes the database on startup.
 docker-compose -f compose-dev.yml down
 docker-compose -f compose-dev.yml up -d
 
-./mvnw spring-boot:run (uses dev profile)
+./mvnw spring-boot:run
 
 ```
 
@@ -49,8 +49,8 @@ Build a new target folder. Publish image to Dockerhub. Remember to increase the 
 ```
 ./mvnw clean package
 docker login
-docker build -t oskarwestmeijer/weather-api:1.0.8 .
-docker push oskarwestmeijer/weather-api:1.0.8
+docker build -t oskarwestmeijer/weather-api:1.0.9 .
+docker push oskarwestmeijer/weather-api:1.0.9
 ```
 
 ### deployment
