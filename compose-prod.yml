@@ -19,7 +19,28 @@ services:
       - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
       - OPENWEATHERAPI_URLPATH=${OPENWEATHERAPI_URLPATH}
       - "SPRING_PROFILES_ACTIVE=prod"
+  database:
+    image: postgres:14.1
+    container_name: database
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+        reservations:
+          memory: 500M
+    networks:
+      - proxy
+    expose:
+      - "5432"
+    restart: always
+    volumes:
+      - data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: username1
+      POSTGRES_PASSWORD: password1
 networks:
   default:
     name: homepage-proxy
     external: true
+volumes:
+  data:
