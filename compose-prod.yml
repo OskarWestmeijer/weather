@@ -35,7 +35,7 @@ services:
       - data:/var/lib/postgresql/data
 networks:
   default:
-    name: homepage-proxy
+    name: server-infrastructure-proxy
     external: true
 volumes:
   data:
