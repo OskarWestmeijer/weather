@@ -42,3 +42,5 @@ networks:
     external: true
 volumes:
   data:
+    name: homepage-data
+    external: true
