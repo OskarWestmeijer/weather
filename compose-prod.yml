@@ -28,8 +28,6 @@ services:
           memory: 500M
         reservations:
           memory: 500M
-    networks:
-      - proxy
     expose:
       - "5432"
     restart: always
