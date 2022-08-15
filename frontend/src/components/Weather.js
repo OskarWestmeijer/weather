@@ -6,14 +6,17 @@ export default function Weather() {
 
     const [weatherItems, setWeatherItems] = React.useState(null);
 
-    const apiUrl = process.env.NODE_ENV == 'production' ? 'http://app:8080/api/weather/23552' : 'http://localhost:8080/api/weather/23552'
 
-    const config = {
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/json;charset=UTF-8' }
-    }
 
     React.useEffect(() => {
+
+        const apiUrl = process.env.NODE_ENV === 'production' ? 'http://app:8080/api/weather/23552' : 'http://localhost:8080/api/weather/23552'
+
+        const config = {
+            mode: 'cors',
+            headers: { 'Content-Type': 'application/json;charset=UTF-8' }
+        }
+
         axios.get(apiUrl, config)
             .then((response) => {
                 setWeatherItems(response.data.weatherData);
