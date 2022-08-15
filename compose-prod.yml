@@ -19,6 +19,18 @@ services:
       - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
       - OPENWEATHERAPI_URLPATH=${OPENWEATHERAPI_URLPATH}
       - "SPRING_PROFILES_ACTIVE=prod"
+  weather-ui:
+    image: oskarwestmeijer/weather-ui:1.0
+    container_name: weather-ui
+    deploy:
+      resources:
+        limits:
+          memory: 250m
+        reservations:
+          memory: 250m
+    expose:
+      - "80"
+    restart: always
   database:
     image: postgres:14.1
     container_name: database
