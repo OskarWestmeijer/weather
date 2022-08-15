@@ -10,12 +10,16 @@ import Documentation from './components/Documentation';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <BrowserRouter>
-    <Navigation />
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/documentation" element={<Documentation />} />
-    </Routes>
-    <Footer />
-  </BrowserRouter>
+  <React.StrictMode>
+
+    <BrowserRouter>
+      <Navigation />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/documentation" element={<Documentation />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
+
+  </React.StrictMode>
 );
