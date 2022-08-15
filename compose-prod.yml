@@ -39,5 +39,6 @@ networks:
     external: true
 volumes:
   data:
+    # database was initially part of the homepage repo
     name: homepage-data
     external: true
