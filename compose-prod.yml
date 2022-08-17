@@ -29,7 +29,7 @@ services:
         reservations:
           memory: 250m
     ports:
-      - "1992:80"
+      - "1993:80"
     restart: always
   database:
     image: postgres:14.1
