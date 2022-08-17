@@ -10,7 +10,7 @@ export default function Weather() {
 
     React.useEffect(() => {
 
-        const apiUrl = process.env.NODE_ENV === 'production' ? 'http://app:8080/api/weather/23552' : 'http://localhost:8080/api/weather/23552'
+        const apiUrl = process.env.NODE_ENV === 'production' ? 'https://oskar-westmeijer.com/api/weather/23552' : 'https://oskar-westmeijer.com/api/weather/23552'
 
         const config = {
             mode: 'cors',
