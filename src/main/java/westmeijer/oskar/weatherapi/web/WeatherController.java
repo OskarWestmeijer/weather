@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class WeatherController {
 
     private static final Logger logger = LoggerFactory.getLogger(WeatherController.class);
