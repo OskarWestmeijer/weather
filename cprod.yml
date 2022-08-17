@@ -28,8 +28,8 @@ services:
           memory: 250m
         reservations:
           memory: 250m
-    ports:
-      - "1993:80"
+    expose:
+      - "80"
     restart: always
   database:
     image: postgres:14.1
