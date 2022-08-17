@@ -15,7 +15,7 @@ export default function Footer() {
                 </li>
                 <li className="ms-3">
                     <a href="https://www.goodreads.com/user/show/62933371-oskar-westmeijer">
-                        <img className="bi" width="24" height="24" src="/images/goodreads.svg" alt="Goodreads logo" />
+                        <img className="bi" width="24" height="24" src="images/goodreads.svg" alt="Goodreads logo" />
                     </a>
                 </li>
                 <li className="ms-3">
