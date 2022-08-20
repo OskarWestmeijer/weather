@@ -1,12 +1,9 @@
 # weather-api
+This app requests the OpenWeatherApi every minute for current weather data. It only fetches information for my home town Luebeck (Germany).
 
-This app requests every minute the OpenWeatherApi for current weather data. It only fetches information for my home town
-Luebeck (Germany).
-
-The setup contains a database, where the temperatures are stored after each request. Everything is dockerized. I am
-using the free plan from OpenWeatherApi, only 60 possible requests per hour.
-
-This app provides an endpoint to request the stored temperatures for Luebeck.
+The setup contains a postgres database, where the data is stored after each request. Everything is dockerized. I am using the free plan from OpenWeatherApi, only 60 possible requests per hour.
+                        
+I display this data in a ReactJs UI. Furthermore the API is directly accessable.
 
 ### technologies used
 
@@ -15,6 +12,7 @@ This app provides an endpoint to request the stored temperatures for Luebeck.
 - Maven
 - Spring-Boot
 - Hibernate
+- ReactJS
 - Docker and docker-compose
 - PostgreSQL
 - Testcontainers & Wiremock
