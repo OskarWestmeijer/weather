@@ -10,7 +10,7 @@ import Documentation from './components/Documentation';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-    <BrowserRouter basename="/weather">
+    <BrowserRouter basename="/weather/ui">
       <Navigation />
       <Routes>
         <Route path="/" element={<Weather />} />

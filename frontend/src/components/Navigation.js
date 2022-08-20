@@ -8,6 +8,7 @@ export default function Navigation() {
             <div className="container-fluid">
                 <div className="navbar-collapse justify-content-md-center">
                     <ul className="navbar-nav">
+                        <li><a href="https://oskar-westmeijer.com/weather/ui"><img className="bi" width="24" height="24" src="images/weather_api.png" alt="Weather-Api logo" /></a></li>
                         <li className="nav-item">
                             <NavLink className="nav-link" aria-current="page" to="/">Weather</NavLink>
                         </li>

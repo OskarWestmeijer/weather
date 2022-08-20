@@ -11,6 +11,6 @@ RUN npm run build
 # production-stage environment
 FROM nginx:1.23.1-alpine
 ENV NODE_ENV=production
-COPY --from=build-stage /app/build /usr/share/nginx/html/weather
+COPY --from=build-stage /app/build /usr/share/nginx/html/weather/ui
 COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 CMD ["nginx", "-g", "daemon off;"]
