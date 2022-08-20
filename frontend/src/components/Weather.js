@@ -11,14 +11,14 @@ export default function Weather(props) {
     // similar to componentDidMount()
     useEffect(() => {
         apiClient.get('weather/23552')
-            .then((response) => {
+            .then(response => {
                 setResult(response.data);
                 setIsLoading(false);
-            }).catch((error) => {
+            }).catch(error => {
                 setError(error);
                 setIsLoading(false);
                 console.error('There was an error requesting the API!', error);
-            });;
+            })
     }, []);
 
     if (error) {
