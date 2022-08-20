@@ -13,7 +13,7 @@ root.render(
     <BrowserRouter basename="/weather/ui">
       <Navigation />
       <Routes>
-        <Route path="/" element={<Weather />} />
+        <Route path="/" element={<Weather header="Weather data for Luebeck, Germany"/>} />
         <Route path="/documentation" element={<Documentation />} />
       </Routes>
       <Footer />
