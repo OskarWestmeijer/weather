@@ -6,7 +6,7 @@ export default function Documentation() {
             <div className="row">
                 <div className="col-md-2 col-sm-12" />
                 <div className="col-md-8 col-sm-12">
-                    <h2>Documentation                      <a href="https://github.com/OskarWestmeijer/weather-api"><img className="bi" width="24" height="24" src="images/github.svg" alt="Github logo" /> </a>
+                    <h2 className="text-center">Documentation                      <a href="https://github.com/OskarWestmeijer/weather-api"><img className="bi" width="24" height="24" src="images/github.svg" alt="Github logo" /> </a>
                         </h2>
                     <p>This app requests the OpenWeatherApi every minute for current weather data. It only fetches information for my home town Luebeck (Germany).
                         The setup contains a postgres database, where the data is stored after each request. </p>

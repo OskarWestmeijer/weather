@@ -1,19 +1,49 @@
 import { React, useState, useEffect } from "react";
 import apiClient from "../http-common";
+import WeatherChart from "./WeatherChart";
+
 
 export default function Weather(props) {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [result, setResult] = useState(null);
 
-    // Note: the empty deps array [] means
-    // this useEffect will run once
-    // similar to componentDidMount()
+    const [result, setResult] = useState(null);
+    const [temperature, setTemperature] = useState(null);
+    const [humidity, setHumidity] = useState(null);
+    const [windSpeed, setWindspeed] = useState(null);
+    const [recordedAt, setRecordedAt] = useState(null);
+
+    function transformDate(apiTimestamp) {
+        const date = new Date(apiTimestamp)
+        return new Date(apiTimestamp).toLocaleTimeString();
+    };
+
+    function extractRecordedAt(response) {
+        var arr = [];
+        response.data.weatherData.forEach((item, index) => {
+            arr.push(transformDate(item.recordedAt));
+        });
+        return arr;
+    }
+
+    function extractAttribute(response, key) {
+        var arr = [];
+        response.data.weatherData.forEach((item, index) => {
+            arr.push(item[key]);
+        });
+        return arr;
+    }
+
     useEffect(() => {
         apiClient.get('weather/23552')
             .then(response => {
+                response.data.weatherData.reverse();
                 setResult(response.data);
                 setIsLoading(false);
+                setTemperature(extractAttribute(response, 'temperature'));
+                setHumidity(extractAttribute(response, 'humidity'));
+                setWindspeed(extractAttribute(response, 'windSpeed'));
+                setRecordedAt(extractRecordedAt(response));
             }).catch(error => {
                 setError(error);
                 setIsLoading(false);
@@ -31,29 +61,17 @@ export default function Weather(props) {
                 <div className="row">
                     <div className="col-md-2 col-sm-12" />
                     <div className="col-md-8 col-sm-12">
-                        <h2 className="mt-3">{props.header}</h2>
-                        <table className="mt-4 table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">temperature</th>
-                                    <th scope="col">humidity</th>
-                                    <th scope="col">wind_speed</th>
-                                    <th scope="col">recorded_at</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    result.weatherData.map((item, i) =>
-                                        <tr key={i}>
-                                            <td key={item.temperature}>{item.temperature}</td>
-                                            <td key={item.humidity}>{item.humidity}</td>
-                                            <td key={item.windSpeed}>{item.windSpeed}</td>
-                                            <td key={item.recordedAt}>{item.recordedAt}</td>
-                                        </tr>
-                                    )}
-                            </tbody>
-                        </table>
+                        <h4 className="text-center mt-3">{props.header}</h4>
+
+                        <WeatherChart
+                            chartData={result.weatherData}
+                            temperatureData={temperature}
+                            humidityData={humidity}
+                            windSpeedData={windSpeed}
+                            recordedAtData={recordedAt}
+                        />
                     </div>
+
                     <div className="col-md1 col-sm-12">
                     </div>
                 </div>
