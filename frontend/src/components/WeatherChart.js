@@ -1,5 +1,5 @@
 import { React } from "react";
-import { Bar, Line } from "react-chartjs-2"
+import { Line } from "react-chartjs-2"
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 
@@ -76,7 +76,7 @@ export default function WeatherChart(props) {
                 }} />
 
 
-            <Line className="mt-5" data={windSpeedData}
+            <Line className="mt-5 mb-5" data={windSpeedData}
                 options={{
                     plugins: {
                         title: {
