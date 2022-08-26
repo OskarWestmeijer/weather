@@ -14,7 +14,6 @@ export default function Weather(props) {
     const [recordedAt, setRecordedAt] = useState(null);
 
     function transformDate(apiTimestamp) {
-        const date = new Date(apiTimestamp)
         return new Date(apiTimestamp).toLocaleTimeString();
     };
 
@@ -35,7 +34,7 @@ export default function Weather(props) {
     }
 
     useEffect(() => {
-        apiClient.get('weather/23552')
+        apiClient.get('weather/23552/24h')
             .then(response => {
                 response.data.weatherData.reverse();
                 setResult(response.data);
@@ -57,25 +56,27 @@ export default function Weather(props) {
         return <div>Requesting Weather-Api...</div>;
     } else {
         return (
-            <div className="container-sm mt-3">
-                <div className="row">
-                    <div className="col-md-2 col-sm-12" />
-                    <div className="col-md-8 col-sm-12">
-                        <h4 className="text-center mt-3">{props.header}</h4>
+            <section>
+                <div className="container pt-5 mt-4">
+                    <div className="row">
+                        <div className="col-md-2 col-sm-12" />
+                        <div className="col-md-8 col-sm-12">
+                            <h4 className="text-center mt-3">{props.header}</h4>
 
-                        <WeatherChart
-                            chartData={result.weatherData}
-                            temperatureData={temperature}
-                            humidityData={humidity}
-                            windSpeedData={windSpeed}
-                            recordedAtData={recordedAt}
-                        />
-                    </div>
+                            <WeatherChart
+                                chartData={result.weatherData}
+                                temperatureData={temperature}
+                                humidityData={humidity}
+                                windSpeedData={windSpeed}
+                                recordedAtData={recordedAt}
+                            />
+                        </div>
 
-                    <div className="col-md1 col-sm-12">
+                        <div className="col-md1 col-sm-12">
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
         );
     }
 }

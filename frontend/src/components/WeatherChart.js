@@ -46,8 +46,10 @@ export default function WeatherChart(props) {
 
     return (
         <div>
-            <Line className="mt-5" data={temperatureData}
+            <Line className="mt-5"
+                data={temperatureData}
                 options={{
+                    animation: false,
                     plugins: {
                         title: {
                             display: true,
@@ -61,8 +63,10 @@ export default function WeatherChart(props) {
                 }} />
 
 
-            <Line className="mt-5" data={humidityData}
+            <Line className="mt-5"
+                data={humidityData}
                 options={{
+                    animation: false,
                     plugins: {
                         title: {
                             display: true,
@@ -76,8 +80,10 @@ export default function WeatherChart(props) {
                 }} />
 
 
-            <Line className="mt-5 mb-5" data={windSpeedData}
+            <Line className="mt-5 mb-5"
+                data={windSpeedData}
                 options={{
+                    animation: false,
                     plugins: {
                         title: {
                             display: true,
