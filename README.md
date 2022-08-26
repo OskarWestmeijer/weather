@@ -33,11 +33,8 @@ This projects uses testcontainers with pre initialized data.
 Docker compose initializes the database on startup.
 
 ```
-docker-compose -f compose-dev.yml down
-docker-compose -f compose-dev.yml up -d
-
+docker-compose -f cdev.yml up -d
 ./mvnw spring-boot:run
-
 ```
 
 ### release image
@@ -46,9 +43,8 @@ Build a new target folder. Publish image to Dockerhub. Remember to increase the 
 
 ```
 ./mvnw clean package
-docker login
-docker build -t oskarwestmeijer/weather-api:1.1.1 .
-docker push oskarwestmeijer/weather-api:1.1.1
+docker build -t oskarwestmeijer/weather-api:1.2.0 .
+docker push oskarwestmeijer/weather-api:1.2.0
 ```
 
 ### deployment
@@ -58,6 +54,6 @@ ssh on Server
 
 pull https://github.com/OskarWestmeijer/weather-api
 
-docker-compose -f compose-prod.yml down
-docker-compose -f compose-prod.yml up -d
+docker-compose -f cprod.yml down
+docker-compose -f cprod.yml up -d
 ```
