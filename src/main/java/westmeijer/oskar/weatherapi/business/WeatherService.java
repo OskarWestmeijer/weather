@@ -8,6 +8,10 @@ import westmeijer.oskar.weatherapi.dal.database.WeatherRepository;
 import westmeijer.oskar.weatherapi.dal.openweatherapi.OpenWeatherApiClient;
 import westmeijer.oskar.weatherapi.entity.Weather;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.Comparator;
 import java.util.List;
 
@@ -30,8 +34,25 @@ public class WeatherService {
      *
      * @return list of dtos
      */
-    public List<Weather> getWeather() {
+    public List<Weather> getLatestWeather() {
         List<Weather> weatherData = weatherRepository.getLatestEntries();
+
+        return weatherData.stream()
+                .sorted(Comparator.comparing(Weather::getRecordedAt).reversed())
+                .toList();
+    }
+
+    public List<Weather> getWeatherLastThreeDays() {
+        List<Weather> weatherData = weatherRepository.getLastThreeDays();
+
+        return weatherData.stream()
+                .sorted(Comparator.comparing(Weather::getRecordedAt).reversed())
+                .toList();
+    }
+
+    public List<Weather> getSpecificWeather(Instant date) {
+        //List<Weather> weatherData = weatherRepository.findAllByRecordedAt(date);
+        List<Weather> weatherData = weatherRepository.getSpecificDay(date, date.plus(1L, ChronoUnit.DAYS));
 
         return weatherData.stream()
                 .sorted(Comparator.comparing(Weather::getRecordedAt).reversed())
@@ -41,7 +62,7 @@ public class WeatherService {
     /**
      * Retrieve and save new weather data from OpenApi.
      */
-    @Scheduled(fixedDelay = 60000)
+    @Scheduled(fixedDelay = 300000)
     public void refreshWeather() {
         try {
             logger.info("Start refreshing weather.");
@@ -53,5 +74,6 @@ public class WeatherService {
             logger.error("OpenWeatherApi request failed!", e);
         }
     }
+
 
 }

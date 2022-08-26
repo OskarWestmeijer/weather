@@ -31,7 +31,7 @@ public class WeatherControllerLayerTest {
     public void requestWeatherKnownZipCode() throws Exception {
 
         List<Weather> weatherData = List.of(new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, Instant.now(), 88,11.66,23552));
-        when(weatherService.getWeather()).thenReturn(weatherData);
+        when(weatherService.getLatestWeather()).thenReturn(weatherData);
 
         mockMvc.perform(get("/api/weather/23552"))
                 .andExpect(status().isOk())

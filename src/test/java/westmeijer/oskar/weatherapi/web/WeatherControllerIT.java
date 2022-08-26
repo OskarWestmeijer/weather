@@ -21,7 +21,7 @@ public class WeatherControllerIT extends IntegrationTestContainers {
     @Test
     public void retrievesCorrectTemperatures() throws Exception {
 
-        mockMvc.perform(get("/api/weather/23552"))
+        mockMvc.perform(get("/api/weather/23552/2022-05-01"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json("""
@@ -30,8 +30,7 @@ public class WeatherControllerIT extends IntegrationTestContainers {
                         "location" : "Lübeck",
                         "zipCode" : "23552",
                         "country" : "Germany",
-                        "weatherData": [{'temperature': 10.45},
-                                        {'temperature':20.75}]
+                        "weatherData": [{'temperature': 10.45}]
                         }"""));
     }
 

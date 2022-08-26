@@ -11,10 +11,12 @@ import westmeijer.oskar.weatherapi.IntegrationTestContainers;
 import westmeijer.oskar.weatherapi.dal.database.WeatherRepository;
 import westmeijer.oskar.weatherapi.entity.Weather;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.UUID;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -25,9 +27,14 @@ public class WeatherRepositoryTest extends IntegrationTestContainers {
 
     @Test
     public void fetchData() {
-        List<Weather> weatherData = weatherRepository.getLatestEntries();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.from(formatter.parse("2022-05-01"));
+        Instant start = localDate.atStartOfDay().toInstant(ZoneOffset.UTC);
+        Instant end = start.plus(1L, ChronoUnit.DAYS);
 
-        Assertions.assertEquals(2, weatherData.size());
+        List<Weather> weatherData = weatherRepository.getSpecificDay(start, end);
+
+        Assertions.assertEquals(1, weatherData.size());
         Assertions.assertEquals(10.45, weatherData.get(0).getTemperature());
     }
 }
