@@ -4,11 +4,22 @@ import { NavLink } from "react-router-dom";
 export default function Navigation() {
 
     return (
-        <nav className="navbar navbar-expand-sm">
-            <div className="container-fluid">
-                <div className="navbar-collapse justify-content-md-center">
+        <nav className="navbar navbar-expand-md fixed-top">
+            <div className="container">
+                <a href="https://oskar-westmeijer.com/weather/ui/" className="navbar-brand"><img width="35" height="35" src="ui/images/weather_api.png" alt="Weather-Api logo" />Weather-Api</a>
+
+                <button
+                    className="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navmenu"
+                >
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+
+
+                <div className="collapse navbar-collapse" id="navmenu">
                     <ul className="navbar-nav">
-                        <li><a href="https://oskar-westmeijer.com/weather/ui"><img  width="35" height="35" src="images/weather_api.png" alt="Weather-Api logo" /></a></li>
                         <li className="nav-item">
                             <NavLink className="nav-link" aria-current="page" to="/">Weather</NavLink>
                         </li>
