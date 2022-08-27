@@ -14,7 +14,7 @@ export default function Weather(props) {
     const [recordedAt, setRecordedAt] = useState(null);
 
     function transformDate(apiTimestamp) {
-        return new Date(apiTimestamp).toLocaleTimeString();
+        return new Date(apiTimestamp).toLocaleTimeString([], {  hour12: false, hour: '2-digit', minute: '2-digit' });
     };
 
     function extractRecordedAt(response) {
