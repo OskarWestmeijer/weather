@@ -7,15 +7,16 @@ export default function Documentation() {
                 <div className="row">
                     <div className="col-md-2 col-sm-12" />
                     <div className="col-md-8 col-sm-12">
-                        <h2 className="text-center">Documentation                      <a href="https://github.com/OskarWestmeijer/weather-api"><img className="bi" width="24" height="24" src="images/github.svg" alt="Github logo" /> </a>
-                        </h2>
-                        <p>This app requests the OpenWeatherApi every minute for current weather data. It only fetches information for my home town Luebeck (Germany).
-                            The setup contains a postgres database, where the data is stored after each request. </p>
-
-                        <p>Everything is dockerized. I am using the free plan from OpenWeatherApi, only 60 possible requests per hour.
-                            I display this data in a ReactJs UI. Furthermore the API is directly accessable.</p>
+                        <h2 className="text-center">Documentation <a href="https://github.com/OskarWestmeijer/weather-api"><img className="bi" width="24" height="24" src="images/github.svg" alt="Github logo" /></a></h2>
+                        <p>
+                            This app requests the OpenWeatherApi every minute for current weather data. It only fetches information for my home town Luebeck (Germany).
+                        </p>
+                        <p>
+                            The app is written in Java (Spring Boot). The setup contains a Postgres database, where the data is stored after each request.
+                            Everything is dockerized. I display this data in a ReactJs UI with nice charts. Furthermore the API is directly accessable.
+                        </p>
                     </div>
-                    <div className="col-md1 col-sm-12">
+                    <div className="col-md2 col-sm-12">
                     </div>
                 </div>
             </div>
