@@ -1,0 +1,26 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+
+
+title C4Model Container diagram for Weather-Api
+
+Person(user, "User", "Wants weather data")
+
+System_Boundary(weatherSystem, "Weather-Api System") {
+    Container(weather_ui, "Weather-Ui", "Javascript & ReactJs", $descr="Provides web interface for weather data")
+    Container(weather_api, "Weather-Api", "Java & Spring-Boot", $descr="Provides REST Api for weather data")
+    ContainerDb(postgres_db, "Database", "PostgreSql", "Stores weather data")
+}
+System_Ext(open_weather_api, "OpenWeatherApi", "Provides CURRENT weather data")
+
+
+Rel(user, weather_ui, "View weather", "https")
+Rel(weather_ui, weather_api, "Request weather data", "https")
+Rel_L(weather_api, open_weather_api, "Get CURRENT weather as scheduled job", "https")
+Rel_R(weather_api, postgres_db, "Read/Write weather data")
+LAYOUT_LANDSCAPE()
+
+
+@enduml

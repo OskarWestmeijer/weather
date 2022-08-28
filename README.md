@@ -20,6 +20,15 @@ I display this data in a ReactJs UI. Furthermore the API is directly accessable.
 - Github Actions for CI
 ```
 
+### c4-model
+
+#### system context diagram
+![Alt c4-model system context diagram](frontend/public/images/c4_context.svg)
+#### container diagram
+![Alt c4-model container diagram](frontend/public/images/c4_container.svg)
+
+
+
 ### build & test
 
 This projects uses testcontainers with pre initialized data.

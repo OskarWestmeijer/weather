@@ -1,0 +1,15 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+LAYOUT_LANDSCAPE()
+
+title C4Model System Context diagram for Weather-Api
+
+Person(user, "Weather-Api User", "Wants weather data")
+
+System(weatherApi, "Weather-Api", "Provides weather data")
+System_Ext(openWeatherApi, "OpenWeatherApi", "Provides CURRENT weather data")
+
+Rel(user, weatherApi, "View weather", "https")
+Rel(weatherApi, openWeatherApi, "Get CURRENT weather as scheduled job", "https")
+@enduml
