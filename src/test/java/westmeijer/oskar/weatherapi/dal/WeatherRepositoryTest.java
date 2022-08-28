@@ -13,7 +13,7 @@ import westmeijer.oskar.weatherapi.entity.Weather;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -28,13 +28,13 @@ public class WeatherRepositoryTest extends IntegrationTestContainers {
     @Test
     public void fetchData() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.from(formatter.parse("2022-05-01"));
-        Instant start = localDate.atStartOfDay().toInstant(ZoneOffset.UTC);
+        LocalDate localDate = LocalDate.from(formatter.parse("2022-08-28"));
+        Instant start = localDate.atStartOfDay(ZoneId.of("UTC")).toInstant();
         Instant end = start.plus(1L, ChronoUnit.DAYS);
 
         List<Weather> weatherData = weatherRepository.getSpecificDay(start, end);
 
-        Assertions.assertEquals(1, weatherData.size());
-        Assertions.assertEquals(10.45, weatherData.get(0).getTemperature());
+        Assertions.assertEquals(5, weatherData.size());
+        Assertions.assertEquals(13.45, weatherData.get(0).getTemperature());
     }
 }

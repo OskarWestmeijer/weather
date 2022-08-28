@@ -3,7 +3,6 @@ package westmeijer.oskar.weatherapi.web;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 public class ControllerUtil {
@@ -15,7 +14,7 @@ public class ControllerUtil {
     public static Instant parse(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.from(formatter.parse(date));
-        return localDate.atStartOfDay(ZoneId.of("Europe/Berlin")).toInstant();
+        return localDate.atStartOfDay(ZoneId.of("UTC")).toInstant();
     }
 
     public static String buildFileName(int zipCode, String date, String type) {

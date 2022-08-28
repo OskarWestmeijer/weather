@@ -9,9 +9,7 @@ import westmeijer.oskar.weatherapi.dal.openweatherapi.OpenWeatherApiClient;
 import westmeijer.oskar.weatherapi.entity.Weather;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.Comparator;
 import java.util.List;
 
@@ -52,6 +50,8 @@ public class WeatherService {
 
     public List<Weather> getSpecificWeather(Instant start) {
         Instant end = start.plus(1L, ChronoUnit.DAYS);
+        logger.debug("start instant: {}", start);
+        logger.debug("end instant: {}", end);
 
         List<Weather> weatherData = weatherRepository.getSpecificDay(start, end);
 
