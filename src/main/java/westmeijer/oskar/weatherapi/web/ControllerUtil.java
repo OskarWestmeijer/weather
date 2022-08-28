@@ -14,7 +14,7 @@ public class ControllerUtil {
     public static Instant parse(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.from(formatter.parse(date));
-        return localDate.atStartOfDay(ZoneId.of("UTC")).toInstant();
+        return localDate.atStartOfDay(ZoneId.of("Europe/Berlin")).toInstant();
     }
 
     public static String buildFileName(int zipCode, String date, String type) {
