@@ -7,39 +7,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import westmeijer.oskar.weatherapi.business.WeatherService;
 import westmeijer.oskar.weatherapi.entity.Weather;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @CrossOrigin
-public class WeatherController {
+@RequestMapping("/api/v1/weather/{zipCode}")
+public class WeatherLocationController {
 
-    private static final Logger logger = LoggerFactory.getLogger(WeatherController.class);
+    private static final Logger logger = LoggerFactory.getLogger(WeatherLocationController.class);
 
     private final WeatherService weatherService;
 
     private static final int ZIP_CODE_LUEBECK = 23552;
 
-    public WeatherController(WeatherService weatherService) {
+    public WeatherLocationController(WeatherService weatherService) {
         this.weatherService = weatherService;
     }
 
-    @GetMapping("/api/ping")
-    public ResponseEntity<String> test() {
-        return ResponseEntity.ok("pong");
-    }
-
-    @GetMapping({"/api/weather/{zipCode}", "/api/weather/{zipCode}/24h"})
-    public ResponseEntity<?> getWeather(@PathVariable int zipCode) {
+    @GetMapping({"/", "/24h"})
+    public ResponseEntity<?> getLast24Hours(@PathVariable int zipCode) {
 
         logger.info("Received Weather request 24h for zip code: {}", zipCode);
 
@@ -53,8 +47,8 @@ public class WeatherController {
         }
     }
 
-    @GetMapping("/api/weather/{zipCode}/3d")
-    public ResponseEntity<?> getWeatherLastThreeDays(@PathVariable int zipCode) {
+    @GetMapping("/3d")
+    public ResponseEntity<?> getLast3Days(@PathVariable int zipCode) {
 
         logger.info("Received Weather request 3d for zip code: {}", zipCode);
 
@@ -68,13 +62,11 @@ public class WeatherController {
         }
     }
 
-    @GetMapping("/api/weather/{zipCode}/{date}")
-    public ResponseEntity<?> getWeatherSpecificDate(@PathVariable int zipCode, @PathVariable String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.from(formatter.parse(date));
-        Instant instant = localDate.atStartOfDay().toInstant(ZoneOffset.UTC);
+    @GetMapping("/{date}")
+    public ResponseEntity<?> getSpecificDate(@PathVariable int zipCode, @PathVariable String date) {
+        Instant instant = ControllerUtil.parse(date);
 
-        logger.info("Received Weather request SPECIFIC date for zip code: {}, date: {}", zipCode, instant);
+        logger.info("Received Weather request SPECIFIC date for zip code: {}, instant: {}", zipCode, instant);
 
         if (zipCode == ZIP_CODE_LUEBECK) {
             List<Weather> weatherData = weatherService.getSpecificWeather(instant);
@@ -84,17 +76,6 @@ public class WeatherController {
             logger.info("Unknown zip code! Bad request.");
             return ResponseEntity.badRequest().body("Unknown zip code!");
         }
-    }
-
-    @GetMapping("/api/memory")
-    public ResponseEntity<Map<String, Long>> getMemoryStatistics() {
-        long byteToLong = 1000000;
-        Map<String, Long> mem = new HashMap<>();
-        mem.put("TotalMem", Runtime.getRuntime().totalMemory() / byteToLong);
-        mem.put("MaxMem", Runtime.getRuntime().maxMemory() / byteToLong);
-        mem.put("FreeMem", Runtime.getRuntime().freeMemory() / byteToLong);
-        logger.info("Memory: {}", mem.toString());
-        return ResponseEntity.ok(mem);
     }
 
 

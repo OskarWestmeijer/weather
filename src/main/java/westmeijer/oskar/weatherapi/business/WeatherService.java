@@ -50,9 +50,10 @@ public class WeatherService {
                 .toList();
     }
 
-    public List<Weather> getSpecificWeather(Instant date) {
-        //List<Weather> weatherData = weatherRepository.findAllByRecordedAt(date);
-        List<Weather> weatherData = weatherRepository.getSpecificDay(date, date.plus(1L, ChronoUnit.DAYS));
+    public List<Weather> getSpecificWeather(Instant start) {
+        Instant end = start.plus(1L, ChronoUnit.DAYS);
+
+        List<Weather> weatherData = weatherRepository.getSpecificDay(start, end);
 
         return weatherData.stream()
                 .sorted(Comparator.comparing(Weather::getRecordedAt).reversed())

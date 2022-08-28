@@ -18,8 +18,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(WeatherController.class)
-public class WeatherControllerLayerTest {
+@WebMvcTest(WeatherLocationController.class)
+public class WeatherLocationControllerLayerTest {
 
     @MockBean
     private WeatherService weatherService;
