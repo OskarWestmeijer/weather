@@ -32,7 +32,7 @@ public class WeatherLocationController {
         this.weatherService = weatherService;
     }
 
-    @GetMapping({"/", "/24h"})
+    @GetMapping("/24h")
     public ResponseEntity<?> getLast24Hours(@PathVariable int zipCode) {
 
         logger.info("Received Weather request 24h for zip code: {}", zipCode);

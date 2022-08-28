@@ -33,7 +33,7 @@ public class WeatherLocationControllerLayerTest {
         List<Weather> weatherData = List.of(new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, Instant.now(), 88,11.66,23552));
         when(weatherService.getLatestWeather()).thenReturn(weatherData);
 
-        mockMvc.perform(get("/api/weather/23552"))
+        mockMvc.perform(get("/api/v1/weather/23552/24h"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json("""
@@ -48,7 +48,7 @@ public class WeatherLocationControllerLayerTest {
 
     @Test
     public void requestWeatherUnknownZipCode() throws Exception {
-        mockMvc.perform(get("/api/weather/46286"))
+        mockMvc.perform(get("/api/v1/weather/46286/24h"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("Unknown zip code!"));
     }

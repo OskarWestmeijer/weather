@@ -21,7 +21,7 @@ public class WeatherLocationControllerIT extends IntegrationTestContainers {
     @Test
     public void retrievesCorrectTemperatures() throws Exception {
 
-        mockMvc.perform(get("/api/weather/23552/2022-05-01"))
+        mockMvc.perform(get("/api/v1/weather/23552/2022-05-01"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json("""
