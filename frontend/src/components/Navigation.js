@@ -23,6 +23,9 @@ export default function Navigation() {
                         <li className="nav-item">
                             <NavLink className="nav-link" aria-current="page" to="/">Weather</NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" aria-current="page" to="/export">Export</NavLink>
+                        </li>
                         <li>
                             <NavLink className="nav-link" aria-current="page" to="/documentation">Documentation</NavLink>
                         </li>
