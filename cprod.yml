@@ -20,7 +20,7 @@ services:
       - OPENWEATHERAPI_URLPATH=${OPENWEATHERAPI_URLPATH}
       - "SPRING_PROFILES_ACTIVE=prod"
   weather-ui:
-    image: oskarwestmeijer/weather-ui:1.7.1
+    image: oskarwestmeijer/weather-ui:1.7.2
     container_name: weather-ui
     deploy:
       resources:
