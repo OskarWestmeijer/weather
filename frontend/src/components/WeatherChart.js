@@ -80,7 +80,7 @@ export default function WeatherChart(props) {
                 }} />
 
 
-            <Line className="mt-5 mb-5"
+            <Line className="mt-5"
                 data={windSpeedData}
                 options={{
                     animation: false,

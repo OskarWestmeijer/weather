@@ -85,22 +85,22 @@ export default function Weather(props) {
     } else {
         return (
             <section>
-                <div className="container pt-5 mt-4">
+                <div className="container pt-5 mt-4 pb-5">
                     <div className="row">
-                        <div className="col-md-2 col-sm-12" />
-                        <div className="col-md-8 col-sm-12">
+                        <div className="col-lg-2 col-md-12" />
+                        <div className="col-lg-8 col-md-12">
 
                             <div className="form-group row">
-                                <label className="col-2 col-form-label">Location</label>
-                                <div className="col-5">
+                                <label className="col-lg-2 col-md-12 col-form-label">Location</label>
+                                <div className="col-lg-5 col-md-12">
                                     <select value={location} onChange={handleLocationChange} className="form-select" aria-label="Location">
                                         <option value="23552">23552 - Luebeck, Germany</option>
                                     </select>
                                 </div>
                             </div>
                             <div className="form-group row mt-1">
-                                <label className="col-2 col-form-label">Timerange</label>
-                                <div className="col-5">
+                                <label className="col-lg-2 col-md-12 col-form-label">Timerange</label>
+                                <div className="col-lg-5 col-md-12">
                                     <select value={timerange} onChange={handleTimerangeChange} className="form-select" aria-label="Timerange">
                                         <option value="24h">24 hours</option>
                                         <option value="3d">3 days</option>
@@ -110,8 +110,8 @@ export default function Weather(props) {
                             </div>
                             {timerange === 'specific' ?
                                 <div className="form-group row mt-1" id="specific_date">
-                                    <label className="col-2 col-form-label">Specific date</label>
-                                    <div className="col-5">
+                                    <label className="col-lg-2 col-md-12 col-form-label">Specific date</label>
+                                    <div className="col-lg-5 col-md-12">
                                         <DatePicker
                                             selected={specificDate}
                                             dateFormat="yyyy/MM/dd"
@@ -130,7 +130,7 @@ export default function Weather(props) {
                             />
                         </div>
 
-                        <div className="col-md1 col-sm-12">
+                        <div className="col-lg-2 col-md-12">
                         </div>
                     </div>
                 </div>
