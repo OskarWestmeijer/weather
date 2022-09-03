@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class WeatherExportService {
 
-    private static final Logger logger = LoggerFactory.getLogger(WeatherService.class);
+    private static final Logger logger = LoggerFactory.getLogger(WeatherApiService.class);
 
     private final WeatherRepository weatherRepository;
 
@@ -40,6 +40,5 @@ public class WeatherExportService {
             logger.error("Error while writing CSV ", e);
         }
     }
-
 
 }

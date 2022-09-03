@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class WeatherLocationControllerIT extends IntegrationTestContainers {
+public class WeatherApiControllerIT extends IntegrationTestContainers {
 
     @Autowired
     private MockMvc mockMvc;

@@ -6,8 +6,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import westmeijer.oskar.weatherapi.service.WeatherService;
+import westmeijer.oskar.weatherapi.service.WeatherApiService;
 import westmeijer.oskar.weatherapi.entity.Weather;
+import westmeijer.oskar.weatherapi.web.controller.WeatherApiController;
 
 import java.time.*;
 import java.util.List;
@@ -18,11 +19,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(WeatherLocationController.class)
-public class WeatherLocationControllerLayerTest {
+@WebMvcTest(WeatherApiController.class)
+public class WeatherApiControllerLayerTest {
 
     @MockBean
-    private WeatherService weatherService;
+    private WeatherApiService weatherApiService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -31,7 +32,7 @@ public class WeatherLocationControllerLayerTest {
     public void requestWeatherKnownZipCode() throws Exception {
 
         List<Weather> weatherData = List.of(new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, Instant.now(), 88,11.66,23552));
-        when(weatherService.getLatestWeather()).thenReturn(weatherData);
+        when(weatherApiService.getLast24h()).thenReturn(weatherData);
 
         mockMvc.perform(get("/api/v1/weather/23552/24h"))
                 .andExpect(status().isOk())
