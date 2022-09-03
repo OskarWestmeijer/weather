@@ -27,7 +27,7 @@ openweatherapi:
   urlPathTemplate: "/data/2.5/weather?id={location_code}&units=metric&appid={app_id}"
 
 ---
-# obtained from secrets in production
+# obtained from secrets, referenced in docker-compose file
 spring:
   profiles: prod
   datasource:
