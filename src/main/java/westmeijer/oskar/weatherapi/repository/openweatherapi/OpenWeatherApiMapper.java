@@ -1,10 +1,9 @@
-package westmeijer.oskar.weatherapi.dal.openweatherapi;
+package westmeijer.oskar.weatherapi.repository.openweatherapi;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.base.Preconditions;
 import westmeijer.oskar.weatherapi.entity.Weather;
 
-import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 

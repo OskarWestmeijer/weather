@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.dal.openweatherapi;
+package westmeijer.oskar.weatherapi.repository.openweatherapi;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
