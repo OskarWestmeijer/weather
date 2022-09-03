@@ -15,15 +15,14 @@ public class OpenWeatherApiMapper {
      * @param responseJson to be mapped
      * @return response
      */
-    public static Weather map(ObjectNode responseJson) {
+    public static Weather map(ObjectNode responseJson, int zipCode) {
         Preconditions.checkNotNull(responseJson);
 
         Double temperature = responseJson.path("main").path("temp").asDouble();
         Integer humidity = responseJson.path("main").path("humidity").asInt();
         Double windSpeed = responseJson.path("wind").path("speed").asDouble();
-        Integer locationCode = responseJson.path("id").asInt();
 
-        return new Weather(UUID.randomUUID(), temperature, Instant.now(), humidity, windSpeed, locationCode);
+        return new Weather(UUID.randomUUID(), temperature, Instant.now(), humidity, windSpeed, zipCode);
     }
 
 

@@ -64,4 +64,14 @@ public class Location {
     public int hashCode() {
         return Objects.hash(zipCode, locationCode, cityName, country);
     }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "zipCode=" + zipCode +
+                ", locationCode=" + locationCode +
+                ", cityName='" + cityName + '\'' +
+                ", country='" + country + '\'' +
+                '}';
+    }
 }
