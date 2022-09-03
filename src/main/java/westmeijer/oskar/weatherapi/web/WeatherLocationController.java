@@ -8,13 +8,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import westmeijer.oskar.weatherapi.business.WeatherService;
+import westmeijer.oskar.weatherapi.service.WeatherService;
 import westmeijer.oskar.weatherapi.entity.Weather;
 
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
