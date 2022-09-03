@@ -1,6 +1,5 @@
 package westmeijer.oskar.weatherapi;
 
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.TestPropertySource;
@@ -28,13 +27,11 @@ public class IntegrationTestContainers {
 
     @DynamicPropertySource
     static void jdbcProperties(DynamicPropertyRegistry registry) {
-
         StringBuilder builder = new StringBuilder("jdbc:postgresql://")
                 .append(DATABASE.getHost())
                 .append(":")
                 .append(DATABASE.getFirstMappedPort())
                 .append("/weather");
-        System.out.println(builder.toString());
         registry.add("spring.datasource.url", builder::toString);
     }
 

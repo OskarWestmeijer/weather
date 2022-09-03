@@ -1,19 +1,18 @@
 \c weather
 
-CREATE TABLE weather
-(
-    id          UUID,
-    temperature decimal,
-    timestamp   timestamptz,
-    wind_speed decimal,
-    humidity bigint,
-    zip_code bigint
-);
-
-
 CREATE TABLE location (
     zip_code bigint PRIMARY KEY,
-    location_code bigint,
-    city_name VARCHAR(255),
-    country VARCHAR(255)
+    location_code bigint NOT NULL,
+    city_name VARCHAR(255) NOT NULL,
+    country VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE weather
+(
+    id UUID PRIMARY KEY,
+    temperature decimal NOT NULL,
+    timestamp   timestamptz NOT NULL,
+    wind_speed decimal NOT NULL,
+    humidity bigint NOT NULL,
+    zip_code bigint
 );

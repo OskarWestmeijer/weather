@@ -35,6 +35,6 @@ public class WeatherRepositoryTest extends IntegrationTestContainers {
         List<Weather> weatherData = weatherRepository.getSpecificDay(start, end);
 
         Assertions.assertEquals(5, weatherData.size());
-        Assertions.assertEquals(13.45, weatherData.get(0).getTemperature());
+        Assertions.assertEquals(12.45, weatherData.get(0).getTemperature());
     }
 }

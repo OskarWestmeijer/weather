@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
@@ -34,7 +33,7 @@ public class Weather {
 
     @Column(name = "zip_code")
     @JsonIgnore
-    private Integer locationCode;
+    private Integer zipCode;
 
     /**
      * Default constructor for Hibernate. Should never be used.
@@ -48,7 +47,7 @@ public class Weather {
         this.recordedAt = recordedAt;
         this.humidity = humidity;
         this.windSpeed = windSpeed;
-        this.locationCode = locationCode;
+        this.zipCode = locationCode;
     }
 
     public Instant getRecordedAt() {
@@ -71,8 +70,8 @@ public class Weather {
         return windSpeed;
     }
 
-    public Integer getLocationCode() {
-        return locationCode;
+    public Integer getZipCode() {
+        return zipCode;
     }
 
     @Override
@@ -80,12 +79,12 @@ public class Weather {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Weather weather = (Weather) o;
-        return Objects.equals(id, weather.id) && Objects.equals(temperature, weather.temperature) && Objects.equals(recordedAt, weather.recordedAt) && Objects.equals(humidity, weather.humidity) && Objects.equals(windSpeed, weather.windSpeed) && Objects.equals(locationCode, weather.locationCode);
+        return Objects.equals(id, weather.id) && Objects.equals(temperature, weather.temperature) && Objects.equals(recordedAt, weather.recordedAt) && Objects.equals(humidity, weather.humidity) && Objects.equals(windSpeed, weather.windSpeed) && Objects.equals(zipCode, weather.zipCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, temperature, recordedAt, humidity, windSpeed, locationCode);
+        return Objects.hash(id, temperature, recordedAt, humidity, windSpeed, zipCode);
     }
 
     @Override
@@ -96,7 +95,7 @@ public class Weather {
                 ", recordedAt=" + recordedAt +
                 ", humidity=" + humidity +
                 ", windSpeed=" + windSpeed +
-                ", locationCode=" + locationCode +
+                ", locationCode=" + zipCode +
                 '}';
     }
 }

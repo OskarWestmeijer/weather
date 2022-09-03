@@ -1,8 +1,11 @@
 # weather-api
-This app requests the OpenWeatherApi every minute for current weather data. It only fetches information for my home town Luebeck (Germany).
 
-The setup contains a postgres database, where the data is stored after each request. Everything is dockerized. I am using the free plan from OpenWeatherApi, only 60 possible requests per hour.
-                        
+This app requests the OpenWeatherApi every minute for current weather data. It only fetches information for my home town
+Luebeck (Germany).
+
+The setup contains a postgres database, where the data is stored after each request. Everything is dockerized. I am
+using the free plan from OpenWeatherApi, only 60 possible requests per hour.
+
 I display this data in a ReactJs UI. Furthermore the API is directly accessable.
 
 ### technologies used
@@ -23,11 +26,12 @@ I display this data in a ReactJs UI. Furthermore the API is directly accessable.
 ### c4-model
 
 #### system context diagram
+
 ![Alt c4-model system context diagram](frontend/public/images/c4_context.svg)
+
 #### container diagram
+
 ![Alt c4-model container diagram](frontend/public/images/c4_container.svg)
-
-
 
 ### build & test
 
@@ -66,3 +70,7 @@ pull https://github.com/OskarWestmeijer/weather-api
 docker-compose -f cprod.yml down
 docker-compose -f cprod.yml up -d
 ```
+
+#### .env file
+
+The application folder on the server contains a .env file. This contains api-keys and database credentials.
