@@ -41,13 +41,13 @@ public class Weather {
     private Weather() {
     }
 
-    public Weather(UUID id, Double temperature, Instant recordedAt, Integer humidity, Double windSpeed, Integer locationCode) {
+    public Weather(UUID id, Double temperature, Instant recordedAt, Integer humidity, Double windSpeed, Integer zipCode) {
         this.id = id;
         this.temperature = temperature;
         this.recordedAt = recordedAt;
         this.humidity = humidity;
         this.windSpeed = windSpeed;
-        this.zipCode = locationCode;
+        this.zipCode = zipCode;
     }
 
     public Instant getRecordedAt() {
@@ -95,7 +95,7 @@ public class Weather {
                 ", recordedAt=" + recordedAt +
                 ", humidity=" + humidity +
                 ", windSpeed=" + windSpeed +
-                ", locationCode=" + zipCode +
+                ", zipCode=" + zipCode +
                 '}';
     }
 }

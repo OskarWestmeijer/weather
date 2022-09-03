@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import westmeijer.oskar.weatherapi.entity.Location;
+import westmeijer.oskar.weatherapi.repository.database.LocationRepository;
 import westmeijer.oskar.weatherapi.service.WeatherApiService;
 import westmeijer.oskar.weatherapi.entity.Weather;
 import westmeijer.oskar.weatherapi.web.ControllerUtil;
@@ -16,6 +18,7 @@ import westmeijer.oskar.weatherapi.web.WeatherMapper;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @CrossOrigin
@@ -26,56 +29,40 @@ public class WeatherApiController {
 
     private final WeatherApiService weatherApiService;
 
-    private static final int ZIP_CODE_LUEBECK = 23552;
+    private final LocationRepository locationRepository;
 
-    public WeatherApiController(WeatherApiService weatherApiService) {
+    public WeatherApiController(WeatherApiService weatherApiService, LocationRepository locationRepository) {
         this.weatherApiService = weatherApiService;
+        this.locationRepository = locationRepository;
     }
 
     @GetMapping("/24h")
     public ResponseEntity<?> getLast24Hours(@PathVariable int zipCode) {
-
         logger.info("Received Weather request 24h for zip code: {}", zipCode);
+        Optional<Location> location = locationRepository.findById(zipCode);
+        List<Weather> weatherData = weatherApiService.getLast24h(zipCode);
+        WeatherDTO weatherDTO = WeatherMapper.map(location.get(), weatherData);
+        return ResponseEntity.ok(weatherDTO);
 
-        if (zipCode == ZIP_CODE_LUEBECK) {
-            List<Weather> weatherData = weatherApiService.getLast24h();
-            WeatherDTO weatherDTO = WeatherMapper.map(String.valueOf(zipCode), weatherData);
-            return ResponseEntity.ok(weatherDTO);
-        } else {
-            logger.info("Unknown zip code! Bad request.");
-            return ResponseEntity.badRequest().body("Unknown zip code!");
-        }
     }
 
     @GetMapping("/3d")
     public ResponseEntity<?> getLast3Days(@PathVariable int zipCode) {
-
         logger.info("Received Weather request 3d for zip code: {}", zipCode);
-
-        if (zipCode == ZIP_CODE_LUEBECK) {
-            List<Weather> weatherData = weatherApiService.getLast3Days();
-            WeatherDTO weatherDTO = WeatherMapper.map(String.valueOf(zipCode), weatherData);
-            return ResponseEntity.ok(weatherDTO);
-        } else {
-            logger.info("Unknown zip code! Bad request.");
-            return ResponseEntity.badRequest().body("Unknown zip code!");
-        }
+        Optional<Location> location = locationRepository.findById(zipCode);
+        List<Weather> weatherData = weatherApiService.getLast3Days(zipCode);
+        WeatherDTO weatherDTO = WeatherMapper.map(location.get(), weatherData);
+        return ResponseEntity.ok(weatherDTO);
     }
 
     @GetMapping("/{date}")
     public ResponseEntity<?> getSpecificDate(@PathVariable int zipCode, @PathVariable String date) {
         Instant instant = ControllerUtil.parse(date);
-
         logger.info("Received Weather request SPECIFIC date for zip code: {}, instant: {}", zipCode, instant);
-
-        if (zipCode == ZIP_CODE_LUEBECK) {
-            List<Weather> weatherData = weatherApiService.getSpecificDate(instant);
-            WeatherDTO weatherDTO = WeatherMapper.map(String.valueOf(zipCode), weatherData);
-            return ResponseEntity.ok(weatherDTO);
-        } else {
-            logger.info("Unknown zip code! Bad request.");
-            return ResponseEntity.badRequest().body("Unknown zip code!");
-        }
+        Optional<Location> location = locationRepository.findById(zipCode);
+        List<Weather> weatherData = weatherApiService.getSpecificDate(zipCode, instant);
+        WeatherDTO weatherDTO = WeatherMapper.map(location.get(), weatherData);
+        return ResponseEntity.ok(weatherDTO);
     }
 
 

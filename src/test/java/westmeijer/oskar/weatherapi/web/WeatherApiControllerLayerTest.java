@@ -1,17 +1,21 @@
 package westmeijer.oskar.weatherapi.web;
 
+import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import westmeijer.oskar.weatherapi.entity.Location;
+import westmeijer.oskar.weatherapi.repository.database.LocationRepository;
 import westmeijer.oskar.weatherapi.service.WeatherApiService;
 import westmeijer.oskar.weatherapi.entity.Weather;
 import westmeijer.oskar.weatherapi.web.controller.WeatherApiController;
 
 import java.time.*;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.Mockito.when;
@@ -25,6 +29,9 @@ public class WeatherApiControllerLayerTest {
     @MockBean
     private WeatherApiService weatherApiService;
 
+    @MockBean
+    private LocationRepository locationRepository;
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -32,7 +39,9 @@ public class WeatherApiControllerLayerTest {
     public void requestWeatherKnownZipCode() throws Exception {
 
         List<Weather> weatherData = List.of(new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, Instant.now(), 88,11.66,23552));
-        when(weatherApiService.getLast24h()).thenReturn(weatherData);
+        Optional<Location> location = Optional.of(new Location(23552,2875601, "Lübeck", "Germany"));
+        when(weatherApiService.getLast24h(23552)).thenReturn(weatherData);
+        when(locationRepository.findById(23552)).thenReturn(location);
 
         mockMvc.perform(get("/api/v1/weather/23552/24h"))
                 .andExpect(status().isOk())
@@ -50,8 +59,8 @@ public class WeatherApiControllerLayerTest {
     @Test
     public void requestWeatherUnknownZipCode() throws Exception {
         mockMvc.perform(get("/api/v1/weather/46286/24h"))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().string("Unknown zip code!"));
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("Location or Weather not found!"));
     }
 
 

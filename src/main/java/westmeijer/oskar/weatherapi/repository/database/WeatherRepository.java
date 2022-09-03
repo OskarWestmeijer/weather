@@ -11,13 +11,13 @@ import java.util.UUID;
 
 public interface WeatherRepository extends JpaRepository<Weather, UUID> {
 
-    @Query(value = "SELECT * FROM weather WHERE timestamp BETWEEN NOW() - INTERVAL '24 HOURS' AND NOW() ORDER BY timestamp DESC", nativeQuery = true)
-    List<Weather> getLatestEntries();
+    @Query(value = "SELECT * FROM weather WHERE timestamp BETWEEN NOW() - INTERVAL '24 HOURS' AND NOW() AND zip_code = :zip_code ORDER BY timestamp DESC", nativeQuery = true)
+    List<Weather> getLatestEntries(@Param("zip_code") int zipCode);
 
-    @Query(value = "SELECT * FROM weather WHERE timestamp BETWEEN NOW() - INTERVAL '3 DAYS' AND NOW() ORDER BY timestamp DESC", nativeQuery = true)
-    List<Weather> getLastThreeDays();
+    @Query(value = "SELECT * FROM weather WHERE timestamp BETWEEN NOW() - INTERVAL '3 DAYS' AND NOW() AND zip_code = :zip_code ORDER BY timestamp DESC", nativeQuery = true)
+    List<Weather> getLastThreeDays(@Param("zip_code") int zipCode);
 
-    @Query(value = "SELECT * FROM weather WHERE timestamp >= :start_date AND timestamp <= :end_date ORDER BY timestamp DESC", nativeQuery = true)
-    List<Weather> getSpecificDay(@Param("start_date") Instant start, @Param("end_date") Instant end);
+    @Query(value = "SELECT * FROM weather WHERE timestamp >= :start_date AND timestamp <= :end_date AND zip_code = :zip_code ORDER BY timestamp DESC", nativeQuery = true)
+    List<Weather> getSpecificDay(@Param("zip_code") int zipCode, @Param("start_date") Instant start, @Param("end_date") Instant end);
 
 }

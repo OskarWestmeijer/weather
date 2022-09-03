@@ -23,28 +23,28 @@ public class WeatherApiService {
     }
 
 
-    public List<Weather> getLast24h() {
-        List<Weather> weatherData = weatherRepository.getLatestEntries();
+    public List<Weather> getLast24h(int zipCode) {
+        List<Weather> weatherData = weatherRepository.getLatestEntries(zipCode);
 
         return weatherData.stream()
                 .sorted(Comparator.comparing(Weather::getRecordedAt).reversed())
                 .toList();
     }
 
-    public List<Weather> getLast3Days() {
-        List<Weather> weatherData = weatherRepository.getLastThreeDays();
+    public List<Weather> getLast3Days(int zipCode) {
+        List<Weather> weatherData = weatherRepository.getLastThreeDays(zipCode);
 
         return weatherData.stream()
                 .sorted(Comparator.comparing(Weather::getRecordedAt).reversed())
                 .toList();
     }
 
-    public List<Weather> getSpecificDate(Instant start) {
+    public List<Weather> getSpecificDate(int zipCode, Instant start) {
         Instant end = start.plus(1L, ChronoUnit.DAYS);
         logger.debug("start instant: {}", start);
         logger.debug("end instant: {}", end);
 
-        List<Weather> weatherData = weatherRepository.getSpecificDay(start, end);
+        List<Weather> weatherData = weatherRepository.getSpecificDay(zipCode, start, end);
 
         return weatherData.stream()
                 .sorted(Comparator.comparing(Weather::getRecordedAt).reversed())

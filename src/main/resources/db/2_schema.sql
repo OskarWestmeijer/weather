@@ -14,5 +14,5 @@ CREATE TABLE weather
     timestamp   timestamptz NOT NULL,
     wind_speed decimal NOT NULL,
     humidity bigint NOT NULL,
-    zip_code bigint
+    zip_code bigint NOT NULL REFERENCES location (zip_code)
 );
