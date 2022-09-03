@@ -32,7 +32,8 @@ public class OpenWeatherApiClient {
             logger.debug(String.valueOf(responseJson));
             return OpenWeatherApiMapper.map(responseJson, location.getZipCode());
         } catch (Exception e) {
-            throw new OpenWeatherApiException();
+            logger.info("Exception during OpenWeatherApi request.", e);
+            throw new OpenWeatherApiException("Exception during OpenWeatherApi request.", e);
         }
     }
 
