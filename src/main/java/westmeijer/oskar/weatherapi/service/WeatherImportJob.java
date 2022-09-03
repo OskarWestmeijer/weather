@@ -38,7 +38,7 @@ public class WeatherImportJob {
     /**
      * Retrieve and save new weather data from OpenApi.
      */
-    @Scheduled(fixedDelay = 300000)
+    @Scheduled(fixedDelay = 60000)
     public void refreshWeather() throws InterruptedException {
         Location location = null;
         try {
