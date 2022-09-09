@@ -10,11 +10,11 @@ export default function Documentation() {
                         <h5 className="display-6 text-center">Documentation <a href="https://github.com/OskarWestmeijer/weather-api"><img className="bi" width="24" height="24" src="images/github.svg" alt="Github logo" /></a></h5>
                         <h5>Description</h5>
                         <p>
-                            This app requests the OpenWeatherApi every minute for current weather data. It only fetches information for my home town Luebeck (Germany).
+                            This app requests the OpenWeatherApi every minute for current weather data. It fetches information for several cities.
                         </p>
                         <p>
-                            The app is written in Java (Spring Boot). The setup contains a Postgres database, where the data is stored after each request.
-                            Everything is dockerized. I display this data in a ReactJs UI with nice charts. Furthermore the API is directly accessable.
+                            The setup contains a postgres database, where the data is stored after each request. Everything is dockerized.
+                            The weather data is displayed in a ReactJs UI. Furthermore the API is directly accessable via REST.
                         </p>
                     </div>
                     <div className="col-lg col-md-12" />
