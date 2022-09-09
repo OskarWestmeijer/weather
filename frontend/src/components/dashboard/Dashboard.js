@@ -1,12 +1,12 @@
 import { React, useState, useEffect } from "react";
-import apiClient from "../http-common";
+import apiClient from "../../http-common";
 import WeatherChart from "./WeatherChart";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 
-export default function Weather(props) {
+export default function Dashboard(props) {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 

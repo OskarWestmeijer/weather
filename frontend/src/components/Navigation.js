@@ -21,7 +21,7 @@ export default function Navigation() {
                 <div className="collapse navbar-collapse" id="navmenu">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <NavLink className="nav-link" aria-current="page" to="/">Weather</NavLink>
+                            <NavLink className="nav-link" aria-current="page" to="/">Dashboard</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" aria-current="page" to="/export">Export</NavLink>
