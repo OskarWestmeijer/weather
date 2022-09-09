@@ -6,8 +6,7 @@ VALUES
 (20095, 2911298, 'Hamburg', 'Germany'),
 (46286, 2935530, 'Dorsten', 'Germany'),
 (00100, 658225, 'Helsinki', 'Finland'),
-(36100, 654440, 'Kangasala', 'Finland')
-ON CONFLICT DO NOTHING;
+(36100, 654440, 'Kangasala', 'Finland');
 
 INSERT INTO weather (id, temperature, humidity, wind_speed, timestamp, zip_code)
 VALUES

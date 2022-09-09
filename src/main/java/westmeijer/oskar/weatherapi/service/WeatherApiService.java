@@ -39,6 +39,13 @@ public class WeatherApiService {
                 .toList();
     }
 
+    /**
+     * Retrieve weather for the provided date.
+     *
+     * @param zipCode
+     * @param start instant at start of day for zoneId
+     * @return
+     */
     public List<Weather> getSpecificDate(int zipCode, Instant start) {
         Instant end = start.plus(1L, ChronoUnit.DAYS);
         logger.debug("start instant: {}", start);

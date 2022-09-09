@@ -37,7 +37,7 @@ public class WeatherExportService {
                 csvPrinter.printRecord(weather.getTemperature(), weather.getHumidity(), weather.getWindSpeed(), weather.getRecordedAt());
             }
         } catch (IOException e) {
-            logger.error("Error while writing CSV ", e);
+            logger.error("Error while writing CSV.", e);
         }
     }
 
