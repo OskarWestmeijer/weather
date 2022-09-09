@@ -9,6 +9,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.env.Environment;
 
 import java.util.Arrays;
+import java.util.TimeZone;
 
 @SpringBootApplication
 public class WeatherApiApplication {
@@ -16,6 +17,7 @@ public class WeatherApiApplication {
     private static final Logger logger = LoggerFactory.getLogger(WeatherApiApplication.class);
 
     public static void main(String[] args) {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         SpringApplication.run(WeatherApiApplication.class, args);
     }
 

@@ -37,31 +37,38 @@ public class WeatherApiController {
     }
 
     @GetMapping("/24h")
-    public ResponseEntity<?> getLast24Hours(@PathVariable int zipCode) {
+    public ResponseEntity<WeatherDTO> getLast24Hours(@PathVariable int zipCode) {
         logger.info("Received Weather request 24h for zip code: {}", zipCode);
-        Optional<Location> location = locationRepository.findById(zipCode);
+        Location location = locationRepository.findById(zipCode).orElseThrow();
         List<Weather> weatherData = weatherApiService.getLast24h(zipCode);
-        WeatherDTO weatherDTO = WeatherMapper.map(location.get(), weatherData);
+        WeatherDTO weatherDTO = WeatherMapper.map(location, weatherData);
         return ResponseEntity.ok(weatherDTO);
 
     }
 
     @GetMapping("/3d")
-    public ResponseEntity<?> getLast3Days(@PathVariable int zipCode) {
+    public ResponseEntity<WeatherDTO> getLast3Days(@PathVariable int zipCode) {
         logger.info("Received Weather request 3d for zip code: {}", zipCode);
-        Optional<Location> location = locationRepository.findById(zipCode);
+        Location location = locationRepository.findById(zipCode).orElseThrow();
         List<Weather> weatherData = weatherApiService.getLast3Days(zipCode);
-        WeatherDTO weatherDTO = WeatherMapper.map(location.get(), weatherData);
+        WeatherDTO weatherDTO = WeatherMapper.map(location, weatherData);
         return ResponseEntity.ok(weatherDTO);
     }
 
+    /**
+     * Get weather for a certain date.
+     *
+     * @param zipCode
+     * @param date    format: dd-MM-YYYY
+     * @return
+     */
     @GetMapping("/{date}")
-    public ResponseEntity<?> getSpecificDate(@PathVariable int zipCode, @PathVariable String date) {
-        Instant instant = ControllerUtil.parse(date);
-        logger.info("Received Weather request SPECIFIC date for zip code: {}, instant: {}", zipCode, instant);
-        Optional<Location> location = locationRepository.findById(zipCode);
+    public ResponseEntity<WeatherDTO> getSpecificDate(@PathVariable int zipCode, @PathVariable String date) {
+        logger.info("Received Weather request SPECIFIC date for zip code: {}, date: {}", zipCode, date);
+        Location location = locationRepository.findById(zipCode).orElseThrow();
+        Instant instant = ControllerUtil.atStartOfDay(date, location);
         List<Weather> weatherData = weatherApiService.getSpecificDate(zipCode, instant);
-        WeatherDTO weatherDTO = WeatherMapper.map(location.get(), weatherData);
+        WeatherDTO weatherDTO = WeatherMapper.map(location, weatherData);
         return ResponseEntity.ok(weatherDTO);
     }
 

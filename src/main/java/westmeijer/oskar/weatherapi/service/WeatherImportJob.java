@@ -46,7 +46,7 @@ public class WeatherImportJob {
             location = locationQueue.take();
             logger.info("Request for location: {}", location);
             Weather weather = openWeatherApiClient.requestWeather(location);
-            logger.info("Location: {}, Weather: {}", location, weather);
+            logger.info("Response with Weather: {}", weather);
             weatherRepository.save(weather);
         } catch (InterruptedException | NoSuchElementException ex1) {
             logger.error("Location queue exception!", ex1);

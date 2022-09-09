@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import westmeijer.oskar.weatherapi.entity.Weather;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 public class OpenWeatherApiMapper {
@@ -22,7 +23,7 @@ public class OpenWeatherApiMapper {
         Integer humidity = responseJson.path("main").path("humidity").asInt();
         Double windSpeed = responseJson.path("wind").path("speed").asDouble();
 
-        return new Weather(UUID.randomUUID(), temperature, Instant.now(), humidity, windSpeed, zipCode);
+        return new Weather(UUID.randomUUID(), temperature, Instant.now().truncatedTo(ChronoUnit.SECONDS), humidity, windSpeed, zipCode);
     }
 
 
