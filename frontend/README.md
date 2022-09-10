@@ -5,6 +5,6 @@
 ```
 npm run build
 
-docker build -t oskarwestmeijer/weather-ui:1.7.6 .
-docker push oskarwestmeijer/weather-ui:1.7.6
+docker build -t oskarwestmeijer/weather-ui:1.7.7 .
+docker push oskarwestmeijer/weather-ui:1.7.7
 ```
