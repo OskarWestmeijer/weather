@@ -50,6 +50,13 @@ export default function WeatherChart(props) {
                 data={temperatureData}
                 options={{
                     animation: false,
+                    elements: {
+                        point: {
+                            radius: 1,
+                            hitRadius: 15,
+                            hoverRadius: 15
+                        }
+                    },
                     plugins: {
                         title: {
                             display: true,
@@ -59,6 +66,11 @@ export default function WeatherChart(props) {
                             display: false,
                             position: "top"
                         }
+                    },
+                    scales: {
+                        y: {
+                            suggestedMin: 0,
+                        }
                     }
                 }} />
 
@@ -67,6 +79,13 @@ export default function WeatherChart(props) {
                 data={humidityData}
                 options={{
                     animation: false,
+                    elements: {
+                        point: {
+                            radius: 1,
+                            hitRadius: 15,
+                            hoverRadius: 15
+                        }
+                    },
                     plugins: {
                         title: {
                             display: true,
@@ -76,6 +95,12 @@ export default function WeatherChart(props) {
                             display: false,
                             position: "top"
                         }
+                    },
+                    scales: {
+                        y: {
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                        }
                     }
                 }} />
 
@@ -84,6 +109,13 @@ export default function WeatherChart(props) {
                 data={windSpeedData}
                 options={{
                     animation: false,
+                    elements: {
+                        point: {
+                            radius: 1,
+                            hitRadius: 15,
+                            hoverRadius: 15
+                        }
+                    },
                     plugins: {
                         title: {
                             display: true,
@@ -92,6 +124,11 @@ export default function WeatherChart(props) {
                         legend: {
                             display: false,
                             position: "top"
+                        }
+                    },
+                    scales: {
+                        y: {
+                            suggestedMin: 0,
                         }
                     }
                 }} />

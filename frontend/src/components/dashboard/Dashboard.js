@@ -10,7 +10,8 @@ export default function Dashboard(props) {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    const [location, setLocation] = useState('23552');
+    const [locations, setLocations] = useState(null);
+    const [selectedLocation, setSelectedLocation] = useState('');
     const [timerange, setTimerange] = useState('3d');
     const [specificDate, setSpecificDate] = useState(new Date())
 
@@ -41,24 +42,32 @@ export default function Dashboard(props) {
     }
 
     function handleLocationChange(event) {
-        setLocation(event.target.value);
+        setSelectedLocation(event.target.value);
     }
 
     function handleTimerangeChange(event) {
         setTimerange(event.target.value)
     }
 
-    function callWeatherApi() {
-        console.log('In callWeatherApi states:', location, timerange, specificDate)
+    function requestLocations() {
+        let apiPath = 'locations'
 
+        apiClient.get(apiPath)
+            .then(response => {
+                setLocations(response.data);
+                setSelectedLocation(response.data[0].zipCode)
+            }).catch(error => {
+                setError(error);
+                console.error('There was an error requesting the API!', error);
+            })
+    }
+
+    function requestWeather() {
         let pickedDate = specificDate.toISOString().slice(0, 10); // yyyy-MM-dd
-        console.log(pickedDate)
-        let time = timerange === 'specific' ? pickedDate : timerange
+        let timeMode = timerange === 'specific' ? pickedDate : timerange
+        let apiPath = 'weather/' + selectedLocation + '/' + timeMode
 
-        let pathUrl = 'weather/' + location + '/' + time
-        console.log('pathUrl: ', pathUrl)
-
-        apiClient.get(pathUrl)
+        apiClient.get(apiPath)
             .then(response => {
                 response.data.weatherData.reverse();
                 setResult(response.data);
@@ -75,8 +84,12 @@ export default function Dashboard(props) {
     }
 
     useEffect(() => {
-        callWeatherApi()
-    }, [location, timerange, specificDate]);
+        if (locations === null) {
+            requestLocations()
+        } else if (selectedLocation != '') {
+            requestWeather()
+        }
+    }, [timerange, selectedLocation, specificDate]);
 
     if (error) {
         return <h5 className="text-center pt-5 mt-4">Error: {error.message}</h5>;
@@ -93,8 +106,10 @@ export default function Dashboard(props) {
                             <div className="form-group row">
                                 <label className="col-lg-2 col-md-12 col-form-label">Location</label>
                                 <div className="col-lg-5 col-md-12">
-                                    <select value={location} onChange={handleLocationChange} className="form-select" aria-label="Location">
-                                        <option value="23552">23552 - Luebeck, Germany</option>
+                                    <select value={selectedLocation} onChange={handleLocationChange} className="form-select" aria-label="Location">
+                                        {locations.map((option) => (
+                                            <option key={option.zipCode} value={option.zipCode}>{option.cityName}, {option.country}</option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>

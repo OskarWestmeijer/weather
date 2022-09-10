@@ -20,7 +20,7 @@ services:
       - OPENWEATHERAPI_APPID=${OPENWEATHERAPI_APPID}
       - "SPRING_PROFILES_ACTIVE=prod"
   weather-ui:
-    image: oskarwestmeijer/weather-ui:1.7.6
+    image: oskarwestmeijer/weather-ui:1.7.7
     container_name: weather-ui
     deploy:
       resources:
