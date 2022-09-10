@@ -59,6 +59,11 @@ export default function WeatherChart(props) {
                             display: false,
                             position: "top"
                         }
+                    },
+                    scales: {
+                        y: {
+                          suggestedMin: 0,
+                        }
                     }
                 }} />
 
@@ -76,6 +81,12 @@ export default function WeatherChart(props) {
                             display: false,
                             position: "top"
                         }
+                    },
+                    scales: {
+                        y: {
+                          suggestedMin: 0,
+                          suggestedMax: 100,
+                        }
                     }
                 }} />
 
@@ -92,6 +103,11 @@ export default function WeatherChart(props) {
                         legend: {
                             display: false,
                             position: "top"
+                        }
+                    },
+                    scales: {
+                        y: {
+                          suggestedMin: 0,
                         }
                     }
                 }} />
