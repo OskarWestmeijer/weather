@@ -60,7 +60,7 @@ public class WeatherApiControllerLayerTest {
     public void requestWeatherUnknownZipCode() throws Exception {
         mockMvc.perform(get("/api/v1/weather/46286/24h"))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string("Location or Weather not found!"));
+                .andExpect(content().string("Requested zip_code not found. Please verify it is supported. zip_code: 46286"));
     }
 
 
