@@ -25,13 +25,19 @@ public class OpenWeatherApiClient {
         this.appId = appId;
     }
 
+    /**
+     * Requests current weather from OpenWeatherApi.
+     *
+     * @param location
+     * @return
+     */
     public Weather requestWeather(Location location) {
         try {
             String urlPath = buildUrlPath(location);
-            logger.info("Built urlPath: {}", urlPath);
-            ObjectNode responseJson = webClient.get().uri(urlPath).retrieve().bodyToMono(ObjectNode.class).block();
-            logger.debug(String.valueOf(responseJson));
-            return OpenWeatherApiMapper.map(responseJson, location.getZipCode());
+            logger.debug("Built urlPath: {}", urlPath);
+            OpenWeatherApiResponse response = webClient.get().uri(urlPath).retrieve().bodyToMono(OpenWeatherApiResponse.class).block();
+            logger.debug("OpenWeatherApiResponse: {}", response);
+            return OpenWeatherApiMapper.map(response, location.getZipCode());
         } catch (Exception e) {
             throw new OpenWeatherApiException("Exception during OpenWeatherApi request.", e);
         }

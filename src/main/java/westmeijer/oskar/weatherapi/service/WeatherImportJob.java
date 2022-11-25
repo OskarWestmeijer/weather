@@ -36,7 +36,9 @@ public class WeatherImportJob {
 
 
     /**
-     * Retrieve and save new weather data from OpenApi.
+     * Job to request OpenWeatherApi every minute. The queue holds the locations to be requested.
+     * On every run the latest location will be picked and in the end requeued to the end.
+     * This job should never fail on exceptions.
      */
     @Scheduled(fixedDelay = 60000)
     public void refreshWeather() throws InterruptedException {
