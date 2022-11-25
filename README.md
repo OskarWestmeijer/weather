@@ -1,12 +1,19 @@
-# weather-api
+# Weather-Api
 
-This app requests the OpenWeatherApi every minute for current weather data. It fetches information for several cities.
+This application provides weather information for predefined locations. This repository contains the whole service
+setup, including frontend and database. Therefore, this is a self-contained microservice, based on 3 docker containers.
+The proxy routing to this service is handled by another private infrastructure repository.
 
-The setup contains a postgres database, where the data is stored after each request. Everything is dockerized.
+This service requests the public OpenWeatherApi once a minute for the current weather data. This data is stored in a
+PostgreSQL database. The Api can be reached via the internet in Http.
 
-The weather data is displayed in a ReactJs UI. Furthermore the API is directly accessable via REST.
+For better user experience the weather data is furthermore displayed in a ReactJs UI.
 
-### technologies used
+This Readme holds extensive information on the backend setup. Please note that there is also a Readme for the frontend.
+
+Link to deployment: [https://oskar-westmeijer.com/weather](https://oskar-westmeijer.com/weather)
+
+## Technologies used
 
 ```
 - Java
@@ -20,44 +27,43 @@ The weather data is displayed in a ReactJs UI. Furthermore the API is directly a
 - OpenWeatherApi (Api access)
 ```
 
-### c4-model
+## Local development
 
-#### system context diagram
+### Build & test
 
-![Alt c4-model system context diagram](frontend/public/images/c4_context.svg)
-
-#### container diagram
-
-![Alt c4-model container diagram](frontend/public/images/c4_container.svg)
-
-### build & test
-
-This projects uses testcontainers with pre initialized data.
+This projects uses testcontainers. It will automatically inject the sql templates from the resources folder during
+startup.
 
 ```
 ./mvnw clean verify
 ```
 
-### how-to run on local machine
+### Run application
 
-Docker compose initializes the database on startup.
+Docker-compose initializes the dependencies on startup. There will be no connections to actual production systems.
+Wiremock mocks the OpenWeatherApi requests. Use the correct docker-compose template!
 
 ```
 docker-compose -f cdev.yml up -d
 ./mvnw spring-boot:run
 ```
 
-### release image
+## Deployment
 
-Build a new target folder. Publish image to Dockerhub. Remember to increase the tag version in the compose-prod.yml
+### Release image
+
+Build a new target folder. Publish the image to Dockerhub. In order to deploy, remember to increase the tag version in
+the cprod.yml
 
 ```
 ./mvnw clean package
-docker build -t oskarwestmeijer/weather-api:1.4.3 .
-docker push oskarwestmeijer/weather-api:1.4.3
+docker build -t oskarwestmeijer/weather-api:{new_version} .
+docker push oskarwestmeijer/weather-api:{new_version}
 ```
 
-### deployment
+### Deploy new image
+
+Follow these steps. Information on how to access the production server is on private Notion pages.
 
 ```
 ssh on Server
@@ -68,6 +74,28 @@ docker-compose -f cprod.yml down
 docker-compose -f cprod.yml up -d
 ```
 
-#### .env file
+## Credentials storage
 
-The application folder on the server contains a .env file. This contains api-keys and database credentials.
+The application needs credentials to access the database and OpenWeatherApi. These properties are referenced in the
+application.yml.
+
+For tests and local development the app uses the 'dev' profile. This will use simple placeholders. No further action
+required.
+
+In production the app uses the 'prod' profile. This requires the actual values. The values are stored in an .env file,
+which is located in the root of the project folder.
+
+During startup the service will reference these through the docker-compose production template. If
+changes are required, these need to be added manually to the .env file.
+
+## c4-model
+
+The weather-api frontend hosts a documentation section. Please navigate there for more insights.
+
+### System context diagram
+
+![Alt c4-model system context diagram](frontend/public/images/c4_context.svg)
+
+### Container diagram
+
+![Alt c4-model container diagram](frontend/public/images/c4_container.svg)
