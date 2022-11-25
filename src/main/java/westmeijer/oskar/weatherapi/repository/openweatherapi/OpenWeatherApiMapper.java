@@ -12,16 +12,12 @@ public class OpenWeatherApiMapper {
 
     /**
      * Maps OpenWeatherApi Response to Entity object.
-     *
-     * @param responseJson to be mapped
-     * @return response
      */
-    public static Weather map(ObjectNode responseJson, int zipCode) {
-        Preconditions.checkNotNull(responseJson);
-
-        Double temperature = responseJson.path("main").path("temp").asDouble();
-        Integer humidity = responseJson.path("main").path("humidity").asInt();
-        Double windSpeed = responseJson.path("wind").path("speed").asDouble();
+    public static Weather map(OpenWeatherApiResponse response, int zipCode) {
+        Preconditions.checkNotNull(response);
+        double temperature = response.getTemperature();
+        int humidity = response.getHumidity();
+        double windSpeed = response.getWindSpeed();
 
         return new Weather(UUID.randomUUID(), temperature, Instant.now().truncatedTo(ChronoUnit.SECONDS), humidity, windSpeed, zipCode);
     }
