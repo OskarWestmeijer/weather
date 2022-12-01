@@ -25,9 +25,9 @@ public class OpenWeatherApiResponseTest {
 
         OpenWeatherApiResponse response = tester.read(jsonResponse).getObject();
 
-        Assertions.assertEquals(99.53d, response.getTemperature());
-        Assertions.assertEquals(2.57d, response.getWindSpeed());
-        Assertions.assertEquals(85, response.getHumidity());
+        Assertions.assertEquals(99.53d, response.getMain().getTemperature());
+        Assertions.assertEquals(2.57d, response.getWind().getWindSpeed());
+        Assertions.assertEquals(85, response.getMain().getHumidity());
     }
 
 }

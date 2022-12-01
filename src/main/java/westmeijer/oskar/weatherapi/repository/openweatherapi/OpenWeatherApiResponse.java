@@ -3,61 +3,54 @@ package westmeijer.oskar.weatherapi.repository.openweatherapi;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Preconditions;
+import lombok.Data;
 
-import java.util.Map;
-import java.util.Objects;
 
+/**
+ * Has the same structure as the actual json body.
+ */
+@Data
 public class OpenWeatherApiResponse {
 
 
-    private final double temperature;
+    private final Main main;
+    private final Wind wind;
 
-    private final double windSpeed;
-
-    private final int humidity;
 
     @JsonCreator
-    public OpenWeatherApiResponse(@JsonProperty("main") Map<String, Object> main,
-                                  @JsonProperty("wind") Map<String, Object> wind) {
+    public OpenWeatherApiResponse(@JsonProperty("main") Main main,
+                                  @JsonProperty("wind") Wind wind) {
         Preconditions.checkNotNull(main);
         Preconditions.checkNotNull(wind);
 
-        this.temperature = (double) main.get("temp");
-        this.humidity = (int) main.get("humidity");
-        this.windSpeed = (double) wind.get("speed");
+        this.main = main;
+        this.wind = wind;
     }
 
-    public double getTemperature() {
-        return temperature;
+    @Data
+    static class Main {
+
+        private final double temperature;
+        private final int humidity;
+
+        @JsonCreator
+        public Main(@JsonProperty("temp") double temperature,
+                    @JsonProperty("humidity") int humidity) {
+            this.temperature = temperature;
+            this.humidity = humidity;
+        }
     }
 
-    public double getWindSpeed() {
-        return windSpeed;
+    @Data
+    static class Wind {
+
+        private final double windSpeed;
+
+        @JsonCreator
+        public Wind(@JsonProperty("speed") double windSpeed) {
+            this.windSpeed = windSpeed;
+        }
+
     }
 
-    public int getHumidity() {
-        return humidity;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        OpenWeatherApiResponse response = (OpenWeatherApiResponse) o;
-        return Double.compare(response.temperature, temperature) == 0 && Double.compare(response.windSpeed, windSpeed) == 0 && humidity == response.humidity;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(temperature, windSpeed, humidity);
-    }
-
-    @Override
-    public String toString() {
-        return "OpenWeatherApiResponse{" +
-                "temperature=" + temperature +
-                ", windSpeed=" + windSpeed +
-                ", humidity=" + humidity +
-                '}';
-    }
 }
