@@ -15,9 +15,9 @@ public class OpenWeatherApiMapper {
      */
     public static Weather map(OpenWeatherApiResponse response, int zipCode) {
         Preconditions.checkNotNull(response);
-        double temperature = response.getTemperature();
-        int humidity = response.getHumidity();
-        double windSpeed = response.getWindSpeed();
+        double temperature = response.getMain().getTemperature();
+        int humidity = response.getMain().getHumidity();
+        double windSpeed = response.getWind().getWindSpeed();
 
         return new Weather(UUID.randomUUID(), temperature, Instant.now().truncatedTo(ChronoUnit.SECONDS), humidity, windSpeed, zipCode);
     }
