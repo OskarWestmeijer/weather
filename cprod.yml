@@ -2,7 +2,7 @@ version: '3.6'
 
 services:
   app:
-    image: oskarwestmeijer/weather-api:1.4.3
+    image: oskarwestmeijer/weather-api:latest
     container_name: app
     deploy:
       resources:
