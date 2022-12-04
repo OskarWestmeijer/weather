@@ -65,9 +65,8 @@ docker push oskarwestmeijer/weather-api:{new_version}
 Follow these steps. Information on how to access the production server is on private Notion pages.
 
 ```
-ssh on Server
-
-pull https://github.com/OskarWestmeijer/weather-api
+# ssh on Server
+# pull https://github.com/OskarWestmeijer/weather-api
 
 docker-compose -f cprod.yml down
 docker-compose -f cprod.yml up -d
