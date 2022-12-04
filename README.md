@@ -1,17 +1,17 @@
 # Weather-Api
 
-This application provides weather information for predefined locations. This repository contains the whole service
-setup, including frontend and database. Therefore, this is a self-contained microservice, based on 3 docker containers.
+This application provides weather information for predefined locations. This repository contains the frontend and
+backend service. In production the backend connects to the native PostgreSQL database.
 The proxy routing to this service is handled by another private infrastructure repository.
 
-This service requests the public OpenWeatherApi once a minute for the current weather data. This data is stored in a
-PostgreSQL database. The Api can be reached via the internet in Http.
+This service requests the public OpenWeatherApi once a minute for the current weather data. The response data is stored
+in the database. The frontend and backend Api can be reached via the internet in Https.
 
-For better user experience the weather data is furthermore displayed in a ReactJs UI.
+The weather data is display in user friendly charts in the ReactJs frontend.
 
-This Readme holds extensive information on the backend setup. Please note that there is also a Readme for the frontend.
+This Readme holds extensive information on the backend service. Please note that there is also a Readme for the frontend.
 
-Link to deployment: [https://oskar-westmeijer.com/weather](https://oskar-westmeijer.com/weather)
+Link to production UI. [https://oskar-westmeijer.com/weather](https://oskar-westmeijer.com/weather)
 
 ## Technologies used
 
@@ -22,8 +22,7 @@ Link to deployment: [https://oskar-westmeijer.com/weather](https://oskar-westmei
 - Hibernate
 - ReactJS
 - Docker and docker-compose
-- PostgreSQL
-- Testcontainers & Wiremock
+- Testcontainers, PostgreSQL & Wiremock
 - OpenWeatherApi (Api access)
 ```
 
