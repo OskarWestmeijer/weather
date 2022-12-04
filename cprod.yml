@@ -1,9 +1,9 @@
 version: '3.6'
 
 services:
-  app:
+  weather-api:
     image: oskarwestmeijer/weather-api:latest
-    container_name: app
+    container_name: weather-api
     deploy:
       resources:
         limits:
@@ -31,26 +31,7 @@ services:
     expose:
       - "80"
     restart: always
-  database:
-    image: postgres:14.1
-    container_name: database
-    deploy:
-      resources:
-        limits:
-          memory: 500M
-        reservations:
-          memory: 500M
-    expose:
-      - "5432"
-    restart: always
-    volumes:
-      - data:/var/lib/postgresql/data
 networks:
   default:
     name: server-infrastructure-proxy
-    external: true
-volumes:
-  data:
-    # database was initially part of the homepage repo
-    name: homepage-data
     external: true
