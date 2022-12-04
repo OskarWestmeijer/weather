@@ -33,5 +33,5 @@ services:
     restart: always
 networks:
   default:
-    name: server-infrastructure-proxy
+    name: proxy
     external: true
