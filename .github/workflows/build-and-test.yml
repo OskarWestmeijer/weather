@@ -20,16 +20,16 @@ jobs:
       - run: ./mvnw clean verify
   frontend-build-and-test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-        working-directory: frontend
         with:
           node-version: '16.16.0'
           cache: 'npm'
-      # cache-dependency-path: subdir/package-lock.json - monorepo structure
       - name: build-and-test
-        working-directory: frontend
         run: |
           npm install
           npm run build
