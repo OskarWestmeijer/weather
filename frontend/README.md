@@ -14,9 +14,4 @@ Weather-Ui tag to the new version. Please refer to the Backend Readme for the ac
 
 ### Release image
 
-```
-npm run build
-
-docker build -t oskarwestmeijer/weather-ui:{new_version} .
-docker push oskarwestmeijer/weather-ui:{new_version}
-```
+The image will be released by Github actions. The paths in the Dockerfile therefore are set to the project root.
