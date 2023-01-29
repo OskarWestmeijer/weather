@@ -30,6 +30,6 @@ jobs:
       # cache-dependency-path: subdir/package-lock.json - monorepo structure
       - name: build-and-test
         working-directory: frontend
-      - run: |
+        run: |
           npm install
           npm run build
