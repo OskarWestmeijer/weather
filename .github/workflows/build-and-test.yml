@@ -29,7 +29,6 @@ jobs:
         with:
           node-version: '16.16.0'
           cache: 'npm'
-      - name: build-and-test
-        run: |
-          npm install
-          npm run build
+          cache-dependency-path: frontend/package-lock.json`
+      - run: npm install
+      - run: npm run build
