@@ -72,9 +72,6 @@ jobs:
     needs: [ backend-build-and-test, frontend-build-and-test ]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
-    defaults:
-      run:
-        working-directory: frontend
     steps:
       - uses: actions/checkout@v3
       - run: ls -la
@@ -87,5 +84,6 @@ jobs:
       - name: build and push frontend image
         uses: docker/build-push-action@v3
         with:
+          file: frontend/Dockerfile
           push: true
           tags: oskarwestmeijer/weather-ui:latest
