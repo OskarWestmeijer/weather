@@ -7,7 +7,7 @@
 # To get a newer version, you will need to update the SHA.
 # You can also reference a tag or branch, but the action may change without warning.
 
-name: Build an release
+name: main-build-test-release
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
           cache: maven
       - run: ./mvnw clean verify
   release-docker-image:
-    needs: backend-build-and-test
+    needs: [ backend-build-and-test, frontend-build-and-test ]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
     steps:
@@ -43,3 +43,13 @@ jobs:
           context: .
           push: true
           tags: oskarwestmeijer/weather-api:latest
+  frontend-build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.16.0'
+      - run: cd frontend
+      - run: npm install
+      - run: npm run build
