@@ -45,13 +45,8 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - run: npm ci
       - run: CI=false npm run build
-      - uses: actions/upload-artifact@v3
-        with:
-          name: build-dir
-          path: build
-          retention-days: 1
 
-  release-docker-images:
+  release-backend-docker-image:
     needs: [ backend-build-and-test, frontend-build-and-test ]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
@@ -72,13 +67,23 @@ jobs:
           context: .
           push: true
           tags: oskarwestmeijer/weather-api:latest
-      - uses: actions/download-artifact@v3
+
+  release-frontend-docker-image:
+    needs: [ release-backend-docker-image ]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    environment: oskar-westmeijer-environment
+    steps:
+      - uses: actions/checkout@v3
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
         with:
-          name: build-dir
-          path: frontend/build
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
       - name: build and push frontend image
         uses: docker/build-push-action@v3
-        working-directory: frontend
         with:
           context: .
           push: true
