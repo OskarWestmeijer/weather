@@ -87,6 +87,5 @@ jobs:
       - name: build and push frontend image
         uses: docker/build-push-action@v3
         with:
-          context: .
           push: true
           tags: oskarwestmeijer/weather-ui:latest
