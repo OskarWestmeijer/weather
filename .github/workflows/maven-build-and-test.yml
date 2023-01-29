@@ -8,7 +8,7 @@ on:
       - '**'        # matches every branch
       - '!main'     # excludes main
 jobs:
-  build-and-test:
+  backend-build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
