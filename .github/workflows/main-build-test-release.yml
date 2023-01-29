@@ -69,7 +69,7 @@ jobs:
           tags: oskarwestmeijer/weather-api:latest
 
   release-frontend-docker-image:
-    #needs: [ backend-build-and-test, frontend-build-and-test ]
+    needs: [ backend-build-and-test, frontend-build-and-test ]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
     steps:

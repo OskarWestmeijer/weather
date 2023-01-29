@@ -1,5 +1,5 @@
 # build-stage environment
-#  ENV NODE_VERSION=18.13.0
+# Image has NODE_VERSION=18.13.0
 FROM node:lts-alpine3.16 as build-stage
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
