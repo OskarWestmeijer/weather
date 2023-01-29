@@ -69,14 +69,16 @@ jobs:
           tags: oskarwestmeijer/weather-api:latest
 
   release-frontend-docker-image:
-    needs: [ release-backend-docker-image ]
+    needs: [ backend-build-and-test, frontend-build-and-test ]
     runs-on: ubuntu-latest
+    environment: oskar-westmeijer-environment
     defaults:
       run:
         working-directory: frontend
-    environment: oskar-westmeijer-environment
     steps:
       - uses: actions/checkout@v3
+      - run: ls -la
+      - run: pwd
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
