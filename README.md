@@ -45,7 +45,8 @@ Wiremock mocks the OpenWeatherApi requests. Use the correct docker-compose templ
 
 ```
 docker-compose -f cdev.yml up -d
-./mvnw spring-boot:run
+./mvnw spring-boot:run 
+// starts spring boot in dev profile, see pom.xml
 ```
 
 ## Deployment

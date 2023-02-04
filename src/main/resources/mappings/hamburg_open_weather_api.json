@@ -1,7 +1,18 @@
 {
   "request": {
     "method": "GET",
-    "url": "/data/2.5/weather?id=2911298&units=metric&appid=1234random"
+    "urlPath": "/data/2.5/weather",
+    "queryParameters": {
+      "id": {
+        "equalTo": "2911298"
+      },
+      "units": {
+        "equalTo": "metric"
+      },
+      "appid": {
+        "equalTo": "1234random"
+      }
+    }
   },
   "response": {
     "status": 200,
@@ -20,7 +31,7 @@
       ],
       "base": "stations",
       "main": {
-        "temp": 99.53,
+        "temp": 15.00,
         "feels_like": 5.84,
         "temp_min": 6.41,
         "temp_max": 8.54,

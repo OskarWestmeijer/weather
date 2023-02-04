@@ -4,7 +4,7 @@
     "urlPath": "/data/2.5/weather",
     "queryParameters": {
       "id": {
-        "equalTo": "2875601"
+        "matches": "([0-9]*)"
       },
       "units": {
         "equalTo": "metric"
@@ -31,7 +31,7 @@
       ],
       "base": "stations",
       "main": {
-        "temp": 20.00,
+        "temp": -5.00,
         "feels_like": 5.84,
         "temp_min": 6.41,
         "temp_max": 8.54,
@@ -50,13 +50,13 @@
       "sys": {
         "type": 1,
         "id": 1293,
-        "country": "DE",
+        "country": "IN",
         "sunrise": 1639293994,
         "sunset": 1639320939
       },
       "timezone": 3600,
-      "id": 2875601,
-      "name": "Lübeck",
+      "id": 2911298,
+      "name": "Bangalore",
       "cod": 200
     },
     "headers": {

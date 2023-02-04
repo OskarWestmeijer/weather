@@ -14,6 +14,13 @@ public class Location {
     @Column(name = "zip_code")
     private Integer zipCode;
 
+    /**
+     * City id, which is maintained by OpenWeatherApi. Used to import weather from the exact location. Unique identifier.
+     * Example: locationId=2875601
+     *
+     * @deprecated OpenWeatherApi recommends using the new Geocoding API in order to request for [lat,lon] coordinates.
+     */
+    @Deprecated
     @Column(name = "location_code")
     private Integer locationCode;
 
@@ -40,6 +47,7 @@ public class Location {
         return zipCode;
     }
 
+    @Deprecated
     public Integer getLocationCode() {
         return locationCode;
     }
