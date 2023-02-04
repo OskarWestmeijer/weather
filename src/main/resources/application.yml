@@ -25,7 +25,11 @@ openweatherapi:
   baseUrl: "http://localhost:9000"
   appId: "1234random"
   urlPathTemplate: "/data/2.5/weather?id={location_code}&units=metric&appid={app_id}"
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 ---
 # obtained from secrets, referenced in docker-compose file
 spring:
@@ -38,3 +42,8 @@ openweatherapi:
   baseUrl: "http://api.openweathermap.org"
   appId:
   urlPathTemplate: "/data/2.5/weather?id={location_code}&units=metric&appid={app_id}"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
