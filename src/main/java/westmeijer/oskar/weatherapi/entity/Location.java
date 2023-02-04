@@ -10,6 +10,12 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Location {
 
+    /**
+     * The local zip code. Only numeric.
+     * Example: 00100
+     *
+     * @deprecated zip code is a poor international location matcher. Uniqueness is not guaranteed. Make use of Location.
+     */
     @Id
     @Column(name = "zip_code")
     private Integer zipCode;
@@ -24,9 +30,17 @@ public class Location {
     @Column(name = "location_code")
     private Integer locationCode;
 
+    /**
+     * Full name.
+     * Example: Helsinki
+     */
     @Column(name = "city_name")
     private String cityName;
 
+    /**
+     * Full name.
+     * Example: Finland
+     */
     @Column(name = "country")
     private String country;
 

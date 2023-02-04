@@ -50,13 +50,13 @@
       "sys": {
         "type": 1,
         "id": 1293,
-        "country": "IN",
+        "country": "US",
         "sunrise": 1639293994,
         "sunset": 1639320939
       },
       "timezone": 3600,
       "id": 2911298,
-      "name": "Bangalore",
+      "name": "New York City",
       "cod": 200
     },
     "headers": {

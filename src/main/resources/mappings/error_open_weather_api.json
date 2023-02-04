@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/data/2.5/weather",
+    "queryParameters": {
+      "id": {
+        "matches": "666666"
+      },
+      "units": {
+        "equalTo": "metric"
+      },
+      "appid": {
+        "equalTo": "1234random"
+      }
+    }
+  },
+  "response": {
+    "status": 400
+  }
+}

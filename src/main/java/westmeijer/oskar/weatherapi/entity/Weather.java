@@ -23,6 +23,9 @@ public class Weather {
 
     private Double temperature;
 
+    /**
+     * Timezone=UTC.
+     */
     @Column(name = "timestamp")
     private Instant recordedAt;
 
@@ -31,6 +34,12 @@ public class Weather {
     @Column(name = "wind_speed")
     private Double windSpeed;
 
+    /**
+     * The local zip code. Only numeric.
+     * Example: 00100
+     *
+     * @deprecated zip code is a poor international location matcher. Uniqueness is not guaranteed. Make use of Location.
+     */
     @Column(name = "zip_code")
     @JsonIgnore
     private Integer zipCode;
