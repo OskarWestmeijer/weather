@@ -28,7 +28,7 @@ public class IntegrationTestContainers {
                     "/docker-entrypoint-initdb.d/3_data.sql");
 
     @Container
-    public static final GenericContainer<?> OPEN_WEATHER_API = new GenericContainer<>(DockerImageName.parse("wiremock/wiremock:2.33.2"))
+    public static final GenericContainer<?> OPEN_WEATHER_API = new GenericContainer<>(DockerImageName.parse("wiremock/wiremock:2.35.0"))
             .withClasspathResourceMapping("mappings",
                     "/home/wiremock/mappings",
                     BindMode.READ_ONLY)
