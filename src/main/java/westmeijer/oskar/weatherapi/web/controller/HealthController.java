@@ -1,5 +1,6 @@
 package westmeijer.oskar.weatherapi.web.controller;
 
+import io.micrometer.core.instrument.MeterRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,15 @@ public class HealthController {
 
     private static final Logger logger = LoggerFactory.getLogger(HealthController.class);
 
+    private final MeterRegistry meterRegistry;
+
+    public HealthController(MeterRegistry meterRegistry) {
+        this.meterRegistry = meterRegistry;
+    }
+
     @GetMapping("/ping")
     public ResponseEntity<String> test() {
+        meterRegistry.counter("api", "health", "ping").increment();
         return ResponseEntity.ok("pong");
     }
 

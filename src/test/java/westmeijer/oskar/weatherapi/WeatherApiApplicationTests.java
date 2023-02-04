@@ -16,7 +16,7 @@ public class WeatherApiApplicationTests {
     @Mock
     private LocationRepository locationRepository;
 
-    @InjectMocks
+    @Mock
     private WeatherImportJob weatherImportJob;
 
     @Test

@@ -1,5 +1,7 @@
 package westmeijer.oskar.weatherapi.service;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,6 +23,9 @@ public class WeatherImportJob {
 
     private static final Logger logger = LoggerFactory.getLogger(WeatherImportJob.class);
 
+    private final Counter importError;
+    private final Counter importExecution;
+
     private final WeatherRepository weatherRepository;
     private final LocationRepository locationRepository;
 
@@ -28,7 +33,9 @@ public class WeatherImportJob {
 
     private final LinkedBlockingQueue<Location> locationQueue = new LinkedBlockingQueue<>();
 
-    public WeatherImportJob(WeatherRepository weatherRepository, LocationRepository locationRepository, OpenWeatherApiClient openWeatherApiClient) {
+    public WeatherImportJob(MeterRegistry meterRegistry, WeatherRepository weatherRepository, LocationRepository locationRepository, OpenWeatherApiClient openWeatherApiClient) {
+        this.importError = meterRegistry.counter("job", "import", "error");
+        this.importExecution = meterRegistry.counter("job", "import", "execution");
         this.weatherRepository = weatherRepository;
         this.locationRepository = locationRepository;
         this.openWeatherApiClient = openWeatherApiClient;
@@ -44,6 +51,7 @@ public class WeatherImportJob {
     public void refreshWeather() throws InterruptedException {
         Location location = null;
         try {
+            importExecution.increment();
             logger.info("Start weather import job.");
             location = locationQueue.take();
             logger.info("Request for location: {}", location);
@@ -52,8 +60,10 @@ public class WeatherImportJob {
             weatherRepository.save(weather);
         } catch (InterruptedException | NoSuchElementException ex1) {
             logger.error("Location queue exception!", ex1);
+            importError.increment();
         } catch (OpenWeatherApiException ex2) {
             logger.error("OpenWeatherApi weather import request failed!", ex2);
+            importError.increment();
         } finally {
             if (location != null) {
                 locationQueue.put(location);
