@@ -10,6 +10,6 @@ Person(user, "Weather-Api User", "Wants weather data")
 System(weatherApi, "Weather-Api", "Provides weather data")
 System_Ext(openWeatherApi, "OpenWeatherApi", "Provides CURRENT weather data")
 
-Rel(user, weatherApi, "View weather", "https")
-Rel(weatherApi, openWeatherApi, "Get CURRENT weather as scheduled job", "https")
+Rel(user, weatherApi, "View weather", "https GET")
+Rel(weatherApi, openWeatherApi, "Get CURRENT weather as scheduled job", "https GET")
 @enduml

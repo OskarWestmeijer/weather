@@ -1,4 +1,5 @@
 # Weather-Api
+
 ![Main release worklflow](https://github.com/OskarWestmeijer/weather-api/actions/workflows/main-release.yml/badge.svg)
 
 This application provides weather information for predefined locations. This repository contains the frontend and
@@ -8,31 +9,28 @@ The proxy routing to this service is handled by another private infrastructure r
 This service requests the public OpenWeatherApi once a minute for the current weather data. The response data is stored
 in the database. The frontend and backend Api can be reached via the internet in Https.
 
-The weather data is display in user friendly charts in the ReactJs frontend.
+The weather data is displayed on charts in the ReactJs frontend.
 
-This Readme holds extensive information on the backend service. Please note that there is also a Readme for the frontend.
+This Readme holds extensive information on the backend service. Please note that there is also
+a [frontend Readme](frontend/README.md).
 
 Link to production UI. [https://oskar-westmeijer.com/weather](https://oskar-westmeijer.com/weather)
 
 ## Technologies used
 
 ```
-- Java
-- Maven
-- Spring-Boot
-- Hibernate
-- ReactJS
-- Docker and docker-compose
-- Testcontainers, PostgreSQL & Wiremock
-- OpenWeatherApi (Api access)
+- Java, Maven & Spring-Boot
+- Hibernate, Lombok, Testcontainers & Wiremock
+- Prometheus & PostgreSQL
+- Nginx & ReactJS
+- Github Actions, Docker and Docker-Compose
 ```
 
 ## Local development
 
 ### Build & test
 
-This projects uses testcontainers. It will automatically inject the sql templates from the resources folder during
-startup.
+This projects uses testcontainers. It will automatically inject the required resources to the started containers.
 
 ```
 ./mvnw clean verify
@@ -53,14 +51,7 @@ docker-compose -f cdev.yml up -d
 
 ### Release image
 
-Build a new target folder. Publish the image to Dockerhub. In order to deploy, remember to increase the tag version in
-the cprod.yml
-
-```
-./mvnw clean package
-docker build -t oskarwestmeijer/weather-api:{new_version} .
-docker push oskarwestmeijer/weather-api:{new_version}
-```
+The image will be released by Github actions. Every push (merge) to main will trigger a build & release.
 
 ### Deploy new image
 
@@ -76,7 +67,7 @@ docker-compose -f cprod.yml up -d
 
 ## Credentials storage
 
-The application needs credentials to access the database and OpenWeatherApi. These properties are referenced in the
+The application needs credentials to access the Database and OpenWeatherApi. These properties are referenced in the
 application.yml.
 
 For tests and local development the app uses the 'dev' profile. This will use simple placeholders. No further action
@@ -90,7 +81,9 @@ changes are required, these need to be added manually to the .env file.
 
 ## c4-model
 
-The weather-api frontend hosts a documentation section. Please navigate there for more insights.
+A couple c4-model diagrams describe the architecture.
+Furthermore, the deployed Weather-Api frontend(https://oskar-westmeijer.com/weather/documentation) hosts a documentation
+section with more details.
 
 ### System context diagram
 

@@ -1,17 +1,22 @@
-# Weather-Ui
+# Weather-UI
 
-This ReactJS deployment depends on the Weather-Api backend service. It displays the weather data in graphs. Furthermore,
+This ReactJS deployment depends on the Weather-Api backend service. It displays the weather data in charts. Furthermore,
 it offers pages for CSV export and documentation.
 
 ## Local development
 
-I need to look up the command on how-to run the ReactJs frontend. It will connect to the production backend.
+The service is configured to connect to the production backend API.
+Note! This needs to be changed. It is only tolerable since only the HTTP GET method is used on calls to the backend.
+
+```
+// no further local dependencies
+npm run start
+```
 
 ## Deployment
 
-The deployment is managed in the root of the project. The required docker-compose.yml is located here. Update the
-Weather-Ui tag to the new version. Please refer to the Backend Readme for the actual deployment steps.
+Please refer to the Backend Readme for the actual deployment steps.
 
-### Release image
+## Image release
 
-The image will be released by Github actions. The paths in the Dockerfile therefore are set to the project root.
+The image will be released by Github actions. The path structure in the Dockerfile therefore is set to the project root.
