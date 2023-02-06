@@ -1,6 +1,6 @@
 # Weather-Api
 
-![Main release worklflow](https://github.com/OskarWestmeijer/weather-api/actions/workflows/main-release.yml/badge.svg)
+![Main release worklflow](https://github.com/OskarWestmeijer/weather-api/actions/workflows/main-build-test-release.yml/badge.svg)
 
 This application provides weather information for predefined locations. This repository contains the frontend and
 backend service. In production the backend connects to the native PostgreSQL database.
