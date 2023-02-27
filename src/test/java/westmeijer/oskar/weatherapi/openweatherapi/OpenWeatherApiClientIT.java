@@ -1,5 +1,6 @@
 package westmeijer.oskar.weatherapi.openweatherapi;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import westmeijer.oskar.weatherapi.IntegrationTestContainers;
 import westmeijer.oskar.weatherapi.entity.Location;
 import westmeijer.oskar.weatherapi.entity.Weather;
 
+@Slf4j
 @SpringBootTest
 public class OpenWeatherApiClientIT extends IntegrationTestContainers {
 
@@ -18,6 +20,7 @@ public class OpenWeatherApiClientIT extends IntegrationTestContainers {
     @Test
     public void requestApiForHelsinki() {
         Location helsinki = new Location(00100, 658225, "Helsinki", "Finland");
+        log.info("ZipCode id: {}", helsinki.getZipCode());
         Weather response = apiClient.requestWeather(helsinki);
 
         Assertions.assertEquals(10.00, response.getTemperature());
