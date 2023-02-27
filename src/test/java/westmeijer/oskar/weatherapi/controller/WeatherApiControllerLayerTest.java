@@ -1,6 +1,5 @@
-package westmeijer.oskar.weatherapi.web;
+package westmeijer.oskar.weatherapi.controller;
 
-import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -11,7 +10,7 @@ import westmeijer.oskar.weatherapi.entity.Location;
 import westmeijer.oskar.weatherapi.repository.database.LocationRepository;
 import westmeijer.oskar.weatherapi.service.WeatherApiService;
 import westmeijer.oskar.weatherapi.entity.Weather;
-import westmeijer.oskar.weatherapi.web.controller.WeatherApiController;
+import westmeijer.oskar.weatherapi.controller.WeatherApiController;
 
 import java.time.*;
 import java.util.List;

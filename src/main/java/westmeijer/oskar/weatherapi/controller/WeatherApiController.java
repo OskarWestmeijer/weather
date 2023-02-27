@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.web.controller;
+package westmeijer.oskar.weatherapi.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +13,8 @@ import westmeijer.oskar.weatherapi.repository.database.LocationNotSupportedExcep
 import westmeijer.oskar.weatherapi.repository.database.LocationRepository;
 import westmeijer.oskar.weatherapi.service.WeatherApiService;
 import westmeijer.oskar.weatherapi.entity.Weather;
-import westmeijer.oskar.weatherapi.web.ControllerUtil;
-import westmeijer.oskar.weatherapi.web.WeatherResponse;
-import westmeijer.oskar.weatherapi.web.WeatherMapper;
+import westmeijer.oskar.weatherapi.controller.model.WeatherResponse;
+import westmeijer.oskar.weatherapi.controller.model.WeatherMapper;
 
 import java.time.Instant;
 import java.util.Collections;

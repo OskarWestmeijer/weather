@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.web;
+package westmeijer.oskar.weatherapi.controller.model;
 
 import lombok.Value;
 import westmeijer.oskar.weatherapi.entity.Location;

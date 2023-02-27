@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.web.controller;
+package westmeijer.oskar.weatherapi.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import westmeijer.oskar.weatherapi.entity.Location;
 import westmeijer.oskar.weatherapi.repository.database.LocationRepository;
 import westmeijer.oskar.weatherapi.service.WeatherExportService;
-import westmeijer.oskar.weatherapi.web.ControllerUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

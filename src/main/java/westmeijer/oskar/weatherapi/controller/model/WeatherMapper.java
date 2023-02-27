@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.web;
+package westmeijer.oskar.weatherapi.controller.model;
 
 import com.google.common.base.Preconditions;
 import org.slf4j.Logger;

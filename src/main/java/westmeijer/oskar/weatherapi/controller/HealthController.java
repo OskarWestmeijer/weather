@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.web.controller;
+package westmeijer.oskar.weatherapi.controller;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.web.controller;
+package westmeijer.oskar.weatherapi.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
