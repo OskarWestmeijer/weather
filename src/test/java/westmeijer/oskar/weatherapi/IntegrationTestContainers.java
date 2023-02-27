@@ -17,7 +17,7 @@ import org.testcontainers.utility.MountableFile;
 public class IntegrationTestContainers {
 
     @Container
-    public static final GenericContainer DATABASE = new PostgreSQLContainer("postgres:14.1")
+    static final PostgreSQLContainer<?> DATABASE = new PostgreSQLContainer<>("postgres:14.1")
             .withUsername("username1")
             .withPassword("password1")
             .withCopyFileToContainer(MountableFile.forClasspathResource("db/1_database.sql", 0444),
@@ -28,15 +28,22 @@ public class IntegrationTestContainers {
                     "/docker-entrypoint-initdb.d/3_data.sql");
 
     @Container
-    public static final GenericContainer<?> OPEN_WEATHER_API = new GenericContainer<>(DockerImageName.parse("wiremock/wiremock:2.35.0"))
+    static final GenericContainer<?> OPEN_WEATHER_API = new GenericContainer<>(DockerImageName.parse("wiremock/wiremock:2.35.0"))
             .withClasspathResourceMapping("mappings",
                     "/home/wiremock/mappings",
                     BindMode.READ_ONLY)
             .withExposedPorts(8080)
-            .waitingFor(Wait.forHttp("/__admin/"));
+            // verify all resources are available
+            .waitingFor(Wait.forHttp("/__admin/").forStatusCode(200))
+            // luebeck mapping
+            .waitingFor(Wait.forHttp("/data/2.5/weather?id=2875601&units=metric&appid=1234random").forStatusCode(200))
+            // fallback mapping
+            .waitingFor(Wait.forHttp("/data/2.5/weather?id=123342&units=metric&appid=1234random").forStatusCode(200))
+            // error mapping
+            .waitingFor(Wait.forHttp("/data/2.5/weather?id=666666&units=metric&appid=1234random").forStatusCode(400));
 
     @DynamicPropertySource
-    static void jdbcProperties(DynamicPropertyRegistry registry) {
+    static void registerContainers(DynamicPropertyRegistry registry) {
         // testcontainers uses random ports on startup, we need to apply them to the spring boot application context
         StringBuilder postgresBuilder = new StringBuilder("jdbc:postgresql://")
                 .append(DATABASE.getHost())
