@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.repository.database;
+package westmeijer.oskar.weatherapi.repository;
 
 /**
  * Is thrown when weather is requested for a not supported ZipCode.

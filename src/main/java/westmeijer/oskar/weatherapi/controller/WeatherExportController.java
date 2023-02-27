@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import westmeijer.oskar.weatherapi.entity.Location;
-import westmeijer.oskar.weatherapi.repository.database.LocationRepository;
+import westmeijer.oskar.weatherapi.repository.LocationRepository;
 import westmeijer.oskar.weatherapi.service.WeatherExportService;
 
 import javax.servlet.http.HttpServletResponse;

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import westmeijer.oskar.weatherapi.IntegrationTestContainers;
-import westmeijer.oskar.weatherapi.repository.database.WeatherRepository;
 import westmeijer.oskar.weatherapi.entity.Weather;
 
 import java.time.Instant;
@@ -19,9 +18,9 @@ import java.util.List;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class WeatherRepositoryTest extends IntegrationTestContainers {
+
     @Autowired
     private WeatherRepository weatherRepository;
-
 
     @Test
     public void fetchData() {
@@ -36,4 +35,5 @@ public class WeatherRepositoryTest extends IntegrationTestContainers {
         Assertions.assertEquals(5, weatherData.size());
         Assertions.assertEquals(12.45, weatherData.get(0).getTemperature());
     }
+
 }

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import westmeijer.oskar.weatherapi.entity.Location;
-import westmeijer.oskar.weatherapi.repository.database.LocationRepository;
+import westmeijer.oskar.weatherapi.repository.LocationRepository;
 
 import java.util.List;
 

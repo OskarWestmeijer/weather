@@ -8,8 +8,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import westmeijer.oskar.weatherapi.entity.Location;
 import westmeijer.oskar.weatherapi.entity.Weather;
-import westmeijer.oskar.weatherapi.repository.database.LocationRepository;
-import westmeijer.oskar.weatherapi.repository.database.WeatherRepository;
+import westmeijer.oskar.weatherapi.repository.LocationRepository;
+import westmeijer.oskar.weatherapi.repository.WeatherRepository;
 import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiClient;
 import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiException;
 
