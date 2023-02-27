@@ -1,56 +1,22 @@
 package westmeijer.oskar.weatherapi.openweatherapi.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.base.Preconditions;
-import lombok.Data;
 
 
 /**
- * Has the same structure as the actual json body.
+ * Response presentation from OpenWeatherApi.
+ *
+ * @param main
+ * @param wind
  */
-@Data
-public class OpenWeatherApiResponse {
+public record OpenWeatherApiResponse(@JsonProperty(value = "main", required = true) Main main,
+                                     @JsonProperty(value = "wind", required = true) Wind wind) {
 
-
-    private final Main main;
-    private final Wind wind;
-
-
-    @JsonCreator
-    public OpenWeatherApiResponse(@JsonProperty("main") Main main,
-                                  @JsonProperty("wind") Wind wind) {
-        Preconditions.checkNotNull(main);
-        Preconditions.checkNotNull(wind);
-
-        this.main = main;
-        this.wind = wind;
+    record Main(@JsonProperty(value = "temp", required = true) double temperature,
+                @JsonProperty(value = "humidity", required = true) int humidity) {
     }
 
-    @Data
-    static class Main {
-
-        private final double temperature;
-        private final int humidity;
-
-        @JsonCreator
-        public Main(@JsonProperty("temp") double temperature,
-                    @JsonProperty("humidity") int humidity) {
-            this.temperature = temperature;
-            this.humidity = humidity;
-        }
-    }
-
-    @Data
-    static class Wind {
-
-        private final double windSpeed;
-
-        @JsonCreator
-        public Wind(@JsonProperty("speed") double windSpeed) {
-            this.windSpeed = windSpeed;
-        }
-
+    record Wind(@JsonProperty(value = "speed", required = true) double windSpeed) {
     }
 
 }
