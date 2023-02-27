@@ -15,11 +15,11 @@ public class WeatherMapper {
     private static final Logger logger = LoggerFactory.getLogger(WeatherMapper.class);
 
 
-    public static WeatherDTO map(Location location, List<Weather> weather) {
+    public static WeatherResponse map(Location location, List<Weather> weather) {
         Preconditions.checkNotNull(weather);
         Preconditions.checkNotNull(location);
 
-        return new WeatherDTO(location, Instant.now(), weather);
+        return new WeatherResponse(location, Instant.now(), weather);
     }
 
 }
