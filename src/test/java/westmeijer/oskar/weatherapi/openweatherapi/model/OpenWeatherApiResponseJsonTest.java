@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.openweatherapi;
+package westmeijer.oskar.weatherapi.openweatherapi.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -7,12 +7,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.core.io.Resource;
-import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiResponse;
 
 import java.io.IOException;
 
 @JsonTest
-public class OpenWeatherApiResponseTest {
+public class OpenWeatherApiResponseJsonTest {
 
     @Autowired
     private JacksonTester<OpenWeatherApiResponse> tester;

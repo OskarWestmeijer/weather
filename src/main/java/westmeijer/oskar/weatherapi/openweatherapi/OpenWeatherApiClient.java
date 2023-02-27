@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 import westmeijer.oskar.weatherapi.entity.Location;
 import westmeijer.oskar.weatherapi.entity.Weather;
+import westmeijer.oskar.weatherapi.openweatherapi.model.OpenWeatherApiMapper;
+import westmeijer.oskar.weatherapi.openweatherapi.model.OpenWeatherApiResponse;
 
 @Repository
 public class OpenWeatherApiClient {

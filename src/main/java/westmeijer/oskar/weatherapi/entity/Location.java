@@ -1,13 +1,22 @@
 package westmeijer.oskar.weatherapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
+import org.hibernate.Hibernate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
 @Table(name = "location")
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@ToString
 public class Location {
 
     /**
@@ -44,56 +53,17 @@ public class Location {
     @Column(name = "country")
     private String country;
 
-    /**
-     * Default constructor for Hibernate. Should never be used.
-     */
-    private Location() {
-    }
-
-    public Location(Integer zipCode, Integer locationCode, String cityName, String country) {
-        this.zipCode = zipCode;
-        this.locationCode = locationCode;
-        this.cityName = cityName;
-        this.country = country;
-    }
-
-    public Integer getZipCode() {
-        return zipCode;
-    }
-
-    @Deprecated
-    public Integer getLocationCode() {
-        return locationCode;
-    }
-
-    public String getCityName() {
-        return cityName;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Location location = (Location) o;
-        return Objects.equals(zipCode, location.zipCode) && Objects.equals(locationCode, location.locationCode) && Objects.equals(cityName, location.cityName) && Objects.equals(country, location.country);
+        return getZipCode() != null && Objects.equals(getZipCode(), location.getZipCode());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(zipCode, locationCode, cityName, country);
+        return getClass().hashCode();
     }
 
-    @Override
-    public String toString() {
-        return "Location{" +
-                "zipCode=" + zipCode +
-                ", locationCode=" + locationCode +
-                ", cityName='" + cityName + '\'' +
-                ", country='" + country + '\'' +
-                '}';
-    }
 }

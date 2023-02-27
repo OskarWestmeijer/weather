@@ -8,8 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import westmeijer.oskar.weatherapi.IntegrationTestContainers;
 import westmeijer.oskar.weatherapi.entity.Location;
 import westmeijer.oskar.weatherapi.entity.Weather;
-import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiClient;
-import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiException;
 
 @SpringBootTest
 public class OpenWeatherApiClientIT extends IntegrationTestContainers {
