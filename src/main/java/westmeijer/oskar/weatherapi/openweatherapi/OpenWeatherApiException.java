@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.repository.openweatherapi;
+package westmeijer.oskar.weatherapi.openweatherapi;
 
 public class OpenWeatherApiException extends RuntimeException {
     public OpenWeatherApiException(String msg, Exception e) {

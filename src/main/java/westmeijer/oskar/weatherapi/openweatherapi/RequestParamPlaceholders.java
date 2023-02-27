@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.repository.openweatherapi;
+package westmeijer.oskar.weatherapi.openweatherapi;
 
 public enum RequestParamPlaceholders {
 

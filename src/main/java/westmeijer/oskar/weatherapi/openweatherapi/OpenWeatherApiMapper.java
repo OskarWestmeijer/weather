@@ -1,6 +1,5 @@
-package westmeijer.oskar.weatherapi.repository.openweatherapi;
+package westmeijer.oskar.weatherapi.openweatherapi;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.base.Preconditions;
 import westmeijer.oskar.weatherapi.entity.Weather;
 

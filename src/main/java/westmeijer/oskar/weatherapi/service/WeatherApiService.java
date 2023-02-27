@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import westmeijer.oskar.weatherapi.entity.Location;
 import westmeijer.oskar.weatherapi.repository.database.WeatherRepository;
 import westmeijer.oskar.weatherapi.entity.Weather;
-import westmeijer.oskar.weatherapi.repository.openweatherapi.OpenWeatherApiClient;
+import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiClient;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;

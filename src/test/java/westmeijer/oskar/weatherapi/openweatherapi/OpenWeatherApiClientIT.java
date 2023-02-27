@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.repository.openweatherapi;
+package westmeijer.oskar.weatherapi.openweatherapi;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import westmeijer.oskar.weatherapi.IntegrationTestContainers;
 import westmeijer.oskar.weatherapi.entity.Location;
 import westmeijer.oskar.weatherapi.entity.Weather;
+import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiClient;
+import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiException;
 
 @SpringBootTest
 public class OpenWeatherApiClientIT extends IntegrationTestContainers {

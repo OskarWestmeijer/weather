@@ -1,6 +1,5 @@
-package westmeijer.oskar.weatherapi.repository.openweatherapi;
+package westmeijer.oskar.weatherapi.openweatherapi;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
