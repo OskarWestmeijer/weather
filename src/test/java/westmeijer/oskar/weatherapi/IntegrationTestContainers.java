@@ -17,7 +17,7 @@ import org.testcontainers.utility.MountableFile;
 public class IntegrationTestContainers {
 
     @Container
-    static final PostgreSQLContainer<?> DATABASE = new PostgreSQLContainer<>("postgres:14.1")
+    static final GenericContainer<?> DATABASE = new PostgreSQLContainer<>("postgres:14.1")
             .withUsername("username1")
             .withPassword("password1")
             .withCopyFileToContainer(MountableFile.forClasspathResource("db/1_database.sql", 0444),
@@ -36,12 +36,7 @@ public class IntegrationTestContainers {
             // TODO: do these overwrite the wait strategies, or extend? verify all resources are available
             .waitingFor(Wait.forHttp("/__admin/").forStatusCode(200))
             // luebeck mapping
-            .waitingFor(Wait.forHttp("/data/2.5/weather?id=2875601&units=metric&appid=1234random").forStatusCode(200))
-            // fallback mapping
-            .waitingFor(Wait.forHttp("/data/2.5/weather?id=123342&units=metric&appid=1234random").forStatusCode(200))
-            // error mapping
-            .waitingFor(Wait.forHttp("/data/2.5/weather?id=666666&units=metric&appid=1234random").forStatusCode(400))
-            .dependsOn(DATABASE);
+            .waitingFor(Wait.forHttp("/data/2.5/weather?id=2875601&units=metric&appid=1234random").forStatusCode(200));
 
     @DynamicPropertySource
     static void registerContainers(DynamicPropertyRegistry registry) {
