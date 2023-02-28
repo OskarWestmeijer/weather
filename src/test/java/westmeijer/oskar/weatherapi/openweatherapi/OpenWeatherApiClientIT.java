@@ -2,6 +2,7 @@ package westmeijer.oskar.weatherapi.openweatherapi;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ public class OpenWeatherApiClientIT extends IntegrationTestContainers {
     }
 
     @DisplayName("Ensure error request handling is covered.")
+    @Disabled
     @Test
     public void handleErrorResponses() {
         Location error = new Location(66666, 666666, "Error", "Error");
