@@ -27,7 +27,9 @@ public class OpenWeatherApiClientIT extends IntegrationTestContainers {
         Assertions.assertEquals(10.00, response.getTemperature());
     }
 
+    // TODO: I had to remove the fallback mapping, github actions somehow chose it every time above the others. Not reproducable in local.
     @DisplayName("Verify that Wiremock fallback queryParam is configured correctly.")
+    @Disabled
     @Test
     public void requestApiForFallback() {
         Location fallbackLocation = new Location(000000, 000000, "Made up", "XX");
@@ -37,7 +39,6 @@ public class OpenWeatherApiClientIT extends IntegrationTestContainers {
     }
 
     @DisplayName("Ensure error request handling is covered.")
-    @Disabled
     @Test
     public void handleErrorResponses() {
         Location error = new Location(66666, 666666, "Error", "Error");
