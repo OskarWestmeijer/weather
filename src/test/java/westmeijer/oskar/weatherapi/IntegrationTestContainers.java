@@ -35,8 +35,8 @@ public class IntegrationTestContainers {
             .withExposedPorts(8080)
             // TODO: do these overwrite the wait strategies, or extend? verify all resources are available
             .waitingFor(Wait.forHttp("/__admin/").forStatusCode(200))
-            // luebeck mapping
-            .waitingFor(Wait.forHttp("/data/2.5/weather?id=2875601&units=metric&appid=1234random").forStatusCode(200));
+            // finland (helsinki) mapping
+            .waitingFor(Wait.forHttp("/data/2.5/weather?id=658225&units=metric&appid=1234random").forStatusCode(200));
 
     @DynamicPropertySource
     static void registerContainers(DynamicPropertyRegistry registry) {
