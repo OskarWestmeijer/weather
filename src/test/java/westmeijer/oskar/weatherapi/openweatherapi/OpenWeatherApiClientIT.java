@@ -2,7 +2,6 @@ package westmeijer.oskar.weatherapi.openweatherapi;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +24,6 @@ public class OpenWeatherApiClientIT extends IntegrationTestContainers {
         Weather response = apiClient.requestWeather(helsinki);
 
         Assertions.assertEquals(10.00, response.getTemperature());
-    }
-
-    // TODO: I had to remove the fallback mapping, github actions somehow chose it every time above the others. Not reproducable in local.
-    @DisplayName("Verify that Wiremock fallback queryParam is configured correctly.")
-    @Disabled
-    @Test
-    public void requestApiForFallback() {
-        Location fallbackLocation = new Location(000000, 000000, "Made up", "XX");
-        Weather response = apiClient.requestWeather(fallbackLocation);
-
-        Assertions.assertEquals(-5.00, response.getTemperature());
     }
 
     @DisplayName("Ensure error request handling is covered.")

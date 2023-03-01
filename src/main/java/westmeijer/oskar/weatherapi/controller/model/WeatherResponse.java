@@ -26,7 +26,7 @@ public class WeatherResponse {
 
     List<Weather> weatherData;
 
-    public WeatherResponse(Location location, Instant responseTime, List<Weather> weatherData) {
+    public WeatherResponse(Instant responseTime, Location location, List<Weather> weatherData) {
         this.location = location.getCityName();
         this.zipCode = String.valueOf(location.getZipCode());
         this.country = location.getCountry();
