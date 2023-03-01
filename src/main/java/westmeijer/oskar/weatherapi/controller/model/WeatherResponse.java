@@ -2,7 +2,6 @@ package westmeijer.oskar.weatherapi.controller.model;
 
 import lombok.Value;
 import westmeijer.oskar.weatherapi.entity.Location;
-import westmeijer.oskar.weatherapi.entity.Weather;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -24,9 +23,9 @@ public class WeatherResponse {
 
     Instant responseTimestamp;
 
-    List<Weather> weatherData;
+    List<WeatherDTO> weatherData;
 
-    public WeatherResponse(Instant responseTime, Location location, List<Weather> weatherData) {
+    public WeatherResponse(Instant responseTime, Location location, List<WeatherDTO> weatherData) {
         this.location = location.getCityName();
         this.zipCode = String.valueOf(location.getZipCode());
         this.country = location.getCountry();
