@@ -14,7 +14,7 @@ import java.util.UUID;
 public class WeatherMapperTest {
 
     @Test
-    public void successfulMapping() {
+    public void successfulMappingToResponse() {
         Location location = new Location(1234, 5678, "Luebeck", "Germany");
         List<Weather> weatherList = List.of(new Weather(UUID.randomUUID(), 12.00d, Instant.now(), 45, 10.55d, 1234),
                 new Weather(UUID.randomUUID(), 5.00d, Instant.now().minus(5, ChronoUnit.DAYS), 30, 4.00d, 1234));
@@ -28,6 +28,19 @@ public class WeatherMapperTest {
         Assertions.assertThat(weatherResponse.getZipCode()).isEqualTo(String.valueOf(location.getZipCode()));
         Assertions.assertThat(weatherResponse.getResponseTimestamp()).isNotNull();
         Assertions.assertThat(weatherResponse.getTimeFormat()).isEqualTo("UTC");
+    }
+
+    @Test
+    public void successfulMappingToWeatherDTO() {
+        Weather weather = new Weather(UUID.randomUUID(), 12.00d, Instant.now(), 45, 10.55d, 1234);
+
+        WeatherDTO weatherDTO = WeatherMapper.INSTANCE.mapTo(weather);
+
+        Assertions.assertThat(weatherDTO.id()).isEqualTo(weather.getId());
+        Assertions.assertThat(weatherDTO.humidity()).isEqualTo(weather.getHumidity());
+        Assertions.assertThat(weatherDTO.recordedAt()).isEqualTo(weather.getRecordedAt().truncatedTo(ChronoUnit.SECONDS));
+        Assertions.assertThat(weatherDTO.temperature()).isEqualTo(weather.getTemperature());
+        Assertions.assertThat(weatherDTO.windSpeed()).isEqualTo(weather.getWindSpeed());
     }
 
 }

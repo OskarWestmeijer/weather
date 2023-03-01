@@ -11,11 +11,13 @@ import java.util.List;
 @Mapper
 public interface WeatherMapper {
 
-    WeatherMapper INSTANCE = Mappers.getMapper( WeatherMapper.class );
+    WeatherMapper INSTANCE = Mappers.getMapper(WeatherMapper.class);
 
     @Mapping(source = "location", target = "location")
     @Mapping(source = "weather", target = "weatherData")
     @Mapping(target = "responseTime", expression = "java(Instant.now())")
     WeatherResponse mapTo(Location location, List<Weather> weather);
+
+    WeatherDTO mapTo(Weather weather);
 
 }
