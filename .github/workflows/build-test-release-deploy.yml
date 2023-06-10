@@ -2,6 +2,11 @@ name: build-test-release-deploy
 
 on: [ push, pull_request ]
 
+permissions:
+  pull-requests: write
+  contents: write
+  repository-projects: write
+
 jobs:
   backend-build-and-test:
     runs-on: ubuntu-latest
