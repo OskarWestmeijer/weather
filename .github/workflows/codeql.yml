@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'java' ]
+        language: [ 'java', 'javascript' ]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby', 'swift' ]
         # Use only 'java' to analyze code written in Java, Kotlin or both
         # Use only 'javascript' to analyze code written in JavaScript, TypeScript or both
@@ -34,11 +34,14 @@ jobs:
           languages: ${{ matrix.language }}
 
       - uses: actions/setup-java@v3
+        if: ${{ matrix.language == 'java' }}
         with:
           distribution: 'temurin'
           java-version: '17'
           cache: maven
-      - run: |
+      - name: build java project
+        if: ${{ matrix.language == 'java' }}
+        run: |
           chmod +x mvnw 
           ./mvnw clean package
 
