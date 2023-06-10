@@ -3,6 +3,10 @@
   "version": "1.7.7",
   "private": true,
   "homepage": "/weather",
+  "engines": {
+    "npm": ">=8.19.3 <9.0.0",
+    "node": ">=18.13.0 <19.0.0"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",

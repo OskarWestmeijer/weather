@@ -20,11 +20,11 @@ public class IntegrationTestContainers {
     static final GenericContainer<?> DATABASE = new PostgreSQLContainer<>(DockerImageName.parse("postgres:15.3"))
             .withUsername("username1")
             .withPassword("password1")
-            .withCopyFileToContainer(MountableFile.forClasspathResource("db/1_database.sql", 0444),
+            .withCopyFileToContainer(MountableFile.forClasspathResource("db/1_database.sql", Integer.valueOf("0444")),
                     "/docker-entrypoint-initdb.d/1_database.sql")
-            .withCopyFileToContainer(MountableFile.forClasspathResource("db/2_schema.sql", 0444),
+            .withCopyFileToContainer(MountableFile.forClasspathResource("db/2_schema.sql", Integer.valueOf("0444")),
                     "/docker-entrypoint-initdb.d/2_schema.sql")
-            .withCopyFileToContainer(MountableFile.forClasspathResource("db/3_data.sql", 0444),
+            .withCopyFileToContainer(MountableFile.forClasspathResource("db/3_data.sql", Integer.valueOf("0444")),
                     "/docker-entrypoint-initdb.d/3_data.sql");
 
     @Container
