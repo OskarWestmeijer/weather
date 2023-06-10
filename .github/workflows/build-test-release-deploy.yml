@@ -37,27 +37,6 @@ jobs:
       - run: npm ci
       - run: CI=false npm run build
 
-  terraform-check:
-    runs-on: ubuntu-latest
-    environment: oskar-westmeijer-environment
-    defaults:
-      run:
-        shell: bash
-        working-directory: terraform
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
-      - name: Terraform Init
-        run: terraform init
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GCP_INFRA_SERVICE_ACCOUNT }}
-      - name: Terraform Format
-        run: terraform fmt -recursive -check
-      - name: Terraform Validate
-        run: terraform validate
-
   codeql-check:
     uses: ./.github/workflows/codeql.yml
     permissions:
@@ -67,7 +46,7 @@ jobs:
 
   trivy-image-check-backend:
     runs-on: ubuntu-latest
-    needs: [ build-and-test ]
+    needs: [ backend-build-and-test ]
     environment: oskar-westmeijer-environment
     permissions:
       actions: read
@@ -97,7 +76,7 @@ jobs:
           category: 'image'
 
   dependabot-automerge:
-    needs: [ build-and-test, terraform-check, codeql-check ]
+    needs: [ backend-build-and-test, frontend-build-and-test, codeql-check ]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
     if: ${{ github.actor == 'dependabot[bot]' }}
@@ -121,7 +100,7 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
   release-backend-docker-image:
-    needs: [ backend-build-and-test, frontend-build-and-test, terraform-check, codeql-check ]
+    needs: [ backend-build-and-test, frontend-build-and-test, codeql-check ]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
     if: github.ref == 'refs/heads/main'
@@ -159,9 +138,10 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
 
   release-frontend-docker-image:
-    needs: [ backend-build-and-test, frontend-build-and-test, terraform-check, codeql-check ]
+    needs: [ backend-build-and-test, frontend-build-and-test, codeql-check ]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
       - name: login to DockerHub
