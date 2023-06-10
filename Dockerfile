@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17.0.3_7-jdk
+FROM eclipse-temurin:17.0.7_7-jdk
 
 COPY target/app.jar /app.jar
 ENV JAVA_OPTS="-Xms750m -Xmx750m"
