@@ -16,7 +16,7 @@ spring:
 
 ---
 spring:
-  profiles: dev
+  config.activate.on-profile: dev
   datasource:
     url: jdbc:postgresql://localhost:5432/weather
     username: username1
@@ -33,7 +33,7 @@ management:
 ---
 # obtained from secrets, referenced in docker-compose file
 spring:
-  profiles: prod
+  config.activate.on-profile: prod
   datasource:
     url:
     username:

@@ -17,7 +17,7 @@ import org.testcontainers.utility.MountableFile;
 public class IntegrationTestContainers {
 
     @Container
-    static final GenericContainer<?> DATABASE = new PostgreSQLContainer<>("postgres:14.1")
+    static final GenericContainer<?> DATABASE = new PostgreSQLContainer<>(DockerImageName.parse("postgres:15.3"))
             .withUsername("username1")
             .withPassword("password1")
             .withCopyFileToContainer(MountableFile.forClasspathResource("db/1_database.sql", 0444),
