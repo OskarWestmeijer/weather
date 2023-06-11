@@ -13,7 +13,8 @@ import westmeijer.oskar.weatherapi.repository.WeatherRepository;
 import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiClient;
 import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiException;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.LinkedBlockingQueue;

@@ -2,11 +2,10 @@ package westmeijer.oskar.weatherapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
 import java.time.Instant;
-import java.util.Objects;
 import java.util.UUID;
 
 /**
