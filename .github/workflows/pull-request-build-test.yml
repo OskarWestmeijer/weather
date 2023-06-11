@@ -1,4 +1,4 @@
-name: build-test-release-deploy
+name: pull-request-build-test
 
 on:
   pull_request:
