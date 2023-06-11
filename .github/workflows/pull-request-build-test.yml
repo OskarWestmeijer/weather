@@ -1,0 +1,65 @@
+name: build-test-release-deploy
+
+on:
+  pull_request:
+
+jobs:
+  backend-build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/backend-build-and-test
+
+  frontend-build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/frontend-build-and-test
+        with:
+          frontend-directory: frontend
+
+  codeql-check:
+    uses: ./.github/workflows/codeql.yml
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+  trivy-image-check-backend:
+    runs-on: ubuntu-latest
+    needs: [ backend-build-and-test ]
+    environment: oskar-westmeijer-environment
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/backend-check-trivy-image
+        with:
+          docker-username: ${{ secrets.DOCKER_USERNAME }}
+          github-sha: ${{ github.sha }}
+
+  dependabot-automerge:
+    needs: [ backend-build-and-test, frontend-build-and-test, codeql-check ]
+    runs-on: ubuntu-latest
+    environment: oskar-westmeijer-environment
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo "event name is:" ${{ github.event_name }}
+      - run: echo "event type is:" ${{ github.event.action }}
+      - name: Dependabot metadata
+        uses: dependabot/fetch-metadata@v1
+        with:
+          github-token: '${{ secrets.MASTER_TOKEN }}'
+      - name: approve PR
+        run: gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.MASTER_TOKEN }}
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --squash "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.MASTER_TOKEN}}
