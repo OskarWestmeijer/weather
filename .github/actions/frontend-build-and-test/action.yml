@@ -1,5 +1,9 @@
 name: frontend-build-and-test
 description: 'frontend-build-and-test'
+inputs:
+  frontend-directory:
+    description: Frontend directory from project root
+    required: true
 runs:
   using: "composite"
   steps:
@@ -11,7 +15,9 @@ runs:
         cache-dependency-path: frontend/package-lock.json
     - name: npm ci
       shell: bash
+      working-directory: ${{ inputs.frontend-directory }}
       run: npm ci
     - name: npm run build
       shell: bash
+      working-directory: ${{ inputs.frontend-directory }}
       run: CI=false npm run build
