@@ -33,27 +33,11 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/backend-check-trivy-image
         with:
-          name: app-jar
-          path: target
-      - name: build image
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/weather-api:sha-${{ github.sha }} .
-      - name: trivy image scan
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: '${{ secrets.DOCKER_USERNAME }}/weather-api:sha-${{ github.sha }}'
-          format: 'sarif'
-          output: 'trivy-image-results.sarif'
-          ignore-unfixed: true
-      - name: upload trivy image scan results to GitHub security tab
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: 'trivy-image-results.sarif'
-          category: 'image'
+          docker-username: ${{ secrets.DOCKER_USERNAME }}
+          github-sha: ${{ github.sha }}
 
   dependabot-automerge:
     needs: [ backend-build-and-test, frontend-build-and-test, codeql-check ]
