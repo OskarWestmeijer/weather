@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:15.3
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: username1
+      POSTGRES_PASSWORD: password1
+      POSTGRES_DB: weather
+  wiremock:
+    image: wiremock/wiremock:2.35.0
+    ports:
+      - "9000:8080"
+    volumes:
+      - ./src/test/resources/wiremock/mappings:/home/wiremock/mappings
+  prometheus:
+    image: prom/prometheus:v2.44.0
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml

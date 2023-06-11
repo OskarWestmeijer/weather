@@ -1,4 +1,3 @@
-\c weather
 
 INSERT INTO location (zip_code, location_code, city_name, country)
 VALUES
