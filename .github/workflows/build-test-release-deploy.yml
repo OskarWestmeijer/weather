@@ -2,11 +2,6 @@ name: build-test-release-deploy
 
 on: [ push, pull_request ]
 
-permissions:
-  pull-requests: write
-  contents: write
-  repository-projects: write
-
 jobs:
   backend-build-and-test:
     runs-on: ubuntu-latest
@@ -99,7 +94,7 @@ jobs:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GITHUB_TOKEN: ${{ secrets.MASTER_TOKEN }}
       - name: Enable auto-merge for Dependabot PRs
-        run: gh pr merge --auto --squash "$PR_URL"
+        run: gh pr merge --squash "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.MASTER_TOKEN}}
