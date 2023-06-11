@@ -28,6 +28,8 @@ jobs:
       run:
         working-directory: frontend
     steps:
+      - name: checkout
+        uses: actions/checkout@v3
       - uses: ./.github/actions/frontend-build-and-test
 
   codeql-check:
