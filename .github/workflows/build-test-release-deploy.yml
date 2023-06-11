@@ -28,7 +28,6 @@ jobs:
       run:
         working-directory: frontend
     steps:
-      - uses: actions/checkout@3
       - uses: ./.github/actions/frontend-build-and-test
 
   codeql-check:
