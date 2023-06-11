@@ -20,8 +20,8 @@ Link to production UI. [https://oskar-westmeijer.com/weather](https://oskar-west
 
 ```
 - Java, Maven & Spring-Boot
-- Hibernate, Lombok, Testcontainers & Wiremock
-- Prometheus & PostgreSQL
+- Spring Data JPA, Liquibase, Lombok & Mapstruct 
+- PostgreSQL, Testcontainers, Wiremock & Prometheus
 - Nginx & ReactJS
 - Github Actions, Docker and Docker-Compose
 ```
@@ -42,9 +42,8 @@ Docker-compose initializes the dependencies on startup. There will be no connect
 Wiremock mocks the OpenWeatherApi requests. Use the correct docker-compose template!
 
 ```
-docker-compose -f cdev.yml up -d
+docker-compose up -d
 ./mvnw spring-boot:run 
-// starts spring boot in dev profile, see pom.xml
 ```
 
 ## Deployment
@@ -53,42 +52,16 @@ docker-compose -f cdev.yml up -d
 
 The image will be released by Github actions. Every push (merge) to main will trigger a build & release.
 
-### Deploy new image
-
-Follow these steps. Information on how to access the production server is on private Notion pages.
-
-```
-# ssh on Server
-# pull https://github.com/OskarWestmeijer/weather-api
-
-docker-compose -f cprod.yml down
-docker-compose -f cprod.yml up -d
-```
-
-## Credentials storage
-
-The application needs credentials to access the Database and OpenWeatherApi. These properties are referenced in the
-application.yml.
-
-For tests and local development the app uses the 'dev' profile. This will use simple placeholders. No further action
-required.
-
-In production the app uses the 'prod' profile. This requires the actual values. The values are stored in an .env file,
-which is located in the root of the project folder.
-
-During startup the service will reference these through the docker-compose production template. If
-changes are required, these need to be added manually to the .env file.
-
-## c4-model
+## Documentation
 
 A couple c4-model diagrams describe the architecture.
 Furthermore, the deployed Weather-Api frontend(https://oskar-westmeijer.com/weather/documentation) hosts a documentation
 section with more details.
 
-### System context diagram
+### c4-model System context diagram
 
 ![Alt c4-model system context diagram](frontend/public/images/c4_context.svg)
 
-### Container diagram
+### c4-model Container diagram
 
 ![Alt c4-model container diagram](frontend/public/images/c4_container.svg)

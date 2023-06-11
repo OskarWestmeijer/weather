@@ -10,7 +10,6 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
-import org.testcontainers.utility.MountableFile;
 
 @TestPropertySource(properties = "app.scheduling.enable=false")
 @Testcontainers
@@ -20,16 +19,11 @@ public class IntegrationTestContainers {
     static final GenericContainer<?> DATABASE = new PostgreSQLContainer<>(DockerImageName.parse("postgres:15.3"))
             .withUsername("username1")
             .withPassword("password1")
-            .withCopyFileToContainer(MountableFile.forClasspathResource("db/1_database.sql", Integer.valueOf("0444")),
-                    "/docker-entrypoint-initdb.d/1_database.sql")
-            .withCopyFileToContainer(MountableFile.forClasspathResource("db/2_schema.sql", Integer.valueOf("0444")),
-                    "/docker-entrypoint-initdb.d/2_schema.sql")
-            .withCopyFileToContainer(MountableFile.forClasspathResource("db/3_data.sql", Integer.valueOf("0444")),
-                    "/docker-entrypoint-initdb.d/3_data.sql");
+            .withDatabaseName("weather");
 
     @Container
     static final GenericContainer<?> OPEN_WEATHER_API = new GenericContainer<>(DockerImageName.parse("wiremock/wiremock:2.35.0"))
-            .withClasspathResourceMapping("mappings",
+            .withClasspathResourceMapping("wiremock/mappings",
                     "/home/wiremock/mappings",
                     BindMode.READ_ONLY)
             .withExposedPorts(8080)

@@ -1,4 +1,3 @@
-\c weather
 
 CREATE TABLE location (
     zip_code bigint PRIMARY KEY,
