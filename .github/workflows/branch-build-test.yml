@@ -3,7 +3,8 @@ name: build-test-release-deploy
 on:
   push:
     branches:
-      - "!main"
+      - '**'
+      - '!main'
 
 jobs:
   backend-build-and-test:

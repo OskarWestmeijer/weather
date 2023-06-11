@@ -11,7 +11,8 @@ import westmeijer.oskar.weatherapi.entity.Location;
 import westmeijer.oskar.weatherapi.repository.LocationRepository;
 import westmeijer.oskar.weatherapi.service.WeatherExportService;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 
 @Controller
