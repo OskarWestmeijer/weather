@@ -1,0 +1,19 @@
+name: backend-build-and-test
+description: 'backend-build-and-test'
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        cache: maven
+    - shell: bash
+      run: |
+        chmod +x mvnw 
+        ./mvnw clean verify
+    - uses: actions/upload-artifact@v3
+      with:
+        name: app-jar
+        path: target/app.jar
+        retention-days: 1
