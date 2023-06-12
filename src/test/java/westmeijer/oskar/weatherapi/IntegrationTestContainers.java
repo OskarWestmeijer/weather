@@ -16,24 +16,21 @@ import org.testcontainers.utility.DockerImageName;
 public class IntegrationTestContainers {
 
     @Container
-    static final GenericContainer<?> DATABASE = new PostgreSQLContainer<>(DockerImageName.parse("postgres:15.3"))
+    private static final GenericContainer<?> DATABASE = new PostgreSQLContainer<>(DockerImageName.parse("postgres:15.3"))
             .withUsername("username1")
             .withPassword("password1")
             .withDatabaseName("weather");
 
     @Container
-    static final GenericContainer<?> OPEN_WEATHER_API = new GenericContainer<>(DockerImageName.parse("wiremock/wiremock:2.35.0"))
+    private static final GenericContainer<?> OPEN_WEATHER_API = new GenericContainer<>(DockerImageName.parse("wiremock/wiremock:2.35.0"))
             .withClasspathResourceMapping("wiremock/mappings",
                     "/home/wiremock/mappings",
                     BindMode.READ_ONLY)
             .withExposedPorts(8080)
-            // TODO: do these overwrite the wait strategies, or extend? verify all resources are available
-            .waitingFor(Wait.forHttp("/__admin/").forStatusCode(200))
-            // finland (helsinki) mapping
             .waitingFor(Wait.forHttp("/data/2.5/weather?id=658225&units=metric&appid=1234random").forStatusCode(200));
 
     @DynamicPropertySource
-    static void registerContainers(DynamicPropertyRegistry registry) {
+    private static void registerContainers(DynamicPropertyRegistry registry) {
         // testcontainers uses random ports on startup, we need to apply them to the spring boot application context
         StringBuilder postgresBuilder = new StringBuilder("jdbc:postgresql://")
                 .append(DATABASE.getHost())
