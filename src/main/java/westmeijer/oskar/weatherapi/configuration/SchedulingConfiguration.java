@@ -5,8 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
- * The scheduling property is disable for Integration Tests with Testcontainers.
- * Have a look at the SystemTest class in the test package.
+ * This custom scheduling property is disabled for Integration Tests with Testcontainers.
+ * TODO: disabled for GCP migration as well.
+ * Have a look at the IntegrationTestContainers class in the test package.
  */
 @EnableScheduling
 @ConditionalOnProperty(

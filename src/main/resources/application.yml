@@ -14,7 +14,8 @@ spring:
     hibernate:
       ddl-auto: none
   liquibase:
-    change-log: classpath:/db/changelog-master.xml
+    change-log: classpath:/db/changelog/changelog-master.xml
+    contexts: test
 ---
 spring:
   config.activate.on-profile: dev
@@ -33,6 +34,9 @@ management:
         include: "*"
 ---
 # obtained from secrets, referenced in docker-compose file
+app:
+  scheduling:
+    enable: false
 spring:
   config.activate.on-profile: prod
   datasource:
@@ -48,3 +52,5 @@ management:
     web:
       exposure:
         include: "health,info"
+  liquibase:
+    contexts: prod
