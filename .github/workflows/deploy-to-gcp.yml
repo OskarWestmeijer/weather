@@ -1,0 +1,45 @@
+name: 'deploy-to-gcp'
+
+on:
+  workflow_call:
+    inputs:
+      github-sha:
+        description: 'Image tag to deploy'
+        required: true
+        type: string
+        default: 'sha-<7-chars>'
+
+  workflow_dispatch:
+    inputs:
+      commit-sha:
+        description: 'Image tag to deploy'
+        required: true
+        default: 'sha-<7-chars>'
+
+jobs:
+  deploy-to-gcp:
+    runs-on: ubuntu-latest
+    environment: oskar-westmeijer-environment
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: terraform
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Init
+        run: terraform init
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_INFRA_SERVICE_ACCOUNT }}
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        env:
+          TF_VAR_service_image: ${{ secrets.DOCKER_USERNAME }}/weather-api:sha-${{ inputs.github-sha }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_INFRA_SERVICE_ACCOUNT }}
