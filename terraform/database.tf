@@ -8,7 +8,11 @@ resource "google_sql_database_instance" "weather_database" {
   region           = var.project_region
   database_version = "POSTGRES_15"
   settings {
-    tier = "db-f1-micro"
+    tier      = "db-f1-micro"
+    disk_size = 10
+    ip_configuration {
+      ipv4_enabled = false
+    }
   }
 
   deletion_protection = "true"
