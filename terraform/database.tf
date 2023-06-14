@@ -42,20 +42,13 @@ resource "google_sql_database_instance" "weather_database" {
   deletion_protection = "true"
 }
 
-resource "google_secret_manager_secret" "dev_user_password" {
-  secret_id = "dev-user-password"
-
-  replication {
-    user_managed {
-      replicas {
-        location = var.project_region
-      }
-    }
-  }
+resource "random_password" "password" {
+  length           = 32
+  special          = false
 }
 
 resource "google_sql_user" "dev_user" {
   name     = "developer"
   instance = google_sql_database_instance.weather_database.name
-  password = google_secret_manager_secret.dev_user_password
+  password = random_password.password.result
 }
