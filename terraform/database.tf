@@ -44,6 +44,14 @@ resource "google_sql_database_instance" "weather_database" {
 
 resource "google_secret_manager_secret" "dev_user_password" {
   secret_id = "dev-user-password"
+
+  replication {
+    user_managed {
+      replicas {
+        location = var.project_region
+      }
+    }
+  }
 }
 
 resource "google_sql_user" "dev_user" {
