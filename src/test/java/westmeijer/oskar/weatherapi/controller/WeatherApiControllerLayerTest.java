@@ -47,8 +47,8 @@ public class WeatherApiControllerLayerTest {
                 .andExpect(content().json("""
                         {
                             "timeFormat" : "UTC",
-                            "location" : "Lübeck",
-                            "zipCode" : "23552",
+                            "cityName" : "Lübeck",
+                            "localZipCode" : "23552",
                             "country" : "Germany",
                             "weatherData" : [{"temperature": 5.45}]
                         }"""));

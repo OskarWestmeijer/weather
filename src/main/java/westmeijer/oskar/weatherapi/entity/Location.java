@@ -24,8 +24,8 @@ public class Location {
      * @deprecated zip code is a poor international location matcher. Uniqueness is not guaranteed. Make use of Location.
      */
     @Id
-    @Column(name = "zip_code")
-    private Integer zipCode;
+    @Column(name = "local_zip_code")
+    private Integer localZipCode;
 
     /**
      * City id, which is maintained by OpenWeatherApi. Used to import weather from the exact location. Unique identifier.
@@ -56,7 +56,7 @@ public class Location {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Location location = (Location) o;
-        return getZipCode() != null && Objects.equals(getZipCode(), location.getZipCode());
+        return getLocalZipCode() != null && Objects.equals(getLocalZipCode(), location.getLocalZipCode());
     }
 
     @Override

@@ -1,5 +1,5 @@
 
-INSERT INTO location (zip_code, location_code, city_name, country)
+INSERT INTO location (local_zip_code, location_code, city_name, country)
 VALUES
 (23552, 2875601, 'Lübeck', 'Germany'),
 (20095, 2911298, 'Hamburg', 'Germany'),
@@ -7,7 +7,7 @@ VALUES
 (00100, 658225, 'Helsinki', 'Finland'),
 (36100, 654440, 'Kangasala', 'Finland');
 
-INSERT INTO weather (id, temperature, humidity, wind_speed, timestamp, zip_code)
+INSERT INTO weather (id, temperature, humidity, wind_speed, recorded_at, local_zip_code)
 VALUES
 ('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', 11.45, 50, 2.57,'2022-08-29T21:56:18.602546Z', 23552),
 ('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12', 12.45, 45, 2.57,'2022-08-28T23:56:18.602546Z', 23552),

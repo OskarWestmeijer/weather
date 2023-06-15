@@ -31,7 +31,7 @@ public class WeatherExportController {
         this.locationRepository = locationRepository;
     }
 
-    @GetMapping("/csv/weather/{zipCode}/{date}")
+    @GetMapping("/csv/weather/{localZipCode}/{date}")
     public void exportAsCsv(HttpServletResponse servletResponse, @PathVariable int zipCode, @PathVariable String date) throws IOException {
         String fileName = ControllerUtil.buildFileName(zipCode, date, ControllerUtil.CSV_FILE);
         Location location = locationRepository.findById(zipCode).orElseThrow();

@@ -1,8 +1,10 @@
+# Create a VPC network
 resource "google_compute_network" "peering_network" {
   name                    = "private-network"
   auto_create_subnetworks = "false"
 }
 
+# Create an IP address
 resource "google_compute_global_address" "private_ip_address" {
   name          = "private-ip-address"
   purpose       = "VPC_PEERING"
@@ -11,6 +13,7 @@ resource "google_compute_global_address" "private_ip_address" {
   network       = google_compute_network.peering_network.id
 }
 
+# Create a private connection
 resource "google_service_networking_connection" "default" {
   network                 = google_compute_network.peering_network.id
   service                 = "servicenetworking.googleapis.com"

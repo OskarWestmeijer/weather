@@ -24,9 +24,9 @@ public class WeatherMapperTest {
         // TODO: assert the list
         /*Assertions.assertThat(weatherResponse.getWeatherData())
                 .containsExactlyElementsOf(weatherList);*/
-        Assertions.assertThat(weatherResponse.getLocation()).isEqualTo(location.getCityName());
+        Assertions.assertThat(weatherResponse.getCityName()).isEqualTo(location.getCityName());
         Assertions.assertThat(weatherResponse.getCountry()).isEqualTo(location.getCountry());
-        Assertions.assertThat(weatherResponse.getZipCode()).isEqualTo(String.valueOf(location.getZipCode()));
+        Assertions.assertThat(weatherResponse.getLocalZipCode()).isEqualTo(String.valueOf(location.getLocalZipCode()));
         Assertions.assertThat(weatherResponse.getResponseTimestamp()).isNotNull();
         Assertions.assertThat(weatherResponse.getTimeFormat()).isEqualTo("UTC");
     }

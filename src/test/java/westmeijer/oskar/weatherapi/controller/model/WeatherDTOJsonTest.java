@@ -22,7 +22,6 @@ public class WeatherDTOJsonTest {
     @Test
     @SneakyThrows
     public void serializeToJson() {
-        UUID uuid = UUID.randomUUID();
         Instant registered = Instant.now();
         WeatherDTO weatherDTO = new WeatherDTO(UUID.randomUUID(), 22.54d, Instant.now(), 34, 89.12d, 1234);
 

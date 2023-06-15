@@ -30,7 +30,7 @@ public class Weather {
     /**
      * Timezone=UTC.
      */
-    @Column(name = "timestamp")
+    @Column(name = "recorded_at")
     private Instant recordedAt;
 
     private Integer humidity;
@@ -44,8 +44,8 @@ public class Weather {
      *
      * @deprecated zip code is a poor international location matcher. Uniqueness is not guaranteed. Make use of Location.
      */
-    @Column(name = "zip_code")
+    @Column(name = "local_zip_code")
     @JsonIgnore
-    private Integer zipCode;
+    private Integer localZipCode;
 
 }

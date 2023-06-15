@@ -20,7 +20,7 @@ public class OpenWeatherApiClientIT extends IntegrationTestContainers {
     @Test
     public void requestApiForHelsinki() {
         Location helsinki = new Location(00100, 658225, "Helsinki", "Finland");
-        log.info("ZipCode id: {}", helsinki.getZipCode());
+        log.info("ZipCode id: {}", helsinki.getLocalZipCode());
         Weather response = apiClient.requestWeather(helsinki);
 
         Assertions.assertEquals(10.00, response.getTemperature());
