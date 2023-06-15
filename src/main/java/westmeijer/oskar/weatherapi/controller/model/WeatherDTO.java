@@ -11,16 +11,16 @@ import java.util.UUID;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record WeatherDTO(@JsonIgnore UUID id, Double temperature, Instant recordedAt, Integer humidity,
                          Double windSpeed,
-                         @JsonIgnore Integer zipCode) {
+                         @JsonIgnore String localZipCode) {
 
     public WeatherDTO(UUID id, Double temperature, Instant recordedAt, Integer humidity,
-                      Double windSpeed, Integer zipCode) {
+                      Double windSpeed, String localZipCode) {
         this.id = id;
         this.temperature = temperature;
         this.recordedAt = recordedAt.truncatedTo(ChronoUnit.SECONDS);
         this.humidity = humidity;
         this.windSpeed = windSpeed;
-        this.zipCode = zipCode;
+        this.localZipCode = localZipCode;
     }
 
 }

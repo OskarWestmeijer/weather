@@ -31,11 +31,11 @@ public class WeatherApiService {
     /**
      * Retrieves weather of the last 24h from the database.
      *
-     * @param zipCode - get weather for this location
+     * @param localZipCode - get weather for this location
      * @return
      */
-    public List<Weather> getLast24h(int zipCode) {
-        List<Weather> weatherData = weatherRepository.getLatestEntries(zipCode);
+    public List<Weather> getLast24h(String localZipCode) {
+        List<Weather> weatherData = weatherRepository.getLatestEntries(localZipCode);
 
         return weatherData.stream()
                 .sorted(Comparator.comparing(Weather::getRecordedAt).reversed())
@@ -45,11 +45,11 @@ public class WeatherApiService {
     /**
      * Retrieves weather of the last 3 days from the database.
      *
-     * @param zipCode - get weather for this location
+     * @param localZipCode - get weather for this location
      * @return
      */
-    public List<Weather> getLast3Days(int zipCode) {
-        List<Weather> weatherData = weatherRepository.getLastThreeDays(zipCode);
+    public List<Weather> getLast3Days(String localZipCode) {
+        List<Weather> weatherData = weatherRepository.getLastThreeDays(localZipCode);
 
         return weatherData.stream()
                 .sorted(Comparator.comparing(Weather::getRecordedAt).reversed())
@@ -59,16 +59,16 @@ public class WeatherApiService {
     /**
      * Retrieve weather for the provided date.
      *
-     * @param zipCode
+     * @param localZipCode
      * @param start   instant at start of day for zoneId
      * @return
      */
-    public List<Weather> getSpecificDate(int zipCode, Instant start) {
+    public List<Weather> getSpecificDate(String localZipCode, Instant start) {
         Instant end = start.plus(1L, ChronoUnit.DAYS);
         logger.debug("start instant: {}", start);
         logger.debug("end instant: {}", end);
 
-        List<Weather> weatherData = weatherRepository.getSpecificDay(zipCode, start, end);
+        List<Weather> weatherData = weatherRepository.getSpecificDay(localZipCode, start, end);
 
         return weatherData.stream()
                 .sorted(Comparator.comparing(Weather::getRecordedAt).reversed())

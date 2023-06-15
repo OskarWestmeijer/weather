@@ -35,10 +35,10 @@ public class OpenWeatherApiClient {
     public Weather requestWeather(Location location) {
         try {
             String urlPath = buildUrlPath(location);
-            logger.info("Built urlPath: {}", urlPath);
+            logger.debug("Built urlPath: {}", urlPath);
             OpenWeatherApiResponse response = webClient.get().uri(urlPath).retrieve().bodyToMono(OpenWeatherApiResponse.class).block();
-            logger.info("OpenWeatherApiResponse: {}", response);
-            return OpenWeatherApiMapper.map(response, location.getZipCode());
+            logger.debug("OpenWeatherApiResponse: {}", response);
+            return OpenWeatherApiMapper.map(response, location.getLocalZipCode());
         } catch (Exception e) {
             throw new OpenWeatherApiException("Exception during OpenWeatherApi request.", e);
         }

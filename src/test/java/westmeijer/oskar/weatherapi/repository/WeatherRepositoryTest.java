@@ -28,9 +28,8 @@ public class WeatherRepositoryTest extends IntegrationTestContainers {
         LocalDate localDate = LocalDate.from(formatter.parse("2022-08-28"));
         Instant start = localDate.atStartOfDay(ZoneId.of("UTC")).toInstant();
         Instant end = start.plus(1L, ChronoUnit.DAYS);
-        int zipCode = 23552;
 
-        List<Weather> weatherData = weatherRepository.getSpecificDay(zipCode, start, end);
+        List<Weather> weatherData = weatherRepository.getSpecificDay("23552", start, end);
 
         Assertions.assertEquals(5, weatherData.size());
         Assertions.assertEquals(12.45, weatherData.get(0).getTemperature());

@@ -27,8 +27,8 @@ public class WeatherApiControllerIT extends IntegrationTestContainers {
                 .andExpect(content().json("""
                         {
                         "timeFormat" : "UTC",
-                        "location" : "Lübeck",
-                        "zipCode" : "23552",
+                        "cityName" : "Lübeck",
+                        "localZipCode" : "23552",
                         "country" : "Germany",
                         "weatherData":[{"temperature":16.45,"humidity":45,"windSpeed":2.57,"recordedAt":"2022-08-27T21:56:18Z"},
                         {"temperature":17.45,"humidity":45,"windSpeed":2.57,"recordedAt":"2022-08-27T21:16:18Z"},

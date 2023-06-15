@@ -36,10 +36,10 @@ public class WeatherApiControllerLayerTest {
     @Test
     public void requestWeatherKnownZipCode() throws Exception {
 
-        List<Weather> weatherData = List.of(new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, Instant.now(), 88,11.66,23552));
-        Optional<Location> location = Optional.of(new Location(23552,2875601, "Lübeck", "Germany"));
-        when(weatherApiService.getLast24h(23552)).thenReturn(weatherData);
-        when(locationRepository.findById(23552)).thenReturn(location);
+        List<Weather> weatherData = List.of(new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, Instant.now(), 88,11.66,"23552"));
+        Optional<Location> location = Optional.of(new Location("23552","2875601", "Lübeck", "Germany"));
+        when(weatherApiService.getLast24h("23552")).thenReturn(weatherData);
+        when(locationRepository.findById("23552")).thenReturn(location);
 
         mockMvc.perform(get("/api/v1/weather/23552/24h"))
                 .andExpect(status().isOk())
@@ -47,8 +47,8 @@ public class WeatherApiControllerLayerTest {
                 .andExpect(content().json("""
                         {
                             "timeFormat" : "UTC",
-                            "location" : "Lübeck",
-                            "zipCode" : "23552",
+                            "cityName" : "Lübeck",
+                            "localZipCode" : "23552",
                             "country" : "Germany",
                             "weatherData" : [{"temperature": 5.45}]
                         }"""));

@@ -15,9 +15,9 @@ public class WeatherResponse {
 
     String timeFormat = "UTC";
 
-    String location;
+    String cityName;
 
-    String zipCode;
+    String localZipCode;
 
     String country;
 
@@ -26,8 +26,8 @@ public class WeatherResponse {
     List<WeatherDTO> weatherData;
 
     public WeatherResponse(Instant responseTime, Location location, List<WeatherDTO> weatherData) {
-        this.location = location.getCityName();
-        this.zipCode = String.valueOf(location.getZipCode());
+        this.cityName = location.getCityName();
+        this.localZipCode = String.valueOf(location.getLocalZipCode());
         this.country = location.getCountry();
         this.responseTimestamp = responseTime.truncatedTo(ChronoUnit.SECONDS);
         this.weatherData = weatherData;

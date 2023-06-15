@@ -1,17 +1,21 @@
 
-CREATE TABLE location (
-    zip_code bigint PRIMARY KEY,
-    location_code bigint NOT NULL,
-    city_name VARCHAR(255) NOT NULL,
-    country VARCHAR(255) NOT NULL
+create table location (
+    local_zip_code varchar(255) PRIMARY KEY,
+    location_code varchar(255) NOT NULL,
+    city_name varchar(255) NOT NULL,
+    country varchar(255) NOT NULL,
+    created_at timestamptz NOT NULL default now(),
+    modified_at timestamptz NOT NULL default now()
 );
 
-CREATE TABLE weather
+create table weather
 (
     id UUID PRIMARY KEY,
     temperature decimal NOT NULL,
-    timestamp   timestamptz NOT NULL,
+    recorded_at timestamptz NOT NULL,
     wind_speed decimal NOT NULL,
     humidity bigint NOT NULL,
-    zip_code bigint NOT NULL REFERENCES location (zip_code)
+    local_zip_code varchar(255) NOT NULL REFERENCES location (local_zip_code),
+    created_at timestamptz NOT NULL default now(),
+    modified_at timestamptz NOT NULL default now()
 );

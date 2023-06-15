@@ -2,11 +2,9 @@ package westmeijer.oskar.weatherapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import jakarta.persistence.*;
 
-import java.util.Objects;
 
 @Table(name = "location")
 @Entity
@@ -24,8 +22,8 @@ public class Location {
      * @deprecated zip code is a poor international location matcher. Uniqueness is not guaranteed. Make use of Location.
      */
     @Id
-    @Column(name = "zip_code")
-    private Integer zipCode;
+    @Column(name = "local_zip_code")
+    private String localZipCode;
 
     /**
      * City id, which is maintained by OpenWeatherApi. Used to import weather from the exact location. Unique identifier.
@@ -35,7 +33,7 @@ public class Location {
      */
     @Deprecated
     @Column(name = "location_code")
-    private Integer locationCode;
+    private String locationCode;
 
     /**
      * Full name.
@@ -50,18 +48,5 @@ public class Location {
      */
     @Column(name = "country")
     private String country;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Location location = (Location) o;
-        return getZipCode() != null && Objects.equals(getZipCode(), location.getZipCode());
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 
 }
