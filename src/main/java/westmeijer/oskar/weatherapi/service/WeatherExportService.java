@@ -25,10 +25,10 @@ public class WeatherExportService {
         this.weatherRepository = weatherRepository;
     }
 
-    public void writeWeatherToCsv(Writer writer, int zipCode, Instant start) {
+    public void writeWeatherToCsv(Writer writer, String localZipCode, Instant start) {
         Instant end = start.plus(1L, ChronoUnit.DAYS);
 
-        List<Weather> weatherList = weatherRepository.getSpecificDay(zipCode, start, end);
+        List<Weather> weatherList = weatherRepository.getSpecificDay(localZipCode, start, end);
 
         CSVFormat format = CSVFormat.Builder.create().setDelimiter(";").setHeader("temperature", "humidity", "wind_speed", "recorded_at_utc").build();
 

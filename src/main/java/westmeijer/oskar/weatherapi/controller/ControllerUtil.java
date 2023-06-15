@@ -27,8 +27,8 @@ public class ControllerUtil {
         return localDate.atStartOfDay(timezone).toInstant();
     }
 
-    public static String buildFileName(int zipCode, String date, String type) {
-        return new StringBuilder().append("weather_").append(date).append("_").append(zipCode).append(type).toString();
+    public static String buildFileName(String localZipCode, String date, String type) {
+        return "weather_" + date + "_" + localZipCode + type;
     }
 
     private static ZoneId getTimeZone(Location location) {

@@ -15,9 +15,9 @@ public class WeatherMapperTest {
 
     @Test
     public void successfulMappingToResponse() {
-        Location location = new Location(1234, 5678, "Luebeck", "Germany");
-        List<Weather> weatherList = List.of(new Weather(UUID.randomUUID(), 12.00d, Instant.now(), 45, 10.55d, 1234),
-                new Weather(UUID.randomUUID(), 5.00d, Instant.now().minus(5, ChronoUnit.DAYS), 30, 4.00d, 1234));
+        Location location = new Location("1234", "5678", "Luebeck", "Germany");
+        List<Weather> weatherList = List.of(new Weather(UUID.randomUUID(), 12.00d, Instant.now(), 45, 10.55d, "1234"),
+                new Weather(UUID.randomUUID(), 5.00d, Instant.now().minus(5, ChronoUnit.DAYS), 30, 4.00d, "1234"));
 
         WeatherResponse weatherResponse = WeatherMapper.INSTANCE.mapTo(location, weatherList);
 
@@ -33,7 +33,7 @@ public class WeatherMapperTest {
 
     @Test
     public void successfulMappingToWeatherDTO() {
-        Weather weather = new Weather(UUID.randomUUID(), 12.00d, Instant.now(), 45, 10.55d, 1234);
+        Weather weather = new Weather(UUID.randomUUID(), 12.00d, Instant.now(), 45, 10.55d, "1234");
 
         WeatherDTO weatherDTO = WeatherMapper.INSTANCE.mapTo(weather);
 

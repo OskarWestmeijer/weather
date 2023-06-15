@@ -46,6 +46,6 @@ public class Weather {
      */
     @Column(name = "local_zip_code")
     @JsonIgnore
-    private Integer localZipCode;
+    private String localZipCode;
 
 }

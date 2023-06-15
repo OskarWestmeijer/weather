@@ -12,13 +12,13 @@ public class OpenWeatherApiMapper {
     /**
      * Maps OpenWeatherApi Response to Entity object.
      */
-    public static Weather map(OpenWeatherApiResponse response, int zipCode) {
+    public static Weather map(OpenWeatherApiResponse response, String localZipCode) {
         Preconditions.checkNotNull(response);
         double temperature = response.main().temperature();
         int humidity = response.main().humidity();
         double windSpeed = response.wind().windSpeed();
 
-        return new Weather(UUID.randomUUID(), temperature, Instant.now().truncatedTo(ChronoUnit.SECONDS), humidity, windSpeed, zipCode);
+        return new Weather(UUID.randomUUID(), temperature, Instant.now().truncatedTo(ChronoUnit.SECONDS), humidity, windSpeed, localZipCode);
     }
 
 

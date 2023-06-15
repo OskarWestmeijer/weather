@@ -19,8 +19,7 @@ public class OpenWeatherApiClientIT extends IntegrationTestContainers {
 
     @Test
     public void requestApiForHelsinki() {
-        Location helsinki = new Location(00100, 658225, "Helsinki", "Finland");
-        log.info("ZipCode id: {}", helsinki.getLocalZipCode());
+        Location helsinki = new Location("00100", "658225", "Helsinki", "Finland");
         Weather response = apiClient.requestWeather(helsinki);
 
         Assertions.assertEquals(10.00, response.getTemperature());
@@ -29,7 +28,7 @@ public class OpenWeatherApiClientIT extends IntegrationTestContainers {
     @DisplayName("Ensure error request handling is covered.")
     @Test
     public void handleErrorResponses() {
-        Location error = new Location(66666, 666666, "Error", "Error");
+        Location error = new Location("66666", "666666", "Error", "Error");
 
         OpenWeatherApiException thrown = Assertions.assertThrows(OpenWeatherApiException.class, () -> {
             apiClient.requestWeather(error);

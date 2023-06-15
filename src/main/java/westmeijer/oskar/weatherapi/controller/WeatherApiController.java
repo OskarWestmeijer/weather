@@ -33,7 +33,7 @@ public class WeatherApiController {
 
 
     @GetMapping("/now")
-    public ResponseEntity<WeatherResponse> getNow(@PathVariable int localZipCode) {
+    public ResponseEntity<WeatherResponse> getNow(@PathVariable String localZipCode) {
         log.info("Received Weather request NOW for localZipCode: {}", localZipCode);
         Location location = locationRepository.findById(localZipCode).orElseThrow(() -> new LocationNotSupportedException(localZipCode));
         Weather weatherData = weatherApiService.getNow(location);
@@ -42,7 +42,7 @@ public class WeatherApiController {
     }
 
     @GetMapping("/24h")
-    public ResponseEntity<WeatherResponse> getLast24Hours(@PathVariable int localZipCode) {
+    public ResponseEntity<WeatherResponse> getLast24Hours(@PathVariable String localZipCode) {
         log.info("Received Weather request 24h for localZipCode: {}", localZipCode);
         Location location = locationRepository.findById(localZipCode).orElseThrow(() -> new LocationNotSupportedException(localZipCode));
         List<Weather> weatherData = weatherApiService.getLast24h(localZipCode);
@@ -52,7 +52,7 @@ public class WeatherApiController {
     }
 
     @GetMapping("/3d")
-    public ResponseEntity<WeatherResponse> getLast3Days(@PathVariable int localZipCode) {
+    public ResponseEntity<WeatherResponse> getLast3Days(@PathVariable String localZipCode) {
         log.info("Received Weather request 3d for localZipCode: {}", localZipCode);
         Location location = locationRepository.findById(localZipCode).orElseThrow(() -> new LocationNotSupportedException(localZipCode));
         List<Weather> weatherData = weatherApiService.getLast3Days(localZipCode);
@@ -68,7 +68,7 @@ public class WeatherApiController {
      * @return
      */
     @GetMapping("/{date}")
-    public ResponseEntity<WeatherResponse> getSpecificDate(@PathVariable int localZipCode, @PathVariable String date) {
+    public ResponseEntity<WeatherResponse> getSpecificDate(@PathVariable String localZipCode, @PathVariable String date) {
         log.info("Received Weather request SPECIFIC date for localZipCode: {}, date: {}", localZipCode, date);
         Location location = locationRepository.findById(localZipCode).orElseThrow(() -> new LocationNotSupportedException(localZipCode));
         Instant instant = ControllerUtil.atStartOfDay(date, location);
