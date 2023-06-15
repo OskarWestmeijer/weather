@@ -55,7 +55,7 @@ export default function Dashboard(props) {
         apiClient.get(apiPath)
             .then(response => {
                 setLocations(response.data);
-                setSelectedLocation(response.data[0].zipCode)
+                setSelectedLocation(response.data[0].localZipCode)
             }).catch(error => {
                 setError(error);
                 console.error('There was an error requesting the API!', error);
@@ -108,7 +108,7 @@ export default function Dashboard(props) {
                                 <div className="col-lg-5 col-md-12">
                                     <select value={selectedLocation} onChange={handleLocationChange} className="form-select" aria-label="Location">
                                         {locations.map((option) => (
-                                            <option key={option.zipCode} value={option.zipCode}>{option.cityName}, {option.country}</option>
+                                            <option key={option.localZipCode} value={option.localZipCode}>{option.cityName}, {option.country}</option>
                                         ))}
                                     </select>
                                 </div>

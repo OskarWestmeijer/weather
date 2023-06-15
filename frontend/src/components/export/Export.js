@@ -21,7 +21,7 @@ export default function Export() {
         apiClient.get(apiPath)
             .then(response => {
                 setLocations(response.data);
-                setSelectedLocation(response.data[0].zipCode)
+                setSelectedLocation(response.data[0].localZipCode)
                 setIsLoading(false);
             }).catch(error => {
                 setError(error);
