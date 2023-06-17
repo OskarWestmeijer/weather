@@ -52,13 +52,13 @@ resource "google_sql_database_instance" "weather_database" {
   deletion_protection = false
 }
 
-resource "random_password" "password" {
-  length           = 32
-  special          = false
+resource "google_sql_user" "weather_api" {
+  name     = "weather-api"
+  instance = google_sql_database_instance.weather_database.name
+  password = random_password.weather_api.result
 }
 
-resource "google_sql_user" "dev_user" {
-  name     = "developer"
-  instance = google_sql_database_instance.weather_database.name
-  password = random_password.password.result
+resource "random_password" "weather_api" {
+  length           = 32
+  special          = false
 }
