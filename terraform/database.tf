@@ -28,8 +28,9 @@ resource "google_compute_network_peering_routes_config" "peering_routes" {
 }
 
 resource "google_sql_database" "weather_database" {
+  count = length(google_sql_database_instance.weather_database)
   name     = "weather-database"
-  instance = google_sql_database_instance.weather_database.name
+  instance = google_sql_database_instance.weather_database[count.index].name
 }
 
 resource "google_sql_database_instance" "weather_database" {
@@ -50,12 +51,13 @@ resource "google_sql_database_instance" "weather_database" {
     }
   }
 
-  deletion_protection = false
+  deletion_protection = true
 }
 
 resource "google_sql_user" "weather_api" {
+  count = length(google_sql_database_instance.weather_database)
   name     = "weather-api"
-  instance = google_sql_database_instance.weather_database.name
+  instance = google_sql_database_instance.weather_database[count.index].name
   password = random_password.weather_api.result
 }
 

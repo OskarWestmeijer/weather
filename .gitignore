@@ -34,3 +34,5 @@ build/
 
 ### tomcat ###
 logs
+terraform/.terraform.lock.hcl
+/terraform/.terraform/
