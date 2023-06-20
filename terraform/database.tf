@@ -33,6 +33,7 @@ resource "google_sql_database" "weather_database" {
 }
 
 resource "google_sql_database_instance" "weather_database" {
+  count            = var.db_alive
   name             = "weather-database"
   region           = var.project_region
   database_version = "POSTGRES_15"
@@ -40,11 +41,11 @@ resource "google_sql_database_instance" "weather_database" {
   depends_on = [google_service_networking_connection.default]
 
   settings {
-    tier      = "db-f1-micro"
-    disk_size = 10
+    tier            = "db-f1-micro"
+    disk_size       = 10
     disk_autoresize = false
     ip_configuration {
-      ipv4_enabled = false
+      ipv4_enabled    = true
       private_network = google_compute_network.peering_network.id
     }
   }
@@ -59,6 +60,6 @@ resource "google_sql_user" "weather_api" {
 }
 
 resource "random_password" "weather_api" {
-  length           = 32
-  special          = false
+  length  = 32
+  special = false
 }

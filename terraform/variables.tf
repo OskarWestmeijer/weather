@@ -25,3 +25,8 @@ variable "service_name" {
   description = "Service name"
   default     = "weather-api"
 }
+
+variable "db_alive" {
+  description = "Decides if db should be active"
+  default     = 1
+}
