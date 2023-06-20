@@ -5,9 +5,6 @@ on:
     branches:
       - main
 
-env:
-  DB_ALIVE: 0
-
 jobs:
   backend-build-and-test:
     runs-on: ubuntu-latest
@@ -117,5 +114,5 @@ jobs:
     uses: ./.github/workflows/deploy-to-gcp.yml
     with:
       github-sha: ${{ github.sha }}
-      db-alive: ${{ env.DB_ALIVE }}
+      db-alive: 0
     secrets: inherit
