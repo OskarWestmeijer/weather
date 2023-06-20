@@ -117,5 +117,5 @@ jobs:
     uses: ./.github/workflows/deploy-to-gcp.yml
     with:
       github-sha: ${{ github.sha }}
-      db-alive: $DB_ALIVE
+      db-alive: ${{ env.DB_ALIVE }}
     secrets: inherit
