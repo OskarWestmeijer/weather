@@ -28,5 +28,5 @@ variable "service_name" {
 
 variable "db_alive" {
   description = "Decides if db should be active"
-  default     = 1
+  default     = 0
 }

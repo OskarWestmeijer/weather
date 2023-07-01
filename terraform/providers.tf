@@ -6,7 +6,7 @@ provider "google" {
 
 terraform {
   backend "gcs" {
-    bucket = "weather-api-tfstate"
-    prefix = "terraform/state"
+    bucket = "westmeijer-oskar-tfstate-bucket"
+    prefix = "weather-api"
   }
 }
