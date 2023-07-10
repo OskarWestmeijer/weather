@@ -21,6 +21,7 @@
         <org.projectlombok.version>1.18.28</org.projectlombok.version>
         <com.google.guava>32.1.1-jre</com.google.guava>
         <liquibase.version>4.23.0</liquibase.version>
+        <preliquibase.version>1.4.0</preliquibase.version>
         <commons.csv.version>1.10.0</commons.csv.version>
         <testcontainers.version>1.18.3</testcontainers.version>
         <assertj.version>3.24.2</assertj.version>
@@ -81,6 +82,11 @@
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
             <version>${liquibase.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.lbruun.springboot</groupId>
+            <artifactId>preliquibase-spring-boot-autoconfigure</artifactId>
+            <version>${preliquibase.version}</version>
         </dependency>
 
         <dependency>

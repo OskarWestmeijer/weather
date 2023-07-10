@@ -16,6 +16,7 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.xml
     contexts: test
+    default-schema: weather
 ---
 spring:
   config.activate.on-profile: dev
