@@ -1,3 +1,4 @@
+# this block is the shared config and will trigger the dev profile
 spring:
   application:
     name: weather-api
@@ -15,7 +16,6 @@ spring:
       ddl-auto: none
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.xml
-    contexts: test
     default-schema: weather
 ---
 spring:
@@ -28,6 +28,8 @@ openweatherapi:
   baseUrl: "http://localhost:9000"
   appId: "1234random"
   urlPathTemplate: "/data/2.5/weather?id={location_code}&units=metric&appid={app_id}"
+  liquibase:
+    contexts: test
 management:
   endpoints:
     web:
@@ -35,9 +37,6 @@ management:
         include: "*"
 ---
 # obtained from secrets, referenced in docker-compose file
-app:
-  scheduling:
-    enable: false
 spring:
   config.activate.on-profile: prod
   datasource:
