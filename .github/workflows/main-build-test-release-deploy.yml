@@ -108,11 +108,3 @@ jobs:
           push: true
           file: frontend/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
-
-  deploy-to-gcp:
-    needs: [ release-backend-docker-image, release-frontend-docker-image ]
-    uses: ./.github/workflows/deploy-to-gcp.yml
-    with:
-      github-sha: ${{ github.sha }}
-      db-alive: 0
-    secrets: inherit
