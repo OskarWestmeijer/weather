@@ -30,11 +30,11 @@ public class OpenWeatherApiClientIT extends IntegrationTestContainers {
     public void handleErrorResponses() {
         Location error = new Location("66666", "666666", "Error", "Error");
 
-        OpenWeatherApiException thrown = Assertions.assertThrows(OpenWeatherApiException.class, () -> {
+        OpenWeatherApiRequestException thrown = Assertions.assertThrows(OpenWeatherApiRequestException.class, () -> {
             apiClient.requestWeather(error);
         });
 
-        Assertions.assertEquals(OpenWeatherApiException.class, thrown.getClass());
+        Assertions.assertEquals(OpenWeatherApiRequestException.class, thrown.getClass());
         Assertions.assertEquals("Exception during OpenWeatherApi request.", thrown.getMessage());
     }
 
