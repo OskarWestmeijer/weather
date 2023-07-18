@@ -6,7 +6,7 @@ import lombok.*;
 import jakarta.persistence.*;
 
 
-@Table(name = "weather", schema = "weather")
+@Table(name = "location", schema = "weather")
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
