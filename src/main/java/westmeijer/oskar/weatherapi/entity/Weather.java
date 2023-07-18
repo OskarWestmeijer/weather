@@ -11,7 +11,7 @@ import java.util.UUID;
 /**
  * Weather representation used by the service and repository layer.
  */
-@Table(name = "weather")
+@Table(name = "weather", schema = "weather")
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
