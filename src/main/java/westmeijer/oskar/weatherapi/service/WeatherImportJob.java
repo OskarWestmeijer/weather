@@ -41,14 +41,13 @@ public class WeatherImportJob {
   /**
    * Job to request OpenWeatherApi every minute. The queue holds the locations to be requested. On every run the latest location will be
    * picked and in the end requeued to the end.
-   * TODO: experiencing errors with this job. Restrict only for id 23552.
    */
   @Scheduled(fixedDelay = 60000)
   public void refreshWeather() {
     try {
       importExecution.increment();
       logger.info("Start weather import job for '23552'.");
-      Location location = locationRepository.findById("23552").get();
+      Location location = locationRepository.findFirstByOrderByLastImportAtDesc();
       Instant now = Instant.now().truncatedTo(ChronoUnit.MILLIS);
       location.setModifiedAt(now);
       location.setLastImportAt(now);
@@ -65,9 +64,8 @@ public class WeatherImportJob {
       logger.error("OpenWeatherApi request failed!", requestException);
       importError.increment();
     } catch (Exception generalException) {
-      logger.error("Exception during Import job. Stop scheduled job and read logs for details.", generalException);
+      logger.error("Exception during Import job.", generalException);
       importError.increment();
-      throw new RuntimeException("Exception during Import job. Stop scheduled job and read logs for details.");
     }
   }
 
