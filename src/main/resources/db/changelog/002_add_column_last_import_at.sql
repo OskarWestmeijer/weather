@@ -1,0 +1,1 @@
+ALTER TABLE location ADD COLUMN last_import_at timestamptz NULL;

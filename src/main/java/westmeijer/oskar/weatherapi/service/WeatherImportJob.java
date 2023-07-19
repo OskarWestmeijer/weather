@@ -2,6 +2,8 @@ package westmeijer.oskar.weatherapi.service;
 
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -47,11 +49,17 @@ public class WeatherImportJob {
       importExecution.increment();
       logger.info("Start weather import job for '23552'.");
       Location location = locationRepository.findById("23552").get();
+      Instant now = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+      location.setModifiedAt(now);
+      location.setLastImportAt(now);
       logger.info("Request for location: {}", location);
       Weather weather = openWeatherApiClient.requestWeather(location);
       logger.info("Response with Weather: {}", weather);
-      Weather savedWeather = weatherRepository.save(weather);
+      Weather savedWeather = weatherRepository.saveAndFlush(weather);
       logger.info("Saved weather entity: {}", savedWeather);
+      logger.info("Saving location entity: {}", location);
+      Location savedLocation = locationRepository.saveAndFlush(location);
+      logger.info("Saved location entity: {}", savedLocation);
       logger.info("Finish weather import job.");
     } catch (OpenWeatherApiRequestException requestException) {
       logger.error("OpenWeatherApi request failed!", requestException);

@@ -1,5 +1,6 @@
 package westmeijer.oskar.weatherapi.openweatherapi;
 
+import java.time.Instant;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -19,7 +20,7 @@ public class OpenWeatherApiClientIT extends IntegrationTestContainers {
 
     @Test
     public void requestApiForHelsinki() {
-        Location helsinki = new Location("00100", "658225", "Helsinki", "Finland");
+        Location helsinki = new Location("00100", "658225", "Helsinki", "Finland", Instant.now(), Instant.now());
         Weather response = apiClient.requestWeather(helsinki);
 
         Assertions.assertEquals(10.00, response.getTemperature());
@@ -28,7 +29,7 @@ public class OpenWeatherApiClientIT extends IntegrationTestContainers {
     @DisplayName("Ensure error request handling is covered.")
     @Test
     public void handleErrorResponses() {
-        Location error = new Location("66666", "666666", "Error", "Error");
+        Location error = new Location("66666", "666666", "Error", "Error", Instant.now(), Instant.now());
 
         OpenWeatherApiRequestException thrown = Assertions.assertThrows(OpenWeatherApiRequestException.class, () -> {
             apiClient.requestWeather(error);
