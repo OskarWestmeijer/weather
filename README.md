@@ -3,11 +3,11 @@
 ![main branch](https://github.com/OskarWestmeijer/weather-api/actions/workflows/main-build-test-release-deploy.yml/badge.svg)
 
 This application provides weather information for predefined locations. This repository contains the frontend and
-backend service. In production the backend connects to the native PostgreSQL database.
-The proxy routing to this service is handled by another private infrastructure repository.
+backend service. In production the backend connects to the hosts PostgreSQL database.
+Proxy routing to these services is handled by another private infrastructure service.
 
-This service requests the public OpenWeatherApi once a minute for the current weather data. The response data is stored
-in the database. The frontend and backend Api can be reached via the internet in Https.
+The Weather-Api backend requests the public OpenWeatherApi once a minute for the current weather data. The response data is stored
+in the database. Frontend and backend Api can be reached by internet in with https.
 
 The weather data is displayed on charts in the ReactJs frontend.
 
