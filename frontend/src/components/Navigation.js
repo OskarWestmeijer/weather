@@ -6,7 +6,7 @@ export default function Navigation() {
     return (
         <nav className="navbar navbar-expand-md fixed-top">
             <div className="container">
-                <a href="https://oskar-westmeijer.com/weather/" className="navbar-brand"><img width="25" height="25" src="images/weather_api.png" alt="Weather-Api logo" /> Weather-Api</a>
+                <a href="https://ui.oskar-westmeijer.com" className="navbar-brand"><img width="25" height="25" src="images/weather_api.png" alt="Weather-Api logo" /> Weather-Api</a>
 
                 <button
                     className="navbar-toggler"

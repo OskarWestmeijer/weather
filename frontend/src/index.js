@@ -11,7 +11,7 @@ import Export from './components/export/Export';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-    <BrowserRouter basename="/weather">
+    <BrowserRouter>
       <Navigation />
       <Routes>
         <Route path="/" element={<Dashboard/>} />

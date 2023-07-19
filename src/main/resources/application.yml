@@ -7,7 +7,7 @@ spring:
   datasource:
     name: weather
     driver-class-name: org.postgresql.Driver
-    hikari.maxLifetime: 60000
+    hikari.maxLifetime: 600000
   jpa:
     properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
