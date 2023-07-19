@@ -1,22 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <appender name="Console"
-              class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <Pattern>%d{dd-MM-yyyy HH:mm:ss} %blue(%-5level) %magenta(%logger{36}) - %msg %n
-            </Pattern>
-        </encoder>
-    </appender>
+  <appender name="weather-api-logs" class="ch.qos.logback.core.ConsoleAppender">
+    <withJansi>true</withJansi>
+    <encoder>
+      <Pattern>%d{dd-MM-yyyy HH:mm:ss} %blue(%-5level) [%thread] %boldCyan(%logger{36}) - %msg %n
+      </Pattern>
+    </encoder>
+  </appender>
 
-    <!-- LOG everything at INFO level -->
-    <root level="info">
-        <appender-ref ref="Console"/>
-    </root>
+  <appender name="hikari-logs" class="ch.qos.logback.core.ConsoleAppender">
+    <withJansi>true</withJansi>
+    <encoder>
+      <Pattern>%d{dd-MM-yyyy HH:mm:ss} %blue(%-5level) [%thread] %yellow(%logger{36}) - %msg %n
+      </Pattern>
+    </encoder>
+  </appender>
 
-    <!-- LOG "westmeijer.oskar*" at INFO level -->
-    <logger name="westmeijer.oskar" level="info" additivity="false">
-        <appender-ref ref="Console"/>
-    </logger>
+  <appender name="hibernate-logs" class="ch.qos.logback.core.ConsoleAppender">
+    <withJansi>true</withJansi>
+    <encoder>
+      <Pattern>%d{dd-MM-yyyy HH:mm:ss} %blue(%-5level) [%thread] %green(%logger{36}) - %msg %n
+      </Pattern>
+    </encoder>
+  </appender>
+
+  <appender name="other-logs" class="ch.qos.logback.core.ConsoleAppender">
+    <withJansi>true</withJansi>
+    <encoder>
+      <Pattern>%d{dd-MM-yyyy HH:mm:ss} %blue(%-5level) [%thread] %magenta(%logger{36}) - %msg %n
+      </Pattern>
+    </encoder>
+  </appender>
+
+  <root level="info">
+    <appender-ref ref="other-logs"/>
+  </root>
+
+  <logger name="westmeijer.oskar" level="info" additivity="false">
+    <appender-ref ref="weather-api-logs"/>
+  </logger>
+
+  <logger name="com.zaxxer.hikari" level="debug" additivity="false">
+    <appender-ref ref="hikari-logs"/>
+  </logger>
+
+  <logger name="org.hibernate.SQL" level="debug" additivity="false">
+    <appender-ref ref="hibernate-logs"/>
+  </logger>
 
 </configuration>

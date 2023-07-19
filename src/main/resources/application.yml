@@ -7,6 +7,7 @@ spring:
   datasource:
     name: weather
     driver-class-name: org.postgresql.Driver
+    hikari.maxLifetime: 60000
   jpa:
     properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
@@ -48,6 +49,6 @@ management:
   endpoints:
     web:
       exposure:
-        include: "health,info"
+        include: "health,info,prometheus"
   liquibase:
     contexts: prod
