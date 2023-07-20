@@ -5,6 +5,6 @@ import westmeijer.oskar.weatherapi.entity.Location;
 
 public interface LocationRepository extends JpaRepository<Location, String> {
 
-  Location findFirstByOrderByLastImportAtDesc();
+  Location findFirstByOrderByLastImportAtAsc();
 
 }

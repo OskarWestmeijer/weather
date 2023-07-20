@@ -46,8 +46,8 @@ public class WeatherImportJob {
   public void refreshWeather() {
     try {
       importExecution.increment();
-      logger.info("Start weather import job for '23552'.");
-      Location location = locationRepository.findFirstByOrderByLastImportAtDesc();
+      logger.info("Start weather import job.");
+      Location location = locationRepository.findFirstByOrderByLastImportAtAsc();
       Instant now = Instant.now().truncatedTo(ChronoUnit.MILLIS);
       location.setModifiedAt(now);
       location.setLastImportAt(now);

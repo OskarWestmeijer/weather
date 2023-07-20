@@ -45,7 +45,7 @@
     <appender-ref ref="hikari-logs"/>
   </logger>
 
-  <logger name="org.hibernate.SQL" level="debug" additivity="false">
+  <logger name="org.hibernate.SQL" level="info" additivity="false">
     <appender-ref ref="hibernate-logs"/>
   </logger>
 
