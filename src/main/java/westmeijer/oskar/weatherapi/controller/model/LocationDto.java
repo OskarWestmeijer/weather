@@ -1,5 +1,12 @@
 package westmeijer.oskar.weatherapi.controller.model;
 
-public record LocationDto() {
+import java.time.Instant;
+
+public record LocationDto(String localZipCode,
+                          String locationCode,
+                          String cityName,
+                          String country,
+                          Instant modifiedAt,
+                          Instant lastImportAt) {
 
 }

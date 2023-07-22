@@ -13,9 +13,9 @@ import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.service.model.Location;
 
 
-public class LocationMapperTest {
+public class LocationEntityMapperTest {
 
-  private final LocationMapper locationMapper = Mappers.getMapper(LocationMapper.class);
+  private final LocationEntityMapper locationEntityMapper = Mappers.getMapper(LocationEntityMapper.class);
 
   @Test
   public void shouldMapToLocation() {
@@ -28,7 +28,7 @@ public class LocationMapperTest {
         .lastImportAt(Instant.now().truncatedTo(ChronoUnit.MILLIS))
         .build();
 
-    Location location = locationMapper.map(locationEntity);
+    Location location = locationEntityMapper.map(locationEntity);
 
     assertThat(location.locationCode()).isEqualTo(locationEntity.getLocationCode());
     assertThat(location.localZipCode()).isEqualTo(locationEntity.getLocalZipCode());
@@ -58,7 +58,7 @@ public class LocationMapperTest {
         .lastImportAt(Instant.now().truncatedTo(ChronoUnit.MICROS))
         .build();
 
-    List<Location> locations = locationMapper.mapList(List.of(luebeck, hamburg));
+    List<Location> locations = locationEntityMapper.mapList(List.of(luebeck, hamburg));
 
     assertThat(locations.size()).isEqualTo(2);
     assertThat(locations).extracting("locationCode", "localZipCode", "cityName", "country")

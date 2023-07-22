@@ -6,7 +6,7 @@ import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.service.model.Location;
 
 @Mapper(componentModel = "spring")
-public interface LocationMapper {
+public interface LocationEntityMapper {
 
   List<Location> mapList(List<LocationEntity> locationEntityList);
 
