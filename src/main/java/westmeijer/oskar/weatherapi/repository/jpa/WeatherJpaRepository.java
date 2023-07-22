@@ -9,7 +9,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
-public interface WeatherRepository extends JpaRepository<Weather, UUID> {
+public interface WeatherJpaRepository extends JpaRepository<Weather, UUID> {
 
     @Query(value = "SELECT * FROM weather.weather WHERE recorded_at BETWEEN NOW() - INTERVAL '24 HOURS' AND NOW() AND local_zip_code = :local_zip_code ORDER BY recorded_at DESC", nativeQuery = true)
     List<Weather> getLatestEntries(@Param("local_zip_code") String localZipCode);

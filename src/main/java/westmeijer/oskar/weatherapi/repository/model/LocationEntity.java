@@ -13,6 +13,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Getter
 public class LocationEntity {
 

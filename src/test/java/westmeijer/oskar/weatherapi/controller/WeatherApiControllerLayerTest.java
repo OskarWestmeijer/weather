@@ -7,7 +7,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
-import westmeijer.oskar.weatherapi.repository.jpa.LocationRepository;
+import westmeijer.oskar.weatherapi.repository.jpa.LocationJpaRepository;
 import westmeijer.oskar.weatherapi.service.WeatherApiService;
 import westmeijer.oskar.weatherapi.repository.model.Weather;
 
@@ -28,7 +28,7 @@ public class WeatherApiControllerLayerTest {
   private WeatherApiService weatherApiService;
 
   @MockBean
-  private LocationRepository locationRepository;
+  private LocationJpaRepository locationJpaRepository;
 
   @Autowired
   private MockMvc mockMvc;
@@ -40,7 +40,7 @@ public class WeatherApiControllerLayerTest {
         new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, 88, 11.66, "23552", Instant.now(), Instant.now()));
     Optional<LocationEntity> location = Optional.of(new LocationEntity("23552", "2875601", "Lübeck", "Germany", Instant.now(), Instant.now()));
     when(weatherApiService.getLast24h("23552")).thenReturn(weatherData);
-    when(locationRepository.findById("23552")).thenReturn(location);
+    when(locationJpaRepository.findById("23552")).thenReturn(location);
 
     mockMvc.perform(get("/api/v1/weather/23552/24h"))
         .andExpect(status().isOk())

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
-import westmeijer.oskar.weatherapi.repository.jpa.LocationRepository;
+import westmeijer.oskar.weatherapi.repository.jpa.LocationJpaRepository;
 
 @Controller
 @CrossOrigin
@@ -16,11 +16,11 @@ import westmeijer.oskar.weatherapi.repository.jpa.LocationRepository;
 @RequiredArgsConstructor
 public class LocationController {
 
-    private final LocationRepository locationRepository;
+    private final LocationJpaRepository locationJpaRepository;
 
     @GetMapping("/locations")
     public ResponseEntity<List<LocationEntity>> getLocations() {
-        return ResponseEntity.ok(locationRepository.findAll());
+        return ResponseEntity.ok(locationJpaRepository.findAll());
     }
 
 }

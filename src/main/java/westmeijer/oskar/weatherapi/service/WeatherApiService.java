@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
-import westmeijer.oskar.weatherapi.repository.jpa.WeatherRepository;
+import westmeijer.oskar.weatherapi.repository.jpa.WeatherJpaRepository;
 import westmeijer.oskar.weatherapi.repository.model.Weather;
 import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiClient;
 
@@ -20,11 +20,11 @@ public class WeatherApiService {
 
     private final OpenWeatherApiClient openWeatherApiClient;
 
-    private final WeatherRepository weatherRepository;
+    private final WeatherJpaRepository weatherJpaRepository;
 
-    public WeatherApiService(OpenWeatherApiClient openWeatherApiClient, WeatherRepository weatherRepository) {
+    public WeatherApiService(OpenWeatherApiClient openWeatherApiClient, WeatherJpaRepository weatherJpaRepository) {
         this.openWeatherApiClient = openWeatherApiClient;
-        this.weatherRepository = weatherRepository;
+        this.weatherJpaRepository = weatherJpaRepository;
     }
 
 
@@ -35,7 +35,7 @@ public class WeatherApiService {
      * @return
      */
     public List<Weather> getLast24h(String localZipCode) {
-        List<Weather> weatherData = weatherRepository.getLatestEntries(localZipCode);
+        List<Weather> weatherData = weatherJpaRepository.getLatestEntries(localZipCode);
 
         return weatherData.stream()
                 .sorted(Comparator.comparing(Weather::getRecordedAt).reversed())
@@ -49,7 +49,7 @@ public class WeatherApiService {
      * @return
      */
     public List<Weather> getLast3Days(String localZipCode) {
-        List<Weather> weatherData = weatherRepository.getLastThreeDays(localZipCode);
+        List<Weather> weatherData = weatherJpaRepository.getLastThreeDays(localZipCode);
 
         return weatherData.stream()
                 .sorted(Comparator.comparing(Weather::getRecordedAt).reversed())
@@ -68,7 +68,7 @@ public class WeatherApiService {
         logger.debug("start instant: {}", start);
         logger.debug("end instant: {}", end);
 
-        List<Weather> weatherData = weatherRepository.getSpecificDay(localZipCode, start, end);
+        List<Weather> weatherData = weatherJpaRepository.getSpecificDay(localZipCode, start, end);
 
         return weatherData.stream()
                 .sorted(Comparator.comparing(Weather::getRecordedAt).reversed())

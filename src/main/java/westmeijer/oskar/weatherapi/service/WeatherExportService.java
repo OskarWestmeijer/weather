@@ -5,7 +5,7 @@ import org.apache.commons.csv.CSVPrinter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import westmeijer.oskar.weatherapi.repository.jpa.WeatherRepository;
+import westmeijer.oskar.weatherapi.repository.jpa.WeatherJpaRepository;
 import westmeijer.oskar.weatherapi.repository.model.Weather;
 
 import java.io.IOException;
@@ -19,16 +19,16 @@ public class WeatherExportService {
 
     private static final Logger logger = LoggerFactory.getLogger(WeatherApiService.class);
 
-    private final WeatherRepository weatherRepository;
+    private final WeatherJpaRepository weatherJpaRepository;
 
-    public WeatherExportService(WeatherRepository weatherRepository) {
-        this.weatherRepository = weatherRepository;
+    public WeatherExportService(WeatherJpaRepository weatherJpaRepository) {
+        this.weatherJpaRepository = weatherJpaRepository;
     }
 
     public void writeWeatherToCsv(Writer writer, String localZipCode, Instant start) {
         Instant end = start.plus(1L, ChronoUnit.DAYS);
 
-        List<Weather> weatherList = weatherRepository.getSpecificDay(localZipCode, start, end);
+        List<Weather> weatherList = weatherJpaRepository.getSpecificDay(localZipCode, start, end);
 
         CSVFormat format = CSVFormat.Builder.create().setDelimiter(";").setHeader("temperature", "humidity", "wind_speed", "recorded_at_utc").build();
 

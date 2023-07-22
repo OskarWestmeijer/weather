@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
-import westmeijer.oskar.weatherapi.repository.jpa.LocationRepository;
+import westmeijer.oskar.weatherapi.repository.jpa.LocationJpaRepository;
 import westmeijer.oskar.weatherapi.service.WeatherExportService;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,17 +22,17 @@ public class WeatherExportController {
 
     private final WeatherExportService weatherExportService;
 
-    private final LocationRepository locationRepository;
+    private final LocationJpaRepository locationJpaRepository;
 
-    public WeatherExportController(WeatherExportService weatherExportService, LocationRepository locationRepository) {
+    public WeatherExportController(WeatherExportService weatherExportService, LocationJpaRepository locationJpaRepository) {
         this.weatherExportService = weatherExportService;
-        this.locationRepository = locationRepository;
+        this.locationJpaRepository = locationJpaRepository;
     }
 
     @GetMapping("/csv/weather/{localZipCode}/{date}")
     public void exportAsCsv(HttpServletResponse servletResponse, @PathVariable String localZipCode, @PathVariable String date) throws IOException {
         String fileName = ControllerUtil.buildFileName(localZipCode, date, ControllerUtil.CSV_FILE);
-        LocationEntity locationEntity = locationRepository.findById(localZipCode).orElseThrow();
+        LocationEntity locationEntity = locationJpaRepository.findById(localZipCode).orElseThrow();
 
         servletResponse.setContentType("text/csv");
         servletResponse.addHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
