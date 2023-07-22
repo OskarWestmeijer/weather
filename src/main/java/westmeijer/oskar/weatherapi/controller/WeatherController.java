@@ -12,7 +12,7 @@ import westmeijer.oskar.weatherapi.controller.mapper.WeatherDtoMapper;
 import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.repository.jpa.LocationJpaRepository;
 import westmeijer.oskar.weatherapi.repository.model.WeatherEntity;
-import westmeijer.oskar.weatherapi.service.WeatherApiService;
+import westmeijer.oskar.weatherapi.service.WeatherService;
 import westmeijer.oskar.weatherapi.controller.model.WeatherResponse;
 
 import java.time.Instant;
@@ -24,9 +24,9 @@ import java.util.List;
 @RequestMapping("/api/v1/weather/{localZipCode}")
 @RequiredArgsConstructor
 @Slf4j
-public class WeatherApiController {
+public class WeatherController {
 
-    private final WeatherApiService weatherApiService;
+    private final WeatherService weatherService;
 
     private final LocationJpaRepository locationJpaRepository;
 
@@ -37,7 +37,7 @@ public class WeatherApiController {
     public ResponseEntity<WeatherResponse> getNow(@PathVariable String localZipCode) {
         log.info("Received Weather request NOW for localZipCode: {}", localZipCode);
         LocationEntity locationEntity = locationJpaRepository.findById(localZipCode).orElseThrow(() -> new LocationNotSupportedException(localZipCode));
-        WeatherEntity weatherEntityData = weatherApiService.getNow(locationEntity);
+        WeatherEntity weatherEntityData = weatherService.getNow(locationEntity);
         WeatherResponse weatherResponse = weatherDtoMapper.mapTo(locationEntity, Collections.singletonList(weatherEntityData));
         return ResponseEntity.ok(weatherResponse);
     }
@@ -46,7 +46,7 @@ public class WeatherApiController {
     public ResponseEntity<WeatherResponse> getLast24Hours(@PathVariable String localZipCode) {
         log.info("Received Weather request 24h for localZipCode: {}", localZipCode);
         LocationEntity locationEntity = locationJpaRepository.findById(localZipCode).orElseThrow(() -> new LocationNotSupportedException(localZipCode));
-        List<WeatherEntity> weatherEntityData = weatherApiService.getLast24h(localZipCode);
+        List<WeatherEntity> weatherEntityData = weatherService.getLast24h(localZipCode);
         WeatherResponse weatherResponse = weatherDtoMapper.mapTo(locationEntity, weatherEntityData);
         return ResponseEntity.ok(weatherResponse);
 
@@ -56,7 +56,7 @@ public class WeatherApiController {
     public ResponseEntity<WeatherResponse> getLast3Days(@PathVariable String localZipCode) {
         log.info("Received Weather request 3d for localZipCode: {}", localZipCode);
         LocationEntity locationEntity = locationJpaRepository.findById(localZipCode).orElseThrow(() -> new LocationNotSupportedException(localZipCode));
-        List<WeatherEntity> weatherEntityData = weatherApiService.getLast3Days(localZipCode);
+        List<WeatherEntity> weatherEntityData = weatherService.getLast3Days(localZipCode);
         WeatherResponse weatherResponse = weatherDtoMapper.mapTo(locationEntity, weatherEntityData);
         return ResponseEntity.ok(weatherResponse);
     }
@@ -73,7 +73,7 @@ public class WeatherApiController {
         log.info("Received Weather request SPECIFIC date for localZipCode: {}, date: {}", localZipCode, date);
         LocationEntity locationEntity = locationJpaRepository.findById(localZipCode).orElseThrow(() -> new LocationNotSupportedException(localZipCode));
         Instant instant = ControllerUtil.atStartOfDay(date, locationEntity);
-        List<WeatherEntity> weatherEntityData = weatherApiService.getSpecificDate(localZipCode, instant);
+        List<WeatherEntity> weatherEntityData = weatherService.getSpecificDate(localZipCode, instant);
         WeatherResponse weatherResponse = weatherDtoMapper.mapTo(locationEntity, weatherEntityData);
         return ResponseEntity.ok(weatherResponse);
     }

@@ -1,6 +1,7 @@
 package westmeijer.oskar.weatherapi.controller;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -20,15 +21,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import westmeijer.oskar.weatherapi.repository.jpa.LocationJpaRepository;
 import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.repository.model.WeatherEntity;
-import westmeijer.oskar.weatherapi.service.WeatherApiService;
+import westmeijer.oskar.weatherapi.service.WeatherService;
 import westmeijer.oskar.weatherapi.util.WebMvcTestConfig;
 
-@WebMvcTest(WeatherApiController.class)
+@WebMvcTest(WeatherController.class)
 @Import(WebMvcTestConfig.class)
-public class WeatherApiControllerLayerTest {
+public class WeatherControllerLayerTest {
 
   @MockBean
-  private WeatherApiService weatherApiService;
+  private WeatherService weatherService;
 
   @MockBean
   private LocationJpaRepository locationJpaRepository;
@@ -42,8 +43,9 @@ public class WeatherApiControllerLayerTest {
         new WeatherEntity(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, 88, 11.66, "23552", Instant.now(), Instant.now()));
     Optional<LocationEntity> location = Optional.of(
         new LocationEntity("23552", "2875601", "Lübeck", "Germany", Instant.now(), Instant.now()));
-    when(weatherApiService.getLast24h("23552")).thenReturn(weatherEntityData);
-    when(locationJpaRepository.findById("23552")).thenReturn(location);
+
+    given(weatherService.getLast24h("23552")).willReturn(weatherEntityData);
+    given(locationJpaRepository.findById("23552")).willReturn(location);
 
     @Language("json")
     String expectedBody = """
@@ -64,13 +66,21 @@ public class WeatherApiControllerLayerTest {
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(expectedBody));
+
+    then(weatherService).should().getLast24h("23552");
+    then(locationJpaRepository).should().findById("23552");
   }
 
   @Test
   public void requestWeatherUnknownZipCode() throws Exception {
+    given(locationJpaRepository.findById("46286")).willReturn(Optional.empty());
+
     mockMvc.perform(get("/api/v1/weather/46286/24h"))
         .andExpect(status().isNotFound())
         .andExpect(content().string("Requested zip_code not found. Please verify it is supported. zip_code: 46286"));
+
+    then(weatherService).shouldHaveNoInteractions();
+    then(locationJpaRepository).should().findById("46286");
   }
 
 

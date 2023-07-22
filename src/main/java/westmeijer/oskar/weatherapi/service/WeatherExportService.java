@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class WeatherExportService {
 
-    private static final Logger logger = LoggerFactory.getLogger(WeatherApiService.class);
+    private static final Logger logger = LoggerFactory.getLogger(WeatherService.class);
 
     private final WeatherJpaRepository weatherJpaRepository;
 

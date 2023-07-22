@@ -14,15 +14,15 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
-public class WeatherApiService {
+public class WeatherService {
 
-    private static final Logger logger = LoggerFactory.getLogger(WeatherApiService.class);
+    private static final Logger logger = LoggerFactory.getLogger(WeatherService.class);
 
     private final OpenWeatherApiClient openWeatherApiClient;
 
     private final WeatherJpaRepository weatherJpaRepository;
 
-    public WeatherApiService(OpenWeatherApiClient openWeatherApiClient, WeatherJpaRepository weatherJpaRepository) {
+    public WeatherService(OpenWeatherApiClient openWeatherApiClient, WeatherJpaRepository weatherJpaRepository) {
         this.openWeatherApiClient = openWeatherApiClient;
         this.weatherJpaRepository = weatherJpaRepository;
     }
