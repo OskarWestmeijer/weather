@@ -2,13 +2,16 @@ package westmeijer.oskar.weatherapi.controller;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import westmeijer.oskar.weatherapi.entity.Location;
-import westmeijer.oskar.weatherapi.repository.LocationRepository;
+import westmeijer.oskar.weatherapi.controller.mapper.LocationDtoMapper;
+import westmeijer.oskar.weatherapi.controller.model.LocationDto;
+import westmeijer.oskar.weatherapi.service.LocationService;
+import westmeijer.oskar.weatherapi.service.model.Location;
 
 @Controller
 @CrossOrigin
@@ -16,11 +19,15 @@ import westmeijer.oskar.weatherapi.repository.LocationRepository;
 @RequiredArgsConstructor
 public class LocationController {
 
-    private final LocationRepository locationRepository;
+  private final LocationService locationService;
 
-    @GetMapping("/locations")
-    public ResponseEntity<List<Location>> getLocations() {
-        return ResponseEntity.ok(locationRepository.findAll());
-    }
+  private final LocationDtoMapper locationDtoMapper;
+
+  @GetMapping("/locations")
+  public ResponseEntity<List<LocationDto>> getLocations() {
+    List<Location> locations = locationService.getAll();
+    List<LocationDto> locationDtos = locationDtoMapper.mapList(locations);
+    return ResponseEntity.ok(locationDtos);
+  }
 
 }

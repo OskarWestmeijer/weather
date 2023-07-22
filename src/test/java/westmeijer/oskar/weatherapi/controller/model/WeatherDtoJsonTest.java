@@ -14,18 +14,18 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @JsonTest
-public class WeatherDTOJsonTest {
+public class WeatherDtoJsonTest {
 
     @Autowired
-    private JacksonTester<WeatherDTO> tester;
+    private JacksonTester<WeatherDto> tester;
 
     @Test
     @SneakyThrows
     public void serializeToJson() {
         Instant registered = Instant.now();
-        WeatherDTO weatherDTO = new WeatherDTO(UUID.randomUUID(), 22.54d, Instant.now(), 34, 89.12d, "1234");
+        WeatherDto weatherDTO = new WeatherDto(UUID.randomUUID(), 22.54d, Instant.now(), 34, 89.12d, "1234");
 
-        JsonContent<WeatherDTO> json = tester.write(weatherDTO);
+        JsonContent<WeatherDto> json = tester.write(weatherDTO);
 
         assertThat(json).doesNotHaveJsonPath("id");
         assertThat(json.getJson()).isEqualTo("""

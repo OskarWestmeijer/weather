@@ -1,11 +1,10 @@
-package westmeijer.oskar.weatherapi.entity;
+package westmeijer.oskar.weatherapi.repository.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.Instant;
 import lombok.*;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.SourceType;
 import org.hibernate.annotations.UpdateTimestamp;
 
 
@@ -14,9 +13,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Getter
-@ToString
-public class Location {
+public class LocationEntity {
 
   /**
    * The local zip code. Only numeric. Example: 00100

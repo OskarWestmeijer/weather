@@ -12,7 +12,7 @@ import org.springframework.core.io.Resource;
 
 
 @JsonTest
-public class OpenWeatherApiResponseJsonTest {
+public class OpenWeatherApiResponseJsonTestEntity {
 
     @Autowired
     private JacksonTester<OpenWeatherApiResponse> tester;

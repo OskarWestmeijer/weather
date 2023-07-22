@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import westmeijer.oskar.weatherapi.IntegrationTestContainers;
-import westmeijer.oskar.weatherapi.entity.Location;
-import westmeijer.oskar.weatherapi.entity.Weather;
+import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
+import westmeijer.oskar.weatherapi.repository.model.WeatherEntity;
 
 @Slf4j
 @SpringBootTest
@@ -20,8 +20,8 @@ public class OpenWeatherApiClientIT extends IntegrationTestContainers {
 
     @Test
     public void requestApiForHelsinki() {
-        Location helsinki = new Location("00100", "658225", "Helsinki", "Finland", Instant.now(), Instant.now());
-        Weather response = apiClient.requestWeather(helsinki);
+        LocationEntity helsinki = new LocationEntity("00100", "658225", "Helsinki", "Finland", Instant.now(), Instant.now());
+        WeatherEntity response = apiClient.requestWeather(helsinki);
 
         Assertions.assertEquals(10.00, response.getTemperature());
     }
@@ -29,7 +29,7 @@ public class OpenWeatherApiClientIT extends IntegrationTestContainers {
     @DisplayName("Ensure error request handling is covered.")
     @Test
     public void handleErrorResponses() {
-        Location error = new Location("66666", "666666", "Error", "Error", Instant.now(), Instant.now());
+        LocationEntity error = new LocationEntity("66666", "666666", "Error", "Error", Instant.now(), Instant.now());
 
         OpenWeatherApiRequestException thrown = Assertions.assertThrows(OpenWeatherApiRequestException.class, () -> {
             apiClient.requestWeather(error);
