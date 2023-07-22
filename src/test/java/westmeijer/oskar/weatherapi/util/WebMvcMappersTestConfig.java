@@ -7,7 +7,7 @@ import westmeijer.oskar.weatherapi.controller.mapper.LocationDtoMapper;
 import westmeijer.oskar.weatherapi.controller.mapper.WeatherDtoMapper;
 
 @TestConfiguration
-public class WebMvcTestConfig {
+public class WebMvcMappersTestConfig {
 
   @Bean
   public WeatherDtoMapper weatherDtoMapper() {

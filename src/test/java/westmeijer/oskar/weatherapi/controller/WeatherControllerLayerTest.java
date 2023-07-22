@@ -22,10 +22,10 @@ import westmeijer.oskar.weatherapi.repository.jpa.LocationJpaRepository;
 import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.service.WeatherService;
-import westmeijer.oskar.weatherapi.util.WebMvcTestConfig;
+import westmeijer.oskar.weatherapi.util.WebMvcMappersTestConfig;
 
 @WebMvcTest(WeatherController.class)
-@Import(WebMvcTestConfig.class)
+@Import(WebMvcMappersTestConfig.class)
 public class WeatherControllerLayerTest {
 
   @MockBean
