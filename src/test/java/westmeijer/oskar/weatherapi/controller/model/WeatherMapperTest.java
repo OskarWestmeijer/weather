@@ -2,8 +2,8 @@ package westmeijer.oskar.weatherapi.controller.model;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import westmeijer.oskar.weatherapi.entity.Location;
-import westmeijer.oskar.weatherapi.entity.Weather;
+import westmeijer.oskar.weatherapi.repository.model.Location;
+import westmeijer.oskar.weatherapi.repository.model.Weather;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;

@@ -1,9 +1,9 @@
-package westmeijer.oskar.weatherapi.repository;
+package westmeijer.oskar.weatherapi.repository.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import westmeijer.oskar.weatherapi.entity.Weather;
+import westmeijer.oskar.weatherapi.repository.model.Weather;
 
 import java.time.Instant;
 import java.util.List;

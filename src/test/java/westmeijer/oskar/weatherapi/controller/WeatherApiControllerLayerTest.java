@@ -6,10 +6,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import westmeijer.oskar.weatherapi.entity.Location;
-import westmeijer.oskar.weatherapi.repository.LocationRepository;
+import westmeijer.oskar.weatherapi.repository.model.Location;
+import westmeijer.oskar.weatherapi.repository.jpa.LocationRepository;
 import westmeijer.oskar.weatherapi.service.WeatherApiService;
-import westmeijer.oskar.weatherapi.entity.Weather;
+import westmeijer.oskar.weatherapi.repository.model.Weather;
 
 import java.time.*;
 import java.util.List;

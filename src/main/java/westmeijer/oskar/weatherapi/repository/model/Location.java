@@ -1,11 +1,10 @@
-package westmeijer.oskar.weatherapi.entity;
+package westmeijer.oskar.weatherapi.repository.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.Instant;
 import lombok.*;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.SourceType;
 import org.hibernate.annotations.UpdateTimestamp;
 
 

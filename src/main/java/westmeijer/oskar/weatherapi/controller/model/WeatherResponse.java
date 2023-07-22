@@ -1,7 +1,7 @@
 package westmeijer.oskar.weatherapi.controller.model;
 
 import lombok.Value;
-import westmeijer.oskar.weatherapi.entity.Location;
+import westmeijer.oskar.weatherapi.repository.model.Location;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;

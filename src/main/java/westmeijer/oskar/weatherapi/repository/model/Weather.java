@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.entity;
+package westmeijer.oskar.weatherapi.repository.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;

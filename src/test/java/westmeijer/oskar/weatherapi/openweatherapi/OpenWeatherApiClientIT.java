@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import westmeijer.oskar.weatherapi.IntegrationTestContainers;
-import westmeijer.oskar.weatherapi.entity.Location;
-import westmeijer.oskar.weatherapi.entity.Weather;
+import westmeijer.oskar.weatherapi.repository.model.Location;
+import westmeijer.oskar.weatherapi.repository.model.Weather;
 
 @Slf4j
 @SpringBootTest

@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import westmeijer.oskar.weatherapi.controller.model.WeatherMapper;
-import westmeijer.oskar.weatherapi.entity.Location;
-import westmeijer.oskar.weatherapi.repository.LocationNotSupportedException;
-import westmeijer.oskar.weatherapi.repository.LocationRepository;
+import westmeijer.oskar.weatherapi.repository.model.Location;
+import westmeijer.oskar.weatherapi.repository.jpa.LocationRepository;
 import westmeijer.oskar.weatherapi.service.WeatherApiService;
-import westmeijer.oskar.weatherapi.entity.Weather;
+import westmeijer.oskar.weatherapi.repository.model.Weather;
 import westmeijer.oskar.weatherapi.controller.model.WeatherResponse;
 
 import java.time.Instant;

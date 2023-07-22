@@ -3,8 +3,8 @@ package westmeijer.oskar.weatherapi.controller.model;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import westmeijer.oskar.weatherapi.entity.Location;
-import westmeijer.oskar.weatherapi.entity.Weather;
+import westmeijer.oskar.weatherapi.repository.model.Location;
+import westmeijer.oskar.weatherapi.repository.model.Weather;
 
 import java.util.List;
 

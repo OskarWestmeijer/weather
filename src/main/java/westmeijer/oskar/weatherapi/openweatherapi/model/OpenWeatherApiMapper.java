@@ -1,7 +1,7 @@
 package westmeijer.oskar.weatherapi.openweatherapi.model;
 
 import com.google.common.base.Preconditions;
-import westmeijer.oskar.weatherapi.entity.Weather;
+import westmeijer.oskar.weatherapi.repository.model.Weather;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;

@@ -5,8 +5,8 @@ import org.apache.commons.csv.CSVPrinter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import westmeijer.oskar.weatherapi.repository.WeatherRepository;
-import westmeijer.oskar.weatherapi.entity.Weather;
+import westmeijer.oskar.weatherapi.repository.jpa.WeatherRepository;
+import westmeijer.oskar.weatherapi.repository.model.Weather;
 
 import java.io.IOException;
 import java.io.Writer;
