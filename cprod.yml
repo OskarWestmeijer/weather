@@ -31,6 +31,8 @@ services:
     expose:
       - "80"
     restart: always
+    volumes:
+      - ./frontend/nginx/conf.d/:/etc/nginx/conf.d/:ro
 networks:
   default:
     name: proxy
