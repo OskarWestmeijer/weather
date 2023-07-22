@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import westmeijer.oskar.weatherapi.IntegrationTestContainers;
 import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
-import westmeijer.oskar.weatherapi.repository.model.Weather;
+import westmeijer.oskar.weatherapi.repository.model.WeatherEntity;
 
 @Slf4j
 @SpringBootTest
@@ -21,7 +21,7 @@ public class OpenWeatherApiClientIT extends IntegrationTestContainers {
     @Test
     public void requestApiForHelsinki() {
         LocationEntity helsinki = new LocationEntity("00100", "658225", "Helsinki", "Finland", Instant.now(), Instant.now());
-        Weather response = apiClient.requestWeather(helsinki);
+        WeatherEntity response = apiClient.requestWeather(helsinki);
 
         Assertions.assertEquals(10.00, response.getTemperature());
     }

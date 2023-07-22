@@ -13,7 +13,6 @@ import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SourceType;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -27,8 +26,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-public class Weather {
+public class WeatherEntity {
 
   @JsonIgnore
   @GeneratedValue(strategy = GenerationType.AUTO)

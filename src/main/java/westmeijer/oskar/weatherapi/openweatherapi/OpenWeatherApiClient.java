@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
-import westmeijer.oskar.weatherapi.repository.model.Weather;
+import westmeijer.oskar.weatherapi.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.openweatherapi.model.OpenWeatherApiMapper;
 import westmeijer.oskar.weatherapi.openweatherapi.model.OpenWeatherApiResponse;
 
@@ -32,7 +32,7 @@ public class OpenWeatherApiClient {
      * @param locationEntity
      * @return
      */
-    public Weather requestWeather(LocationEntity locationEntity) {
+    public WeatherEntity requestWeather(LocationEntity locationEntity) {
         try {
             String urlPath = buildUrlPath(locationEntity);
             logger.debug("Built urlPath: {}", urlPath);

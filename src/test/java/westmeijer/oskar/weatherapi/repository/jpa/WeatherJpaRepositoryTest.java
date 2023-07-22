@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import westmeijer.oskar.weatherapi.IntegrationTestContainers;
-import westmeijer.oskar.weatherapi.repository.model.Weather;
+import westmeijer.oskar.weatherapi.repository.model.WeatherEntity;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -29,10 +29,10 @@ public class WeatherJpaRepositoryTest extends IntegrationTestContainers {
     Instant start = localDate.atStartOfDay(ZoneId.of("UTC")).toInstant();
     Instant end = start.plus(1L, ChronoUnit.DAYS);
 
-    List<Weather> weatherData = weatherJpaRepository.getSpecificDay("23552", start, end);
+    List<WeatherEntity> weatherEntityData = weatherJpaRepository.getSpecificDay("23552", start, end);
 
-    Assertions.assertEquals(5, weatherData.size());
-    Assertions.assertEquals(12.45, weatherData.get(0).getTemperature());
+    Assertions.assertEquals(5, weatherEntityData.size());
+    Assertions.assertEquals(12.45, weatherEntityData.get(0).getTemperature());
   }
 
 }

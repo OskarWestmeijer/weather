@@ -11,7 +11,7 @@ import org.mapstruct.factory.Mappers;
 import westmeijer.oskar.weatherapi.controller.model.LocationDto;
 import westmeijer.oskar.weatherapi.service.model.Location;
 
-public class LocationDtoTest {
+public class LocationDtoMapperTest {
 
   private final LocationDtoMapper locationDtoMapper = Mappers.getMapper(LocationDtoMapper.class);
 
