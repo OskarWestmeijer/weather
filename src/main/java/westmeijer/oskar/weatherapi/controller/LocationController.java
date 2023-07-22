@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import westmeijer.oskar.weatherapi.repository.model.Location;
+import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.repository.jpa.LocationRepository;
 
 @Controller
@@ -19,7 +19,7 @@ public class LocationController {
     private final LocationRepository locationRepository;
 
     @GetMapping("/locations")
-    public ResponseEntity<List<Location>> getLocations() {
+    public ResponseEntity<List<LocationEntity>> getLocations() {
         return ResponseEntity.ok(locationRepository.findAll());
     }
 

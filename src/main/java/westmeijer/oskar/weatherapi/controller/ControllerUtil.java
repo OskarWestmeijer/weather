@@ -1,6 +1,6 @@
 package westmeijer.oskar.weatherapi.controller;
 
-import westmeijer.oskar.weatherapi.repository.model.Location;
+import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -18,12 +18,12 @@ public class ControllerUtil {
      * Creates Instant at start of the day for the associated time zone.
      *
      * @param date example: 15-07-1992
-     * @param location example: Germany
+     * @param locationEntity example: Germany
      * @return example: 14-07-1992 (22:00)
      */
-    public static Instant atStartOfDay(String date, Location location) {
+    public static Instant atStartOfDay(String date, LocationEntity locationEntity) {
         LocalDate localDate = LocalDate.from(DATE_TIME_FORMATTER.parse(date));
-        ZoneId timezone = getTimeZone(location);
+        ZoneId timezone = getTimeZone(locationEntity);
         return localDate.atStartOfDay(timezone).toInstant();
     }
 
@@ -31,9 +31,9 @@ public class ControllerUtil {
         return "weather_" + date + "_" + localZipCode + type;
     }
 
-    private static ZoneId getTimeZone(Location location) {
+    private static ZoneId getTimeZone(LocationEntity locationEntity) {
 
-        return switch (location.getCountry()) {
+        return switch (locationEntity.getCountry()) {
             case "Germany" -> ZoneId.of("Europe/Berlin");
             case "Finland" -> ZoneId.of("Europe/Helsinki");
             default -> ZoneId.of("UTC");

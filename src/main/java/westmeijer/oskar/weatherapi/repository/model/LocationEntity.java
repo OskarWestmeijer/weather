@@ -14,8 +14,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
-public class Location {
+public class LocationEntity {
 
   /**
    * The local zip code. Only numeric. Example: 00100

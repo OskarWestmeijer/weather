@@ -1,10 +1,10 @@
 package westmeijer.oskar.weatherapi.repository.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import westmeijer.oskar.weatherapi.repository.model.Location;
+import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
 
-public interface LocationRepository extends JpaRepository<Location, String> {
+public interface LocationRepository extends JpaRepository<LocationEntity, String> {
 
-  Location findFirstByOrderByLastImportAtAsc();
+  LocationEntity findFirstByOrderByLastImportAtAsc();
 
 }

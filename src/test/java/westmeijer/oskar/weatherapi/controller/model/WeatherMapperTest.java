@@ -2,7 +2,7 @@ package westmeijer.oskar.weatherapi.controller.model;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import westmeijer.oskar.weatherapi.repository.model.Location;
+import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.repository.model.Weather;
 
 import java.time.Instant;
@@ -15,15 +15,15 @@ public class WeatherMapperTest {
 
     @Test
     public void successfulMappingToResponse() {
-        Location location = new Location("1234", "5678", "Luebeck", "Germany", Instant.now(), Instant.now());
+        LocationEntity locationEntity = new LocationEntity("1234", "5678", "Luebeck", "Germany", Instant.now(), Instant.now());
         List<Weather> weatherList = List.of(new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, "1234", Instant.now(), Instant.now()),
                 new Weather(UUID.randomUUID(), 5.00d, 30, 4.00d, "1234", Instant.now(), Instant.now()));
 
-        WeatherResponse weatherResponse = WeatherMapper.INSTANCE.mapTo(location, weatherList);
+        WeatherResponse weatherResponse = WeatherMapper.INSTANCE.mapTo(locationEntity, weatherList);
 
-        Assertions.assertThat(weatherResponse.getCityName()).isEqualTo(location.getCityName());
-        Assertions.assertThat(weatherResponse.getCountry()).isEqualTo(location.getCountry());
-        Assertions.assertThat(weatherResponse.getLocalZipCode()).isEqualTo(String.valueOf(location.getLocalZipCode()));
+        Assertions.assertThat(weatherResponse.getCityName()).isEqualTo(locationEntity.getCityName());
+        Assertions.assertThat(weatherResponse.getCountry()).isEqualTo(locationEntity.getCountry());
+        Assertions.assertThat(weatherResponse.getLocalZipCode()).isEqualTo(String.valueOf(locationEntity.getLocalZipCode()));
         Assertions.assertThat(weatherResponse.getResponseTimestamp()).isNotNull();
         Assertions.assertThat(weatherResponse.getTimeFormat()).isEqualTo("UTC");
     }
@@ -32,7 +32,7 @@ public class WeatherMapperTest {
     public void successfulMappingToWeatherDTO() {
         Weather weather = new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, "1234", Instant.now(), Instant.now());
 
-        WeatherDTO weatherDTO = WeatherMapper.INSTANCE.mapTo(weather);
+        WeatherDto weatherDTO = WeatherMapper.INSTANCE.mapTo(weather);
 
         Assertions.assertThat(weatherDTO.id()).isEqualTo(weather.getId());
         Assertions.assertThat(weatherDTO.humidity()).isEqualTo(weather.getHumidity());

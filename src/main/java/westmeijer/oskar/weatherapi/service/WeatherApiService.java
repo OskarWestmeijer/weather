@@ -3,7 +3,7 @@ package westmeijer.oskar.weatherapi.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import westmeijer.oskar.weatherapi.repository.model.Location;
+import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.repository.jpa.WeatherRepository;
 import westmeijer.oskar.weatherapi.repository.model.Weather;
 import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiClient;
@@ -78,11 +78,11 @@ public class WeatherApiService {
     /**
      * Retrieves current weather from OpenWeatherApi, without storing the response in the database.
      *
-     * @param location
+     * @param locationEntity
      * @return
      */
-    public Weather getNow(Location location) {
-        return openWeatherApiClient.requestWeather(location);
+    public Weather getNow(LocationEntity locationEntity) {
+        return openWeatherApiClient.requestWeather(locationEntity);
     }
 
 }

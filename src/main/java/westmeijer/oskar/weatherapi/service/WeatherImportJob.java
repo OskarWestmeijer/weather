@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import westmeijer.oskar.weatherapi.repository.model.Location;
+import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.repository.model.Weather;
 import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiClient;
 import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiRequestException;
@@ -47,18 +47,18 @@ public class WeatherImportJob {
     try {
       importExecution.increment();
       logger.info("Start weather import job.");
-      Location location = locationRepository.findFirstByOrderByLastImportAtAsc();
+      LocationEntity locationEntity = locationRepository.findFirstByOrderByLastImportAtAsc();
       Instant now = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-      location.setModifiedAt(now);
-      location.setLastImportAt(now);
-      logger.info("Request for location: {}", location);
-      Weather weather = openWeatherApiClient.requestWeather(location);
+      locationEntity.setModifiedAt(now);
+      locationEntity.setLastImportAt(now);
+      logger.info("Request for location: {}", locationEntity);
+      Weather weather = openWeatherApiClient.requestWeather(locationEntity);
       logger.info("Response with Weather: {}", weather);
       Weather savedWeather = weatherRepository.saveAndFlush(weather);
       logger.info("Saved weather entity: {}", savedWeather);
-      logger.info("Saving location entity: {}", location);
-      Location savedLocation = locationRepository.saveAndFlush(location);
-      logger.info("Saved location entity: {}", savedLocation);
+      logger.info("Saving location entity: {}", locationEntity);
+      LocationEntity savedLocationEntity = locationRepository.saveAndFlush(locationEntity);
+      logger.info("Saved location entity: {}", savedLocationEntity);
       logger.info("Finish weather import job.");
     } catch (OpenWeatherApiRequestException requestException) {
       logger.error("OpenWeatherApi request failed!", requestException);

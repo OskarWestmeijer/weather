@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import westmeijer.oskar.weatherapi.repository.model.Location;
+import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.repository.model.Weather;
 import westmeijer.oskar.weatherapi.openweatherapi.model.OpenWeatherApiMapper;
 import westmeijer.oskar.weatherapi.openweatherapi.model.OpenWeatherApiResponse;
@@ -29,23 +29,24 @@ public class OpenWeatherApiClient {
     /**
      * Requests current weather from OpenWeatherApi.
      *
-     * @param location
+     * @param locationEntity
      * @return
      */
-    public Weather requestWeather(Location location) {
+    public Weather requestWeather(LocationEntity locationEntity) {
         try {
-            String urlPath = buildUrlPath(location);
+            String urlPath = buildUrlPath(locationEntity);
             logger.debug("Built urlPath: {}", urlPath);
             OpenWeatherApiResponse response = webClient.get().uri(urlPath).retrieve().bodyToMono(OpenWeatherApiResponse.class).block();
             logger.debug("OpenWeatherApiResponse: {}", response);
-            return OpenWeatherApiMapper.map(response, location.getLocalZipCode());
+            return OpenWeatherApiMapper.map(response, locationEntity.getLocalZipCode());
         } catch (Exception e) {
             throw new OpenWeatherApiRequestException("Exception during OpenWeatherApi request.", e);
         }
     }
 
-    private String buildUrlPath(Location location) {
-        String path = urlPathTemplate.replace(RequestParamPlaceholders.LOCATION_CODE_CHAR_SEQUENCE.getValue(), String.valueOf(location.getLocationCode()));
+    private String buildUrlPath(LocationEntity locationEntity) {
+        String path = urlPathTemplate.replace(RequestParamPlaceholders.LOCATION_CODE_CHAR_SEQUENCE.getValue(), String.valueOf(
+            locationEntity.getLocationCode()));
         return path.replace(RequestParamPlaceholders.APP_ID_CHAR_SEQUENCE.getValue(), appId);
     }
 
