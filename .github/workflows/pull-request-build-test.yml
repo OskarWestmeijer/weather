@@ -33,11 +33,11 @@ jobs:
           coverage_report_name: 'Test coverage results'
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: echo "cat coverage-results.md"
-      - run: echo "cat */coverage-results.md"
+      - run: cat coverage-results.md
+      - run: cat */coverage-results.md
 
       # Publish Coverage Job Summary  # Optional
-      - run: echo "cat coverage-results.md" >> $GITHUB_STEP_SUMMARY
+      - run: cat coverage-results.md >> $GITHUB_STEP_SUMMARY
 
       # uploads the coverage-report.md artifact  # Optional
       - name: Upload Code Coverage Artifacts
