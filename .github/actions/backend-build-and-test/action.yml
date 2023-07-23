@@ -1,5 +1,9 @@
 name: backend-build-and-test
 description: 'backend-build-and-test'
+inputs:
+  github-token:
+    description: github-token
+    required: true
 runs:
   using: "composite"
   steps:
@@ -26,6 +30,6 @@ runs:
       uses: madrapps/jacoco-report@v1.4
       with:
         paths: ${{ github.workspace }}/target/site/jacoco/jacoco.xml
-        token: ${{ secrets.MASTER_TOKEN }}
+        token: ${{ inputs.github-token }}
         min-coverage-overall: 40
         min-coverage-changed-files: 60
