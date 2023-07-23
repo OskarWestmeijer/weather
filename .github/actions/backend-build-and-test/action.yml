@@ -38,8 +38,10 @@ runs:
 
     # Publish Coverage Job Summary  # Optional
     - name: Add Coverage Job Summary
+      shell: bash
       run: |
         echo "${{ steps.jacoco_reporter.outputs.coverageSummary }}" >> $GITHUB_STEP_SUMMARY
+        ls -l
 
     # uploads the coverage-report.md artifact  # Optional
     - name: Upload Code Coverage Artifacts
