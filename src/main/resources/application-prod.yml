@@ -1,0 +1,18 @@
+# obtained from secrets, referenced in docker-compose file
+spring:
+  config.activate.on-profile: prod
+  datasource:
+    url:
+    username:
+    password:
+  liquibase:
+    contexts: prod
+openweatherapi:
+  baseUrl: "http://api.openweathermap.org"
+  appId:
+  urlPathTemplate: "/data/2.5/weather?id={location_code}&units=metric&appid={app_id}"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,prometheus"

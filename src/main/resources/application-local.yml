@@ -1,0 +1,17 @@
+spring:
+  config.activate.on-profile: local
+  datasource:
+    url: jdbc:postgresql://localhost:5432/weather
+    username: username1
+    password: password1
+  liquibase:
+    contexts: test
+openweatherapi:
+  baseUrl: "http://localhost:9000"
+  appId: "1234random"
+  urlPathTemplate: "/data/2.5/weather?id={location_code}&units=metric&appid={app_id}"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
