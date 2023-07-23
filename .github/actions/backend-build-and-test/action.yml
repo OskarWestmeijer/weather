@@ -12,21 +12,20 @@ runs:
       run: |
         chmod +x mvnw 
         ./mvnw clean verify
-    - name: Generate JaCoCo Badge
-      uses: cicirello/jacoco-badge-generator@v2
-      with:
-        generate-branches-badge: true
-    - shell: bash
-      run: |
-        echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
-        echo "branch coverage = ${{ steps.jacoco.outputs.branches }}"
-    - name: Upload JaCoCo coverage report
-      uses: actions/upload-artifact@v2
-      with:
-        name: jacoco-report
-        path: target/site/jacoco/
     - uses: actions/upload-artifact@v3
       with:
         name: app-jar
         path: target/app.jar
         retention-days: 1
+    - name: Upload JaCoCo coverage report
+      uses: actions/upload-artifact@v2
+      with:
+        name: jacoco-report
+        path: target/site/jacoco/
+    - name: Add JaCoCo coverage to PR
+      uses: madrapps/jacoco-report@v1.4
+      with:
+        paths: ${{ github.workspace }}/target/site/jacoco/jacoco.xml
+        token: ${{ secrets.MASTER_TOKEN }}
+        min-coverage-overall: 40
+        min-coverage-changed-files: 60
