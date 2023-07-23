@@ -1,6 +1,9 @@
 # Weather-Api
 
 ![main branch](https://github.com/OskarWestmeijer/weather-api/actions/workflows/main-build-test-release-deploy.yml/badge.svg)
+![Coverage](.github/badges/jacoco.svg)
+![Branches](.github/badges/branches.svg)
+[![Coverage](.github/badges/jacoco.svg)](https://github.com/OskarWestmeijer/weather-api/actions/workflows/branch-build-test.yml)
 
 This application provides weather information for predefined locations. This repository contains the frontend and
 backend service. In production the backend connects to the hosts PostgreSQL database.
