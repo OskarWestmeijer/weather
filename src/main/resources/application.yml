@@ -1,9 +1,8 @@
-# this block is the shared config and will trigger the dev profile
 spring:
+  profiles:
+    active: "local"
   application:
     name: weather-api
-  profiles:
-    active: "dev"
   datasource:
     name: weather
     driver-class-name: org.postgresql.Driver
@@ -15,40 +14,3 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.xml
     default-schema: weather
----
-spring:
-  config.activate.on-profile: dev
-  datasource:
-    url: jdbc:postgresql://localhost:5432/weather
-    username: username1
-    password: password1
-openweatherapi:
-  baseUrl: "http://localhost:9000"
-  appId: "1234random"
-  urlPathTemplate: "/data/2.5/weather?id={location_code}&units=metric&appid={app_id}"
-  liquibase:
-    contexts: test
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
----
-# obtained from secrets, referenced in docker-compose file
-spring:
-  config.activate.on-profile: prod
-  datasource:
-    url:
-    username:
-    password:
-openweatherapi:
-  baseUrl: "http://api.openweathermap.org"
-  appId:
-  urlPathTemplate: "/data/2.5/weather?id={location_code}&units=metric&appid={app_id}"
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "health,info,prometheus"
-  liquibase:
-    contexts: prod

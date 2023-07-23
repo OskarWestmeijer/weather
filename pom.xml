@@ -128,16 +128,6 @@
                         </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <executable>true</executable>
-                    <jvmArguments>
-                        -Xms750m
-                        -Xmx750m
-                    </jvmArguments>
-                    <profiles>
-                        <profile>dev</profile>
-                    </profiles>
-                </configuration>
             </plugin>
 
             <plugin>
