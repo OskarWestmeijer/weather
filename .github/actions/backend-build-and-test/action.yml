@@ -28,20 +28,13 @@ runs:
       uses: PavanMudigonda/jacoco-reporter@v4.8
       with:
         coverage_results_path: target/site/jacoco/jacoco.xml
-        coverage_report_name: Coverage
-        coverage_report_title: JaCoCo
+        coverage_report_title: 'Test coverage results'
+        coverage_report_name: 'Test coverage results'
         github_token: ${{ inputs.github-token }}
-        skip_check_run: false
-        minimum_coverage: 50
-        fail_below_threshold: false
-        publish_only_summary: false
 
     # Publish Coverage Job Summary  # Optional
-    - name: Add Coverage Job Summary
-      shell: bash
-      run: |
-        echo "${{ steps.jacoco_reporter.outputs.coverageSummary }}" >> $GITHUB_STEP_SUMMARY
-        ls -l
+    - shell: bash
+      run: echo "${{ steps.jacoco_reporter.outputs.coverageSummary }}" >> $GITHUB_STEP_SUMMARY
 
     # uploads the coverage-report.md artifact  # Optional
     - name: Upload Code Coverage Artifacts
