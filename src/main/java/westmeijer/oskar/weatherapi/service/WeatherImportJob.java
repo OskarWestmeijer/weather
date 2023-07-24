@@ -9,9 +9,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiClient;
 import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiRequestException;
-import westmeijer.oskar.weatherapi.repository.jpa.WeatherJpaRepository;
-import westmeijer.oskar.weatherapi.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.service.model.Location;
+import westmeijer.oskar.weatherapi.service.model.Weather;
 
 @Slf4j
 @Component
@@ -20,7 +19,7 @@ public class WeatherImportJob {
 
   private final MeterRegistry meterRegistry;
 
-  private final WeatherJpaRepository weatherJpaRepository;
+  private final WeatherService weatherService;
 
   private final LocationService locationService;
 
@@ -35,10 +34,10 @@ public class WeatherImportJob {
       Location location = withImportTs(locationService.getNextImportLocation());
       log.info("Import weather for location: {}", location);
 
-      WeatherEntity importedWeather = openWeatherApiClient.requestWeather(location);
-      WeatherEntity savedWeatherEntity = weatherJpaRepository.saveAndFlush(importedWeather);
+      Weather importedWeather = openWeatherApiClient.requestWeather(location);
+      Weather savedWeatherEntity = weatherService.saveAndFlush(importedWeather);
       locationService.saveAndFlush(location);
-      log.info("Imported weather: {}", savedWeatherEntity);
+      log.info("Saved imported weather: {}", savedWeatherEntity);
 
     } catch (OpenWeatherApiRequestException requestException) {
       log.error("OpenWeatherApi request failed!", requestException);

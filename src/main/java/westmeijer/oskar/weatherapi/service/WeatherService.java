@@ -4,13 +4,14 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiClient;
-import westmeijer.oskar.weatherapi.repository.jpa.WeatherJpaRepository;
-import westmeijer.oskar.weatherapi.repository.model.WeatherEntity;
+import westmeijer.oskar.weatherapi.repository.WeatherRepository;
 import westmeijer.oskar.weatherapi.service.model.Location;
+import westmeijer.oskar.weatherapi.service.model.Weather;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +21,7 @@ public class WeatherService {
 
   private final OpenWeatherApiClient openWeatherApiClient;
 
-  private final WeatherJpaRepository weatherJpaRepository;
+  private final WeatherRepository weatherRepository;
 
 
   /**
@@ -29,11 +30,11 @@ public class WeatherService {
    * @param localZipCode - get weather for this location
    * @return
    */
-  public List<WeatherEntity> getLast24h(String localZipCode) {
-    List<WeatherEntity> weatherEntityData = weatherJpaRepository.getLatestEntries(localZipCode);
+  public List<Weather> getLast24h(String localZipCode) {
+    List<Weather> weatherList = weatherRepository.getLatestEntries(localZipCode);
 
-    return weatherEntityData.stream()
-        .sorted(Comparator.comparing(WeatherEntity::getRecordedAt).reversed())
+    return weatherList.stream()
+        .sorted(Comparator.comparing(Weather::recordedAt).reversed())
         .toList();
   }
 
@@ -43,11 +44,11 @@ public class WeatherService {
    * @param localZipCode - get weather for this location
    * @return
    */
-  public List<WeatherEntity> getLast3Days(String localZipCode) {
-    List<WeatherEntity> weatherEntityData = weatherJpaRepository.getLastThreeDays(localZipCode);
+  public List<Weather> getLast3Days(String localZipCode) {
+    List<Weather> weatherList = weatherRepository.getLastThreeDays(localZipCode);
 
-    return weatherEntityData.stream()
-        .sorted(Comparator.comparing(WeatherEntity::getRecordedAt).reversed())
+    return weatherList.stream()
+        .sorted(Comparator.comparing(Weather::recordedAt).reversed())
         .toList();
   }
 
@@ -58,20 +59,24 @@ public class WeatherService {
    * @param start        instant at start of day for zoneId
    * @return
    */
-  public List<WeatherEntity> getSpecificDate(String localZipCode, Instant start) {
+  public List<Weather> getSpecificDate(String localZipCode, Instant start) {
     Instant end = start.plus(1L, ChronoUnit.DAYS);
     log.debug("start instant: {}", start);
     log.debug("end instant: {}", end);
 
-    List<WeatherEntity> weatherEntityData = weatherJpaRepository.getSpecificDay(localZipCode, start, end);
+    List<Weather> weatherList = weatherRepository.getSpecificDay(localZipCode, start, end);
 
-    return weatherEntityData.stream()
-        .sorted(Comparator.comparing(WeatherEntity::getRecordedAt).reversed())
+    return weatherList.stream()
+        .sorted(Comparator.comparing(Weather::recordedAt).reversed())
         .toList();
   }
 
-  public WeatherEntity getNow(Location location) {
+  public Weather getNow(Location location) {
     return openWeatherApiClient.requestWeather(location);
   }
 
+  public Weather saveAndFlush(Weather importedWeather) {
+    Objects.requireNonNull(importedWeather, "importedWeather must not be null");
+    return weatherRepository.saveAndFlush(importedWeather);
+  }
 }

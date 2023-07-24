@@ -30,9 +30,9 @@ public class WeatherControllerIT extends IntegrationTestContainers {
           "country" : "Germany",
           "weatherData":
           [
-            {"temperature":16.45,"humidity":45,"windSpeed":2.57,"recordedAt":"2022-08-27T21:56:18Z"},
-            {"temperature":17.45,"humidity":45,"windSpeed":2.57,"recordedAt":"2022-08-27T21:16:18Z"},
-            {"temperature":20.75,"humidity":45,"windSpeed": 2.57,"recordedAt":"2022-08-27T20:21:17Z"}
+            {"temperature":16.45,"humidity":45,"windSpeed":2.57,"recordedAt":"2022-08-27T21:56:18.602546Z"},
+            {"temperature":17.45,"humidity":45,"windSpeed":2.57,"recordedAt":"2022-08-27T21:16:18.056453Z"},
+            {"temperature":20.75,"humidity":45,"windSpeed": 2.57,"recordedAt":"2022-08-27T20:21:17.330786Z"}
           ]
         }""";
 

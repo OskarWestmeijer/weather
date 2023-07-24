@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import westmeijer.oskar.weatherapi.openweatherapi.model.OpenWeatherApiMapper;
 import westmeijer.oskar.weatherapi.openweatherapi.model.OpenWeatherApiResponse;
-import westmeijer.oskar.weatherapi.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.service.model.Location;
+import westmeijer.oskar.weatherapi.service.model.Weather;
 
 @Component
 @Slf4j
@@ -25,7 +25,7 @@ public class OpenWeatherApiClient {
     this.appId = appId;
   }
 
-  public WeatherEntity requestWeather(Location location) {
+  public Weather requestWeather(Location location) {
     try {
       String urlPath = buildUrlPath(location);
       log.debug("Built urlPath: {}", urlPath);

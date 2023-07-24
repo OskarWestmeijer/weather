@@ -1,5 +1,7 @@
 package westmeijer.oskar.weatherapi.openweatherapi;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.time.Instant;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -8,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import westmeijer.oskar.weatherapi.IntegrationTestContainers;
-import westmeijer.oskar.weatherapi.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.service.model.Location;
+import westmeijer.oskar.weatherapi.service.model.Weather;
 
 @Slf4j
 @SpringBootTest
@@ -21,9 +23,9 @@ public class OpenWeatherApiClientIT extends IntegrationTestContainers {
   @Test
   public void requestApiForHelsinki() {
     Location helsinki = new Location("00100", "658225", "Helsinki", "Finland", Instant.now(), Instant.now());
-    WeatherEntity response = apiClient.requestWeather(helsinki);
+    Weather response = apiClient.requestWeather(helsinki);
 
-    Assertions.assertEquals(10.00, response.getTemperature());
+    assertThat(10.00).isEqualTo(response.temperature());
   }
 
   @DisplayName("Ensure error request handling is covered.")
@@ -35,8 +37,8 @@ public class OpenWeatherApiClientIT extends IntegrationTestContainers {
       apiClient.requestWeather(error);
     });
 
-    Assertions.assertEquals(OpenWeatherApiRequestException.class, thrown.getClass());
-    Assertions.assertEquals("Exception during OpenWeatherApi request.", thrown.getMessage());
+    assertThat(OpenWeatherApiRequestException.class).isEqualTo(thrown.getClass());
+    assertThat("Exception during OpenWeatherApi request.").isEqualTo(thrown.getMessage());
   }
 
 

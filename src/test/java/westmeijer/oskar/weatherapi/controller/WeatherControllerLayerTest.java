@@ -17,10 +17,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import westmeijer.oskar.weatherapi.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.service.LocationService;
 import westmeijer.oskar.weatherapi.service.WeatherService;
 import westmeijer.oskar.weatherapi.service.model.Location;
+import westmeijer.oskar.weatherapi.service.model.Weather;
 import westmeijer.oskar.weatherapi.util.WebMvcMappersTestConfig;
 
 @WebMvcTest(WeatherController.class)
@@ -38,11 +38,11 @@ public class WeatherControllerLayerTest {
 
   @Test
   public void requestWeatherKnownZipCode() throws Exception {
-    List<WeatherEntity> weatherEntityData = List.of(
-        new WeatherEntity(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, 88, 11.66, "23552", Instant.now(), Instant.now()));
+    List<Weather> weatherList = List.of(
+        new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, 88, 11.66, "23552", Instant.now()));
     Location location = new Location("23552", "2875601", "Lübeck", "Germany", Instant.now(), Instant.now());
 
-    given(weatherService.getLast24h("23552")).willReturn(weatherEntityData);
+    given(weatherService.getLast24h("23552")).willReturn(weatherList);
     given(locationService.findById("23552")).willReturn(location);
 
     @Language("json")

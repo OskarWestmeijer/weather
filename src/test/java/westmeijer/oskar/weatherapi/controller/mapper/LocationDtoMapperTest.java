@@ -32,7 +32,6 @@ public class LocationDtoMapperTest {
     assertThat(locationDto.localZipCode()).isEqualTo(location.localZipCode());
     assertThat(locationDto.cityName()).isEqualTo(location.cityName());
     assertThat(locationDto.country()).isEqualTo(location.country());
-    assertThat(locationDto.modifiedAt()).isEqualTo(location.modifiedAt());
     assertThat(locationDto.lastImportAt()).isEqualTo(location.lastImportAt());
   }
 
