@@ -13,24 +13,6 @@
     <version>3.1.2</version>
   </parent>
 
-  <properties>
-    <java.version>17</java.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.plugin>3.11.0</maven.compiler.plugin>
-    <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
-    <org.projectlombok.version>1.18.28</org.projectlombok.version>
-    <com.google.guava>32.1.1-jre</com.google.guava>
-    <liquibase.version>4.23.0</liquibase.version>
-    <preliquibase.version>1.4.0</preliquibase.version>
-    <commons.csv.version>1.10.0</commons.csv.version>
-    <testcontainers.version>1.18.3</testcontainers.version>
-    <assertj.version>3.24.2</assertj.version>
-    <postgresql.version>42.6.0</postgresql.version>
-    <prometheus.version>1.11.2</prometheus.version>
-    <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
-    <jacoco.version>0.8.10</jacoco.version>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -191,7 +173,45 @@
         </executions>
       </plugin>
 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${checkstyle.version}</version>
+        <configuration>
+          <configLocation>google_checks.xml</configLocation>
+          <violationSeverity>warning</violationSeverity>
+          <maxAllowedViolations>200</maxAllowedViolations>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
+
+  <properties>
+    <java.version>17</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.plugin>3.11.0</maven.compiler.plugin>
+    <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
+    <org.projectlombok.version>1.18.28</org.projectlombok.version>
+    <com.google.guava>32.1.1-jre</com.google.guava>
+    <liquibase.version>4.23.0</liquibase.version>
+    <preliquibase.version>1.4.0</preliquibase.version>
+    <commons.csv.version>1.10.0</commons.csv.version>
+    <testcontainers.version>1.18.3</testcontainers.version>
+    <assertj.version>3.24.2</assertj.version>
+    <postgresql.version>42.6.0</postgresql.version>
+    <prometheus.version>1.11.2</prometheus.version>
+    <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
+    <jacoco.version>0.8.10</jacoco.version>
+    <checkstyle.version>3.3.0</checkstyle.version>
+  </properties>
 
 </project>

@@ -7,6 +7,17 @@ on:
       - '!main'
 
 jobs:
+
+  backend-checkstyle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dbelyaev/action-checkstyle@v0.7.4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          level: warning
+
   backend-build-and-test:
     runs-on: ubuntu-latest
     steps:
