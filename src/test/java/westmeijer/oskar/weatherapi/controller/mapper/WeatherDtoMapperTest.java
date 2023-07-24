@@ -40,7 +40,6 @@ public class WeatherDtoMapperTest {
 
     WeatherDto weatherDTO = weatherDtoMapper.mapTo(weather);
 
-    assertThat(weatherDTO.id()).isEqualTo(weather.id());
     assertThat(weatherDTO.humidity()).isEqualTo(weather.humidity());
     assertThat(weatherDTO.recordedAt()).isEqualTo(weather.recordedAt());
     assertThat(weatherDTO.temperature()).isEqualTo(weather.temperature());

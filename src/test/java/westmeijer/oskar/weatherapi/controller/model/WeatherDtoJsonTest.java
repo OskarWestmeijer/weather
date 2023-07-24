@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.UUID;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class WeatherDtoJsonTest {
   @SneakyThrows
   public void serializeToJson() {
     Instant recordedAt = Instant.now().truncatedTo(ChronoUnit.MICROS);
-    WeatherDto weatherDTO = new WeatherDto(UUID.randomUUID(), 22.54d, 34, 89.12d, "1234", recordedAt);
+    WeatherDto weatherDTO = new WeatherDto(22.54d, 34, 89.12d, recordedAt);
 
     JsonContent<WeatherDto> json = tester.write(weatherDTO);
 
