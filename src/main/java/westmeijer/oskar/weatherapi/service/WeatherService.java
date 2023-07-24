@@ -1,31 +1,26 @@
 package westmeijer.oskar.weatherapi.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
-import westmeijer.oskar.weatherapi.repository.jpa.WeatherJpaRepository;
-import westmeijer.oskar.weatherapi.repository.model.WeatherEntity;
-import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiClient;
-
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiClient;
+import westmeijer.oskar.weatherapi.repository.jpa.WeatherJpaRepository;
+import westmeijer.oskar.weatherapi.repository.model.WeatherEntity;
+import westmeijer.oskar.weatherapi.service.model.Location;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class WeatherService {
 
-  private static final Logger logger = LoggerFactory.getLogger(WeatherService.class);
 
   private final OpenWeatherApiClient openWeatherApiClient;
 
   private final WeatherJpaRepository weatherJpaRepository;
-
-  public WeatherService(OpenWeatherApiClient openWeatherApiClient, WeatherJpaRepository weatherJpaRepository) {
-    this.openWeatherApiClient = openWeatherApiClient;
-    this.weatherJpaRepository = weatherJpaRepository;
-  }
 
 
   /**
@@ -65,8 +60,8 @@ public class WeatherService {
    */
   public List<WeatherEntity> getSpecificDate(String localZipCode, Instant start) {
     Instant end = start.plus(1L, ChronoUnit.DAYS);
-    logger.debug("start instant: {}", start);
-    logger.debug("end instant: {}", end);
+    log.debug("start instant: {}", start);
+    log.debug("end instant: {}", end);
 
     List<WeatherEntity> weatherEntityData = weatherJpaRepository.getSpecificDay(localZipCode, start, end);
 
@@ -75,14 +70,8 @@ public class WeatherService {
         .toList();
   }
 
-  /**
-   * Retrieves current weather from OpenWeatherApi, without storing the response in the database.
-   *
-   * @param locationEntity
-   * @return
-   */
-  public WeatherEntity getNow(LocationEntity locationEntity) {
-    return openWeatherApiClient.requestWeather(locationEntity);
+  public WeatherEntity getNow(Location location) {
+    return openWeatherApiClient.requestWeather(location);
   }
 
 }

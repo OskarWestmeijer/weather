@@ -7,4 +7,9 @@ public interface LocationRepository {
 
   List<Location> getAll();
 
+  Location getNextImportLocation();
+
+  Location saveAndFlush(Location location);
+
+  Location findById(String localZipCode);
 }
