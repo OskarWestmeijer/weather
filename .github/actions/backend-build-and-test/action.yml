@@ -8,11 +8,21 @@ runs:
         distribution: 'temurin'
         java-version: '17'
         cache: maven
+
     - shell: bash
       run: |
         chmod +x mvnw 
         ./mvnw clean verify
-    - uses: actions/upload-artifact@v3
+
+    - name: Upload JaCoCo coverage report
+      uses: actions/upload-artifact@v3
+      with:
+        name: jacoco-report
+        path: target/site/jacoco/
+        retention-days: 1
+
+    - name: Upload Jar
+      uses: actions/upload-artifact@v3
       with:
         name: app-jar
         path: target/app.jar
