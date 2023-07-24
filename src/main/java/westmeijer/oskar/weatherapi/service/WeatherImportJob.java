@@ -38,28 +38,19 @@ public class WeatherImportJob {
   }
 
 
-  /**
-   * Job to request OpenWeatherApi every minute. The queue holds the locations to be requested. On every run the latest location will be
-   * picked and in the end requeued to the end.
-   */
   @Scheduled(fixedDelay = 60000)
   public void refreshWeather() {
     try {
       importExecution.increment();
-      logger.info("Start weather import job.");
       LocationEntity locationEntity = locationJpaRepository.findFirstByOrderByLastImportAtAsc();
       Instant now = Instant.now().truncatedTo(ChronoUnit.MILLIS);
       locationEntity.setModifiedAt(now);
       locationEntity.setLastImportAt(now);
       logger.info("Request for location: {}", locationEntity);
       WeatherEntity weatherEntity = openWeatherApiClient.requestWeather(locationEntity);
-      logger.info("Response with Weather: {}", weatherEntity);
       WeatherEntity savedWeatherEntity = weatherJpaRepository.saveAndFlush(weatherEntity);
       logger.info("Saved weather entity: {}", savedWeatherEntity);
-      logger.info("Saving location entity: {}", locationEntity);
-      LocationEntity savedLocationEntity = locationJpaRepository.saveAndFlush(locationEntity);
-      logger.info("Saved location entity: {}", savedLocationEntity);
-      logger.info("Finish weather import job.");
+      locationJpaRepository.saveAndFlush(locationEntity);
     } catch (OpenWeatherApiRequestException requestException) {
       logger.error("OpenWeatherApi request failed!", requestException);
       importError.increment();
