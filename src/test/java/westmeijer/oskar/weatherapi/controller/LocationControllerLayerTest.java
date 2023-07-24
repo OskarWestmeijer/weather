@@ -41,7 +41,6 @@ public class LocationControllerLayerTest {
         "2875601",
         "Lübeck",
         "Germany",
-        now,
         now
     );
     Location hamburg = new Location(
@@ -49,7 +48,6 @@ public class LocationControllerLayerTest {
         "2911298",
         "Hamburg",
         "Germany",
-        now,
         now
     );
     given(locationService.getAll()).willReturn(List.of(luebeck, hamburg));

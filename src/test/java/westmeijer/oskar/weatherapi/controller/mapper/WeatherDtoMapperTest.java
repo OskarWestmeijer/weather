@@ -20,7 +20,7 @@ public class WeatherDtoMapperTest {
 
   @Test
   public void successfulMappingToResponse() {
-    Location location = new Location("1234", "5678", "Luebeck", "Germany", Instant.now(), Instant.now());
+    Location location = new Location("1234", "5678", "Luebeck", "Germany", Instant.now());
     List<Weather> weatherList = List.of(
         new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, "1234", Instant.now()),
         new Weather(UUID.randomUUID(), 5.00d, 30, 4.00d, "1234", Instant.now()));

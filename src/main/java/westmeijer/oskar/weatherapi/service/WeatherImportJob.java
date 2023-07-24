@@ -51,8 +51,7 @@ public class WeatherImportJob {
 
   private Location withImportTs(Location location) {
     Instant importStart = Instant.now().truncatedTo(ChronoUnit.MICROS);
-    return new Location(location.localZipCode(), location.locationCode(), location.cityName(), location.country(), importStart,
-        importStart);
+    return new Location(location.localZipCode(), location.locationCode(), location.cityName(), location.country(), importStart);
   }
 
 }

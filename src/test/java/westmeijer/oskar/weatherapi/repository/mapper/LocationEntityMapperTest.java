@@ -1,7 +1,7 @@
 package westmeijer.oskar.weatherapi.repository.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
+import static org.assertj.core.api.Assertions.within;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -34,7 +34,6 @@ public class LocationEntityMapperTest {
     assertThat(location.localZipCode()).isEqualTo(locationEntity.getLocalZipCode());
     assertThat(location.cityName()).isEqualTo(locationEntity.getCityName());
     assertThat(location.country()).isEqualTo(locationEntity.getCountry());
-    assertThat(location.modifiedAt()).isEqualTo(locationEntity.getModifiedAt());
     assertThat(location.lastImportAt()).isEqualTo(locationEntity.getLastImportAt());
   }
 
@@ -62,8 +61,23 @@ public class LocationEntityMapperTest {
 
     assertThat(locations.size()).isEqualTo(2);
     assertThat(locations).extracting("locationCode", "localZipCode", "cityName", "country")
-        .containsOnlyOnce(Tuple.tuple("2911298", "20095", "Hamburg", "Germany"))
-        .containsOnlyOnce(Tuple.tuple("2875601", "23552", "Lübeck", "Germany"));
+        .containsOnlyOnce(Tuple.tuple(luebeck.getLocationCode(), luebeck.getLocalZipCode(), luebeck.getCityName(), luebeck.getCountry()))
+        .containsOnlyOnce(Tuple.tuple(hamburg.getLocationCode(), hamburg.getLocalZipCode(), hamburg.getCityName(), hamburg.getCountry()));
+  }
+
+  @Test
+  public void shouldMapToLocationEntity() {
+    Instant now = Instant.now().truncatedTo(ChronoUnit.MICROS);
+    Location location = new Location("20095", "2911298", "Hamburg", "Germany", now);
+
+    LocationEntity locationEntity = locationEntityMapper.map(location);
+
+    assertThat(locationEntity.getLocalZipCode()).isEqualTo(location.localZipCode());
+    assertThat(locationEntity.getLocationCode()).isEqualTo(location.locationCode());
+    assertThat(locationEntity.getCountry()).isEqualTo(location.country());
+    assertThat(locationEntity.getCityName()).isEqualTo(location.cityName());
+    assertThat(locationEntity.getLastImportAt()).isEqualTo(location.lastImportAt());
+    assertThat(locationEntity.getModifiedAt()).isCloseTo(now, within(1, ChronoUnit.SECONDS));
   }
 
 }

@@ -40,7 +40,7 @@ public class WeatherControllerLayerTest {
   public void requestWeatherKnownZipCode() throws Exception {
     List<Weather> weatherList = List.of(
         new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, 88, 11.66, "23552", Instant.now()));
-    Location location = new Location("23552", "2875601", "Lübeck", "Germany", Instant.now(), Instant.now());
+    Location location = new Location("23552", "2875601", "Lübeck", "Germany", Instant.now());
 
     given(weatherService.getLast24h("23552")).willReturn(weatherList);
     given(locationService.findById("23552")).willReturn(location);

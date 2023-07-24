@@ -1,16 +1,18 @@
 package westmeijer.oskar.weatherapi.repository.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.time.Instant;
-import lombok.*;
-
-import jakarta.persistence.*;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 @Table(name = "location", schema = "weather")
 @Entity
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -23,7 +25,6 @@ public class LocationEntity {
    * @deprecated zip code is a poor international location matcher. Uniqueness is not guaranteed. Make use of Location.
    */
   @Id
-  @Column(name = "local_zip_code")
   private String localZipCode;
 
   /**
@@ -33,27 +34,14 @@ public class LocationEntity {
    * @deprecated OpenWeatherApi recommends using the new Geocoding API in order to request for [lat,lon] coordinates.
    */
   @Deprecated
-  @Column(name = "location_code")
   private String locationCode;
 
-  /**
-   * Full name. Example: Helsinki
-   */
-  @Column(name = "city_name")
   private String cityName;
 
-  /**
-   * Full name. Example: Finland
-   */
-  @Column(name = "country")
   private String country;
 
-  @UpdateTimestamp
-  @Setter
   private Instant modifiedAt;
 
-  @UpdateTimestamp
-  @Setter
   private Instant lastImportAt;
 
 }

@@ -22,7 +22,6 @@ public class LocationDtoMapperTest {
         "2875601",
         "Lübeck",
         "Germany",
-        Instant.now().truncatedTo(ChronoUnit.MICROS),
         Instant.now().truncatedTo(ChronoUnit.MICROS)
     );
 
@@ -42,7 +41,6 @@ public class LocationDtoMapperTest {
         "2875601",
         "Lübeck",
         "Germany",
-        Instant.now().truncatedTo(ChronoUnit.MICROS),
         Instant.now().truncatedTo(ChronoUnit.MICROS)
     );
 
@@ -51,7 +49,6 @@ public class LocationDtoMapperTest {
         "2911298",
         "Hamburg",
         "Germany",
-        Instant.now().truncatedTo(ChronoUnit.MICROS),
         Instant.now().truncatedTo(ChronoUnit.MICROS)
     );
 
