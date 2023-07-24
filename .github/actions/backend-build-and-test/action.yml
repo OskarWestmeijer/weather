@@ -12,40 +12,17 @@ runs:
         distribution: 'temurin'
         java-version: '17'
         cache: maven
+
     - shell: bash
       run: |
         chmod +x mvnw 
         ./mvnw clean verify
+
     - name: Upload JaCoCo coverage report
       uses: actions/upload-artifact@v2
       with:
         name: jacoco-report
         path: target/site/jacoco/
-
-    # generates coverage-report.md and publishes as checkrun
-    - name: JaCoCo Code Coverage Report
-      id: jacoco_reporter
-      uses: PavanMudigonda/jacoco-reporter@v4.8
-      with:
-        coverage_results_path: target/site/jacoco/jacoco.xml
-        coverage_report_title: 'Test coverage results'
-        coverage_report_name: 'Test coverage results'
-        github_token: ${{ inputs.github-token }}
-
-    - shell: bash
-      run: echo "${{ steps.jacoco_reporter.outputs.coverageSummary }}"
-
-    # Publish Coverage Job Summary  # Optional
-    - shell: bash
-      run: echo "${{ steps.jacoco_reporter.outputs.coverageSummary }}" >> $GITHUB_STEP_SUMMARY
-
-    # uploads the coverage-report.md artifact  # Optional
-    - name: Upload Code Coverage Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: code-coverage-report-markdown
-        path: '*/coverage-results.md'
-        retention-days: 1
 
     - uses: actions/upload-artifact@v3
       with:
