@@ -12,8 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/backend-build-and-test
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   frontend-build-and-test:
     runs-on: ubuntu-latest
