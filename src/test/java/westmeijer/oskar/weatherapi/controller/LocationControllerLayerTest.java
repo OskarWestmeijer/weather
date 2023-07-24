@@ -41,7 +41,6 @@ public class LocationControllerLayerTest {
         "2875601",
         "Lübeck",
         "Germany",
-        now,
         now
     );
     Location hamburg = new Location(
@@ -49,7 +48,6 @@ public class LocationControllerLayerTest {
         "2911298",
         "Hamburg",
         "Germany",
-        now,
         now
     );
     given(locationService.getAll()).willReturn(List.of(luebeck, hamburg));
@@ -62,7 +60,6 @@ public class LocationControllerLayerTest {
             "locationCode":"2875601",
             "cityName":"Lübeck",
             "country":"Germany",
-            "modifiedAt":"%s",
             "lastImportAt":"%s"
           },
           {
@@ -70,7 +67,6 @@ public class LocationControllerLayerTest {
             "locationCode":"2911298",
             "cityName":"Hamburg",
             "country":"Germany",
-            "modifiedAt":"%s",
             "lastImportAt":"%s"
           }
         ]""";
@@ -79,7 +75,7 @@ public class LocationControllerLayerTest {
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(
-            expectedBody.formatted(luebeck.modifiedAt(), luebeck.lastImportAt(), hamburg.modifiedAt(), hamburg.lastImportAt())));
+            expectedBody.formatted(luebeck.lastImportAt(), hamburg.lastImportAt())));
 
     then(locationService).should().getAll();
   }

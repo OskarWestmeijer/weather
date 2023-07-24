@@ -27,11 +27,11 @@ public class LocationControllerIT extends IntegrationTestContainers {
     @Language("json")
     String expectedResponse = """
         [
-          {"localZipCode":"23552","locationCode":"2875601","cityName":"Lübeck","country":"Germany","modifiedAt":"2022-08-29T21:56:18.602546Z","lastImportAt":"2022-08-29T21:56:18.602546Z"},
-          {"localZipCode":"20095","locationCode":"2911298","cityName":"Hamburg","country":"Germany","modifiedAt":"2022-08-29T21:56:18.602546Z","lastImportAt":"2022-08-29T21:56:18.602546Z"},
-          {"localZipCode":"46286","locationCode":"2935530","cityName":"Dorsten","country":"Germany","modifiedAt":"2022-08-29T21:56:18.602546Z","lastImportAt":"2022-08-29T21:56:18.602546Z"},
-          {"localZipCode":"00100","locationCode":"658225","cityName":"Helsinki","country":"Finland","modifiedAt":"2022-08-29T21:56:18.602546Z","lastImportAt":"2022-08-29T21:56:18.602546Z"},
-          {"localZipCode":"36100","locationCode":"654440","cityName":"Kangasala","country":"Finland","modifiedAt":"2022-08-29T21:56:18.602546Z","lastImportAt":"2022-08-29T21:56:18.602546Z"}
+          {"localZipCode":"23552","locationCode":"2875601","cityName":"Lübeck","country":"Germany","lastImportAt":"2022-08-29T21:56:18.602546Z"},
+          {"localZipCode":"20095","locationCode":"2911298","cityName":"Hamburg","country":"Germany","lastImportAt":"2022-08-29T21:56:18.602546Z"},
+          {"localZipCode":"46286","locationCode":"2935530","cityName":"Dorsten","country":"Germany","lastImportAt":"2022-08-29T21:56:18.602546Z"},
+          {"localZipCode":"00100","locationCode":"658225","cityName":"Helsinki","country":"Finland","lastImportAt":"2022-08-29T21:56:18.602546Z"},
+          {"localZipCode":"36100","locationCode":"654440","cityName":"Kangasala","country":"Finland","lastImportAt":"2022-08-29T21:56:18.602546Z"}
         ]
         """;
 

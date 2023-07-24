@@ -22,7 +22,6 @@ public class LocationDtoMapperTest {
         "2875601",
         "Lübeck",
         "Germany",
-        Instant.now().truncatedTo(ChronoUnit.MICROS),
         Instant.now().truncatedTo(ChronoUnit.MICROS)
     );
 
@@ -32,7 +31,6 @@ public class LocationDtoMapperTest {
     assertThat(locationDto.localZipCode()).isEqualTo(location.localZipCode());
     assertThat(locationDto.cityName()).isEqualTo(location.cityName());
     assertThat(locationDto.country()).isEqualTo(location.country());
-    assertThat(locationDto.modifiedAt()).isEqualTo(location.modifiedAt());
     assertThat(locationDto.lastImportAt()).isEqualTo(location.lastImportAt());
   }
 
@@ -43,7 +41,6 @@ public class LocationDtoMapperTest {
         "2875601",
         "Lübeck",
         "Germany",
-        Instant.now().truncatedTo(ChronoUnit.MICROS),
         Instant.now().truncatedTo(ChronoUnit.MICROS)
     );
 
@@ -52,7 +49,6 @@ public class LocationDtoMapperTest {
         "2911298",
         "Hamburg",
         "Germany",
-        Instant.now().truncatedTo(ChronoUnit.MICROS),
         Instant.now().truncatedTo(ChronoUnit.MICROS)
     );
 

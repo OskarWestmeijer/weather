@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import westmeijer.oskar.weatherapi.controller.mapper.WeatherDtoMapper;
 import westmeijer.oskar.weatherapi.controller.model.WeatherResponse;
-import westmeijer.oskar.weatherapi.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.service.LocationService;
 import westmeijer.oskar.weatherapi.service.WeatherService;
 import westmeijer.oskar.weatherapi.service.model.Location;
+import westmeijer.oskar.weatherapi.service.model.Weather;
 
 @Controller
 @CrossOrigin
@@ -36,8 +36,8 @@ public class WeatherController {
   public ResponseEntity<WeatherResponse> getNow(@PathVariable String localZipCode) {
     log.info("Received Weather request NOW for localZipCode: {}", localZipCode);
     Location location = locationService.findById(localZipCode);
-    WeatherEntity weatherEntityData = weatherService.getNow(location);
-    WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, Collections.singletonList(weatherEntityData));
+    Weather weather = weatherService.getNow(location);
+    WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, Collections.singletonList(weather));
     return ResponseEntity.ok(weatherResponse);
   }
 
@@ -45,8 +45,8 @@ public class WeatherController {
   public ResponseEntity<WeatherResponse> getLast24Hours(@PathVariable String localZipCode) {
     log.info("Received Weather request 24h for localZipCode: {}", localZipCode);
     Location location = locationService.findById(localZipCode);
-    List<WeatherEntity> weatherEntityData = weatherService.getLast24h(localZipCode);
-    WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherEntityData);
+    List<Weather> weatherList = weatherService.getLast24h(localZipCode);
+    WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherList);
     return ResponseEntity.ok(weatherResponse);
 
   }
@@ -55,8 +55,8 @@ public class WeatherController {
   public ResponseEntity<WeatherResponse> getLast3Days(@PathVariable String localZipCode) {
     log.info("Received Weather request 3d for localZipCode: {}", localZipCode);
     Location location = locationService.findById(localZipCode);
-    List<WeatherEntity> weatherEntityData = weatherService.getLast3Days(localZipCode);
-    WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherEntityData);
+    List<Weather> weatherList = weatherService.getLast3Days(localZipCode);
+    WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherList);
     return ResponseEntity.ok(weatherResponse);
   }
 
@@ -72,10 +72,9 @@ public class WeatherController {
     log.info("Received Weather request SPECIFIC date for localZipCode: {}, date: {}", localZipCode, date);
     Location location = locationService.findById(localZipCode);
     Instant instant = ControllerUtil.atStartOfDay(date, location);
-    List<WeatherEntity> weatherEntityData = weatherService.getSpecificDate(localZipCode, instant);
-    WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherEntityData);
+    List<Weather> weatherList = weatherService.getSpecificDate(localZipCode, instant);
+    WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherList);
     return ResponseEntity.ok(weatherResponse);
   }
-
 
 }

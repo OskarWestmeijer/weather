@@ -6,7 +6,6 @@ public record Location(String localZipCode,
                        String locationCode,
                        String cityName,
                        String country,
-                       Instant modifiedAt,
                        Instant lastImportAt) {
 
 }

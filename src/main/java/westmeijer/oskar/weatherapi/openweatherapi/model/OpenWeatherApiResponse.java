@@ -3,12 +3,6 @@ package westmeijer.oskar.weatherapi.openweatherapi.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-/**
- * Response presentation from OpenWeatherApi.
- *
- * @param main
- * @param wind
- */
 public record OpenWeatherApiResponse(@JsonProperty(value = "main", required = true) Main main,
                                      @JsonProperty(value = "wind", required = true) Wind wind) {
 
