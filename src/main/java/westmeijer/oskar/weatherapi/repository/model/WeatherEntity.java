@@ -36,7 +36,6 @@ public class WeatherEntity {
   private Double temperature;
 
 
-
   private Integer humidity;
 
   @Column(name = "wind_speed")

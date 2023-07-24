@@ -5,14 +5,14 @@ package westmeijer.oskar.weatherapi.controller;
  */
 public class LocationNotSupportedException extends RuntimeException {
 
-    private final String localZipCode;
+  private final String localZipCode;
 
-    public LocationNotSupportedException(String localZipCode) {
-        super(String.format("Location lookup for localZipCode  failed. localZipCode: %s)", localZipCode));
-        this.localZipCode = localZipCode;
-    }
+  public LocationNotSupportedException(String localZipCode) {
+    super(String.format("Location lookup for localZipCode  failed. localZipCode: %s)", localZipCode));
+    this.localZipCode = localZipCode;
+  }
 
-    public String getZipCode() {
-        return localZipCode;
-    }
+  public String getZipCode() {
+    return localZipCode;
+  }
 }

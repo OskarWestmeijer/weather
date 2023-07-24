@@ -13,11 +13,11 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface WeatherDtoMapper {
 
-    @Mapping(source = "locationEntity", target = "locationEntity")
-    @Mapping(source = "weatherEntities", target = "weatherData")
-    @Mapping(target = "responseTime", expression = "java(Instant.now())")
-    WeatherResponse mapTo(LocationEntity locationEntity, List<WeatherEntity> weatherEntities);
+  @Mapping(source = "locationEntity", target = "locationEntity")
+  @Mapping(source = "weatherEntities", target = "weatherData")
+  @Mapping(target = "responseTime", expression = "java(Instant.now())")
+  WeatherResponse mapTo(LocationEntity locationEntity, List<WeatherEntity> weatherEntities);
 
-    WeatherDto mapTo(WeatherEntity weatherEntity);
+  WeatherDto mapTo(WeatherEntity weatherEntity);
 
 }

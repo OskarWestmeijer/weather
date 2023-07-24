@@ -17,30 +17,30 @@ import java.util.Map;
 @RequestMapping("/api/v1")
 public class HealthController {
 
-    private static final Logger logger = LoggerFactory.getLogger(HealthController.class);
+  private static final Logger logger = LoggerFactory.getLogger(HealthController.class);
 
-    private final MeterRegistry meterRegistry;
+  private final MeterRegistry meterRegistry;
 
-    public HealthController(MeterRegistry meterRegistry) {
-        this.meterRegistry = meterRegistry;
-    }
+  public HealthController(MeterRegistry meterRegistry) {
+    this.meterRegistry = meterRegistry;
+  }
 
-    @GetMapping("/ping")
-    public ResponseEntity<String> test() {
-        meterRegistry.counter("api", "health", "ping").increment();
-        return ResponseEntity.ok("pong");
-    }
+  @GetMapping("/ping")
+  public ResponseEntity<String> test() {
+    meterRegistry.counter("api", "health", "ping").increment();
+    return ResponseEntity.ok("pong");
+  }
 
 
-    @GetMapping("/memory")
-    public ResponseEntity<Map<String, Long>> getMemoryStatistics() {
-        long byteToLong = 1000000;
-        Map<String, Long> mem = new HashMap<>();
-        mem.put("TotalMem", Runtime.getRuntime().totalMemory() / byteToLong);
-        mem.put("MaxMem", Runtime.getRuntime().maxMemory() / byteToLong);
-        mem.put("FreeMem", Runtime.getRuntime().freeMemory() / byteToLong);
-        logger.info("Memory: {}", mem.toString());
-        return ResponseEntity.ok(mem);
-    }
+  @GetMapping("/memory")
+  public ResponseEntity<Map<String, Long>> getMemoryStatistics() {
+    long byteToLong = 1000000;
+    Map<String, Long> mem = new HashMap<>();
+    mem.put("TotalMem", Runtime.getRuntime().totalMemory() / byteToLong);
+    mem.put("MaxMem", Runtime.getRuntime().maxMemory() / byteToLong);
+    mem.put("FreeMem", Runtime.getRuntime().freeMemory() / byteToLong);
+    logger.info("Memory: {}", mem.toString());
+    return ResponseEntity.ok(mem);
+  }
 
 }

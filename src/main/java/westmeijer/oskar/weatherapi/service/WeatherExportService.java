@@ -17,28 +17,30 @@ import java.util.List;
 @Service
 public class WeatherExportService {
 
-    private static final Logger logger = LoggerFactory.getLogger(WeatherService.class);
+  private static final Logger logger = LoggerFactory.getLogger(WeatherService.class);
 
-    private final WeatherJpaRepository weatherJpaRepository;
+  private final WeatherJpaRepository weatherJpaRepository;
 
-    public WeatherExportService(WeatherJpaRepository weatherJpaRepository) {
-        this.weatherJpaRepository = weatherJpaRepository;
+  public WeatherExportService(WeatherJpaRepository weatherJpaRepository) {
+    this.weatherJpaRepository = weatherJpaRepository;
+  }
+
+  public void writeWeatherToCsv(Writer writer, String localZipCode, Instant start) {
+    Instant end = start.plus(1L, ChronoUnit.DAYS);
+
+    List<WeatherEntity> weatherEntityList = weatherJpaRepository.getSpecificDay(localZipCode, start, end);
+
+    CSVFormat format = CSVFormat.Builder.create().setDelimiter(";").setHeader("temperature", "humidity", "wind_speed", "recorded_at_utc")
+        .build();
+
+    try (CSVPrinter csvPrinter = new CSVPrinter(writer, format)) {
+      for (WeatherEntity weatherEntity : weatherEntityList) {
+        csvPrinter.printRecord(weatherEntity.getTemperature(), weatherEntity.getHumidity(), weatherEntity.getWindSpeed(),
+            weatherEntity.getRecordedAt());
+      }
+    } catch (IOException e) {
+      logger.error("Error while writing CSV.", e);
     }
-
-    public void writeWeatherToCsv(Writer writer, String localZipCode, Instant start) {
-        Instant end = start.plus(1L, ChronoUnit.DAYS);
-
-        List<WeatherEntity> weatherEntityList = weatherJpaRepository.getSpecificDay(localZipCode, start, end);
-
-        CSVFormat format = CSVFormat.Builder.create().setDelimiter(";").setHeader("temperature", "humidity", "wind_speed", "recorded_at_utc").build();
-
-        try (CSVPrinter csvPrinter = new CSVPrinter(writer, format)) {
-            for (WeatherEntity weatherEntity : weatherEntityList) {
-                csvPrinter.printRecord(weatherEntity.getTemperature(), weatherEntity.getHumidity(), weatherEntity.getWindSpeed(), weatherEntity.getRecordedAt());
-            }
-        } catch (IOException e) {
-            logger.error("Error while writing CSV.", e);
-        }
-    }
+  }
 
 }
