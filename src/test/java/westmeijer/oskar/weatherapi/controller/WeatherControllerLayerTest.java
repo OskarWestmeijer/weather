@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import org.intellij.lang.annotations.Language;
 import org.junit.jupiter.api.Test;
@@ -18,10 +17,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import westmeijer.oskar.weatherapi.repository.jpa.LocationJpaRepository;
-import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.repository.model.WeatherEntity;
+import westmeijer.oskar.weatherapi.service.LocationService;
 import westmeijer.oskar.weatherapi.service.WeatherService;
+import westmeijer.oskar.weatherapi.service.model.Location;
 import westmeijer.oskar.weatherapi.util.WebMvcMappersTestConfig;
 
 @WebMvcTest(WeatherController.class)
@@ -32,7 +31,7 @@ public class WeatherControllerLayerTest {
   private WeatherService weatherService;
 
   @MockBean
-  private LocationJpaRepository locationJpaRepository;
+  private LocationService locationService;
 
   @Autowired
   private MockMvc mockMvc;
@@ -41,11 +40,10 @@ public class WeatherControllerLayerTest {
   public void requestWeatherKnownZipCode() throws Exception {
     List<WeatherEntity> weatherEntityData = List.of(
         new WeatherEntity(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, 88, 11.66, "23552", Instant.now(), Instant.now()));
-    Optional<LocationEntity> location = Optional.of(
-        new LocationEntity("23552", "2875601", "Lübeck", "Germany", Instant.now(), Instant.now()));
+    Location location = new Location("23552", "2875601", "Lübeck", "Germany", Instant.now(), Instant.now());
 
     given(weatherService.getLast24h("23552")).willReturn(weatherEntityData);
-    given(locationJpaRepository.findById("23552")).willReturn(location);
+    given(locationService.findById("23552")).willReturn(location);
 
     @Language("json")
     String expectedBody = """
@@ -68,19 +66,19 @@ public class WeatherControllerLayerTest {
         .andExpect(content().json(expectedBody));
 
     then(weatherService).should().getLast24h("23552");
-    then(locationJpaRepository).should().findById("23552");
+    then(locationService).should().findById("23552");
   }
 
   @Test
   public void requestWeatherUnknownZipCode() throws Exception {
-    given(locationJpaRepository.findById("46286")).willReturn(Optional.empty());
+    given(locationService.findById("46286")).willThrow(new LocationNotSupportedException("46286"));
 
     mockMvc.perform(get("/api/v1/weather/46286/24h"))
         .andExpect(status().isNotFound())
         .andExpect(content().string("Requested zip_code not found. Please verify it is supported. zip_code: 46286"));
 
     then(weatherService).shouldHaveNoInteractions();
-    then(locationJpaRepository).should().findById("46286");
+    then(locationService).should().findById("46286");
   }
 
 

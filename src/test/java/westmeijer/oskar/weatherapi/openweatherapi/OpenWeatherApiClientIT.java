@@ -8,36 +8,36 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import westmeijer.oskar.weatherapi.IntegrationTestContainers;
-import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.repository.model.WeatherEntity;
+import westmeijer.oskar.weatherapi.service.model.Location;
 
 @Slf4j
 @SpringBootTest
 public class OpenWeatherApiClientIT extends IntegrationTestContainers {
 
-    @Autowired
-    private OpenWeatherApiClient apiClient;
+  @Autowired
+  private OpenWeatherApiClient apiClient;
 
-    @Test
-    public void requestApiForHelsinki() {
-        LocationEntity helsinki = new LocationEntity("00100", "658225", "Helsinki", "Finland", Instant.now(), Instant.now());
-        WeatherEntity response = apiClient.requestWeather(helsinki);
+  @Test
+  public void requestApiForHelsinki() {
+    Location helsinki = new Location("00100", "658225", "Helsinki", "Finland", Instant.now(), Instant.now());
+    WeatherEntity response = apiClient.requestWeather(helsinki);
 
-        Assertions.assertEquals(10.00, response.getTemperature());
-    }
+    Assertions.assertEquals(10.00, response.getTemperature());
+  }
 
-    @DisplayName("Ensure error request handling is covered.")
-    @Test
-    public void handleErrorResponses() {
-        LocationEntity error = new LocationEntity("66666", "666666", "Error", "Error", Instant.now(), Instant.now());
+  @DisplayName("Ensure error request handling is covered.")
+  @Test
+  public void handleErrorResponses() {
+    Location error = new Location("66666", "666666", "Error", "Error", Instant.now(), Instant.now());
 
-        OpenWeatherApiRequestException thrown = Assertions.assertThrows(OpenWeatherApiRequestException.class, () -> {
-            apiClient.requestWeather(error);
-        });
+    OpenWeatherApiRequestException thrown = Assertions.assertThrows(OpenWeatherApiRequestException.class, () -> {
+      apiClient.requestWeather(error);
+    });
 
-        Assertions.assertEquals(OpenWeatherApiRequestException.class, thrown.getClass());
-        Assertions.assertEquals("Exception during OpenWeatherApi request.", thrown.getMessage());
-    }
+    Assertions.assertEquals(OpenWeatherApiRequestException.class, thrown.getClass());
+    Assertions.assertEquals("Exception during OpenWeatherApi request.", thrown.getMessage());
+  }
 
 
 }

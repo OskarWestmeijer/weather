@@ -1,8 +1,10 @@
 package westmeijer.oskar.weatherapi.repository;
 
 import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import westmeijer.oskar.weatherapi.controller.LocationNotSupportedException;
 import westmeijer.oskar.weatherapi.repository.jpa.LocationJpaRepository;
 import westmeijer.oskar.weatherapi.repository.mapper.LocationEntityMapper;
 import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
@@ -20,5 +22,27 @@ public class LocationRepositoryImpl implements LocationRepository {
   public List<Location> getAll() {
     List<LocationEntity> locationEntities = locationJpaRepository.findAll();
     return locationEntityMapper.mapList(locationEntities);
+  }
+
+  @Override
+  public Location getNextImportLocation() {
+    LocationEntity location = locationJpaRepository.findFirstByOrderByLastImportAtAsc();
+    return locationEntityMapper.map(location);
+  }
+
+  @Override
+  public Location saveAndFlush(Location location) {
+    Objects.requireNonNull(location, "location must not be null");
+    LocationEntity locationEntity = locationEntityMapper.map(location);
+    LocationEntity savedLocation = locationJpaRepository.saveAndFlush(locationEntity);
+    return locationEntityMapper.map(savedLocation);
+  }
+
+  @Override
+  public Location findById(String localZipCode) {
+    Objects.requireNonNull(localZipCode, "localZipCode must not be null");
+    LocationEntity locationEntity = locationJpaRepository.findById(localZipCode)
+        .orElseThrow(() -> new LocationNotSupportedException(localZipCode));
+    return locationEntityMapper.map(locationEntity);
   }
 }
