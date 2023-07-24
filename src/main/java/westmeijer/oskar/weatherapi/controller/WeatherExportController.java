@@ -20,24 +20,25 @@ import java.io.IOException;
 @RequestMapping("/api/v1")
 public class WeatherExportController {
 
-    private final WeatherExportService weatherExportService;
+  private final WeatherExportService weatherExportService;
 
-    private final LocationJpaRepository locationJpaRepository;
+  private final LocationJpaRepository locationJpaRepository;
 
-    public WeatherExportController(WeatherExportService weatherExportService, LocationJpaRepository locationJpaRepository) {
-        this.weatherExportService = weatherExportService;
-        this.locationJpaRepository = locationJpaRepository;
-    }
+  public WeatherExportController(WeatherExportService weatherExportService, LocationJpaRepository locationJpaRepository) {
+    this.weatherExportService = weatherExportService;
+    this.locationJpaRepository = locationJpaRepository;
+  }
 
-    @GetMapping("/csv/weather/{localZipCode}/{date}")
-    public void exportAsCsv(HttpServletResponse servletResponse, @PathVariable String localZipCode, @PathVariable String date) throws IOException {
-        String fileName = ControllerUtil.buildFileName(localZipCode, date, ControllerUtil.CSV_FILE);
-        LocationEntity locationEntity = locationJpaRepository.findById(localZipCode).orElseThrow();
+  @GetMapping("/csv/weather/{localZipCode}/{date}")
+  public void exportAsCsv(HttpServletResponse servletResponse, @PathVariable String localZipCode, @PathVariable String date)
+      throws IOException {
+    String fileName = ControllerUtil.buildFileName(localZipCode, date, ControllerUtil.CSV_FILE);
+    LocationEntity locationEntity = locationJpaRepository.findById(localZipCode).orElseThrow();
 
-        servletResponse.setContentType("text/csv");
-        servletResponse.addHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-        weatherExportService.writeWeatherToCsv(servletResponse.getWriter(), localZipCode, ControllerUtil.atStartOfDay(date, locationEntity));
-    }
+    servletResponse.setContentType("text/csv");
+    servletResponse.addHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+    weatherExportService.writeWeatherToCsv(servletResponse.getWriter(), localZipCode, ControllerUtil.atStartOfDay(date, locationEntity));
+  }
 
 
 }

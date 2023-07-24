@@ -14,19 +14,19 @@ import java.util.TimeZone;
 @SpringBootApplication
 public class WeatherApiApplication {
 
-    private static final Logger logger = LoggerFactory.getLogger(WeatherApiApplication.class);
+  private static final Logger logger = LoggerFactory.getLogger(WeatherApiApplication.class);
 
-    public static void main(String[] args) {
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-        SpringApplication.run(WeatherApiApplication.class, args);
-    }
+  public static void main(String[] args) {
+    TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+    SpringApplication.run(WeatherApiApplication.class, args);
+  }
 
-    @EventListener
-    public void handleContextRefresh(ContextRefreshedEvent event) {
-        final Environment env = event.getApplicationContext()
-                .getEnvironment();
-        logger.info("Active profiles: {}", Arrays.toString(env.getActiveProfiles()));
-    }
+  @EventListener
+  public void handleContextRefresh(ContextRefreshedEvent event) {
+    final Environment env = event.getApplicationContext()
+        .getEnvironment();
+    logger.info("Active profiles: {}", Arrays.toString(env.getActiveProfiles()));
+  }
 
 
 }

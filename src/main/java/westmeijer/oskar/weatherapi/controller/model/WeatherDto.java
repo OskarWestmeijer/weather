@@ -13,14 +13,14 @@ public record WeatherDto(@JsonIgnore UUID id, Double temperature, Instant record
                          Double windSpeed,
                          @JsonIgnore String localZipCode) {
 
-    public WeatherDto(UUID id, Double temperature, Instant recordedAt, Integer humidity,
-                      Double windSpeed, String localZipCode) {
-        this.id = id;
-        this.temperature = temperature;
-        this.recordedAt = recordedAt.truncatedTo(ChronoUnit.SECONDS);
-        this.humidity = humidity;
-        this.windSpeed = windSpeed;
-        this.localZipCode = localZipCode;
-    }
+  public WeatherDto(UUID id, Double temperature, Instant recordedAt, Integer humidity,
+      Double windSpeed, String localZipCode) {
+    this.id = id;
+    this.temperature = temperature;
+    this.recordedAt = recordedAt.truncatedTo(ChronoUnit.SECONDS);
+    this.humidity = humidity;
+    this.windSpeed = windSpeed;
+    this.localZipCode = localZipCode;
+  }
 
 }

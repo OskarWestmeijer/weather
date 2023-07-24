@@ -13,23 +13,23 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebFluxConfig {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebFluxConfig.class);
+  private static final Logger logger = LoggerFactory.getLogger(WebFluxConfig.class);
 
 
-    private final String baseUrl;
+  private final String baseUrl;
 
-    public WebFluxConfig(@Value("${openweatherapi.baseUrl}") String baseUrl) {
-        this.baseUrl = baseUrl;
-    }
+  public WebFluxConfig(@Value("${openweatherapi.baseUrl}") String baseUrl) {
+    this.baseUrl = baseUrl;
+  }
 
-    @Bean
-    @Scope("singleton")
-    public WebClient getWebClient() {
-        logger.info(baseUrl);
-        return WebClient.builder()
-                .baseUrl(baseUrl)
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .build();
-    }
+  @Bean
+  @Scope("singleton")
+  public WebClient getWebClient() {
+    logger.info(baseUrl);
+    return WebClient.builder()
+        .baseUrl(baseUrl)
+        .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .build();
+  }
 
 }

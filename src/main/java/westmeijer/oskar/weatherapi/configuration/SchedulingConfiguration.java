@@ -5,12 +5,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
- * This custom scheduling property is disabled for Integration Tests with Testcontainers.
- * Have a look at the IntegrationTestContainers class in the test package.
+ * This custom scheduling property is disabled for Integration Tests with Testcontainers. Have a look at the IntegrationTestContainers class
+ * in the test package.
  */
 @EnableScheduling
 @ConditionalOnProperty(
-        value = "app.scheduling.enable", havingValue = "true", matchIfMissing = true
+    value = "app.scheduling.enable", havingValue = "true", matchIfMissing = true
 )
 @Configuration
 public class SchedulingConfiguration {
