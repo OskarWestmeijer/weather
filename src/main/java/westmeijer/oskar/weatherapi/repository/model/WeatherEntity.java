@@ -1,9 +1,6 @@
 package westmeijer.oskar.weatherapi.repository.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.Instant;
@@ -13,9 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- * Weather representation used by the service and repository layer.
- */
+
 @Table(name = "weather", schema = "weather")
 @Entity
 @Getter
@@ -24,8 +19,6 @@ import lombok.Setter;
 @Setter
 public class WeatherEntity {
 
-  @JsonIgnore
-  @GeneratedValue(strategy = GenerationType.AUTO)
   @Id
   private UUID id;
 
