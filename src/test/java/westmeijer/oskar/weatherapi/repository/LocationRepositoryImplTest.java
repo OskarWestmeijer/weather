@@ -103,7 +103,7 @@ public class LocationRepositoryImplTest {
   @Test
   public void findById_throwsExceptionOnNotFound() {
     String localZipCode = "20535";
-    given(locationJpaRepository.findById(localZipCode)).willThrow(new LocationNotSupportedException(localZipCode));
+    given(locationJpaRepository.findById(localZipCode)).willReturn(Optional.empty());
 
     assertThatThrownBy(() -> locationRepository.findById(localZipCode))
         .isInstanceOf(LocationNotSupportedException.class)
