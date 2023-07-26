@@ -15,12 +15,15 @@ public class OpenWeatherApiClient {
 
   private final WebClient webClient;
 
+  private final OpenWeatherApiMapper openWeatherApiMapper;
+
   private final String urlPathTemplate;
   private final String appId;
 
-  public OpenWeatherApiClient(WebClient webClient, @Value("${openweatherapi.appId}") String appId,
+  public OpenWeatherApiClient(WebClient webClient, OpenWeatherApiMapper openWeatherApiMapper, @Value("${openweatherapi.appId}") String appId,
       @Value("${openweatherapi.urlPathTemplate}") String urlPathTemplate) {
     this.webClient = webClient;
+    this.openWeatherApiMapper = openWeatherApiMapper;
     this.urlPathTemplate = urlPathTemplate;
     this.appId = appId;
   }
@@ -31,7 +34,7 @@ public class OpenWeatherApiClient {
       log.debug("Built urlPath: {}", urlPath);
       OpenWeatherApiResponse response = webClient.get().uri(urlPath).retrieve().bodyToMono(OpenWeatherApiResponse.class).block();
       log.debug("OpenWeatherApiResponse: {}", response);
-      return OpenWeatherApiMapper.map(response, location.localZipCode());
+      return openWeatherApiMapper.map(response, location.localZipCode());
     } catch (Exception e) {
       throw new OpenWeatherApiRequestException("Exception during OpenWeatherApi request.", e);
     }
