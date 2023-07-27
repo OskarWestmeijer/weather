@@ -1,8 +1,10 @@
 package westmeijer.oskar.weatherapi.openweatherapi.model;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import lombok.SneakyThrows;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,36 +16,32 @@ import org.springframework.core.io.Resource;
 @JsonTest
 public class OpenWeatherApiResponseJsonTest {
 
-    @Autowired
-    private JacksonTester<OpenWeatherApiResponse> tester;
+  @Autowired
+  private JacksonTester<OpenWeatherApiResponse> tester;
 
-    @Value("classpath:openweatherapi/luebeck_response.json")
-    private Resource validJsonResponse;
+  @Value("classpath:jsontest/openweatherapi/valid_weather_response.json")
+  private Resource validJsonResponse;
 
-    @Value("classpath:openweatherapi/luebeck_response_humidity_missing.json")
-    private Resource invalidJsonResponse;
+  @Value("classpath:jsontest/openweatherapi/invalid_weather_response_humidity_missing.json")
+  private Resource invalidJsonResponse;
 
 
-    @Test
-    @SneakyThrows
-    public void deserializeToObject() {
+  @Test
+  @SneakyThrows
+  public void deserializeToObject() {
 
-        OpenWeatherApiResponse response = tester.read(validJsonResponse).getObject();
+    OpenWeatherApiResponse response = tester.read(validJsonResponse).getObject();
 
-        Assertions.assertEquals(99.53d, response.main().temperature());
-        Assertions.assertEquals(2.57d, response.wind().windSpeed());
-        Assertions.assertEquals(85, response.main().humidity());
-    }
+    assertThat(99.53d).isEqualTo(response.main().temperature());
+    assertThat(2.57d).isEqualTo(response.wind().windSpeed());
+    assertThat(85).isEqualTo(response.main().humidity());
+  }
 
-    @Test
-    @SneakyThrows
-    public void requireNonNull() {
-
-        MismatchedInputException thrown = Assertions.assertThrows(MismatchedInputException.class, () -> {
-            tester.read(invalidJsonResponse).getObject();
-        });
-
-        Assertions.assertEquals(MismatchedInputException.class, thrown.getClass());
-    }
+  @Test
+  @SneakyThrows
+  public void deserializeThrowsExceptionOnMissingHumidity() {
+    assertThatThrownBy(() -> tester.read(invalidJsonResponse).getObject())
+        .isInstanceOf(MismatchedInputException.class);
+  }
 
 }
