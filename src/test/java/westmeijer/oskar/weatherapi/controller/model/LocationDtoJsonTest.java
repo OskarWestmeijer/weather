@@ -1,7 +1,5 @@
 package westmeijer.oskar.weatherapi.controller.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import lombok.SneakyThrows;
@@ -14,29 +12,35 @@ import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.json.JsonContent;
 
 @JsonTest
-public class WeatherDtoJsonTest {
+public class LocationDtoJsonTest {
+
 
   @Autowired
-  private JacksonTester<WeatherDto> tester;
+  private JacksonTester<LocationDto> tester;
 
   @Test
   @SneakyThrows
   public void serializeToJson() {
     Instant recordedAt = Instant.now().truncatedTo(ChronoUnit.MICROS);
-    WeatherDto weatherDTO = new WeatherDto(22.54d, 34, 89.12d, recordedAt);
-
+    LocationDto locationDto = new LocationDto(
+        "23552",
+        "2875601",
+        "Lübeck",
+        "Germany",
+        recordedAt
+    );
     @Language("json")
     String jsonTemplate = """
         {
-          "temperature":%s,
-          "humidity":%s,
-          "windSpeed":%s,
-          "recordedAt":"%s"
+          "localZipCode":"23552",
+          "locationCode":"2875601",
+          "cityName":"Lübeck",
+          "country":"Germany",
+          "lastImportAt":"%s"
         }""";
 
-    String expectedJson = jsonTemplate.formatted(weatherDTO.temperature(), weatherDTO.humidity(), weatherDTO.windSpeed(),
-        weatherDTO.recordedAt());
-    JsonContent<WeatherDto> actualJson = tester.write(weatherDTO);
+    String expectedJson = jsonTemplate.formatted(locationDto.lastImportAt());
+    JsonContent<LocationDto> actualJson = tester.write(locationDto);
 
     JSONAssert.assertEquals(expectedJson, actualJson.getJson(), true);
   }
