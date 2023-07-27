@@ -35,9 +35,9 @@ public class WeatherImportJob {
       log.info("Import weather for location: {}", location);
 
       Weather importedWeather = openWeatherApiClient.requestWeather(location);
-      Weather savedWeatherEntity = weatherService.saveAndFlush(importedWeather);
+      Weather savedWeather = weatherService.saveAndFlush(importedWeather);
       locationService.saveAndFlush(location);
-      log.info("Saved imported weather: {}", savedWeatherEntity);
+      log.info("Saved imported weather: {}", savedWeather);
 
     } catch (OpenWeatherApiRequestException requestException) {
       log.error("OpenWeatherApi request failed!", requestException);
