@@ -14,3 +14,12 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.xml
     default-schema: weather
+# swagger-ui custom path
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /index.html
+
