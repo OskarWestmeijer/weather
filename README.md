@@ -20,7 +20,8 @@ Link to production UI. [https://oskar-westmeijer.com/weather](https://oskar-west
 
 ```
 - Java, Maven & Spring-Boot
-- Spring Data JPA, Liquibase, Lombok & Mapstruct 
+- Spring Data JPA & Liquibase 
+- Lombok, Mapstruct & OpenApi Generator 
 - PostgreSQL, Testcontainers, Wiremock & Prometheus
 - Nginx & ReactJS
 - Github Actions, Docker and Docker-Compose
@@ -45,6 +46,23 @@ Wiremock mocks the OpenWeatherApi requests. Use the correct docker-compose templ
 docker-compose up -d
 ./mvnw spring-boot:run 
 ```
+
+### OpenApi docs
+
+The Api specification files are located in this directory `src/main/resources/openapi`. The Controller interfaces and related response
+models are generated at compile phase.
+
+After startup the OpenApi documentation can be reached at these urls.
+
+Json api-docs
+
+- http://localhost:8080/v3/api-docs
+- https://oskar-westmeijer.com/v3/api-docs (production)
+
+Swagger UI using the Json api-docs
+
+- http://localhost:8080/swagger-ui/index.html
+- https://oskar-westmeijer.com/swagger-ui/index.html (production)
 
 ## Deployment
 

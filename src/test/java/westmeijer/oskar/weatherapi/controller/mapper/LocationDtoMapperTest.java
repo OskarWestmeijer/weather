@@ -8,7 +8,7 @@ import java.util.List;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import westmeijer.oskar.weatherapi.controller.model.LocationDto;
+import westmeijer.oskar.openapi.model.LocationDto;
 import westmeijer.oskar.weatherapi.service.model.Location;
 
 public class LocationDtoMapperTest {
@@ -27,11 +27,11 @@ public class LocationDtoMapperTest {
 
     LocationDto locationDto = locationDtoMapper.map(location);
 
-    assertThat(locationDto.locationCode()).isEqualTo(location.locationCode());
-    assertThat(locationDto.localZipCode()).isEqualTo(location.localZipCode());
-    assertThat(locationDto.cityName()).isEqualTo(location.cityName());
-    assertThat(locationDto.country()).isEqualTo(location.country());
-    assertThat(locationDto.lastImportAt()).isEqualTo(location.lastImportAt());
+    assertThat(locationDto.getLocationCode()).isEqualTo(location.locationCode());
+    assertThat(locationDto.getLocalZipCode()).isEqualTo(location.localZipCode());
+    assertThat(locationDto.getCityName()).isEqualTo(location.cityName());
+    assertThat(locationDto.getCountry()).isEqualTo(location.country());
+    assertThat(locationDto.getLastImportAt()).isEqualTo(location.lastImportAt());
   }
 
   @Test
