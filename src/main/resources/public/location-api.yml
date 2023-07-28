@@ -1,0 +1,84 @@
+openapi: "3.0.3"
+servers:
+  - url: https://api.oskar-westmeijer.com/api/v1
+    description: url of production environment
+info:
+  description: |
+    # Introduction
+    This Api provides Weather data for predetermined locations. The data is harvested every minute from [https://openweathermap.org/](https://openweathermap.org/).
+    
+    This application serves as a personal hobby project. The goal is to investigate and practice Api-design with Spring-Boot.
+    Please have a look at the Github repository [https://github.com/OskarWestmeijer/weather-api](https://github.com/OskarWestmeijer/weather-api).
+    In addition a ReactJs frontend is available. It displays the weather data in charts over time. [https://ui.oskar-westmeijer.com](https://ui.oskar-westmeijer.com)
+    
+    Should you be interested in me as a developer have a look at my homepage. [https://oskar-westmeijer.com](https://oskar-westmeijer.com) 
+    
+    This project has no commercial intentions and is free to access for everyone.
+  version: 1.0.0
+  title: Weather-Api
+  x-logo:
+    url: 'https://api.oskar-westmeijer.com/weather_api_logo.png'
+    altText: Weather-Api logo
+externalDocs:
+  description: Github Repository.
+  url: 'https://github.com/OskarWestmeijer/weather-api'
+tags:
+  - name: locations
+    description: Request Weather for these locations.
+  - name: location_dto
+    x-displayName: The Location Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/LocationDto" />
+x-tagGroups:
+  - name: Resources
+    tags:
+      - locations
+  - name: Response Models
+    tags:
+      - location_dto
+paths:
+  /locations:
+    get:
+      summary: Get all locations
+      operationId: getLocations
+      tags:
+        - locations
+      responses:
+        '200':
+          description: Request Weather for these locations.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Locations"
+components:
+  schemas:
+    LocationDto:
+      type: object
+      description: Describes unique location
+      required:
+        - localZipCode
+        - locationCode
+        - cityName
+        - country
+        - lastImportAt
+      properties:
+        localZipCode:
+          type: string
+          example: "20095"
+        locationCode:
+          type: string
+          example: "2911298"
+        cityName:
+          type: string
+          example: "Hamburg"
+        country:
+          type: string
+          example: "Germany"
+        lastImportAt:
+          type: string
+          format: date-time
+          example: "2022-08-29T21:56:18.602546Z"
+    Locations:
+      type: array
+      items:
+        $ref: "#/components/schemas/LocationDto"
