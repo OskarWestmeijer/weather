@@ -47,22 +47,19 @@ docker-compose up -d
 ./mvnw spring-boot:run 
 ```
 
-### OpenApi docs
+## OpenApi Generator
 
 The Api specification files are located in this directory `src/main/resources/openapi`. The Controller interfaces and related response
 models are generated at compile phase.
 
-After startup the OpenApi documentation can be reached at these urls.
+### local swagger-UI & api-docs
 
-Json api-docs
+In local development the api can be investigated on these urls. <b>Note!</b> The content of these urls is not directly using the OpenApi
+yml spec. The swagger docs merely use the annotations of the generated code. For example the URL
+attribute is not matching the yml specification. Therefore this feature is disabled in production.
 
 - http://localhost:8080/v3/api-docs
-- https://oskar-westmeijer.com/v3/api-docs (production)
-
-Swagger UI using the Json api-docs
-
 - http://localhost:8080/swagger-ui/index.html
-- https://oskar-westmeijer.com/swagger-ui/index.html (production)
 
 ## Deployment
 
