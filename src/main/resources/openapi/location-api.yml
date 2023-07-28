@@ -4,6 +4,7 @@ info:
   title: Weather-Api locations
 servers:
   - url: https://api.oskar-westmeijer.com/api/v1
+    description: production server url
 paths:
   /locations:
     get:
