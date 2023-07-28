@@ -183,7 +183,6 @@
               <configOptions>
                 <library>spring-boot</library>
                 <oas3>true</oas3>
-                <useSpringController>true</useSpringController>
                 <interfaceOnly>true</interfaceOnly>
                 <!-- javax.* to jakarta.* -->
                 <useSpringBoot3>true</useSpringBoot3>

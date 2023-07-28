@@ -18,12 +18,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Locations"
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
 components:
   schemas:
     LocationDto:
@@ -50,14 +44,3 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/LocationDto"
-    Error:
-      type: object
-      required:
-        - code
-        - message
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
