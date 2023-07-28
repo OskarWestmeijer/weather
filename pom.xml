@@ -96,6 +96,17 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.openapitools</groupId>
+      <artifactId>jackson-databind-nullable</artifactId>
+      <version>0.2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <version>2.1.0</version>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -154,6 +165,44 @@
       </plugin>
 
       <plugin>
+        <groupId>org.openapitools</groupId>
+        <artifactId>openapi-generator-maven-plugin</artifactId>
+        <version>6.6.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>
+                ${project.basedir}/src/main/resources/openapi/location-api.yml
+              </inputSpec>
+              <generatorName>spring</generatorName>
+              <apiPackage>westmeijer.oskar.openapi.api</apiPackage>
+              <modelPackage>westmeijer.oskar.openapi.model</modelPackage>
+              <configOptions>
+                <library>spring-boot</library>
+                <oas3>true</oas3>
+                <useSpringController>true</useSpringController>
+                <interfaceOnly>true</interfaceOnly>
+                <!-- javax.* to jakarta.* -->
+                <useSpringBoot3>true</useSpringBoot3>
+                <useSpringfox>false</useSpringfox>
+                <java8>true</java8>
+                <dateLibrary>custom</dateLibrary>
+              </configOptions>
+              <typeMappings>
+                <typeMapping>DateTime=Instant</typeMapping>
+              </typeMappings>
+              <importMappings>
+                <importMapping>Instant=java.time.Instant</importMapping>
+              </importMappings>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${jacoco.version}</version>
@@ -179,10 +228,6 @@
         <version>${checkstyle.version}</version>
         <configuration>
           <configLocation>google_checks.xml</configLocation>
-          <!--
-          <violationSeverity>warning</violationSeverity>
-          <maxAllowedViolations>200</maxAllowedViolations>
-          -->
         </configuration>
         <executions>
           <execution>

@@ -1,0 +1,63 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Weather-Api locations
+servers:
+  - url: https://api.oskar-westmeijer.com/api/v1
+paths:
+  /locations:
+    get:
+      summary: Get all locations
+      operationId: getLocations
+      tags:
+        - locations
+      responses:
+        '200':
+          description: An array of locations
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Locations"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    LocationDto:
+      type: object
+      required:
+        - localZipCode
+        - locationCode
+        - cityName
+        - country
+        - lastImportAt
+      properties:
+        localZipCode:
+          type: string
+        locationCode:
+          type: string
+        cityName:
+          type: string
+        country:
+          type: string
+        lastImportAt:
+          type: string
+          format: date-time
+    Locations:
+      type: array
+      items:
+        $ref: "#/components/schemas/LocationDto"
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
