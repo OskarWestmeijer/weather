@@ -5,10 +5,14 @@ servers:
 info:
   description: |
     # Introduction
-    This Api provides Weather data for predetermined locations. The data is harvested every minute from [https://openweathermap.org/](https://openweathermap.org/).
+    This Api provides Weather data for predefined locations. The data is harvested every minute
+    from [https://openweathermap.org/](https://openweathermap.org/) and stored in a database.
     
-    The application serves as a personal hobby project. The goal is to investigate and practice Api-design with Spring-Boot.
-    In addition a ReactJs frontend is available. It displays the weather data in charts over time. [https://ui.oskar-westmeijer.com](https://ui.oskar-westmeijer.com)
+    It serves as a personal hobby project. The goal is to investigate and practice Api-design with Spring-Boot.
+    The OpenApi specification is documented with Redoc. [https://api.oskar-westmeijer.com](https://api.oskar-westmeijer.com)
+    
+    In addition, a ReactJs frontend is available. It displays the weather data in charts over
+    time. [https://ui.oskar-westmeijer.com](https://ui.oskar-westmeijer.com)
     
     This project has no commercial intentions and is free to access for everyone.
   version: 1.0.0
