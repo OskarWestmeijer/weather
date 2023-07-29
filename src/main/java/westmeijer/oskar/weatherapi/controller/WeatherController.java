@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import westmeijer.oskar.openapi.api.WeatherApi;
 import westmeijer.oskar.openapi.model.WeatherResponse;
 import westmeijer.oskar.weatherapi.controller.mapper.WeatherDtoMapper;
 import westmeijer.oskar.weatherapi.service.LocationService;
@@ -20,10 +21,10 @@ import westmeijer.oskar.weatherapi.service.model.Weather;
 
 @Controller
 @CrossOrigin
-@RequestMapping("/api/v1/weather/{localZipCode}")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 @Slf4j
-public class WeatherController {
+public class WeatherController implements WeatherApi {
 
   private final WeatherService weatherService;
 
@@ -32,7 +33,7 @@ public class WeatherController {
   private final WeatherDtoMapper weatherDtoMapper;
 
 
-  @GetMapping("/now")
+  @GetMapping("/weather/{localZipCode}/now")
   public ResponseEntity<WeatherResponse> getNow(@PathVariable String localZipCode) {
     log.info("Received Weather request NOW for localZipCode: {}", localZipCode);
     Location location = locationService.findById(localZipCode);
@@ -41,7 +42,7 @@ public class WeatherController {
     return ResponseEntity.ok(weatherResponse);
   }
 
-  @GetMapping("/24h")
+  @GetMapping("/weather/{localZipCode}/24h")
   public ResponseEntity<WeatherResponse> getLast24Hours(@PathVariable String localZipCode) {
     log.info("Received Weather request 24h for localZipCode: {}", localZipCode);
     Location location = locationService.findById(localZipCode);
@@ -51,8 +52,8 @@ public class WeatherController {
 
   }
 
-  @GetMapping("/3d")
-  public ResponseEntity<WeatherResponse> getLast3Days(@PathVariable String localZipCode) {
+  @Override
+  public ResponseEntity<WeatherResponse> getWeatherLast3Days(@PathVariable String localZipCode) {
     log.info("Received Weather request 3d for localZipCode: {}", localZipCode);
     Location location = locationService.findById(localZipCode);
     List<Weather> weatherList = weatherService.getLast3Days(localZipCode);
@@ -67,7 +68,7 @@ public class WeatherController {
    * @param date         - expected format: dd-MM-YYYY
    * @return
    */
-  @GetMapping("/{date}")
+  @GetMapping("/weather/{localZipCode}/{date}")
   public ResponseEntity<WeatherResponse> getSpecificDate(@PathVariable String localZipCode, @PathVariable String date) {
     log.info("Received Weather request SPECIFIC date for localZipCode: {}, date: {}", localZipCode, date);
     Location location = locationService.findById(localZipCode);

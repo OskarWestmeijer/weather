@@ -9,7 +9,8 @@ The service is configured to connect to the production backend API.
 Note! This needs to be changed. It is only tolerable since only the HTTP GET method is used on calls to the backend.
 
 ```
-// no further local dependencies
+// nodejs 18 LTS required. see package.json
+npm install
 npm run start
 ```
 

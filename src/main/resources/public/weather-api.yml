@@ -19,17 +19,30 @@ externalDocs:
 tags:
   - name: locations
     description: Request Weather for these locations.
+  - name: weather
+    description: Weather results for a location.
   - name: location_dto
-    x-displayName: The Location Model
+    x-displayName: The LocationDto Model
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/LocationDto" />
+  - name: weather_response
+    x-displayName: The WeatherResponse Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/WeatherResponse" />
+  - name: weather_dto
+    x-displayName: The WeatherDto Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/WeatherDto" />
 x-tagGroups:
   - name: Resources
     tags:
       - locations
+      - weather
   - name: Response Models
     tags:
       - location_dto
+      - weather_response
+      - weather_dto
 paths:
   /locations:
     get:
@@ -44,6 +57,27 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Locations"
+
+  /weather/{localZipCode}/3d:
+    get:
+      summary: Get weather of last 3 days for location
+      operationId: getWeatherLast3Days
+      tags:
+        - weather
+      parameters:
+        - name: localZipCode
+          in: path
+          required: true
+          description: The localZipCode location
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Weather results for the location.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WeatherResponse"
 components:
   schemas:
     LocationDto:
@@ -76,6 +110,7 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/LocationDto"
+
     WeatherResponse:
       type: object
       description: Weather results for a location.
@@ -98,6 +133,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/WeatherDto"
+
     WeatherDto:
       type: object
       description: Weather at recorded time. Wrapped in WeatherResponse, with location information.
