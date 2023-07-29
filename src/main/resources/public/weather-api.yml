@@ -68,9 +68,10 @@ paths:
         - name: localZipCode
           in: path
           required: true
-          description: The localZipCode location
+          description: localZipCode of location
           schema:
             type: string
+            example: "20095"
       responses:
         '200':
           description: Weather results for the location.
@@ -78,6 +79,80 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/WeatherResponse"
+
+  /weather/{localZipCode}/24h:
+    get:
+      summary: Get weather of last 24 hours for location
+      operationId: getWeatherLast24Hours
+      tags:
+        - weather
+      parameters:
+        - name: localZipCode
+          in: path
+          required: true
+          description: localZipCode of location
+          schema:
+            type: string
+            example: "20095"
+      responses:
+        '200':
+          description: Weather results for the location.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WeatherResponse"
+
+  /weather/{localZipCode}/now:
+    get:
+      summary: Get latest weather for location
+      operationId: getLatestWeather
+      tags:
+        - weather
+      parameters:
+        - name: localZipCode
+          in: path
+          required: true
+          description: localZipCode of location
+          schema:
+            type: string
+            example: "20095"
+      responses:
+        '200':
+          description: Weather results for the location.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WeatherResponse"
+
+  /weather/{localZipCode}/{date}:
+    get:
+      summary: Get weather for specific date and location
+      operationId: getSpecificWeather
+      tags:
+        - weather
+      parameters:
+        - name: localZipCode
+          in: path
+          required: true
+          description: localZipCode of location
+          schema:
+            type: string
+            example: "20095"
+        - name: date
+          in: path
+          required: true
+          description: date for weather lookup
+          schema:
+            type: string
+            example: "15-07-2023"
+      responses:
+        '200':
+          description: Weather results for the location.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WeatherResponse"
+
 components:
   schemas:
     LocationDto:

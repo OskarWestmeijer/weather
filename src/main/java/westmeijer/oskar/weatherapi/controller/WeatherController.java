@@ -33,8 +33,8 @@ public class WeatherController implements WeatherApi {
   private final WeatherDtoMapper weatherDtoMapper;
 
 
-  @GetMapping("/weather/{localZipCode}/now")
-  public ResponseEntity<WeatherResponse> getNow(@PathVariable String localZipCode) {
+  @Override
+  public ResponseEntity<WeatherResponse> getLatestWeather(@PathVariable String localZipCode) {
     log.info("Received Weather request NOW for localZipCode: {}", localZipCode);
     Location location = locationService.findById(localZipCode);
     Weather weather = weatherService.getNow(location);
@@ -42,8 +42,8 @@ public class WeatherController implements WeatherApi {
     return ResponseEntity.ok(weatherResponse);
   }
 
-  @GetMapping("/weather/{localZipCode}/24h")
-  public ResponseEntity<WeatherResponse> getLast24Hours(@PathVariable String localZipCode) {
+  @Override
+  public ResponseEntity<WeatherResponse> getWeatherLast24Hours(@PathVariable String localZipCode) {
     log.info("Received Weather request 24h for localZipCode: {}", localZipCode);
     Location location = locationService.findById(localZipCode);
     List<Weather> weatherList = weatherService.getLast24h(localZipCode);
@@ -61,15 +61,8 @@ public class WeatherController implements WeatherApi {
     return ResponseEntity.ok(weatherResponse);
   }
 
-  /**
-   * Get weather for a certain date and location.
-   *
-   * @param localZipCode - location to be requested
-   * @param date         - expected format: dd-MM-YYYY
-   * @return
-   */
-  @GetMapping("/weather/{localZipCode}/{date}")
-  public ResponseEntity<WeatherResponse> getSpecificDate(@PathVariable String localZipCode, @PathVariable String date) {
+  @Override
+  public ResponseEntity<WeatherResponse> getSpecificWeather(@PathVariable String localZipCode, @PathVariable String date) {
     log.info("Received Weather request SPECIFIC date for localZipCode: {}, date: {}", localZipCode, date);
     Location location = locationService.findById(localZipCode);
     Instant instant = ControllerUtil.atStartOfDay(date, location);
