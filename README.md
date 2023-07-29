@@ -2,21 +2,23 @@
 
 ![main branch](https://github.com/OskarWestmeijer/weather-api/actions/workflows/main-build-test-release-deploy.yml/badge.svg)
 
-This application provides weather information for predefined locations. This repository contains the frontend and
-backend service. In production the backend connects to the hosts PostgreSQL database.
-Proxy routing to these services is handled by another private infrastructure service.
+## Introduction
 
-The Weather-Api backend requests the public OpenWeatherApi once a minute for the current weather data. The response data is stored
-in the database. Frontend and backend Api can be reached by internet in with https.
+This Api provides Weather data for predefined locations. The data is harvested every minute
+from [https://openweathermap.org/](https://openweathermap.org/) and stored in a database.
 
-The weather data is displayed on charts in the ReactJs frontend.
+It serves as a personal hobby project. The goal is to investigate and practice Api-design with Spring-Boot.
+The OpenApi specification is documented with Redoc. [https://api.oskar-westmeijer.com](https://api.oskar-westmeijer.com)
 
-This Readme holds extensive information on the backend service. Please note that there is also
-a [frontend Readme](frontend/README.md).
+In addition, a ReactJs frontend is available. It displays the weather data in charts over
+time. [https://ui.oskar-westmeijer.com](https://ui.oskar-westmeijer.com)
 
-Link to production UI. [https://oskar-westmeijer.com/weather](https://oskar-westmeijer.com/weather)
+This project has no commercial intentions and is free to access for everyone.
 
-## Technologies used
+### Technologies used
+
+This repository contains the frontend and backend service. In production the backend connects to the hosts PostgreSQL database.
+Proxy routing to these services is handled by another private proxy service.
 
 ```
 - Java, Maven & Spring-Boot
@@ -49,17 +51,12 @@ docker-compose up -d
 
 ## OpenApi Generator
 
-The Api specification files are located in this directory `src/main/resources/openapi`. The Controller interfaces and related response
-models are generated at compile phase.
+The Controller interfaces and related response models are generated at compile phase. The Api specification files are located in this
+directory `src/main/resources/openapi`. This project
+uses Redoc for Api documentation purposes, after startup reachable on these urls.
 
-### local swagger-UI & api-docs
-
-In local development the api can be investigated on these urls. <b>Note!</b> The content of these urls is not directly using the OpenApi
-yml spec. The swagger docs merely use the annotations of the generated code. For example the URL
-attribute is not matching the yml specification. Therefore this feature is disabled in production.
-
-- http://localhost:8080/v3/api-docs
-- http://localhost:8080/swagger-ui/index.html
+- http://localhost:8080
+- https://api.oskar-westmeijer.com
 
 ## Deployment
 

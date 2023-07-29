@@ -1,0 +1,241 @@
+openapi: "3.0.3"
+servers:
+  - url: https://api.oskar-westmeijer.com/api/v1
+    description: url of production environment
+info:
+  description: |
+    # Introduction
+    This Api provides Weather data for predefined locations. The data is harvested every minute
+    from [https://openweathermap.org/](https://openweathermap.org/) and stored in a database.
+    
+    It serves as a personal hobby project. The goal is to investigate and practice Api-design with Spring-Boot.
+    The OpenApi specification is documented with Redoc. [https://api.oskar-westmeijer.com](https://api.oskar-westmeijer.com)
+    
+    In addition, a ReactJs frontend is available. It displays the weather data in charts over
+    time. [https://ui.oskar-westmeijer.com](https://ui.oskar-westmeijer.com)
+    
+    This project has no commercial intentions and is free to access for everyone.
+  version: 1.0.0
+  title: Weather-Api
+externalDocs:
+  description: https://github.com/OskarWestmeijer/weather-api
+  url: 'https://github.com/OskarWestmeijer/weather-api'
+tags:
+  - name: locations
+    description: Request Weather for these locations.
+  - name: weather
+    description: Weather results for a location.
+  - name: location_dto
+    x-displayName: The LocationDto Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/LocationDto" />
+  - name: weather_response
+    x-displayName: The WeatherResponse Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/WeatherResponse" />
+  - name: weather_dto
+    x-displayName: The WeatherDto Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/WeatherDto" />
+x-tagGroups:
+  - name: Resources
+    tags:
+      - locations
+      - weather
+  - name: Response Models
+    tags:
+      - location_dto
+      - weather_response
+      - weather_dto
+paths:
+  /locations:
+    get:
+      summary: Get all locations
+      operationId: getLocations
+      tags:
+        - locations
+      responses:
+        '200':
+          description: Request Weather for these locations.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Locations"
+
+  /weather/{localZipCode}/3d:
+    get:
+      summary: Get weather of last 3 days for location
+      operationId: getWeatherLast3Days
+      tags:
+        - weather
+      parameters:
+        - name: localZipCode
+          in: path
+          required: true
+          description: localZipCode of location
+          schema:
+            type: string
+            example: "20095"
+      responses:
+        '200':
+          description: Weather results for the location.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WeatherResponse"
+
+  /weather/{localZipCode}/24h:
+    get:
+      summary: Get weather of last 24 hours for location
+      operationId: getWeatherLast24Hours
+      tags:
+        - weather
+      parameters:
+        - name: localZipCode
+          in: path
+          required: true
+          description: localZipCode of location
+          schema:
+            type: string
+            example: "20095"
+      responses:
+        '200':
+          description: Weather results for the location.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WeatherResponse"
+
+  /weather/{localZipCode}/now:
+    get:
+      summary: Get latest weather for location
+      operationId: getLatestWeather
+      tags:
+        - weather
+      parameters:
+        - name: localZipCode
+          in: path
+          required: true
+          description: localZipCode of location
+          schema:
+            type: string
+            example: "20095"
+      responses:
+        '200':
+          description: Weather results for the location.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WeatherResponse"
+
+  /weather/{localZipCode}/{date}:
+    get:
+      summary: Get weather for specific date and location
+      operationId: getSpecificWeather
+      tags:
+        - weather
+      parameters:
+        - name: localZipCode
+          in: path
+          required: true
+          description: localZipCode of location
+          schema:
+            type: string
+            example: "20095"
+        - name: date
+          in: path
+          required: true
+          description: date for weather lookup
+          schema:
+            type: string
+            format: date
+            example: "2023-07-15"
+      responses:
+        '200':
+          description: Weather results for the location.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WeatherResponse"
+
+components:
+  schemas:
+    LocationDto:
+      type: object
+      description: Describes unique location
+      required:
+        - localZipCode
+        - locationCode
+        - cityName
+        - country
+        - lastImportAt
+      properties:
+        localZipCode:
+          type: string
+          example: "20095"
+        locationCode:
+          type: string
+          example: "2911298"
+        cityName:
+          type: string
+          example: "Hamburg"
+        country:
+          type: string
+          example: "Germany"
+        lastImportAt:
+          type: string
+          format: date-time
+          example: "2022-08-29T21:56:18.602546Z"
+    Locations:
+      type: array
+      items:
+        $ref: "#/components/schemas/LocationDto"
+
+    WeatherResponse:
+      type: object
+      description: Weather results for a location.
+      required:
+        - cityName
+        - localZipCode
+        - country
+        - weatherData
+      properties:
+        cityName:
+          type: string
+          example: "Hamburg"
+        localZipCode:
+          type: string
+          example: "20095"
+        country:
+          type: string
+          example: "Germany"
+        weatherData:
+          type: array
+          items:
+            $ref: "#/components/schemas/WeatherDto"
+
+    WeatherDto:
+      type: object
+      description: Weather at recorded time. Wrapped in WeatherResponse, with location information.
+      required:
+        - temperature
+        - humidity
+        - windSpeed
+        - recordedAt
+      properties:
+        temperature:
+          type: number
+          format: double
+          example: "11.45"
+        humidity:
+          type: integer
+          format: int32
+          example: "55"
+        windSpeed:
+          type: number
+          format: double
+          example: "2.57"
+        recordedAt:
+          type: string
+          format: date-time
+          example: "2022-08-29T21:56:18.602546Z"

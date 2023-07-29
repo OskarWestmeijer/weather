@@ -35,7 +35,7 @@ public class LocationControllerIT extends IntegrationTestContainers {
         ]
         """;
 
-    mockMvc.perform(get("/api/v1/locations"))
+    mockMvc.perform(get("/locations"))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(expectedResponse));

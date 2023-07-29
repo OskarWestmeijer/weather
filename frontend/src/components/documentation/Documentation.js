@@ -9,6 +9,7 @@ export default function Documentation() {
                     <div className="col-lg-8 col-md-12">
                         <h5 className="display-6 text-center">Documentation <a href="https://github.com/OskarWestmeijer/weather-api"><img className="bi" width="24" height="24" src="images/github.svg" alt="Github logo" /></a></h5>
                         <h5>Description</h5>
+                        <p>OpenApi specification: <a href="https://api.oskar-westmeijer.com">https://api.oskar-westmeijer.com</a></p>
                         <p>
                             This app requests the OpenWeatherApi every minute for current weather data. It fetches information for several cities.
                         </p>

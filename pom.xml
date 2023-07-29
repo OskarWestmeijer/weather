@@ -175,7 +175,7 @@
             </goals>
             <configuration>
               <inputSpec>
-                ${project.basedir}/src/main/resources/public/location-api.yml
+                ${project.basedir}/src/main/resources/public/weather-api.yml
               </inputSpec>
               <generatorName>spring</generatorName>
               <apiPackage>westmeijer.oskar.openapi.api</apiPackage>

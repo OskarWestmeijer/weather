@@ -1,7 +1,5 @@
 package westmeijer.oskar.weatherapi.controller.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import lombok.SneakyThrows;
@@ -12,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.json.JsonContent;
+import westmeijer.oskar.openapi.model.WeatherDto;
 
 @JsonTest
 public class WeatherDtoJsonTest {
@@ -34,8 +33,8 @@ public class WeatherDtoJsonTest {
           "recordedAt":"%s"
         }""";
 
-    String expectedJson = jsonTemplate.formatted(weatherDTO.temperature(), weatherDTO.humidity(), weatherDTO.windSpeed(),
-        weatherDTO.recordedAt());
+    String expectedJson = jsonTemplate.formatted(weatherDTO.getTemperature(), weatherDTO.getHumidity(), weatherDTO.getWindSpeed(),
+        weatherDTO.getRecordedAt());
     JsonContent<WeatherDto> actualJson = tester.write(weatherDTO);
 
     JSONAssert.assertEquals(expectedJson, actualJson.getJson(), true);
