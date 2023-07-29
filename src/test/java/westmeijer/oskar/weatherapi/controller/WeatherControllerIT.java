@@ -1,5 +1,6 @@
 package westmeijer.oskar.weatherapi.controller;
 
+import lombok.SneakyThrows;
 import org.intellij.lang.annotations.Language;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,11 @@ public class WeatherControllerIT extends IntegrationTestContainers {
   private MockMvc mockMvc;
 
   @Test
-  public void retrievesCorrectTemperatures() throws Exception {
+  @SneakyThrows
+  public void shouldReturnWeather() {
     @Language("json")
     String expectedResponse = """
         {
-          "timeFormat" : "UTC",
           "cityName" : "Lübeck",
           "localZipCode" : "23552",
           "country" : "Germany",

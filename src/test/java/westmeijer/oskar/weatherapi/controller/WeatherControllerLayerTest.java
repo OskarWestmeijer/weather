@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
+import lombok.SneakyThrows;
 import org.intellij.lang.annotations.Language;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,8 @@ public class WeatherControllerLayerTest {
   private MockMvc mockMvc;
 
   @Test
-  public void requestWeatherKnownZipCode() throws Exception {
+  @SneakyThrows
+  public void shouldRequestWeatherLast24h() {
     List<Weather> weatherList = List.of(
         new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, 88, 11.66, "23552", Instant.now()));
     Location location = new Location("23552", "2875601", "Lübeck", "Germany", Instant.now());
@@ -48,7 +50,6 @@ public class WeatherControllerLayerTest {
     @Language("json")
     String expectedBody = """
         {
-          "timeFormat" : "UTC",
           "cityName" : "Lübeck",
           "localZipCode" : "23552",
           "country" : "Germany",
@@ -70,7 +71,8 @@ public class WeatherControllerLayerTest {
   }
 
   @Test
-  public void requestWeatherUnknownZipCode() throws Exception {
+  @SneakyThrows
+  public void expect404OnLocationNotFound() {
     given(locationService.findById("46286")).willThrow(new LocationNotSupportedException("46286"));
 
     mockMvc.perform(get("/api/v1/weather/46286/24h"))

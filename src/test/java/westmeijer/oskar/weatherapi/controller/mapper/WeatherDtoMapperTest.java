@@ -9,7 +9,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import westmeijer.oskar.openapi.model.WeatherDto;
-import westmeijer.oskar.weatherapi.controller.model.WeatherResponse;
+import westmeijer.oskar.openapi.model.WeatherResponse;
 import westmeijer.oskar.weatherapi.service.model.Location;
 import westmeijer.oskar.weatherapi.service.model.Weather;
 
@@ -30,8 +30,6 @@ public class WeatherDtoMapperTest {
     assertThat(weatherResponse.getCityName()).isEqualTo(location.cityName());
     assertThat(weatherResponse.getCountry()).isEqualTo(location.country());
     assertThat(weatherResponse.getLocalZipCode()).isEqualTo(String.valueOf(location.localZipCode()));
-    assertThat(weatherResponse.getResponseTimestamp()).isNotNull();
-    assertThat(weatherResponse.getTimeFormat()).isEqualTo("UTC");
   }
 
   @Test
