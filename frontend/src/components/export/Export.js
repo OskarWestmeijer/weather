@@ -32,7 +32,7 @@ export default function Export() {
 
     function downloadCsv() {
         let pickedDate = specificDate.toISOString().slice(0, 10); // yyyy-MM-dd
-        let url = 'https://oskar-westmeijer.com/api/v1/csv/weather/' + selectedLocation + '/' + pickedDate
+        let url = 'https://api.oskar-westmeijer.com/csv/weather/' + selectedLocation + '/' + pickedDate
         return url
     }
 
