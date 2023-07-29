@@ -1,0 +1,126 @@
+openapi: "3.0.3"
+servers:
+  - url: http://localhost:9000
+    description: url of local test environment
+info:
+  description: Openweatherapi weather specfication
+  version: 1.0.0
+  title: Openweatherapi
+paths:
+  /data/2.5/weather:
+    get:
+      summary: Get weather for location
+      operationId: getCurrentWeather
+      tags:
+        - generatedOpenWeather
+      parameters:
+        - name: id
+          in: query
+          description: Location code
+          required: true
+          schema:
+            type: string
+            example: "2911298"
+        - name: units
+          in: query
+          description: Request either imperial or metric system
+          required: true
+          schema:
+            type: string
+            example: "metric"
+        - name: appid
+          in: query
+          description: private appId
+          required: true
+          schema:
+            type: string
+            example: "1234random"
+      responses:
+        '200':
+          description: Request Weather for these locations.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Locations"
+
+components:
+  schemas:
+    LocationDto:
+      type: object
+      description: Describes unique location
+      required:
+        - localZipCode
+        - locationCode
+        - cityName
+        - country
+        - lastImportAt
+      properties:
+        localZipCode:
+          type: string
+          example: "20095"
+        locationCode:
+          type: string
+          example: "2911298"
+        cityName:
+          type: string
+          example: "Hamburg"
+        country:
+          type: string
+          example: "Germany"
+        lastImportAt:
+          type: string
+          format: date-time
+          example: "2022-08-29T21:56:18.602546Z"
+    Locations:
+      type: array
+      items:
+        $ref: "#/components/schemas/LocationDto"
+
+    WeatherResponse:
+      type: object
+      description: Weather results for a location.
+      required:
+        - cityName
+        - localZipCode
+        - country
+        - weatherData
+      properties:
+        cityName:
+          type: string
+          example: "Hamburg"
+        localZipCode:
+          type: string
+          example: "20095"
+        country:
+          type: string
+          example: "Germany"
+        weatherData:
+          type: array
+          items:
+            $ref: "#/components/schemas/WeatherDto"
+
+    WeatherDto:
+      type: object
+      description: Weather at recorded time. Wrapped in WeatherResponse, with location information.
+      required:
+        - temperature
+        - humidity
+        - windSpeed
+        - recordedAt
+      properties:
+        temperature:
+          type: number
+          format: double
+          example: "11.45"
+        humidity:
+          type: integer
+          format: int32
+          example: "55"
+        windSpeed:
+          type: number
+          format: double
+          example: "2.57"
+        recordedAt:
+          type: string
+          format: date-time
+          example: "2022-08-29T21:56:18.602546Z"

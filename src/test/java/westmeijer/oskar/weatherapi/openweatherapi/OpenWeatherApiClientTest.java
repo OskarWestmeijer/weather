@@ -17,6 +17,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.RequestHeadersUriSpec;
 import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 import reactor.core.publisher.Mono;
+import westmeijer.oskar.client.api.GeneratedOpenWeatherApiClient;
+import westmeijer.oskar.client.api.OpenWeatherApi;
 import westmeijer.oskar.weatherapi.openweatherapi.model.OpenWeatherApiMapper;
 import westmeijer.oskar.weatherapi.openweatherapi.model.OpenWeatherApiResponse;
 import westmeijer.oskar.weatherapi.service.model.Location;
@@ -36,7 +38,8 @@ public class OpenWeatherApiClientTest {
     String urlPathTemplate = "/data/2.5/weather?id={location_code}&units=metric&appid={app_id}";
     this.webClient = mock(WebClient.class);
     this.openWeatherApiMapper = mock(OpenWeatherApiMapper.class);
-    this.openWeatherApiClient = new OpenWeatherApiClient(webClient, openWeatherApiMapper, appId, urlPathTemplate);
+    this.openWeatherApiClient = new OpenWeatherApiClient(webClient, openWeatherApiMapper, appId, urlPathTemplate, mock(
+        GeneratedOpenWeatherApiClient.class));
   }
 
   @Test

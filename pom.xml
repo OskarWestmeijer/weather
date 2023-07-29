@@ -30,6 +30,21 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-openfeign</artifactId>
+      <version>4.0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.openfeign</groupId>
+      <artifactId>feign-jackson</artifactId>
+      <version>12.4</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.openfeign</groupId>
+      <artifactId>feign-okhttp</artifactId>
+      <version>12.4</version>
+    </dependency>
 
     <dependency>
       <groupId>io.micrometer</groupId>
@@ -170,6 +185,7 @@
         <version>6.6.0</version>
         <executions>
           <execution>
+            <id>generate-server</id>
             <goals>
               <goal>generate</goal>
             </goals>
@@ -196,6 +212,26 @@
               <importMappings>
                 <importMapping>Instant=java.time.Instant</importMapping>
               </importMappings>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-client</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>
+                ${project.basedir}/src/main/resources/openapi/openweatherapi.yml
+              </inputSpec>
+              <generatorName>spring</generatorName>
+              <apiPackage>westmeijer.oskar.client.api</apiPackage>
+              <modelPackage>westmeijer.oskar.client.model</modelPackage>
+              <configOptions>
+                <library>spring-cloud</library>
+                <!-- javax.* to jakarta.* -->
+                <useSpringBoot3>true</useSpringBoot3>
+                <dateLibrary>java8</dateLibrary>
+              </configOptions>
             </configuration>
           </execution>
         </executions>

@@ -1,7 +1,6 @@
 package westmeijer.oskar.weatherapi.configuration;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,10 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
+@Slf4j
 public class WebFluxConfig {
-
-  private static final Logger logger = LoggerFactory.getLogger(WebFluxConfig.class);
-
 
   private final String baseUrl;
 
@@ -25,7 +22,7 @@ public class WebFluxConfig {
   @Bean
   @Scope("singleton")
   public WebClient getWebClient() {
-    logger.info(baseUrl);
+    log.info(baseUrl);
     return WebClient.builder()
         .baseUrl(baseUrl)
         .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)

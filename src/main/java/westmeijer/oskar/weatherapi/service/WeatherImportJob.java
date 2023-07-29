@@ -33,7 +33,7 @@ public class WeatherImportJob {
 
       Location location = withImportTs(locationService.getNextImportLocation());
       log.info("Import weather for location: {}", location);
-
+      openWeatherApiClient.requestWithGeneratedClient(location);
       Weather importedWeather = openWeatherApiClient.requestWeather(location);
       Weather savedWeather = weatherService.saveAndFlush(importedWeather);
       locationService.saveAndFlush(location);

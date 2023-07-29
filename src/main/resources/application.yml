@@ -14,6 +14,14 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.xml
     default-schema: weather
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 5000
+            readTimeout: 5000
+            loggerLevel: basic
 springdoc:
   api-docs:
     enabled: false
