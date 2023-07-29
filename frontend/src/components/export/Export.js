@@ -57,7 +57,7 @@ export default function Export() {
                                 <div className="col-lg-5 col-md-12">
                                     <select value={selectedLocation} onChange={handleLocationChange} className="form-select" aria-label="Location">
                                         {locations.map((option) => (
-                                            <option key={option.zipCode} value={option.zipCode}>{option.cityName}, {option.country}</option>
+                                            <option key={option.localZipCode} value={option.localZipCode}>{option.cityName}, {option.country}</option>
                                         ))}
                                     </select>
                                 </div>

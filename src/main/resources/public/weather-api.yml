@@ -144,7 +144,8 @@ paths:
           description: date for weather lookup
           schema:
             type: string
-            example: "15-07-2023"
+            format: date
+            example: "2023-07-15"
       responses:
         '200':
           description: Weather results for the location.

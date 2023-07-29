@@ -13,13 +13,6 @@ public class ControllerUtil {
 
   private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-  /**
-   * Creates Instant at start of the day for the associated time zone.
-   *
-   * @param date           example: 15-07-1992
-   * @param location example: Germany
-   * @return example: 14-07-1992 (22:00)
-   */
   public static Instant atStartOfDay(String date, Location location) {
     LocalDate localDate = LocalDate.from(DATE_TIME_FORMATTER.parse(date));
     ZoneId timezone = getTimeZone(location);

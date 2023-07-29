@@ -61,7 +61,7 @@ public class WeatherControllerLayerTest {
           ]
         }""";
 
-    mockMvc.perform(get("/api/v1/weather/23552/24h"))
+    mockMvc.perform(get("/weather/23552/24h"))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(expectedBody));
@@ -75,7 +75,7 @@ public class WeatherControllerLayerTest {
   public void expect404OnLocationNotFound() {
     given(locationService.findById("46286")).willThrow(new LocationNotSupportedException("46286"));
 
-    mockMvc.perform(get("/api/v1/weather/46286/24h"))
+    mockMvc.perform(get("/weather/46286/24h"))
         .andExpect(status().isNotFound())
         .andExpect(content().string("Requested zip_code not found. Please verify it is supported. zip_code: 46286"));
 

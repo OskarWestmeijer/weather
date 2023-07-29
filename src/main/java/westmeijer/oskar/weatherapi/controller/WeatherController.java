@@ -1,16 +1,14 @@
 package westmeijer.oskar.weatherapi.controller;
 
-import java.time.Instant;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import westmeijer.oskar.openapi.api.WeatherApi;
 import westmeijer.oskar.openapi.model.WeatherResponse;
 import westmeijer.oskar.weatherapi.controller.mapper.WeatherDtoMapper;
@@ -21,7 +19,6 @@ import westmeijer.oskar.weatherapi.service.model.Weather;
 
 @Controller
 @CrossOrigin
-@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 @Slf4j
 public class WeatherController implements WeatherApi {
@@ -62,11 +59,10 @@ public class WeatherController implements WeatherApi {
   }
 
   @Override
-  public ResponseEntity<WeatherResponse> getSpecificWeather(@PathVariable String localZipCode, @PathVariable String date) {
+  public ResponseEntity<WeatherResponse> getSpecificWeather(@PathVariable String localZipCode, @PathVariable Date date) {
     log.info("Received Weather request SPECIFIC date for localZipCode: {}, date: {}", localZipCode, date);
     Location location = locationService.findById(localZipCode);
-    Instant instant = ControllerUtil.atStartOfDay(date, location);
-    List<Weather> weatherList = weatherService.getSpecificDate(localZipCode, instant);
+    List<Weather> weatherList = weatherService.getSpecificDate(localZipCode,  date.toInstant());
     WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherList);
     return ResponseEntity.ok(weatherResponse);
   }
