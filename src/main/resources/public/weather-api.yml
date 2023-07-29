@@ -11,16 +11,11 @@ info:
     Please have a look at the Github repository [https://github.com/OskarWestmeijer/weather-api](https://github.com/OskarWestmeijer/weather-api).
     In addition a ReactJs frontend is available. It displays the weather data in charts over time. [https://ui.oskar-westmeijer.com](https://ui.oskar-westmeijer.com)
     
-    Should you be interested in me as a developer have a look at my homepage. [https://oskar-westmeijer.com](https://oskar-westmeijer.com) 
-    
     This project has no commercial intentions and is free to access for everyone.
   version: 1.0.0
   title: Weather-Api
-  x-logo:
-    url: 'https://api.oskar-westmeijer.com/weather_api_logo.png'
-    altText: Weather-Api logo
 externalDocs:
-  description: Github Repository.
+  description: https://github.com/OskarWestmeijer/weather-api
   url: 'https://github.com/OskarWestmeijer/weather-api'
 tags:
   - name: locations
@@ -82,3 +77,28 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/LocationDto"
+    WeatherDto:
+      type: object
+      description: Weather at recorded time. Wrapped in WeatherResponse, with location information.
+      required:
+        - temperature
+        - humidity
+        - windSpeed
+        - recordedAt
+      properties:
+        temperature:
+          type: number
+          format: double
+          example: "11.45"
+        humidity:
+          type: integer
+          format: int32
+          example: "55"
+        windSpeed:
+          type: number
+          format: double
+          example: "2.57"
+        recordedAt:
+          type: string
+          format: date-time
+          example: "2022-08-29T21:56:18.602546Z"

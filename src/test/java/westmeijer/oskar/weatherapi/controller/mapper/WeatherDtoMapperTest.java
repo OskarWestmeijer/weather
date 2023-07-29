@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import westmeijer.oskar.weatherapi.controller.model.WeatherDto;
+import westmeijer.oskar.openapi.model.WeatherDto;
 import westmeijer.oskar.weatherapi.controller.model.WeatherResponse;
 import westmeijer.oskar.weatherapi.service.model.Location;
 import westmeijer.oskar.weatherapi.service.model.Weather;
@@ -40,10 +40,10 @@ public class WeatherDtoMapperTest {
 
     WeatherDto weatherDTO = weatherDtoMapper.mapTo(weather);
 
-    assertThat(weatherDTO.humidity()).isEqualTo(weather.humidity());
-    assertThat(weatherDTO.recordedAt()).isEqualTo(weather.recordedAt());
-    assertThat(weatherDTO.temperature()).isEqualTo(weather.temperature());
-    assertThat(weatherDTO.windSpeed()).isEqualTo(weather.windSpeed());
+    assertThat(weatherDTO.getHumidity()).isEqualTo(weather.humidity());
+    assertThat(weatherDTO.getRecordedAt()).isEqualTo(weather.recordedAt());
+    assertThat(weatherDTO.getTemperature()).isEqualTo(weather.temperature());
+    assertThat(weatherDTO.getWindSpeed()).isEqualTo(weather.windSpeed());
   }
 
 }

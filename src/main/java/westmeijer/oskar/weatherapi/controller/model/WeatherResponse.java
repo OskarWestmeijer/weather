@@ -1,16 +1,12 @@
 package westmeijer.oskar.weatherapi.controller.model;
 
-import lombok.Value;
-import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
-
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import lombok.Value;
+import westmeijer.oskar.openapi.model.WeatherDto;
 import westmeijer.oskar.weatherapi.service.model.Location;
 
-/**
- * Weather representation used by the web layer.
- */
 @Value
 public class WeatherResponse {
 
