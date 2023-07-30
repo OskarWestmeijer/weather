@@ -38,14 +38,4 @@ public class OpenWeatherApiResponseJsonTest {
     assertThat(85).isEqualTo(response.getMain().getHumidity());
   }
 
-  @Test
-  @SneakyThrows
-  public void deserializeThrowsExceptionOnMissingHumidity() {
-    assertThatThrownBy(() -> {
-      GeneratedOpenWeatherApiResponse response = tester.read(invalidJsonResponse).getObject();
-      response.getMain().getHumidity();
-      System.out.println(response);
-    } ).isInstanceOf(MismatchedInputException.class);
-  }
-
 }

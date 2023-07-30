@@ -2,14 +2,12 @@ package westmeijer.oskar.weatherapi.openweatherapi;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -60,11 +58,10 @@ public class OpenWeatherApiClientTest {
     assertThat(actualWeather).isEqualTo(expectedWeather);
   }
 
-  @DisplayName("Ensure error request handling is covered.")
   @Test
   public void handleErrorResponses() {
     Location requestLocation = new Location("66666", "666666", "Error", "Error", Instant.now());
-    given(generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(any(), any(), any())).willThrow(RuntimeException.class);
+    given(generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(requestLocation.locationCode(), "metric", appId)).willThrow(RuntimeException.class);
 
     assertThatThrownBy(() -> openWeatherApiClient.requestWithGeneratedClient(requestLocation))
         .isInstanceOf(OpenWeatherApiRequestException.class)

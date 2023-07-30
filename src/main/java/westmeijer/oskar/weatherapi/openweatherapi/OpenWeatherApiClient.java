@@ -31,7 +31,6 @@ public class OpenWeatherApiClient {
 
   public Weather requestWithGeneratedClient(Location location) {
     try {
-      log.info("base path: {}", generatedOpenWeatherApi.getApiClient().getBasePath());
       ResponseEntity<GeneratedOpenWeatherApiResponse> response = generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(
           location.locationCode(), "metric", appId).block();
       return openWeatherApiMapper.map(Objects.requireNonNull(response.getBody()), location.localZipCode());
