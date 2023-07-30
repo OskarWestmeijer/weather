@@ -223,14 +223,15 @@
               <inputSpec>
                 ${project.basedir}/src/main/resources/openapi/openweatherapi.yml
               </inputSpec>
-              <generatorName>spring</generatorName>
-              <apiPackage>westmeijer.oskar.client.api</apiPackage>
-              <modelPackage>westmeijer.oskar.client.model</modelPackage>
+              <generatorName>java</generatorName>
+              <apiPackage>westmeijer.oskar.openapi.client.api</apiPackage>
+              <modelPackage>westmeijer.oskar.openapi.client.model</modelPackage>
+              <generateApiTests>false</generateApiTests>
+              <generateModelTests>false</generateModelTests>
               <configOptions>
-                <library>spring-cloud</library>
+                <library>webclient</library>
                 <!-- javax.* to jakarta.* -->
-                <useSpringBoot3>true</useSpringBoot3>
-                <dateLibrary>java8</dateLibrary>
+                <useJakartaEe>true</useJakartaEe>
               </configOptions>
             </configuration>
           </execution>

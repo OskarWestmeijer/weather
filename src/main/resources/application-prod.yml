@@ -8,9 +8,8 @@ spring:
   liquibase:
     contexts: prod
 openweatherapi:
-  baseUrl: "http://api.openweathermap.org"
+  baseUrl: "https://api.openweathermap.org/data/2.5"
   appId:
-  urlPathTemplate: "/data/2.5/weather?id={location_code}&units=metric&appid={app_id}"
 management:
   endpoints:
     web:

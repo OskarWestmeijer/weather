@@ -1,13 +1,13 @@
 openapi: "3.0.3"
 servers:
-  - url: http://localhost:9000
+  - url: http://api.openweathermap.org/data/2.5
     description: url of local test environment
 info:
   description: Openweatherapi weather specfication
   version: 1.0.0
   title: Openweatherapi
 paths:
-  /data/2.5/weather:
+  /weather:
     get:
       summary: Get weather for location
       operationId: getCurrentWeather
@@ -37,90 +37,147 @@ paths:
             example: "1234random"
       responses:
         '200':
-          description: Request Weather for these locations.
+          description: Request Weather for location code
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Locations"
+                $ref: "#/components/schemas/GeneratedOpenWeatherApiResponse"
 
 components:
   schemas:
-    LocationDto:
+    GeneratedOpenWeatherApiResponse:
       type: object
-      description: Describes unique location
+      description: Weather for location code
       required:
-        - localZipCode
-        - locationCode
-        - cityName
-        - country
-        - lastImportAt
+        - main
+        - wind
       properties:
-        localZipCode:
-          type: string
-          example: "20095"
-        locationCode:
-          type: string
-          example: "2911298"
-        cityName:
-          type: string
-          example: "Hamburg"
-        country:
-          type: string
-          example: "Germany"
-        lastImportAt:
-          type: string
-          format: date-time
-          example: "2022-08-29T21:56:18.602546Z"
-    Locations:
+        main:
+          $ref: "#/components/schemas/main"
+        wind:
+          $ref: "#/components/schemas/wind"
+
+    coord:
+      type: object
+      properties:
+        lon:
+          type: number
+          example: 10.6873
+        lat:
+          type: number
+          example: 53.8689
+    weather:
       type: array
       items:
-        $ref: "#/components/schemas/LocationDto"
-
-    WeatherResponse:
+        type: object
+        properties:
+          id:
+            type: integer
+            format: int32
+            example: 803
+          main:
+            type: string
+            example: Clouds
+          description:
+            type: string
+            example: broken clouds
+          icon:
+            type: string
+            example: 04n
+    base:
+      type: string
+      example: stations
+    main:
       type: object
-      description: Weather results for a location.
       required:
-        - cityName
-        - localZipCode
-        - country
-        - weatherData
-      properties:
-        cityName:
-          type: string
-          example: "Hamburg"
-        localZipCode:
-          type: string
-          example: "20095"
-        country:
-          type: string
-          example: "Germany"
-        weatherData:
-          type: array
-          items:
-            $ref: "#/components/schemas/WeatherDto"
-
-    WeatherDto:
-      type: object
-      description: Weather at recorded time. Wrapped in WeatherResponse, with location information.
-      required:
-        - temperature
+        - temp
         - humidity
-        - windSpeed
-        - recordedAt
       properties:
-        temperature:
+        temp:
           type: number
           format: double
-          example: "11.45"
+          example: 15.30
+        feels_like:
+          type: number
+          format: double
+          example: 5.84
+        temp_min:
+          type: number
+          format: double
+          example: -16.41
+        temp_max:
+          type: number
+          example: 50.54
+        pressure:
+          type: integer
+          format: int32
+          example: 1020
         humidity:
           type: integer
           format: int32
-          example: "55"
-        windSpeed:
+          example: 85
+    visibility:
+      type: integer
+      format: int32
+      example: 7000
+    wind:
+      type: object
+      required:
+        - speed
+      properties:
+        speed:
           type: number
           format: double
-          example: "2.57"
-        recordedAt:
+          example: 2.57
+        deg:
+          type: integer
+          format: int32
+          example: 230
+    clouds:
+      type: object
+      properties:
+        all:
+          type: integer
+          format: int32
+          example: 75
+    dt:
+      type: integer
+      format: int32
+      example: 1639340863
+    sys:
+      type: object
+      properties:
+        type:
+          type: integer
+          format: int32
+          example: 1
+        id:
+          type: integer
+          format: int32
+          example: 1293
+        country:
           type: string
-          format: date-time
-          example: "2022-08-29T21:56:18.602546Z"
+          example: DE
+        sunrise:
+          type: integer
+          format: int32
+          example: 1639293994
+        sunset:
+          type: integer
+          format: int32
+          example: 1639320939
+    timezone:
+      type: integer
+      format: int32
+      example: 3600
+    id:
+      type: integer
+      format: int32
+      example: 2911298
+    name:
+      type: string
+      example: Hamburg
+    cod:
+      type: integer
+      format: int32
+      example: 200

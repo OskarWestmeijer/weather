@@ -72,7 +72,7 @@ public class WeatherService {
   }
 
   public Weather getNow(Location location) {
-    return openWeatherApiClient.requestWeather(location);
+    return openWeatherApiClient.requestWithGeneratedClient(location);
   }
 
   public Weather saveAndFlush(Weather importedWeather) {
