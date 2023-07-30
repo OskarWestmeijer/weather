@@ -7,9 +7,8 @@ spring:
   liquibase:
     contexts: test
 openweatherapi:
-  baseUrl: "http://localhost:9000"
+  baseUrl: "http://localhost:9000/data/2.5"
   appId: "1234random"
-  urlPathTemplate: "/data/2.5/weather?id={location_code}&units=metric&appid={app_id}"
 management:
   endpoints:
     web:

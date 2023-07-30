@@ -99,12 +99,12 @@
     <dependency>
       <groupId>org.openapitools</groupId>
       <artifactId>jackson-databind-nullable</artifactId>
-      <version>0.2.6</version>
+      <version>${jackson-databind.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springdoc</groupId>
       <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-      <version>2.1.0</version>
+      <version>${springdoc.version}</version>
     </dependency>
 
   </dependencies>
@@ -170,6 +170,7 @@
         <version>6.6.0</version>
         <executions>
           <execution>
+            <id>generate-server</id>
             <goals>
               <goal>generate</goal>
             </goals>
@@ -178,8 +179,8 @@
                 ${project.basedir}/src/main/resources/public/weather-api.yml
               </inputSpec>
               <generatorName>spring</generatorName>
-              <apiPackage>westmeijer.oskar.openapi.api</apiPackage>
-              <modelPackage>westmeijer.oskar.openapi.model</modelPackage>
+              <apiPackage>westmeijer.oskar.openapi.server.api</apiPackage>
+              <modelPackage>westmeijer.oskar.openapi.server.model</modelPackage>
               <configOptions>
                 <library>spring-boot</library>
                 <oas3>true</oas3>
@@ -196,6 +197,27 @@
               <importMappings>
                 <importMapping>Instant=java.time.Instant</importMapping>
               </importMappings>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-client</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>
+                ${project.basedir}/src/main/resources/openapi/openweatherapi.yml
+              </inputSpec>
+              <generatorName>java</generatorName>
+              <apiPackage>westmeijer.oskar.openapi.client.api</apiPackage>
+              <modelPackage>westmeijer.oskar.openapi.client.model</modelPackage>
+              <generateApiTests>false</generateApiTests>
+              <generateModelTests>false</generateModelTests>
+              <configOptions>
+                <library>webclient</library>
+                <!-- javax.* to jakarta.* -->
+                <useJakartaEe>true</useJakartaEe>
+              </configOptions>
             </configuration>
           </execution>
         </executions>
@@ -258,6 +280,8 @@
     <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
     <jacoco.version>0.8.10</jacoco.version>
     <checkstyle.version>3.3.0</checkstyle.version>
+    <springdoc.version>2.1.0</springdoc.version>
+    <jackson-databind.version>0.2.6</jackson-databind.version>
   </properties>
 
 </project>

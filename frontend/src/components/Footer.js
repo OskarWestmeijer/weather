@@ -15,7 +15,7 @@ export default function Footer() {
 
                 <ul className="nav col-md-6 justify-content-center list-unstyled d-flex">
                     <li className="ms-3">
-                        <a href="https://github.com/OskarWestmeijer">
+                        <a href="https://github.com/OskarWestmeijer/weather-api">
                             <img className="bi" width="24" height="24" src="images/github.svg" alt="Github logo" />
                         </a>
                     </li>

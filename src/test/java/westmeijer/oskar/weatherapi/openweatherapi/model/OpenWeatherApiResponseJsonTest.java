@@ -11,13 +11,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.core.io.Resource;
+import westmeijer.oskar.openapi.client.model.GeneratedOpenWeatherApiResponse;
 
 
 @JsonTest
 public class OpenWeatherApiResponseJsonTest {
 
   @Autowired
-  private JacksonTester<OpenWeatherApiResponse> tester;
+  private JacksonTester<GeneratedOpenWeatherApiResponse> tester;
 
   @Value("classpath:jsontest/openweatherapi/valid_weather_response.json")
   private Resource validJsonResponse;
@@ -30,18 +31,11 @@ public class OpenWeatherApiResponseJsonTest {
   @SneakyThrows
   public void deserializeToObject() {
 
-    OpenWeatherApiResponse response = tester.read(validJsonResponse).getObject();
+    GeneratedOpenWeatherApiResponse response = tester.read(validJsonResponse).getObject();
 
-    assertThat(99.53d).isEqualTo(response.main().temperature());
-    assertThat(2.57d).isEqualTo(response.wind().windSpeed());
-    assertThat(85).isEqualTo(response.main().humidity());
-  }
-
-  @Test
-  @SneakyThrows
-  public void deserializeThrowsExceptionOnMissingHumidity() {
-    assertThatThrownBy(() -> tester.read(invalidJsonResponse).getObject())
-        .isInstanceOf(MismatchedInputException.class);
+    assertThat(99.53d).isEqualTo(response.getMain().getTemp());
+    assertThat(2.57d).isEqualTo(response.getWind().getSpeed());
+    assertThat(85).isEqualTo(response.getMain().getHumidity());
   }
 
 }

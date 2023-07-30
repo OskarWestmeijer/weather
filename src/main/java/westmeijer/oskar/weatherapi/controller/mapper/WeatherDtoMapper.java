@@ -3,8 +3,8 @@ package westmeijer.oskar.weatherapi.controller.mapper;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import westmeijer.oskar.openapi.model.WeatherDto;
-import westmeijer.oskar.openapi.model.WeatherResponse;
+import westmeijer.oskar.openapi.server.model.WeatherDto;
+import westmeijer.oskar.openapi.server.model.WeatherResponse;
 import westmeijer.oskar.weatherapi.service.model.Location;
 import westmeijer.oskar.weatherapi.service.model.Weather;
 

@@ -56,7 +56,7 @@ public class WeatherImportJobTest {
     given(locationService.getNextImportLocation()).willReturn(importLocation);
 
     Weather importedWeather = new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, 88, 11.66, "23552", now);
-    given(openWeatherApiClient.requestWeather(any(Location.class))).willReturn(importedWeather);
+    given(openWeatherApiClient.requestWithGeneratedClient(any(Location.class))).willReturn(importedWeather);
 
     Weather savedWeather = new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, 88, 11.66, "23552", now);
     given(weatherService.saveAndFlush(importedWeather)).willReturn(savedWeather);
@@ -67,7 +67,7 @@ public class WeatherImportJobTest {
     assertThat(meterRegistry.counter("job", "import", "error").count()).isEqualTo(0.00d);
 
     then(locationService).should().getNextImportLocation();
-    then(openWeatherApiClient).should().requestWeather(any(Location.class));
+    then(openWeatherApiClient).should().requestWithGeneratedClient(any(Location.class));
     then(weatherService).should().saveAndFlush(importedWeather);
     then(locationService).should().saveAndFlush(any(Location.class));
   }
@@ -83,12 +83,12 @@ public class WeatherImportJobTest {
         now
     );
     given(locationService.getNextImportLocation()).willReturn(importLocation);
-    given(openWeatherApiClient.requestWeather(any(Location.class))).willThrow(OpenWeatherApiRequestException.class);
+    given(openWeatherApiClient.requestWithGeneratedClient(any(Location.class))).willThrow(OpenWeatherApiRequestException.class);
 
     weatherImportJob.refreshWeather();
 
     then(locationService).should().getNextImportLocation();
-    then(openWeatherApiClient).should().requestWeather(any(Location.class));
+    then(openWeatherApiClient).should().requestWithGeneratedClient(any(Location.class));
     then(weatherService).shouldHaveNoInteractions();
     then(locationService).should(never()).saveAndFlush(any(Location.class));
   }

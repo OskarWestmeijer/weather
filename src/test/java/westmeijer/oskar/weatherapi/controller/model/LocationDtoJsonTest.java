@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.json.JsonContent;
-import westmeijer.oskar.openapi.model.LocationDto;
+import westmeijer.oskar.openapi.server.model.LocationDto;
 
 @JsonTest
 public class LocationDtoJsonTest {

@@ -8,7 +8,7 @@ import java.util.List;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import westmeijer.oskar.openapi.model.LocationDto;
+import westmeijer.oskar.openapi.server.model.LocationDto;
 import westmeijer.oskar.weatherapi.service.model.Location;
 
 public class LocationDtoMapperTest {

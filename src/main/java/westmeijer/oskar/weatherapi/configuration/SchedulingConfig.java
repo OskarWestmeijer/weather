@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
     value = "app.scheduling.enable", havingValue = "true", matchIfMissing = true
 )
 @Configuration
-public class SchedulingConfiguration {
+public class SchedulingConfig {
 
 
 }

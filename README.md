@@ -13,8 +13,6 @@ The OpenApi specification is documented with Redoc. [https://api.oskar-westmeije
 In addition, a ReactJs frontend is available. It displays the weather data in charts over
 time. [https://ui.oskar-westmeijer.com](https://ui.oskar-westmeijer.com)
 
-This project has no commercial intentions and is free to access for everyone.
-
 ### Technologies used
 
 This repository contains the frontend and backend service. In production the backend connects to the hosts PostgreSQL database.
@@ -51,23 +49,31 @@ docker-compose up -d
 
 ## OpenApi Generator
 
-The Controller interfaces and related response models are generated at compile phase. The Api specification files are located in this
-directory `src/main/resources/openapi`. This project
-uses Redoc for Api documentation purposes, after startup reachable on these urls.
+This project uses OpenApi code-generator. The Controller interfaces, external web client and response models are generated at compile phase.
+
+### Server Generator
+
+The server Api specification file is located in this
+directory `src/main/resources/public`. This project uses Redoc for Api documentation purposes, after startup reachable on these urls.
 
 - http://localhost:8080
 - https://api.oskar-westmeijer.com
+
+### Client Genearator
+
+The client OpenApi specification is internal only and therefore in a separate directory `src/main/resources/openapi`. Webflux is used as
+client library.
 
 ## Deployment
 
 ### Release image
 
-The image will be released by Github actions. Every push (merge) to main will trigger a build & release.
+The image will be released by Github actions. Every merge to main will trigger a build & release.
 
 ## Documentation
 
 A couple c4-model diagrams describe the architecture.
-Furthermore, the deployed Weather-Api frontend(https://oskar-westmeijer.com/weather/documentation) hosts a documentation
+Furthermore, the deployed Weather-Api frontend(https://ui.oskar-westmeijer.com/documentation) hosts a documentation
 section with more details.
 
 ### c4-model System context diagram
