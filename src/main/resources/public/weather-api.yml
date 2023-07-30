@@ -13,8 +13,6 @@ info:
     
     In addition, a ReactJs frontend is available. It displays the weather data in charts over
     time. [https://ui.oskar-westmeijer.com](https://ui.oskar-westmeijer.com)
-    
-    This project has no commercial intentions and is free to access for everyone.
   version: 1.0.0
   title: Weather-Api
 externalDocs:

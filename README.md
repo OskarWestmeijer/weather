@@ -13,8 +13,6 @@ The OpenApi specification is documented with Redoc. [https://api.oskar-westmeije
 In addition, a ReactJs frontend is available. It displays the weather data in charts over
 time. [https://ui.oskar-westmeijer.com](https://ui.oskar-westmeijer.com)
 
-This project has no commercial intentions and is free to access for everyone.
-
 ### Technologies used
 
 This repository contains the frontend and backend service. In production the backend connects to the hosts PostgreSQL database.
