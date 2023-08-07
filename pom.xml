@@ -280,7 +280,7 @@
     <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
     <jacoco.version>0.8.10</jacoco.version>
     <checkstyle.version>3.3.0</checkstyle.version>
-    <springdoc.version>2.1.0</springdoc.version>
+    <springdoc.version>2.2.0</springdoc.version>
     <jackson-databind.version>0.2.6</jackson-databind.version>
   </properties>
 
