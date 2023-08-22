@@ -273,7 +273,7 @@
     <liquibase.version>4.23.1</liquibase.version>
     <preliquibase.version>1.4.0</preliquibase.version>
     <commons.csv.version>1.10.0</commons.csv.version>
-    <testcontainers.version>1.18.3</testcontainers.version>
+    <testcontainers.version>1.19.0</testcontainers.version>
     <assertj.version>3.24.2</assertj.version>
     <postgresql.version>42.6.0</postgresql.version>
     <prometheus.version>1.11.3</prometheus.version>
