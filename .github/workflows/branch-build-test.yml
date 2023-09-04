@@ -11,13 +11,13 @@ jobs:
   backend-build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/backend-build-and-test
 
   frontend-build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/frontend-build-and-test
         with:
           frontend-directory: frontend
@@ -38,7 +38,7 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/backend-check-trivy-image
         with:
           docker-username: ${{ secrets.DOCKER_USERNAME }}
