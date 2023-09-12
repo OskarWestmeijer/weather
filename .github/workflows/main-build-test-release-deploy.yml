@@ -60,7 +60,7 @@ jobs:
           path: target
       - name: image tagging
         id: meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/weather-api
           tags: |
@@ -94,7 +94,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: image tagging
         id: meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/weather-ui
           tags: |
