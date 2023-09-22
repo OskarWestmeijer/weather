@@ -49,19 +49,21 @@ docker-compose up -d
 
 ## OpenApi Generator
 
-This project uses OpenApi code-generator. The Controller interfaces, external web client and response models are generated at compile phase.
+This project uses OpenApi code-generator. The Controller interfaces, external web client and response models are generated at compile phase
+from this file ``
 
 ### Server Generator
 
-The server Api specification file is located in this
-directory `src/main/resources/public`. This project uses Redoc for Api documentation purposes, after startup reachable on these urls.
+The Server-Api specification file is located here `src/main/resources/public/weather-api.yml`. This project uses Redoc for Api documentation
+purposes, after startup reachable on these urls.
 
 - http://localhost:8080
 - https://api.oskar-westmeijer.com
 
 ### Client Genearator
 
-The client OpenApi specification is internal only and therefore in a separate directory `src/main/resources/openapi`. Webflux is used as
+The client OpenApi specification is internal only and therefore located in a separate
+directory `src/main/resources/openapi/openweatherapi.yml`. Webflux is used as
 client library.
 
 ## Deployment
@@ -72,14 +74,10 @@ The image will be released by Github actions. Every merge to main will trigger a
 
 ## Documentation
 
-A couple c4-model diagrams describe the architecture.
+A c4-model container diagram describes the architecture.
 Furthermore, the deployed Weather-Api frontend(https://ui.oskar-westmeijer.com/documentation) hosts a documentation
 section with more details.
 
-### c4-model System context diagram
+### c4-model container diagram
 
 ![Alt c4-model system context diagram](frontend/public/images/c4_context.svg)
-
-### c4-model Container diagram
-
-![Alt c4-model container diagram](frontend/public/images/c4_container.svg)

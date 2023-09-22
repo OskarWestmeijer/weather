@@ -1,4 +1,4 @@
-@startuml
+@startuml C4_Elements
 
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
@@ -6,7 +6,7 @@
 
 title C4Model Container diagram for Weather-Api
 
-Person(user, "User", "Wants weather data")
+Person(user, "User", "Access website for weather information")
 
 System_Boundary(weatherSystem, "Weather-Api System") {
     Container(weather_ui, "Weather-Ui", "ReactJs", $descr="Provides web interface for weather data")

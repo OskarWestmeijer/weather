@@ -25,7 +25,6 @@ export default function Documentation() {
                     <div className="col-lg-2 col-md-12" />
                     <div className="col-lg-8 col-md-12">
                         <h5>C4-Model</h5>
-                        <img src="images/c4_context.svg" alt="C4-Model system context diagram" className="img-fluid"></img>
                         <img src="images/c4_container.svg" alt="C4-Model container diagram" className="mt-5 img-fluid"></img>
                     </div>
                     <div className="col-lg col-md-12" />

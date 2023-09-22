@@ -5,7 +5,7 @@ spring:
     username: username1
     password: password1
   liquibase:
-    contexts: test
+    contexts: e2e
 openweatherapi:
   baseUrl: "http://localhost:9000/data/2.5"
   appId: "1234random"

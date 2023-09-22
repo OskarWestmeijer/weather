@@ -1,6 +1,7 @@
 package westmeijer.oskar.weatherapi.openweatherapi;
 
-import java.util.Objects;
+import static java.util.Objects.requireNonNull;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +32,10 @@ public class OpenWeatherApiClient {
 
   public Weather requestWithGeneratedClient(Location location) {
     try {
+      requireNonNull(location, "Location cannot be null.");
       ResponseEntity<GeneratedOpenWeatherApiResponse> response = generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(
           location.locationCode(), "metric", appId).block();
-      return openWeatherApiMapper.map(Objects.requireNonNull(response.getBody()), location.localZipCode());
+      return openWeatherApiMapper.map(requireNonNull(response.getBody(), "ResponseBody cannot be null"), location.localZipCode());
     } catch (Exception e) {
       throw new OpenWeatherApiRequestException("Exception during OpenWeatherApi request.", e);
     }
