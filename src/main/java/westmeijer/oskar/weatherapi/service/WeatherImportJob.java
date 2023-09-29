@@ -29,7 +29,7 @@ public class WeatherImportJob {
   @Scheduled(fixedDelay = 60000)
   public void refreshWeather() {
     try {
-      meterRegistry.counter("job", "import", "execution").increment();
+      meterRegistry.counter("import.job", "import", "execution").increment();
 
       Location location = withImportTs(locationService.getNextImportLocation());
       log.info("Import weather for location: {}", location);
@@ -40,10 +40,10 @@ public class WeatherImportJob {
 
     } catch (OpenWeatherApiRequestException requestException) {
       log.error("OpenWeatherApi request failed!", requestException);
-      meterRegistry.counter("job", "import", "error").increment();
+      meterRegistry.counter("import.job", "error", "request").increment();
     } catch (Exception generalException) {
       log.error("Exception during Import job.", generalException);
-      meterRegistry.counter("job", "import", "error").increment();
+      meterRegistry.counter("import.job", "error", "process").increment();
     }
 
   }

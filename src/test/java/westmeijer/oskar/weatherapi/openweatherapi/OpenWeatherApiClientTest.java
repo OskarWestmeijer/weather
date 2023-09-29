@@ -5,8 +5,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,32 +13,29 @@ import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
 import westmeijer.oskar.openapi.client.api.GeneratedOpenWeatherApi;
 import westmeijer.oskar.openapi.client.model.GeneratedOpenWeatherApiResponse;
-import westmeijer.oskar.weatherapi.openweatherapi.model.OpenWeatherApiMapper;
+import westmeijer.oskar.weatherapi.openweatherapi.mapper.OpenWeatherApiMapper;
 import westmeijer.oskar.weatherapi.service.model.Location;
 import westmeijer.oskar.weatherapi.service.model.Weather;
 
 @ExtendWith(MockitoExtension.class)
 public class OpenWeatherApiClientTest {
 
-  private OpenWeatherApiMapper openWeatherApiMapper;
+  private OpenWeatherApiMapper openWeatherApiMapper = mock(OpenWeatherApiMapper.class);
+
+  private final GeneratedOpenWeatherApi generatedOpenWeatherApi = mock(GeneratedOpenWeatherApi.class);
+
+  private final String appId = "1234random";
 
   private OpenWeatherApiClient openWeatherApiClient;
 
-  private GeneratedOpenWeatherApi generatedOpenWeatherApi;
-
-  private String appId;
-
   @BeforeEach
   public void init() {
-    this.appId = "1234random";
-    this.generatedOpenWeatherApi = mock(GeneratedOpenWeatherApi.class);
-    this.openWeatherApiMapper = mock(OpenWeatherApiMapper.class);
-    this.openWeatherApiClient = new OpenWeatherApiClient(openWeatherApiMapper, generatedOpenWeatherApi, appId);
+    openWeatherApiClient = new OpenWeatherApiClient(openWeatherApiMapper, generatedOpenWeatherApi, appId);
   }
 
   @Test
   public void shouldRequestWeather() {
-    Location requestLocation = new Location("00100", "658225", "Helsinki", "Finland", Instant.now().truncatedTo(ChronoUnit.MICROS));
+    Location requestLocation = mock(Location.class);
 
     Mono<ResponseEntity<GeneratedOpenWeatherApiResponse>> apiResponseMono = mock(Mono.class);
     ResponseEntity<GeneratedOpenWeatherApiResponse> apiResponseEntity = mock(ResponseEntity.class);
@@ -60,8 +55,9 @@ public class OpenWeatherApiClientTest {
 
   @Test
   public void handleErrorResponses() {
-    Location requestLocation = new Location("66666", "666666", "Error", "Error", Instant.now());
-    given(generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(requestLocation.locationCode(), "metric", appId)).willThrow(RuntimeException.class);
+    Location requestLocation = mock(Location.class);
+    given(generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(requestLocation.locationCode(), "metric", appId)).willThrow(
+        RuntimeException.class);
 
     assertThatThrownBy(() -> openWeatherApiClient.requestWithGeneratedClient(requestLocation))
         .isInstanceOf(OpenWeatherApiRequestException.class)

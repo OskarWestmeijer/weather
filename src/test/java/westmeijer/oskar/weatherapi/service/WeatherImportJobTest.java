@@ -26,20 +26,17 @@ public class WeatherImportJobTest {
 
   private final MeterRegistry meterRegistry = new SimpleMeterRegistry();
 
-  private OpenWeatherApiClient openWeatherApiClient;
+  private final OpenWeatherApiClient openWeatherApiClient = mock(OpenWeatherApiClient.class);
 
-  private LocationService locationService;
+  private final LocationService locationService = mock(LocationService.class);
 
-  private WeatherService weatherService;
+  private final WeatherService weatherService = mock(WeatherService.class);
 
   private WeatherImportJob weatherImportJob;
 
   @BeforeEach
   public void init() {
     meterRegistry.clear();
-    openWeatherApiClient = mock(OpenWeatherApiClient.class);
-    locationService = mock(LocationService.class);
-    weatherService = mock(WeatherService.class);
     weatherImportJob = new WeatherImportJob(meterRegistry, weatherService, locationService, openWeatherApiClient);
   }
 
@@ -63,8 +60,9 @@ public class WeatherImportJobTest {
 
     weatherImportJob.refreshWeather();
 
-    assertThat(meterRegistry.counter("job", "import", "execution").count()).isEqualTo(1.00d);
-    assertThat(meterRegistry.counter("job", "import", "error").count()).isEqualTo(0.00d);
+    assertThat(meterRegistry.counter("import.job", "import", "execution").count()).isEqualTo(1.00d);
+    assertThat(meterRegistry.counter("import.job", "error", "request").count()).isEqualTo(0.00d);
+    assertThat(meterRegistry.counter("import.job", "error", "process").count()).isEqualTo(0.00d);
 
     then(locationService).should().getNextImportLocation();
     then(openWeatherApiClient).should().requestWithGeneratedClient(any(Location.class));
@@ -86,6 +84,10 @@ public class WeatherImportJobTest {
     given(openWeatherApiClient.requestWithGeneratedClient(any(Location.class))).willThrow(OpenWeatherApiRequestException.class);
 
     weatherImportJob.refreshWeather();
+
+    assertThat(meterRegistry.counter("import.job", "import", "execution").count()).isEqualTo(1.00d);
+    assertThat(meterRegistry.counter("import.job", "error", "request").count()).isEqualTo(1.00d);
+    assertThat(meterRegistry.counter("import.job", "error", "process").count()).isEqualTo(0.00d);
 
     then(locationService).should().getNextImportLocation();
     then(openWeatherApiClient).should().requestWithGeneratedClient(any(Location.class));

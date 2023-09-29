@@ -5,6 +5,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import westmeijer.oskar.weatherapi.controller.mapper.LocationDtoMapper;
 import westmeijer.oskar.weatherapi.controller.mapper.WeatherDtoMapper;
+import westmeijer.oskar.weatherapi.openweatherapi.mapper.OpenWeatherApiMapper;
 
 @TestConfiguration
 public class WebMvcMappersTestConfig {
@@ -17,6 +18,11 @@ public class WebMvcMappersTestConfig {
   @Bean
   public LocationDtoMapper locationDtoMapper() {
     return Mappers.getMapper(LocationDtoMapper.class);
+  }
+
+  @Bean
+  public OpenWeatherApiMapper openWeatherApiMapper() {
+    return Mappers.getMapper(OpenWeatherApiMapper.class);
   }
 
 }
