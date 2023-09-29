@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import westmeijer.oskar.openapi.client.api.GeneratedOpenWeatherApi;
 import westmeijer.oskar.openapi.client.model.GeneratedOpenWeatherApiResponse;
-import westmeijer.oskar.weatherapi.openweatherapi.model.OpenWeatherApiMapper;
+import westmeijer.oskar.weatherapi.openweatherapi.mapper.OpenWeatherApiMapper;
 import westmeijer.oskar.weatherapi.service.model.Location;
 import westmeijer.oskar.weatherapi.service.model.Weather;
 
@@ -25,6 +25,7 @@ public class OpenWeatherApiClient {
   public OpenWeatherApiClient(OpenWeatherApiMapper openWeatherApiMapper,
       GeneratedOpenWeatherApi generatedOpenWeatherApi,
       @Value("${openweatherapi.appId}") String appId) {
+    requireNonNull(appId, "appId must not be null");
     this.openWeatherApiMapper = openWeatherApiMapper;
     this.appId = appId;
     this.generatedOpenWeatherApi = generatedOpenWeatherApi;
