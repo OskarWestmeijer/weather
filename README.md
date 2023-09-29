@@ -75,9 +75,5 @@ The image will be released by Github actions. Every merge to main will trigger a
 ## Documentation
 
 A c4-model container diagram describes the architecture.
-Furthermore, the deployed Weather-Api frontend(https://ui.oskar-westmeijer.com/documentation) hosts a documentation
-section with more details.
 
-### c4-model container diagram
-
-![Alt c4-model system context diagram](frontend/public/images/c4_context.svg)
+![Alt c4-model system context diagram](frontend/public/images/c4_container.svg)
