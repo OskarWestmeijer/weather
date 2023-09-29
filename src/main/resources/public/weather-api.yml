@@ -163,7 +163,7 @@ components:
       description: Describes unique location
       required:
         - localZipCode
-        - locationCode
+        - openWeatherApiLocationCode
         - cityName
         - country
         - lastImportAt

@@ -24,7 +24,6 @@ public class WeatherEntity {
 
   private Double temperature;
 
-
   private Integer humidity;
 
   private Double windSpeed;
@@ -36,6 +35,8 @@ public class WeatherEntity {
    */
   @Deprecated
   private String localZipCode;
+
+  private Integer locationId;
 
   private Instant recordedAt;
 

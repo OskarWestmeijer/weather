@@ -35,7 +35,7 @@ public class OpenWeatherApiClient {
     try {
       requireNonNull(location, "Location cannot be null.");
       ResponseEntity<GeneratedOpenWeatherApiResponse> response = generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(
-          location.locationCode(), "metric", appId).block();
+          location.openWeatherApiLocationCode(), "metric", appId).block();
       return openWeatherApiMapper.map(requireNonNull(response.getBody(), "ResponseBody cannot be null"), location.localZipCode());
     } catch (Exception e) {
       throw new OpenWeatherApiRequestException("Exception during OpenWeatherApi request.", e);

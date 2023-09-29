@@ -27,7 +27,7 @@ public class LocationDtoMapperTest {
 
     LocationDto locationDto = locationDtoMapper.map(location);
 
-    assertThat(locationDto.getLocationCode()).isEqualTo(location.locationCode());
+    assertThat(locationDto.getLocationCode()).isEqualTo(location.openWeatherApiLocationCode());
     assertThat(locationDto.getLocalZipCode()).isEqualTo(location.localZipCode());
     assertThat(locationDto.getCityName()).isEqualTo(location.cityName());
     assertThat(locationDto.getCountry()).isEqualTo(location.country());
@@ -55,7 +55,7 @@ public class LocationDtoMapperTest {
     List<LocationDto> locations = locationDtoMapper.mapList(List.of(luebeck, hamburg));
 
     assertThat(locations.size()).isEqualTo(2);
-    assertThat(locations).extracting("locationCode", "localZipCode", "cityName", "country")
+    assertThat(locations).extracting("openWeatherApiLocationCode", "localZipCode", "cityName", "country")
         .containsOnlyOnce(Tuple.tuple("2911298", "20095", "Hamburg", "Germany"))
         .containsOnlyOnce(Tuple.tuple("2875601", "23552", "Lübeck", "Germany"));
   }

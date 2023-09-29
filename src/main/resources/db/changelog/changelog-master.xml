@@ -10,8 +10,14 @@
   <changeSet id="002" author="OskarWestmeijer">
     <sqlFile path="002_add_column_last_import_at.sql" relativeToChangelogFile="true"/>
   </changeSet>
-  <changeSet id="003" author="OskarWestmeijer" contextFilter="e2e">
-    <sqlFile path="003_E2E_test_data.sql" relativeToChangelogFile="true"/>
+  <changeSet id="003" author="OskarWestmeijer">
+    <sqlFile path="003_refactor_location_table.sql" relativeToChangelogFile="true"/>
+  </changeSet>
+  <changeSet id="004" author="OskarWestmeijer">
+    <sqlFile path="004_add_locations.sql" relativeToChangelogFile="true"/>
+  </changeSet>
+  <changeSet id="005" author="OskarWestmeijer" contextFilter="e2e">
+    <sqlFile path="005_E2E_weather_data.sql" relativeToChangelogFile="true"/>
   </changeSet>
 
 </databaseChangeLog>
