@@ -20,10 +20,10 @@ public class WeatherDtoMapperTest {
 
   @Test
   public void successfulMappingToResponse() {
-    Location location = new Location("1234", "5678", "Luebeck", "Germany", Instant.now());
+    Location location = new Location(1, "1234", "5678", "Luebeck", "Germany", Instant.now());
     List<Weather> weatherList = List.of(
-        new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, "1234", Instant.now()),
-        new Weather(UUID.randomUUID(), 5.00d, 30, 4.00d, "1234", Instant.now()));
+        new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, "1234", 1, Instant.now()),
+        new Weather(UUID.randomUUID(), 5.00d, 30, 4.00d, "1234", 1, Instant.now()));
 
     WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherList);
 
@@ -34,14 +34,15 @@ public class WeatherDtoMapperTest {
 
   @Test
   public void successfulMappingToWeatherDTO() {
-    Weather weather = new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, "1234", Instant.now().truncatedTo(ChronoUnit.MICROS));
+    Weather weather = new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, "1234", 1, Instant.now().truncatedTo(ChronoUnit.MICROS));
 
     WeatherDto weatherDTO = weatherDtoMapper.mapTo(weather);
 
-    assertThat(weatherDTO.getHumidity()).isEqualTo(weather.humidity());
-    assertThat(weatherDTO.getRecordedAt()).isEqualTo(weather.recordedAt());
-    assertThat(weatherDTO.getTemperature()).isEqualTo(weather.temperature());
-    assertThat(weatherDTO.getWindSpeed()).isEqualTo(weather.windSpeed());
+    assertThat(weatherDTO)
+        .returns(weather.humidity(), WeatherDto::getHumidity)
+        .returns(weather.temperature(), WeatherDto::getTemperature)
+        .returns(weather.windSpeed(), WeatherDto::getWindSpeed)
+        .returns(weather.recordedAt(), WeatherDto::getRecordedAt);
   }
 
 }

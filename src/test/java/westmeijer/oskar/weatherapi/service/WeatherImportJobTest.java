@@ -44,6 +44,7 @@ public class WeatherImportJobTest {
   public void shouldImportWeather() {
     Instant now = Instant.now().truncatedTo(ChronoUnit.MICROS);
     Location importLocation = new Location(
+        1,
         "23552",
         "2875601",
         "Lübeck",
@@ -52,10 +53,10 @@ public class WeatherImportJobTest {
     );
     given(locationService.getNextImportLocation()).willReturn(importLocation);
 
-    Weather importedWeather = new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, 88, 11.66, "23552", now);
+    Weather importedWeather = new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, 88, 11.66, "23552", 1, now);
     given(openWeatherApiClient.requestWithGeneratedClient(any(Location.class))).willReturn(importedWeather);
 
-    Weather savedWeather = new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, 88, 11.66, "23552", now);
+    Weather savedWeather = new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, 88, 11.66, "23552", 1, now);
     given(weatherService.saveAndFlush(importedWeather)).willReturn(savedWeather);
 
     weatherImportJob.refreshWeather();
@@ -74,6 +75,7 @@ public class WeatherImportJobTest {
   public void refreshWeather_throwExceptionOnApiFailure() {
     Instant now = Instant.now().truncatedTo(ChronoUnit.MICROS);
     Location importLocation = new Location(
+        1,
         "23552",
         "2875601",
         "Lübeck",

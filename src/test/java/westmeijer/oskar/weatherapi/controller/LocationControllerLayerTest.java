@@ -37,6 +37,7 @@ public class LocationControllerLayerTest {
   public void shouldReturnLocations() {
     Instant now = Instant.now().truncatedTo(ChronoUnit.MICROS);
     Location luebeck = new Location(
+        1,
         "23552",
         "2875601",
         "Lübeck",
@@ -44,6 +45,7 @@ public class LocationControllerLayerTest {
         now
     );
     Location hamburg = new Location(
+        2,
         "20095",
         "2911298",
         "Hamburg",

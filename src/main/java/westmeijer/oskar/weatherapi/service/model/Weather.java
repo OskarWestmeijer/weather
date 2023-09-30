@@ -5,12 +5,14 @@ import static java.util.Objects.requireNonNull;
 import java.time.Instant;
 import java.util.UUID;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public record Weather(@Nonnull UUID id,
                       @Nonnull Double temperature,
                       @Nonnull Integer humidity,
                       @Nonnull Double windSpeed,
                       @Nonnull String localZipCode,
+                      @Nullable Integer locationId,
                       @Nonnull Instant recordedAt) {
 
   public Weather {

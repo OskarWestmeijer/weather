@@ -13,7 +13,7 @@ public class LocationService {
 
   private final LocationRepository locationRepository;
 
-  public Location findById(String localZipCode) {
+  public Location findByLocalZipCode(String localZipCode) {
     Objects.requireNonNull(localZipCode, "localZipCode must not be null");
     return locationRepository.findByLocalZipCode(localZipCode);
   }

@@ -17,6 +17,7 @@ public class LocationDtoMapperTest {
   @Test
   public void shouldMapToLocation() {
     Location location = new Location(
+        1,
         "23552",
         "2875601",
         "Lübeck",
@@ -40,6 +41,7 @@ public class LocationDtoMapperTest {
     Instant now = Instant.now().truncatedTo(ChronoUnit.MICROS);
 
     Location luebeck = new Location(
+        1,
         "23552",
         "2875601",
         "Lübeck",
@@ -48,6 +50,7 @@ public class LocationDtoMapperTest {
     );
 
     Location hamburg = new Location(
+        1,
         "20095",
         "2911298",
         "Hamburg",

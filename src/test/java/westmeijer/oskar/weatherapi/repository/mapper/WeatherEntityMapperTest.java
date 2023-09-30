@@ -19,7 +19,7 @@ public class WeatherEntityMapperTest {
 
   @Test
   public void mapsToEntity() {
-    Weather weather = new Weather(UUID.randomUUID(), 22.54d, 34, 89.12d, "1234", Instant.now().truncatedTo(ChronoUnit.MICROS));
+    Weather weather = new Weather(UUID.randomUUID(), 22.54d, 34, 89.12d, "1234", 1, Instant.now().truncatedTo(ChronoUnit.MICROS));
 
     WeatherEntity weatherEntity = weatherEntityMapper.map(weather);
 

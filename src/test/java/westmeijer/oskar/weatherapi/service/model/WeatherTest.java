@@ -16,9 +16,10 @@ public class WeatherTest {
     Integer humidity = 55;
     Double windSpeed = 10.34d;
     String localZipCode = "20535";
+    Integer locationId = 1;
     Instant recordedAt = Instant.now();
 
-    Weather weather = new Weather(id, temp, humidity, windSpeed, localZipCode, recordedAt);
+    Weather weather = new Weather(id, temp, humidity, windSpeed, localZipCode, locationId, recordedAt);
 
     assertThat(weather)
         .returns(id, Weather::id)
@@ -26,12 +27,13 @@ public class WeatherTest {
         .returns(humidity, Weather::humidity)
         .returns(windSpeed, Weather::windSpeed)
         .returns(localZipCode, Weather::localZipCode)
+        .returns(locationId, Weather::locationId)
         .returns(recordedAt, Weather::recordedAt);
   }
 
   @Test
   public void shouldNotInitNull() {
-    assertThatThrownBy(() -> new Weather(null, null, null, null, null, null))
+    assertThatThrownBy(() -> new Weather(null, null, null, null, null, null, null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("id must not be null");
   }

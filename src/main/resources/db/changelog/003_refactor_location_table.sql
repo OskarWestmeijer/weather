@@ -1,4 +1,4 @@
--- set new primary key
+-- set new primary key for location table
 ALTER TABLE weather DROP CONSTRAINT weather_local_zip_code_fkey;
 ALTER TABLE weather ADD COLUMN location_id integer;
 

@@ -26,7 +26,7 @@ public class WeatherExportController {
   public void exportAsCsv(HttpServletResponse servletResponse, @PathVariable String localZipCode, @PathVariable String date)
       throws IOException {
     String fileName = ControllerUtil.buildFileName(localZipCode, date, ControllerUtil.CSV_FILE);
-    Location location = locationService.findById(localZipCode);
+    Location location = locationService.findByLocalZipCode(localZipCode);
 
     servletResponse.setContentType("text/csv");
     servletResponse.addHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
