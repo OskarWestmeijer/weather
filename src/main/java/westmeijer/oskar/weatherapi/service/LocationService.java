@@ -13,9 +13,9 @@ public class LocationService {
 
   private final LocationRepository locationRepository;
 
-  public Location findById(String localZipCode) {
+  public Location findByLocalZipCode(String localZipCode) {
     Objects.requireNonNull(localZipCode, "localZipCode must not be null");
-    return locationRepository.findById(localZipCode);
+    return locationRepository.findByLocalZipCode(localZipCode);
   }
 
   public List<Location> getAll() {
@@ -26,8 +26,9 @@ public class LocationService {
     return locationRepository.getNextImportLocation();
   }
 
-  public Location saveAndFlush(Location location) {
+  public void updateLastImportAt(Location location) {
     Objects.requireNonNull(location, "location must not be null");
-    return locationRepository.saveAndFlush(location);
+    locationRepository.updateLastImportAt(location);
   }
+
 }

@@ -21,6 +21,7 @@ public class OpenWeatherApiMapperTest {
     Double windSpeed = 25.55;
     Double temperature = -10.35;
     String localZipCode = "20535";
+    Integer locationId = 1;
 
     Main main = new Main()
         .humidity(humidity)
@@ -31,13 +32,14 @@ public class OpenWeatherApiMapperTest {
         .main(main)
         .wind(wind);
 
-    Weather weather = openWeatherApiMapper.map(response, localZipCode);
+    Weather weather = openWeatherApiMapper.map(response, localZipCode, locationId);
 
     assertThat(weather)
         .returns(windSpeed, Weather::windSpeed)
         .returns(humidity, Weather::humidity)
         .returns(temperature, Weather::temperature)
         .returns(localZipCode, Weather::localZipCode)
+        .returns(locationId, Weather::locationId)
         .returns(UUID.class, w -> w.id().getClass())
         .returns(Instant.class, w -> w.recordedAt().getClass());
   }

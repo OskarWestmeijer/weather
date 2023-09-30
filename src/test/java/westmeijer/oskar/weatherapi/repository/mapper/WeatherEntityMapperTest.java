@@ -19,7 +19,7 @@ public class WeatherEntityMapperTest {
 
   @Test
   public void mapsToEntity() {
-    Weather weather = new Weather(UUID.randomUUID(), 22.54d, 34, 89.12d, "1234", Instant.now().truncatedTo(ChronoUnit.MICROS));
+    Weather weather = new Weather(UUID.randomUUID(), 22.54d, 34, 89.12d, "1234", 1, Instant.now().truncatedTo(ChronoUnit.MICROS));
 
     WeatherEntity weatherEntity = weatherEntityMapper.map(weather);
 
@@ -35,7 +35,7 @@ public class WeatherEntityMapperTest {
   @Test
   public void mapsToWeather() {
     Instant now = Instant.now().truncatedTo(ChronoUnit.MICROS);
-    WeatherEntity weatherEntity = new WeatherEntity(UUID.randomUUID(), 22.54d, 34, 89.12d, "1234", now, now);
+    WeatherEntity weatherEntity = new WeatherEntity(UUID.randomUUID(), 22.54d, 34, 89.12d, "1234", 1, now, now);
 
     Weather weather = weatherEntityMapper.map(weatherEntity);
 
@@ -50,8 +50,8 @@ public class WeatherEntityMapperTest {
   @Test
   public void mapsToWeatherList() {
     Instant now = Instant.now().truncatedTo(ChronoUnit.MICROS);
-    WeatherEntity luebeck = new WeatherEntity(UUID.randomUUID(), 22.54d, 34, 89.12d, "1234", now, now);
-    WeatherEntity hamburg = new WeatherEntity(UUID.randomUUID(), 22.54d, 34, 89.12d, "1234", now, now);
+    WeatherEntity luebeck = new WeatherEntity(UUID.randomUUID(), 22.54d, 34, 89.12d, "1234", 1, now, now);
+    WeatherEntity hamburg = new WeatherEntity(UUID.randomUUID(), 22.54d, 34, 89.12d, "1234", 1, now, now);
 
     List<Weather> weatherList = weatherEntityMapper.mapList(List.of(luebeck, hamburg));
 

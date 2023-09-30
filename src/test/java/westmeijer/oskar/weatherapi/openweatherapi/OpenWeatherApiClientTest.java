@@ -42,11 +42,11 @@ public class OpenWeatherApiClientTest {
     GeneratedOpenWeatherApiResponse apiResponse = mock(GeneratedOpenWeatherApiResponse.class);
     Weather expectedWeather = mock(Weather.class);
 
-    given(generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(requestLocation.locationCode(), "metric", appId)).willReturn(
+    given(generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(requestLocation.openWeatherApiLocationCode(), "metric", appId)).willReturn(
         apiResponseMono);
     given(apiResponseMono.block()).willReturn(apiResponseEntity);
     given(apiResponseEntity.getBody()).willReturn(apiResponse);
-    given(openWeatherApiMapper.map(apiResponse, requestLocation.localZipCode())).willReturn(expectedWeather);
+    given(openWeatherApiMapper.map(apiResponse, requestLocation.localZipCode(), requestLocation.id())).willReturn(expectedWeather);
 
     Weather actualWeather = openWeatherApiClient.requestWithGeneratedClient(requestLocation);
 
@@ -56,7 +56,7 @@ public class OpenWeatherApiClientTest {
   @Test
   public void handleErrorResponses() {
     Location requestLocation = mock(Location.class);
-    given(generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(requestLocation.locationCode(), "metric", appId)).willThrow(
+    given(generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(requestLocation.openWeatherApiLocationCode(), "metric", appId)).willThrow(
         RuntimeException.class);
 
     assertThatThrownBy(() -> openWeatherApiClient.requestWithGeneratedClient(requestLocation))

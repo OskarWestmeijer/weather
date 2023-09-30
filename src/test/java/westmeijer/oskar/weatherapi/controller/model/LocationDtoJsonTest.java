@@ -23,13 +23,13 @@ public class LocationDtoJsonTest {
   @SneakyThrows
   public void serializeToJson() {
     Instant recordedAt = Instant.now().truncatedTo(ChronoUnit.MICROS);
-    LocationDto locationDto = new LocationDto(
-        "23552",
-        "2875601",
-        "Lübeck",
-        "Germany",
-        recordedAt
-    );
+    LocationDto locationDto = new LocationDto()
+        .localZipCode("23552")
+        .locationCode("2875601")
+        .cityName("Lübeck")
+        .country("Germany")
+        .lastImportAt(recordedAt);
+
     @Language("json")
     String jsonTemplate = """
         {

@@ -25,20 +25,20 @@ public class LocationServiceTest {
   private LocationService locationService;
 
   @Test
-  public void shouldFindById() {
+  public void shouldFindByIdLocalZipCode() {
     String localZipCode = "20535";
-    Location expectedLocation = new Location(localZipCode, "2875601", "Lübeck", "Germany", Instant.now());
-    given(locationRepository.findById(localZipCode)).willReturn(expectedLocation);
+    Location expectedLocation = new Location(1, localZipCode, "2875601", "Lübeck", "Germany", Instant.now());
+    given(locationRepository.findByLocalZipCode(localZipCode)).willReturn(expectedLocation);
 
-    Location actualLocation = locationService.findById(localZipCode);
+    Location actualLocation = locationService.findByLocalZipCode(localZipCode);
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
-    then(locationRepository).should().findById(localZipCode);
+    then(locationRepository).should().findByLocalZipCode(localZipCode);
   }
 
   @Test
   public void findById_shouldThrowExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationService.findById(null))
+    assertThatThrownBy(() -> locationService.findByLocalZipCode(null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("localZipCode must not be null");
 
@@ -47,7 +47,7 @@ public class LocationServiceTest {
 
   @Test
   public void shouldGetAll() {
-    Location expectedLocation = new Location("20535", "2875601", "Lübeck", "Germany", Instant.now());
+    Location expectedLocation = new Location(1, "20535", "2875601", "Lübeck", "Germany", Instant.now());
     given(locationRepository.getAll()).willReturn(List.of(expectedLocation));
 
     List<Location> actualLocations = locationService.getAll();
@@ -58,7 +58,7 @@ public class LocationServiceTest {
 
   @Test
   public void shouldGetNextImportLocation() {
-    Location expectedLocation = new Location("20535", "2875601", "Lübeck", "Germany", Instant.now());
+    Location expectedLocation = new Location(1, "20535", "2875601", "Lübeck", "Germany", Instant.now());
     given(locationRepository.getNextImportLocation()).willReturn(expectedLocation);
 
     Location actualLocation = locationService.getNextImportLocation();
@@ -68,8 +68,8 @@ public class LocationServiceTest {
   }
 
   @Test
-  public void saveAndFlush_shouldThrowExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationService.saveAndFlush(null))
+  public void updateLastImportedAt_shouldThrowExceptionOnNullParam() {
+    assertThatThrownBy(() -> locationService.updateLastImportAt(null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("location must not be null");
 
@@ -77,14 +77,12 @@ public class LocationServiceTest {
   }
 
   @Test
-  public void shouldSaveAndFlush() {
-    Location expectedLocation = new Location("20535", "2875601", "Lübeck", "Germany", Instant.now());
-    given(locationRepository.saveAndFlush(expectedLocation)).willReturn(expectedLocation);
+  public void shouldupdateLastImportedAt() {
+    Location location = new Location(1, "20535", "2875601", "Lübeck", "Germany", Instant.now());
 
-    Location actualLocation = locationService.saveAndFlush(expectedLocation);
+    locationService.updateLastImportAt(location);
 
-    assertThat(actualLocation).isEqualTo(expectedLocation);
-    then(locationRepository).should().saveAndFlush(expectedLocation);
+    then(locationRepository).should().updateLastImportAt(location);
   }
 
 }

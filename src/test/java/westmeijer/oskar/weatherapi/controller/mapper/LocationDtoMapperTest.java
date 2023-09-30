@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import westmeijer.oskar.openapi.server.model.LocationDto;
@@ -18,6 +17,7 @@ public class LocationDtoMapperTest {
   @Test
   public void shouldMapToLocation() {
     Location location = new Location(
+        1,
         "23552",
         "2875601",
         "Lübeck",
@@ -27,37 +27,56 @@ public class LocationDtoMapperTest {
 
     LocationDto locationDto = locationDtoMapper.map(location);
 
-    assertThat(locationDto.getLocationCode()).isEqualTo(location.locationCode());
-    assertThat(locationDto.getLocalZipCode()).isEqualTo(location.localZipCode());
-    assertThat(locationDto.getCityName()).isEqualTo(location.cityName());
-    assertThat(locationDto.getCountry()).isEqualTo(location.country());
-    assertThat(locationDto.getLastImportAt()).isEqualTo(location.lastImportAt());
+    assertThat(locationDto)
+        .returns(location.localZipCode(), LocationDto::getLocalZipCode)
+        .returns(location.cityName(), LocationDto::getCityName)
+        .returns(location.country(), LocationDto::getCountry)
+        .returns(location.openWeatherApiLocationCode(), LocationDto::getLocationCode)
+        .returns(location.lastImportAt(), LocationDto::getLastImportAt);
   }
 
   @Test
   public void shouldMapListToLocations() {
+
+    Instant now = Instant.now().truncatedTo(ChronoUnit.MICROS);
+
     Location luebeck = new Location(
+        1,
         "23552",
         "2875601",
         "Lübeck",
         "Germany",
-        Instant.now().truncatedTo(ChronoUnit.MICROS)
+        now
     );
 
     Location hamburg = new Location(
+        1,
         "20095",
         "2911298",
         "Hamburg",
         "Germany",
-        Instant.now().truncatedTo(ChronoUnit.MICROS)
+        now
     );
+
+    // expected mappings
+    LocationDto expectedLuebeck = new LocationDto()
+        .localZipCode("23552")
+        .locationCode("2875601")
+        .cityName("Lübeck")
+        .country("Germany")
+        .lastImportAt(now);
+
+    LocationDto expectedHamburg = new LocationDto()
+        .localZipCode("20095")
+        .locationCode("2911298")
+        .cityName("Hamburg")
+        .country("Germany")
+        .lastImportAt(now);
 
     List<LocationDto> locations = locationDtoMapper.mapList(List.of(luebeck, hamburg));
 
-    assertThat(locations.size()).isEqualTo(2);
-    assertThat(locations).extracting("locationCode", "localZipCode", "cityName", "country")
-        .containsOnlyOnce(Tuple.tuple("2911298", "20095", "Hamburg", "Germany"))
-        .containsOnlyOnce(Tuple.tuple("2875601", "23552", "Lübeck", "Germany"));
+    assertThat(locations).hasSize(2)
+        .containsExactlyInAnyOrder(expectedLuebeck, expectedHamburg);
   }
 
 }

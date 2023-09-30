@@ -33,7 +33,7 @@ public class WeatherController implements WeatherApi {
   @Override
   public ResponseEntity<WeatherResponse> getLatestWeather(@PathVariable String localZipCode) {
     log.info("Received Weather request NOW for localZipCode: {}", localZipCode);
-    Location location = locationService.findById(localZipCode);
+    Location location = locationService.findByLocalZipCode(localZipCode);
     Weather weather = weatherService.getNow(location);
     WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, Collections.singletonList(weather));
     return ResponseEntity.ok(weatherResponse);
@@ -42,7 +42,7 @@ public class WeatherController implements WeatherApi {
   @Override
   public ResponseEntity<WeatherResponse> getWeatherLast24Hours(@PathVariable String localZipCode) {
     log.info("Received Weather request 24h for localZipCode: {}", localZipCode);
-    Location location = locationService.findById(localZipCode);
+    Location location = locationService.findByLocalZipCode(localZipCode);
     List<Weather> weatherList = weatherService.getLast24h(localZipCode);
     WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherList);
     return ResponseEntity.ok(weatherResponse);
@@ -52,7 +52,7 @@ public class WeatherController implements WeatherApi {
   @Override
   public ResponseEntity<WeatherResponse> getWeatherLast3Days(@PathVariable String localZipCode) {
     log.info("Received Weather request 3d for localZipCode: {}", localZipCode);
-    Location location = locationService.findById(localZipCode);
+    Location location = locationService.findByLocalZipCode(localZipCode);
     List<Weather> weatherList = weatherService.getLast3Days(localZipCode);
     WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherList);
     return ResponseEntity.ok(weatherResponse);
@@ -61,7 +61,7 @@ public class WeatherController implements WeatherApi {
   @Override
   public ResponseEntity<WeatherResponse> getSpecificWeather(@PathVariable String localZipCode, @PathVariable Date date) {
     log.info("Received Weather request SPECIFIC date for localZipCode: {}, date: {}", localZipCode, date);
-    Location location = locationService.findById(localZipCode);
+    Location location = locationService.findByLocalZipCode(localZipCode);
     List<Weather> weatherList = weatherService.getSpecificDate(localZipCode,  date.toInstant());
     WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherList);
     return ResponseEntity.ok(weatherResponse);

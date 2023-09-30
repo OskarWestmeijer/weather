@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import lombok.SneakyThrows;
 import org.intellij.lang.annotations.Language;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -27,11 +28,11 @@ public class LocationControllerIT extends IntegrationTestContainers {
     @Language("json")
     String expectedResponse = """
         [
-          {"localZipCode":"23552","locationCode":"2875601","cityName":"Lübeck","country":"Germany","lastImportAt":"2022-08-29T21:56:18.602546Z"},
-          {"localZipCode":"20095","locationCode":"2911298","cityName":"Hamburg","country":"Germany","lastImportAt":"2022-08-29T21:56:18.602546Z"},
-          {"localZipCode":"46286","locationCode":"2935530","cityName":"Dorsten","country":"Germany","lastImportAt":"2022-08-29T21:56:18.602546Z"},
-          {"localZipCode":"00100","locationCode":"658225","cityName":"Helsinki","country":"Finland","lastImportAt":"2022-08-29T21:56:18.602546Z"},
-          {"localZipCode":"36100","locationCode":"654440","cityName":"Kangasala","country":"Finland","lastImportAt":"2022-08-29T21:56:18.602546Z"}
+          {"localZipCode":"23552","locationCode":"2875601","cityName":"Lübeck","country":"Germany","lastImportAt":null},
+          {"localZipCode":"20095","locationCode":"2911298","cityName":"Hamburg","country":"Germany","lastImportAt":null},
+          {"localZipCode":"46286","locationCode":"2935530","cityName":"Dorsten","country":"Germany","lastImportAt":null},
+          {"localZipCode":"00100","locationCode":"658225","cityName":"Helsinki","country":"Finland","lastImportAt":null},
+          {"localZipCode":"36100","locationCode":"654440","cityName":"Kangasala","country":"Finland","lastImportAt":null}
         ]
         """;
 

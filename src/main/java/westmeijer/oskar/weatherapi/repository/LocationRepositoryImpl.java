@@ -30,18 +30,15 @@ public class LocationRepositoryImpl implements LocationRepository {
     return locationEntityMapper.map(location);
   }
 
-  @Override
-  public Location saveAndFlush(Location location) {
+  public void updateLastImportAt(Location location) {
     Objects.requireNonNull(location, "location must not be null");
-    LocationEntity locationEntity = locationEntityMapper.map(location);
-    LocationEntity savedLocation = locationJpaRepository.saveAndFlush(locationEntity);
-    return locationEntityMapper.map(savedLocation);
+    locationJpaRepository.updateLastImportAt(location.id());
   }
 
   @Override
-  public Location findById(String localZipCode) {
+  public Location findByLocalZipCode(String localZipCode) {
     Objects.requireNonNull(localZipCode, "localZipCode must not be null");
-    LocationEntity locationEntity = locationJpaRepository.findById(localZipCode)
+    LocationEntity locationEntity = locationJpaRepository.findByLocalZipCode(localZipCode)
         .orElseThrow(() -> new LocationNotSupportedException(localZipCode));
     return locationEntityMapper.map(locationEntity);
   }

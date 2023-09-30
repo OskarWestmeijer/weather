@@ -62,37 +62,26 @@ public class LocationRepositoryImplTest {
   }
 
   @Test
-  public void shouldSaveAndFlush() {
+  public void shouldUpdateImportTs() {
     Location newLocation = mock(Location.class);
-    LocationEntity newEntity = mock(LocationEntity.class);
-    LocationEntity savedEntity = mock(LocationEntity.class);
-    Location expectedLocation = mock(Location.class);
 
-    given(locationEntityMapper.map(newLocation)).willReturn(newEntity);
-    given(locationJpaRepository.saveAndFlush(newEntity)).willReturn(savedEntity);
-    given(locationEntityMapper.map(savedEntity)).willReturn(expectedLocation);
+    locationRepository.updateLastImportAt(newLocation);
 
-    Location actualLocation = locationRepository.saveAndFlush(newLocation);
-
-    assertThat(actualLocation).isEqualTo(expectedLocation);
-    then(locationEntityMapper).should().map(newLocation);
-    then(locationJpaRepository).should().saveAndFlush(newEntity);
-    then(locationEntityMapper).should().map(savedEntity);
+    then(locationJpaRepository).should().updateLastImportAt(newLocation.id());
   }
 
   @Test
-  public void saveAndFlush_throwsExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationRepository.saveAndFlush(null))
+  public void updateImportTs_throwsExceptionOnNullParam() {
+    assertThatThrownBy(() -> locationRepository.updateLastImportAt(null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("location must not be null");
 
-    then(locationEntityMapper).shouldHaveNoInteractions();
     then(locationJpaRepository).shouldHaveNoInteractions();
   }
 
   @Test
   public void findById_throwsExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationRepository.findById(null))
+    assertThatThrownBy(() -> locationRepository.findByLocalZipCode(null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("localZipCode must not be null");
 
@@ -103,14 +92,14 @@ public class LocationRepositoryImplTest {
   @Test
   public void findById_throwsExceptionOnNotFound() {
     String localZipCode = "20535";
-    given(locationJpaRepository.findById(localZipCode)).willReturn(Optional.empty());
+    given(locationJpaRepository.findByLocalZipCode(localZipCode)).willReturn(Optional.empty());
 
-    assertThatThrownBy(() -> locationRepository.findById(localZipCode))
+    assertThatThrownBy(() -> locationRepository.findByLocalZipCode(localZipCode))
         .isInstanceOf(LocationNotSupportedException.class)
         .hasMessageContaining("Location lookup for localZipCode  failed. localZipCode: 20535");
 
     then(locationEntityMapper).shouldHaveNoInteractions();
-    then(locationJpaRepository).should().findById(localZipCode);
+    then(locationJpaRepository).should().findByLocalZipCode(localZipCode);
   }
 
   @Test
@@ -119,14 +108,14 @@ public class LocationRepositoryImplTest {
     Location expectedLocation = mock(Location.class);
     String localZipCode = "20535";
 
-    given(locationJpaRepository.findById(localZipCode)).willReturn(Optional.of(locationEntity));
+    given(locationJpaRepository.findByLocalZipCode(localZipCode)).willReturn(Optional.of(locationEntity));
     given(locationEntityMapper.map(locationEntity)).willReturn(expectedLocation);
 
-    Location actualLocation = locationRepository.findById(localZipCode);
+    Location actualLocation = locationRepository.findByLocalZipCode(localZipCode);
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
     then(locationEntityMapper).should().map(locationEntity);
-    then(locationJpaRepository).should().findById(localZipCode);
+    then(locationJpaRepository).should().findByLocalZipCode(localZipCode);
   }
 
 }
