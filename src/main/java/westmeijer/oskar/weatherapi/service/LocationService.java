@@ -26,8 +26,9 @@ public class LocationService {
     return locationRepository.getNextImportLocation();
   }
 
-  public Location saveAndFlush(Location location) {
+  public void updateLastImportAt(Location location) {
     Objects.requireNonNull(location, "location must not be null");
-    return locationRepository.saveAndFlush(location);
+    locationRepository.updateLastImportAt(location);
   }
+
 }

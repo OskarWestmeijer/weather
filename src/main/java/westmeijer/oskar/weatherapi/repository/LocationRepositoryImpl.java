@@ -30,12 +30,9 @@ public class LocationRepositoryImpl implements LocationRepository {
     return locationEntityMapper.map(location);
   }
 
-  @Override
-  public Location saveAndFlush(Location location) {
+  public void updateLastImportAt(Location location) {
     Objects.requireNonNull(location, "location must not be null");
-    LocationEntity locationEntity = locationEntityMapper.map(location);
-    LocationEntity savedLocation = locationJpaRepository.saveAndFlush(locationEntity);
-    return locationEntityMapper.map(savedLocation);
+    locationJpaRepository.updateLastImportAt(location.id());
   }
 
   @Override

@@ -1,6 +1,7 @@
 package westmeijer.oskar.weatherapi.service;
 
 import io.micrometer.core.instrument.MeterRegistry;
+import jakarta.transaction.Transactional;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class WeatherImportJob {
 
 
   @Scheduled(fixedDelay = 60000)
+  @Transactional
   public void refreshWeather() {
     try {
       meterRegistry.counter("import.job", "import", "execution").increment();
@@ -35,7 +37,7 @@ public class WeatherImportJob {
       log.info("Import weather for location: {}", location);
       Weather importedWeather = openWeatherApiClient.requestWithGeneratedClient(location);
       Weather savedWeather = weatherService.saveAndFlush(importedWeather);
-      locationService.saveAndFlush(location);
+      locationService.updateLastImportAt(location);
       log.info("Saved imported weather: {}", savedWeather);
 
     } catch (OpenWeatherApiRequestException requestException) {

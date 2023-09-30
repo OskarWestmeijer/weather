@@ -68,8 +68,8 @@ public class LocationServiceTest {
   }
 
   @Test
-  public void saveAndFlush_shouldThrowExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationService.saveAndFlush(null))
+  public void updateLastImportedAt_shouldThrowExceptionOnNullParam() {
+    assertThatThrownBy(() -> locationService.updateLastImportAt(null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("location must not be null");
 
@@ -77,14 +77,12 @@ public class LocationServiceTest {
   }
 
   @Test
-  public void shouldSaveAndFlush() {
-    Location expectedLocation = new Location(1, "20535", "2875601", "Lübeck", "Germany", Instant.now());
-    given(locationRepository.saveAndFlush(expectedLocation)).willReturn(expectedLocation);
+  public void shouldupdateLastImportedAt() {
+    Location location = new Location(1, "20535", "2875601", "Lübeck", "Germany", Instant.now());
 
-    Location actualLocation = locationService.saveAndFlush(expectedLocation);
+    locationService.updateLastImportAt(location);
 
-    assertThat(actualLocation).isEqualTo(expectedLocation);
-    then(locationRepository).should().saveAndFlush(expectedLocation);
+    then(locationRepository).should().updateLastImportAt(location);
   }
 
 }

@@ -5,11 +5,11 @@ import westmeijer.oskar.weatherapi.service.model.Location;
 
 public interface LocationRepository {
 
+  void updateLastImportAt(Location location);
+
   List<Location> getAll();
 
   Location getNextImportLocation();
-
-  Location saveAndFlush(Location location);
 
   Location findByLocalZipCode(String localZipCode);
 }

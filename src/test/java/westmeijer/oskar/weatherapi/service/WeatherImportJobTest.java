@@ -68,7 +68,7 @@ public class WeatherImportJobTest {
     then(locationService).should().getNextImportLocation();
     then(openWeatherApiClient).should().requestWithGeneratedClient(any(Location.class));
     then(weatherService).should().saveAndFlush(importedWeather);
-    then(locationService).should().saveAndFlush(any(Location.class));
+    then(locationService).should().updateLastImportAt(any(Location.class));
   }
 
   @Test
@@ -94,7 +94,7 @@ public class WeatherImportJobTest {
     then(locationService).should().getNextImportLocation();
     then(openWeatherApiClient).should().requestWithGeneratedClient(any(Location.class));
     then(weatherService).shouldHaveNoInteractions();
-    then(locationService).should(never()).saveAndFlush(any(Location.class));
+    then(locationService).should(never()).updateLastImportAt(any(Location.class));
   }
 
 

@@ -62,31 +62,20 @@ public class LocationRepositoryImplTest {
   }
 
   @Test
-  public void shouldSaveAndFlush() {
+  public void shouldUpdateImportTs() {
     Location newLocation = mock(Location.class);
-    LocationEntity newEntity = mock(LocationEntity.class);
-    LocationEntity savedEntity = mock(LocationEntity.class);
-    Location expectedLocation = mock(Location.class);
 
-    given(locationEntityMapper.map(newLocation)).willReturn(newEntity);
-    given(locationJpaRepository.saveAndFlush(newEntity)).willReturn(savedEntity);
-    given(locationEntityMapper.map(savedEntity)).willReturn(expectedLocation);
+    locationRepository.updateLastImportAt(newLocation);
 
-    Location actualLocation = locationRepository.saveAndFlush(newLocation);
-
-    assertThat(actualLocation).isEqualTo(expectedLocation);
-    then(locationEntityMapper).should().map(newLocation);
-    then(locationJpaRepository).should().saveAndFlush(newEntity);
-    then(locationEntityMapper).should().map(savedEntity);
+    then(locationJpaRepository).should().updateLastImportAt(newLocation.id());
   }
 
   @Test
-  public void saveAndFlush_throwsExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationRepository.saveAndFlush(null))
+  public void updateImportTs_throwsExceptionOnNullParam() {
+    assertThatThrownBy(() -> locationRepository.updateLastImportAt(null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("location must not be null");
 
-    then(locationEntityMapper).shouldHaveNoInteractions();
     then(locationJpaRepository).shouldHaveNoInteractions();
   }
 
