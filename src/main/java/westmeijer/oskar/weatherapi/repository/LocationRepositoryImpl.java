@@ -39,9 +39,9 @@ public class LocationRepositoryImpl implements LocationRepository {
   }
 
   @Override
-  public Location findById(String localZipCode) {
+  public Location findByLocalZipCode(String localZipCode) {
     Objects.requireNonNull(localZipCode, "localZipCode must not be null");
-    LocationEntity locationEntity = locationJpaRepository.findById(localZipCode)
+    LocationEntity locationEntity = locationJpaRepository.findByLocalZipCode(localZipCode)
         .orElseThrow(() -> new LocationNotSupportedException(localZipCode));
     return locationEntityMapper.map(locationEntity);
   }

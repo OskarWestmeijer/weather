@@ -92,7 +92,7 @@ public class LocationRepositoryImplTest {
 
   @Test
   public void findById_throwsExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationRepository.findById(null))
+    assertThatThrownBy(() -> locationRepository.findByLocalZipCode(null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("localZipCode must not be null");
 
@@ -103,14 +103,14 @@ public class LocationRepositoryImplTest {
   @Test
   public void findById_throwsExceptionOnNotFound() {
     String localZipCode = "20535";
-    given(locationJpaRepository.findById(localZipCode)).willReturn(Optional.empty());
+    given(locationJpaRepository.findByLocalZipCode(localZipCode)).willReturn(Optional.empty());
 
-    assertThatThrownBy(() -> locationRepository.findById(localZipCode))
+    assertThatThrownBy(() -> locationRepository.findByLocalZipCode(localZipCode))
         .isInstanceOf(LocationNotSupportedException.class)
         .hasMessageContaining("Location lookup for localZipCode  failed. localZipCode: 20535");
 
     then(locationEntityMapper).shouldHaveNoInteractions();
-    then(locationJpaRepository).should().findById(localZipCode);
+    then(locationJpaRepository).should().findByLocalZipCode(localZipCode);
   }
 
   @Test
@@ -119,14 +119,14 @@ public class LocationRepositoryImplTest {
     Location expectedLocation = mock(Location.class);
     String localZipCode = "20535";
 
-    given(locationJpaRepository.findById(localZipCode)).willReturn(Optional.of(locationEntity));
+    given(locationJpaRepository.findByLocalZipCode(localZipCode)).willReturn(Optional.of(locationEntity));
     given(locationEntityMapper.map(locationEntity)).willReturn(expectedLocation);
 
-    Location actualLocation = locationRepository.findById(localZipCode);
+    Location actualLocation = locationRepository.findByLocalZipCode(localZipCode);
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
     then(locationEntityMapper).should().map(locationEntity);
-    then(locationJpaRepository).should().findById(localZipCode);
+    then(locationJpaRepository).should().findByLocalZipCode(localZipCode);
   }
 
 }

@@ -11,5 +11,5 @@ public interface LocationRepository {
 
   Location saveAndFlush(Location location);
 
-  Location findById(String localZipCode);
+  Location findByLocalZipCode(String localZipCode);
 }

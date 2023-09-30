@@ -28,12 +28,12 @@ public class LocationServiceTest {
   public void shouldFindById() {
     String localZipCode = "20535";
     Location expectedLocation = new Location(localZipCode, "2875601", "Lübeck", "Germany", Instant.now());
-    given(locationRepository.findById(localZipCode)).willReturn(expectedLocation);
+    given(locationRepository.findByLocalZipCode(localZipCode)).willReturn(expectedLocation);
 
     Location actualLocation = locationService.findById(localZipCode);
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
-    then(locationRepository).should().findById(localZipCode);
+    then(locationRepository).should().findByLocalZipCode(localZipCode);
   }
 
   @Test
