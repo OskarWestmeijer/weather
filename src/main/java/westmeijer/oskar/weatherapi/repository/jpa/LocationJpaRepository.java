@@ -1,6 +1,5 @@
 package westmeijer.oskar.weatherapi.repository.jpa;
 
-import java.time.Instant;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -17,7 +16,7 @@ public interface LocationJpaRepository extends JpaRepository<LocationEntity, Str
   @Query(value = "SELECT * FROM weather.location WHERE local_zip_code = :local_zip_code AND id IS NOT null LIMIT 1", nativeQuery = true)
   Optional<LocationEntity> findByLocalZipCode(@Param("local_zip_code") String localZipCode);
 
-  @Query(value = "SELECT * FROM weather.location WHERE id IS NOT NULL ORDER BY last_import_at ASC LIMIT 1", nativeQuery = true)
+  @Query(value = "SELECT * FROM weather.location ORDER BY last_import_at ASC LIMIT 1", nativeQuery = true)
   LocationEntity findFirstByOrderByLastImportAtAsc();
 
 }

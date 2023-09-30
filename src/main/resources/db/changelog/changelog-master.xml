@@ -19,5 +19,8 @@
   <changeSet id="005" author="OskarWestmeijer" contextFilter="e2e">
     <sqlFile path="005_E2E_weather_data.sql" relativeToChangelogFile="true"/>
   </changeSet>
+  <changeSet id="006" author="OskarWestmeijer">
+    <sqlFile path="006_add_constraints.sql" relativeToChangelogFile="true"/>
+  </changeSet>
 
 </databaseChangeLog>
