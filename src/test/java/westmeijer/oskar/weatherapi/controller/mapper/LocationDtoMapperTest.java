@@ -37,12 +37,14 @@ public class LocationDtoMapperTest {
   @Test
   public void shouldMapListToLocations() {
 
+    Instant now = Instant.now().truncatedTo(ChronoUnit.MICROS);
+
     Location luebeck = new Location(
         "23552",
         "2875601",
         "Lübeck",
         "Germany",
-        Instant.now().truncatedTo(ChronoUnit.MICROS)
+        now
     );
 
     Location hamburg = new Location(
@@ -50,7 +52,7 @@ public class LocationDtoMapperTest {
         "2911298",
         "Hamburg",
         "Germany",
-        Instant.now().truncatedTo(ChronoUnit.MICROS)
+        now
     );
 
     // expected mappings
@@ -59,14 +61,14 @@ public class LocationDtoMapperTest {
         .locationCode("2875601")
         .cityName("Lübeck")
         .country("Germany")
-        .lastImportAt(luebeck.lastImportAt());
+        .lastImportAt(now);
 
     LocationDto expectedHamburg = new LocationDto()
         .localZipCode("20095")
         .locationCode("2911298")
         .cityName("Hamburg")
         .country("Germany")
-        .lastImportAt(luebeck.lastImportAt());
+        .lastImportAt(now);
 
     List<LocationDto> locations = locationDtoMapper.mapList(List.of(luebeck, hamburg));
 
