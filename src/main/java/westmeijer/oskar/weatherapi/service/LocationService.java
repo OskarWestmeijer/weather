@@ -5,6 +5,7 @@ import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import westmeijer.oskar.weatherapi.repository.LocationRepository;
+import westmeijer.oskar.weatherapi.service.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.service.model.Location;
 
 @Service
@@ -22,11 +23,11 @@ public class LocationService {
     return locationRepository.getAll();
   }
 
-  public Location getNextImportLocation() {
+  public ImportJobLocation getNextImportLocation() {
     return locationRepository.getNextImportLocation();
   }
 
-  public void updateLastImportAt(Location location) {
+  public void updateLastImportAt(ImportJobLocation location) {
     Objects.requireNonNull(location, "location must not be null");
     locationRepository.updateLastImportAt(location);
   }

@@ -1,6 +1,5 @@
 package westmeijer.oskar.weatherapi.controller;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -28,16 +27,6 @@ public class WeatherController implements WeatherApi {
   private final LocationService locationService;
 
   private final WeatherDtoMapper weatherDtoMapper;
-
-
-  @Override
-  public ResponseEntity<WeatherResponse> getLatestWeather(@PathVariable String localZipCode) {
-    log.info("Received Weather request NOW for localZipCode: {}", localZipCode);
-    Location location = locationService.findByLocalZipCode(localZipCode);
-    Weather weather = weatherService.getNow(location);
-    WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, Collections.singletonList(weather));
-    return ResponseEntity.ok(weatherResponse);
-  }
 
   @Override
   public ResponseEntity<WeatherResponse> getWeatherLast24Hours(@PathVariable String localZipCode) {

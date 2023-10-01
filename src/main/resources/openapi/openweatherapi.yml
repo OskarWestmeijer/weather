@@ -14,13 +14,20 @@ paths:
       tags:
         - generatedOpenWeather
       parameters:
-        - name: id
+        - name: lat
           in: query
-          description: Location code
+          description: Latitude coordinate
           required: true
           schema:
             type: string
-            example: "2911298"
+            example: "60.169857"
+        - name: lon
+          in: query
+          description: Longitude coordinate
+          required: true
+          schema:
+            type: string
+            example: "24.938379"
         - name: units
           in: query
           description: Request either imperial or metric system

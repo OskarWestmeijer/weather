@@ -34,6 +34,10 @@ public class LocationEntity {
 
   private String countryCode;
 
+  private String latitude;
+
+  private String longitude;
+
   private Instant lastImportAt;
 
   private Instant modifiedAt;

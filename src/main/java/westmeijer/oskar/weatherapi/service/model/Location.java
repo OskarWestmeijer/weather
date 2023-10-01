@@ -1,12 +1,24 @@
 package westmeijer.oskar.weatherapi.service.model;
 
-import java.time.Instant;
+import static java.util.Objects.requireNonNull;
 
-public record Location(Integer id,
-                       String localZipCode,
-                       String openWeatherApiLocationCode,
-                       String cityName,
-                       String country,
-                       Instant lastImportAt) {
+import java.time.Instant;
+import javax.annotation.Nonnull;
+
+public record Location(@Nonnull Integer id,
+                       @Nonnull String localZipCode,
+                       @Nonnull String openWeatherApiLocationCode,
+                       @Nonnull String cityName,
+                       @Nonnull String country,
+                       @Nonnull Instant lastImportAt) {
+
+  public Location {
+    requireNonNull(id, "id cannot be null");
+    requireNonNull(localZipCode, "localZipCode cannot be null");
+    requireNonNull(openWeatherApiLocationCode, "openWeatherApiLocationCode cannot be null");
+    requireNonNull(cityName, "cityName cannot be null");
+    requireNonNull(country, "country cannot be null");
+    requireNonNull(lastImportAt, "lastImportAt cannot be null");
+  }
 
 }

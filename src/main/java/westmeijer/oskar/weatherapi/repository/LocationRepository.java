@@ -1,15 +1,16 @@
 package westmeijer.oskar.weatherapi.repository;
 
 import java.util.List;
+import westmeijer.oskar.weatherapi.service.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.service.model.Location;
 
 public interface LocationRepository {
 
-  void updateLastImportAt(Location location);
+  void updateLastImportAt(ImportJobLocation location);
 
   List<Location> getAll();
 
-  Location getNextImportLocation();
+  ImportJobLocation getNextImportLocation();
 
   Location findByLocalZipCode(String localZipCode);
 }

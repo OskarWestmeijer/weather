@@ -17,6 +17,7 @@ import westmeijer.oskar.weatherapi.controller.LocationNotSupportedException;
 import westmeijer.oskar.weatherapi.repository.jpa.LocationJpaRepository;
 import westmeijer.oskar.weatherapi.repository.mapper.LocationEntityMapper;
 import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
+import westmeijer.oskar.weatherapi.service.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.service.model.Location;
 
 @ExtendWith(MockitoExtension.class)
@@ -51,19 +52,19 @@ public class LocationRepositoryImplTest {
     LocationEntity locationEntity = mock(LocationEntity.class);
     given(locationJpaRepository.findFirstByOrderByLastImportAtAsc()).willReturn(locationEntity);
 
-    Location expectedLocation = mock(Location.class);
-    given(locationEntityMapper.map(locationEntity)).willReturn(expectedLocation);
+    ImportJobLocation expectedLocation = mock(ImportJobLocation.class);
+    given(locationEntityMapper.mapToJobLocation(locationEntity)).willReturn(expectedLocation);
 
-    Location actualLocation = locationRepository.getNextImportLocation();
+    ImportJobLocation actualLocation = locationRepository.getNextImportLocation();
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
     then(locationJpaRepository).should().findFirstByOrderByLastImportAtAsc();
-    then(locationEntityMapper).should().map(locationEntity);
+    then(locationEntityMapper).should().mapToJobLocation(locationEntity);
   }
 
   @Test
   public void shouldUpdateImportTs() {
-    Location newLocation = mock(Location.class);
+    ImportJobLocation newLocation = mock(ImportJobLocation.class);
 
     locationRepository.updateLastImportAt(newLocation);
 
