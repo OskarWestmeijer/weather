@@ -8,9 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import westmeijer.oskar.weatherapi.service.LocationService;
+import westmeijer.oskar.weatherapi.location.service.LocationService;
 import westmeijer.oskar.weatherapi.service.WeatherExportService;
-import westmeijer.oskar.weatherapi.service.model.Location;
+import westmeijer.oskar.weatherapi.location.service.model.Location;
 
 @Controller
 @CrossOrigin

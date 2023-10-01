@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import westmeijer.oskar.weatherapi.repository.jpa.LocationJpaRepository;
-import westmeijer.oskar.weatherapi.importjob.WeatherImportJob;
+import westmeijer.oskar.weatherapi.location.repository.jpa.LocationJpaRepository;
+import westmeijer.oskar.weatherapi.importjob.service.WeatherImportJob;
 
 @ExtendWith(MockitoExtension.class)
 public class WeatherApiApplicationTests {

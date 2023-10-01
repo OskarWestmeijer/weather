@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import westmeijer.oskar.openapi.server.api.WeatherApi;
 import westmeijer.oskar.openapi.server.model.WeatherResponse;
 import westmeijer.oskar.weatherapi.controller.mapper.WeatherDtoMapper;
-import westmeijer.oskar.weatherapi.service.LocationService;
+import westmeijer.oskar.weatherapi.location.service.LocationService;
 import westmeijer.oskar.weatherapi.service.WeatherService;
-import westmeijer.oskar.weatherapi.service.model.Location;
+import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.service.model.Weather;
 
 @Controller

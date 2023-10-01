@@ -8,7 +8,7 @@ import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import westmeijer.oskar.weatherapi.importjob.OpenWeatherApiClient;
+import westmeijer.oskar.weatherapi.importjob.client.OpenWeatherApiClient;
 import westmeijer.oskar.weatherapi.repository.WeatherRepository;
 import westmeijer.oskar.weatherapi.service.model.Weather;
 
