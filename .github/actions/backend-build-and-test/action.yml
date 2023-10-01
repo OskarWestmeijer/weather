@@ -25,7 +25,7 @@ runs:
       uses: actions/upload-artifact@v3
       with:
         name: checkstyle-result
-        path: target/site/checkstyle-result.xml
+        path: target/checkstyle-result.xml
         retention-days: 1
 
     - name: Upload Jar
