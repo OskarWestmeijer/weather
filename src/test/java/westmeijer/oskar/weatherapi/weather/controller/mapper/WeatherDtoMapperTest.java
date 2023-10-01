@@ -8,11 +8,10 @@ import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import westmeijer.oskar.openapi.server.model.WeatherDto;
-import westmeijer.oskar.openapi.server.model.WeatherResponse;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.openapi.server.model.WeatherDto;
+import westmeijer.oskar.weatherapi.openapi.server.model.WeatherResponse;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
-import westmeijer.oskar.weatherapi.weather.controller.mapper.WeatherDtoMapper;
 
 
 public class WeatherDtoMapperTest {

@@ -6,9 +6,9 @@ import java.time.Instant;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import westmeijer.oskar.openapi.client.model.GeneratedOpenWeatherApiResponse;
-import westmeijer.oskar.openapi.client.model.Main;
-import westmeijer.oskar.openapi.client.model.Wind;
+import westmeijer.oskar.weatherapi.openapi.client.model.GeneratedOpenWeatherApiResponse;
+import westmeijer.oskar.weatherapi.openapi.client.model.Main;
+import westmeijer.oskar.weatherapi.openapi.client.model.Wind;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 public class OpenWeatherApiMapperTest {

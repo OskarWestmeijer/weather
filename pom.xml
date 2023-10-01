@@ -179,8 +179,8 @@
                 ${project.basedir}/src/main/resources/public/weather-api.yml
               </inputSpec>
               <generatorName>spring</generatorName>
-              <apiPackage>westmeijer.oskar.openapi.server.api</apiPackage>
-              <modelPackage>westmeijer.oskar.openapi.server.model</modelPackage>
+              <apiPackage>westmeijer.oskar.weatherapi.openapi.server.api</apiPackage>
+              <modelPackage>westmeijer.oskar.weatherapi.openapi.server.model</modelPackage>
               <configOptions>
                 <library>spring-boot</library>
                 <oas3>true</oas3>
@@ -209,8 +209,8 @@
                 ${project.basedir}/src/main/resources/openapi/openweatherapi.yml
               </inputSpec>
               <generatorName>java</generatorName>
-              <apiPackage>westmeijer.oskar.openapi.client.api</apiPackage>
-              <modelPackage>westmeijer.oskar.openapi.client.model</modelPackage>
+              <apiPackage>westmeijer.oskar.weatherapi.openapi.client.api</apiPackage>
+              <modelPackage>westmeijer.oskar.weatherapi.openapi.client.model</modelPackage>
               <generateApiTests>false</generateApiTests>
               <generateModelTests>false</generateModelTests>
               <configOptions>
@@ -227,6 +227,10 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${jacoco.version}</version>
+        <configuration>
+          <!-- generated classes are not part of the report -->
+          <excludes>westmeijer/oskar/weatherapi/openapi/**/*</excludes>
+        </configuration>
         <executions>
           <execution>
             <goals>

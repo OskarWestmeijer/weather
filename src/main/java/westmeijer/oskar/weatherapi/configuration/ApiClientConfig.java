@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import westmeijer.oskar.openapi.client.ApiClient;
-import westmeijer.oskar.openapi.client.api.GeneratedOpenWeatherApi;
+import westmeijer.oskar.weatherapi.openapi.client.ApiClient;
+import westmeijer.oskar.weatherapi.openapi.client.api.GeneratedOpenWeatherApi;
 
 @Configuration
 @Slf4j

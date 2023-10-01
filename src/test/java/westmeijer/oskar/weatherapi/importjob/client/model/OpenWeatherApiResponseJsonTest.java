@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.core.io.Resource;
-import westmeijer.oskar.openapi.client.model.GeneratedOpenWeatherApiResponse;
+import westmeijer.oskar.weatherapi.openapi.client.model.GeneratedOpenWeatherApiResponse;
 
 
 @JsonTest

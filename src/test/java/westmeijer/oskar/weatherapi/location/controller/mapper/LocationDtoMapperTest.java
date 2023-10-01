@@ -7,9 +7,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import westmeijer.oskar.openapi.server.model.LocationDto;
-import westmeijer.oskar.weatherapi.location.controller.mapper.LocationDtoMapper;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.openapi.server.model.LocationDto;
 
 public class LocationDtoMapperTest {
 
