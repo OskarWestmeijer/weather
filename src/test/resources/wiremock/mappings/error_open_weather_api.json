@@ -3,7 +3,10 @@
     "method": "GET",
     "urlPath": "/data/2.5/weather",
     "queryParameters": {
-      "id": {
+      "lat": {
+        "matches": "666666"
+      },
+      "lon": {
         "matches": "666666"
       },
       "units": {

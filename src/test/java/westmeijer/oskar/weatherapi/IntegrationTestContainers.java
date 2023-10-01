@@ -34,7 +34,7 @@ public abstract class IntegrationTestContainers {
           "/home/wiremock/mappings",
           BindMode.READ_ONLY)
       .withExposedPorts(8080)
-      .waitingFor(Wait.forHttp("/data/2.5/weather?id=658225&units=metric&appid=1234random").forStatusCode(200));
+      .waitingFor(Wait.forHttp("/data/2.5/weather?lat=53.551086&lon=9.993682&units=metric&appid=1234random").forStatusCode(200));
 
   @DynamicPropertySource
   private static void registerContainers(DynamicPropertyRegistry registry) {

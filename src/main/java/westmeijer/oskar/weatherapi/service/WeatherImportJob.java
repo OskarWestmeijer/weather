@@ -2,15 +2,13 @@ package westmeijer.oskar.weatherapi.service;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import jakarta.transaction.Transactional;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiClient;
 import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiRequestException;
-import westmeijer.oskar.weatherapi.service.model.Location;
+import westmeijer.oskar.weatherapi.service.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.service.model.Weather;
 
 @Slf4j
@@ -33,13 +31,14 @@ public class WeatherImportJob {
     try {
       meterRegistry.counter("import.job", "import", "execution").increment();
 
-      Location location = withImportTs(locationService.getNextImportLocation());
+      ImportJobLocation location = locationService.getNextImportLocation();
       log.info("Import weather for location: {}", location);
+
       Weather importedWeather = openWeatherApiClient.requestWithGeneratedClient(location);
       Weather savedWeather = weatherService.saveAndFlush(importedWeather);
       locationService.updateLastImportAt(location);
-      log.info("Saved imported weather: {}", savedWeather);
 
+      log.info("Saved imported weather: {}", savedWeather);
     } catch (OpenWeatherApiRequestException requestException) {
       log.error("OpenWeatherApi request failed!", requestException);
       meterRegistry.counter("import.job", "error", "request").increment();
@@ -48,12 +47,6 @@ public class WeatherImportJob {
       meterRegistry.counter("import.job", "error", "process").increment();
     }
 
-  }
-
-  private Location withImportTs(Location location) {
-    Instant importStart = Instant.now().truncatedTo(ChronoUnit.MICROS);
-    return new Location(location.id(), location.localZipCode(), location.openWeatherApiLocationCode(), location.cityName(),
-        location.country(), importStart);
   }
 
 }

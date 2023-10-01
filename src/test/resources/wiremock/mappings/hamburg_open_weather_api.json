@@ -3,8 +3,11 @@
     "method": "GET",
     "urlPath": "/data/2.5/weather",
     "queryParameters": {
-      "id": {
-        "equalTo": "2911298"
+      "lat": {
+        "equalTo": "53.551086"
+      },
+      "lon": {
+        "equalTo": "9.993682"
       },
       "units": {
         "equalTo": "metric"
@@ -18,8 +21,8 @@
     "status": 200,
     "jsonBody": {
       "coord": {
-        "lon": 10.6873,
-        "lat": 53.8689
+        "lon": 9.993682,
+        "lat": 53.551086
       },
       "weather": [
         {

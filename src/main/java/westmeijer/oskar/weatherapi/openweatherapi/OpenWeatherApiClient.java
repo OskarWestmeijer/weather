@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import westmeijer.oskar.openapi.client.api.GeneratedOpenWeatherApi;
 import westmeijer.oskar.openapi.client.model.GeneratedOpenWeatherApiResponse;
 import westmeijer.oskar.weatherapi.openweatherapi.mapper.OpenWeatherApiMapper;
-import westmeijer.oskar.weatherapi.service.model.Location;
+import westmeijer.oskar.weatherapi.service.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.service.model.Weather;
 
 @Component
@@ -31,12 +31,13 @@ public class OpenWeatherApiClient {
     this.generatedOpenWeatherApi = generatedOpenWeatherApi;
   }
 
-  public Weather requestWithGeneratedClient(Location location) {
+  public Weather requestWithGeneratedClient(ImportJobLocation location) {
+    requireNonNull(location, "Location cannot be null.");
     try {
-      requireNonNull(location, "Location cannot be null.");
       ResponseEntity<GeneratedOpenWeatherApiResponse> response = generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(
-          location.openWeatherApiLocationCode(), "metric", appId).block();
-      return openWeatherApiMapper.map(requireNonNull(response.getBody(), "ResponseBody cannot be null"), location.localZipCode(), location.id());
+          location.latitude(), location.longitude(), "metric", appId).block();
+      return openWeatherApiMapper.map(requireNonNull(response.getBody(), "ResponseBody cannot be null"), location.localZipCode(),
+          location.id());
     } catch (Exception e) {
       throw new OpenWeatherApiRequestException("Exception during OpenWeatherApi request.", e);
     }

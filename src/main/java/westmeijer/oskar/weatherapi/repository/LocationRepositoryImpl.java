@@ -8,6 +8,7 @@ import westmeijer.oskar.weatherapi.controller.LocationNotSupportedException;
 import westmeijer.oskar.weatherapi.repository.jpa.LocationJpaRepository;
 import westmeijer.oskar.weatherapi.repository.mapper.LocationEntityMapper;
 import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
+import westmeijer.oskar.weatherapi.service.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.service.model.Location;
 
 @Component
@@ -25,12 +26,12 @@ public class LocationRepositoryImpl implements LocationRepository {
   }
 
   @Override
-  public Location getNextImportLocation() {
+  public ImportJobLocation getNextImportLocation() {
     LocationEntity location = locationJpaRepository.findFirstByOrderByLastImportAtAsc();
-    return locationEntityMapper.map(location);
+    return locationEntityMapper.mapToJobLocation(location);
   }
 
-  public void updateLastImportAt(Location location) {
+  public void updateLastImportAt(ImportJobLocation location) {
     Objects.requireNonNull(location, "location must not be null");
     locationJpaRepository.updateLastImportAt(location.id());
   }
