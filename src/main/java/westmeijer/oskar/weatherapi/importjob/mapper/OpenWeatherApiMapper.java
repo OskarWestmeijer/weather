@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.openweatherapi.mapper;
+package westmeijer.oskar.weatherapi.importjob.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

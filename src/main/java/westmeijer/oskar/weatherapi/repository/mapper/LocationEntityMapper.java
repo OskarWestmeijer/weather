@@ -4,7 +4,7 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
-import westmeijer.oskar.weatherapi.service.model.ImportJobLocation;
+import westmeijer.oskar.weatherapi.importjob.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.service.model.Location;
 
 @Mapper(componentModel = "spring")

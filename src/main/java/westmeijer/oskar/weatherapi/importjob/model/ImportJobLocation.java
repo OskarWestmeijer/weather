@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.service.model;
+package westmeijer.oskar.weatherapi.importjob.model;
 
 import static java.util.Objects.requireNonNull;
 

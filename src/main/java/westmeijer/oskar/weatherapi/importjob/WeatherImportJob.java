@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.service;
+package westmeijer.oskar.weatherapi.importjob;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import jakarta.transaction.Transactional;
@@ -6,9 +6,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiClient;
-import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiRequestException;
-import westmeijer.oskar.weatherapi.service.model.ImportJobLocation;
+import westmeijer.oskar.weatherapi.importjob.exception.OpenWeatherApiRequestException;
+import westmeijer.oskar.weatherapi.importjob.model.ImportJobLocation;
+import westmeijer.oskar.weatherapi.service.LocationService;
+import westmeijer.oskar.weatherapi.service.WeatherService;
 import westmeijer.oskar.weatherapi.service.model.Weather;
 
 @Slf4j

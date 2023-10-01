@@ -8,7 +8,7 @@ import westmeijer.oskar.weatherapi.controller.LocationNotSupportedException;
 import westmeijer.oskar.weatherapi.repository.jpa.LocationJpaRepository;
 import westmeijer.oskar.weatherapi.repository.mapper.LocationEntityMapper;
 import westmeijer.oskar.weatherapi.repository.model.LocationEntity;
-import westmeijer.oskar.weatherapi.service.model.ImportJobLocation;
+import westmeijer.oskar.weatherapi.importjob.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.service.model.Location;
 
 @Component

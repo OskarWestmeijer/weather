@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.openweatherapi;
+package westmeijer.oskar.weatherapi.importjob;
 
 import static java.util.Objects.requireNonNull;
 
@@ -8,8 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import westmeijer.oskar.openapi.client.api.GeneratedOpenWeatherApi;
 import westmeijer.oskar.openapi.client.model.GeneratedOpenWeatherApiResponse;
-import westmeijer.oskar.weatherapi.openweatherapi.mapper.OpenWeatherApiMapper;
-import westmeijer.oskar.weatherapi.service.model.ImportJobLocation;
+import westmeijer.oskar.weatherapi.importjob.exception.OpenWeatherApiRequestException;
+import westmeijer.oskar.weatherapi.importjob.mapper.OpenWeatherApiMapper;
+import westmeijer.oskar.weatherapi.importjob.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.service.model.Weather;
 
 @Component

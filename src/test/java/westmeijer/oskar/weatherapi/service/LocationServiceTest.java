@@ -14,7 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import westmeijer.oskar.weatherapi.repository.LocationRepository;
-import westmeijer.oskar.weatherapi.service.model.ImportJobLocation;
+import westmeijer.oskar.weatherapi.importjob.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.service.model.Location;
 
 @ExtendWith(MockitoExtension.class)

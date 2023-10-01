@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.service;
+package westmeijer.oskar.weatherapi.importjob;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -12,9 +12,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiClient;
-import westmeijer.oskar.weatherapi.openweatherapi.OpenWeatherApiRequestException;
-import westmeijer.oskar.weatherapi.service.model.ImportJobLocation;
+import westmeijer.oskar.weatherapi.importjob.exception.OpenWeatherApiRequestException;
+import westmeijer.oskar.weatherapi.importjob.model.ImportJobLocation;
+import westmeijer.oskar.weatherapi.service.LocationService;
+import westmeijer.oskar.weatherapi.service.WeatherService;
 import westmeijer.oskar.weatherapi.service.model.Weather;
 
 @ExtendWith(MockitoExtension.class)

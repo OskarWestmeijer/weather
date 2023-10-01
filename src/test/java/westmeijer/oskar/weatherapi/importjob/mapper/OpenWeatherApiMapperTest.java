@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.openweatherapi.mapper;
+package westmeijer.oskar.weatherapi.importjob.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -9,6 +9,7 @@ import org.mapstruct.factory.Mappers;
 import westmeijer.oskar.openapi.client.model.GeneratedOpenWeatherApiResponse;
 import westmeijer.oskar.openapi.client.model.Main;
 import westmeijer.oskar.openapi.client.model.Wind;
+import westmeijer.oskar.weatherapi.importjob.mapper.OpenWeatherApiMapper;
 import westmeijer.oskar.weatherapi.service.model.Weather;
 
 public class OpenWeatherApiMapperTest {

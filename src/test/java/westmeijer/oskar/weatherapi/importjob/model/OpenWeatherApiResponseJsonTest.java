@@ -1,9 +1,7 @@
-package westmeijer.oskar.weatherapi.openweatherapi.model;
+package westmeijer.oskar.weatherapi.importjob.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

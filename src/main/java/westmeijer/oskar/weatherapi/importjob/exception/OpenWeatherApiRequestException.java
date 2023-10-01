@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.openweatherapi;
+package westmeijer.oskar.weatherapi.importjob.exception;
 
 public class OpenWeatherApiRequestException extends RuntimeException {
 
