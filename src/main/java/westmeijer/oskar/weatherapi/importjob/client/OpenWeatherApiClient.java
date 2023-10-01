@@ -11,7 +11,7 @@ import westmeijer.oskar.openapi.client.model.GeneratedOpenWeatherApiResponse;
 import westmeijer.oskar.weatherapi.importjob.exception.OpenWeatherApiRequestException;
 import westmeijer.oskar.weatherapi.importjob.client.mapper.OpenWeatherApiMapper;
 import westmeijer.oskar.weatherapi.importjob.service.model.ImportJobLocation;
-import westmeijer.oskar.weatherapi.service.model.Weather;
+import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 @Component
 @Slf4j

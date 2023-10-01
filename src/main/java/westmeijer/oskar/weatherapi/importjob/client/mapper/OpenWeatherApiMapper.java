@@ -3,7 +3,7 @@ package westmeijer.oskar.weatherapi.importjob.client.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import westmeijer.oskar.openapi.client.model.GeneratedOpenWeatherApiResponse;
-import westmeijer.oskar.weatherapi.service.model.Weather;
+import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 @Mapper(componentModel = "spring")
 public interface OpenWeatherApiMapper {

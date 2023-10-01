@@ -9,8 +9,7 @@ import org.mapstruct.factory.Mappers;
 import westmeijer.oskar.openapi.client.model.GeneratedOpenWeatherApiResponse;
 import westmeijer.oskar.openapi.client.model.Main;
 import westmeijer.oskar.openapi.client.model.Wind;
-import westmeijer.oskar.weatherapi.importjob.client.mapper.OpenWeatherApiMapper;
-import westmeijer.oskar.weatherapi.service.model.Weather;
+import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 public class OpenWeatherApiMapperTest {
 
