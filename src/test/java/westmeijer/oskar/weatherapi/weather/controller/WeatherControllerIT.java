@@ -1,5 +1,9 @@
 package westmeijer.oskar.weatherapi.weather.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import lombok.SneakyThrows;
 import org.intellij.lang.annotations.Language;
 import org.junit.jupiter.api.Test;
@@ -9,9 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import westmeijer.oskar.weatherapi.IntegrationTestContainers;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -31,14 +32,14 @@ public class WeatherControllerIT extends IntegrationTestContainers {
           "country" : "Germany",
           "weatherData":
           [
-            {"temperature":15.45,"humidity":45,"windSpeed":2.57,"recordedAt":"2022-08-27T22:56:18.602546Z"},
-            {"temperature":16.45,"humidity":45,"windSpeed":2.57,"recordedAt":"2022-08-27T21:56:18.602546Z"},
-            {"temperature":17.45,"humidity":45,"windSpeed":2.57,"recordedAt":"2022-08-27T21:16:18.056453Z"},
-            {"temperature":20.75,"humidity":45,"windSpeed": 2.57,"recordedAt":"2022-08-27T20:21:17.330786Z"}
+            {"temperature":15.45,"humidity":45,"windSpeed":2.57},
+            {"temperature":16.45,"humidity":45,"windSpeed":2.57},
+            {"temperature":17.45,"humidity":45,"windSpeed":2.57},
+            {"temperature":20.75,"humidity":45,"windSpeed": 2.57}
           ]
         }""";
 
-    mockMvc.perform(get("/weather/23552/2022-08-27"))
+    mockMvc.perform(get("/weather/23552/24h"))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(expectedResponse, false));

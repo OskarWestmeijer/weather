@@ -2,6 +2,7 @@ package westmeijer.oskar.weatherapi.location.controller.model;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.UUID;
 import lombok.SneakyThrows;
 import org.intellij.lang.annotations.Language;
 import org.junit.jupiter.api.Test;
@@ -24,23 +25,27 @@ public class LocationDtoJsonTest {
   public void serializeToJson() {
     Instant recordedAt = Instant.now().truncatedTo(ChronoUnit.MICROS);
     LocationDto locationDto = new LocationDto()
+        .uuid(UUID.randomUUID())
         .localZipCode("23552")
         .locationCode("2875601")
         .cityName("Lübeck")
         .country("Germany")
+        .countryCode("GER")
         .lastImportAt(recordedAt);
 
     @Language("json")
     String jsonTemplate = """
         {
+          "uuid":"%s",
           "localZipCode":"23552",
           "locationCode":"2875601",
           "cityName":"Lübeck",
           "country":"Germany",
+          "countryCode":"GER",
           "lastImportAt":"%s"
         }""";
 
-    String expectedJson = jsonTemplate.formatted(locationDto.getLastImportAt());
+    String expectedJson = jsonTemplate.formatted(locationDto.getUuid(), locationDto.getLastImportAt());
     JsonContent<LocationDto> actualJson = tester.write(locationDto);
 
     JSONAssert.assertEquals(expectedJson, actualJson.getJson(), true);

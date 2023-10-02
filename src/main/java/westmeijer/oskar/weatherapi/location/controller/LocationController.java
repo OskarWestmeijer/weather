@@ -5,11 +5,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import westmeijer.oskar.weatherapi.openapi.server.api.LocationsApi;
-import westmeijer.oskar.weatherapi.openapi.server.model.LocationDto;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.location.controller.mapper.LocationDtoMapper;
 import westmeijer.oskar.weatherapi.location.service.LocationService;
+import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.openapi.server.api.LocationsApi;
+import westmeijer.oskar.weatherapi.openapi.server.model.LocationResponse;
 
 @Controller
 @CrossOrigin
@@ -21,10 +21,10 @@ public class LocationController implements LocationsApi {
   private final LocationDtoMapper locationDtoMapper;
 
   @Override
-  public ResponseEntity<List<LocationDto>> getLocations() {
+  public ResponseEntity<LocationResponse> getLocations() {
     List<Location> locations = locationService.getAll();
-    List<LocationDto> locationDtos = locationDtoMapper.mapList(locations);
-    return ResponseEntity.ok(locationDtos);
+    LocationResponse response = locationDtoMapper.mapToResponse(locations);
+    return ResponseEntity.ok(response);
   }
 
 }

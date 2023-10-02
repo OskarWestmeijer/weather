@@ -6,15 +6,14 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
 
-import java.time.Instant;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import westmeijer.oskar.weatherapi.location.repository.LocationRepository;
 import westmeijer.oskar.weatherapi.importjob.service.model.ImportJobLocation;
+import westmeijer.oskar.weatherapi.location.repository.LocationRepository;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,7 +28,7 @@ public class LocationServiceTest {
   @Test
   public void shouldFindByIdLocalZipCode() {
     String localZipCode = "20535";
-    Location expectedLocation = new Location(1, localZipCode, "2875601", "Lübeck", "Germany", Instant.now());
+    Location expectedLocation = mock(Location.class);
     given(locationRepository.findByLocalZipCode(localZipCode)).willReturn(expectedLocation);
 
     Location actualLocation = locationService.findByLocalZipCode(localZipCode);
@@ -49,7 +48,7 @@ public class LocationServiceTest {
 
   @Test
   public void shouldGetAll() {
-    Location expectedLocation = new Location(1, "20535", "2875601", "Lübeck", "Germany", Instant.now());
+    Location expectedLocation = mock(Location.class);
     given(locationRepository.getAll()).willReturn(List.of(expectedLocation));
 
     List<Location> actualLocations = locationService.getAll();

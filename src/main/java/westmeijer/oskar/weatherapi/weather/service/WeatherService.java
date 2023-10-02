@@ -1,7 +1,5 @@
 package westmeijer.oskar.weatherapi.weather.service;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -40,25 +38,6 @@ public class WeatherService {
    */
   public List<Weather> getLast3Days(String localZipCode) {
     List<Weather> weatherList = weatherRepository.getLastThreeDays(localZipCode);
-
-    return weatherList.stream()
-        .sorted(Comparator.comparing(Weather::recordedAt).reversed())
-        .toList();
-  }
-
-  /**
-   * Retrieve weather for the provided date.
-   *
-   * @param localZipCode
-   * @param start        instant at start of day for zoneId
-   * @return
-   */
-  public List<Weather> getSpecificDate(String localZipCode, Instant start) {
-    Instant end = start.plus(1L, ChronoUnit.DAYS);
-    log.debug("start instant: {}", start);
-    log.debug("end instant: {}", end);
-
-    List<Weather> weatherList = weatherRepository.getSpecificDay(localZipCode, start, end);
 
     return weatherList.stream()
         .sorted(Comparator.comparing(Weather::recordedAt).reversed())
