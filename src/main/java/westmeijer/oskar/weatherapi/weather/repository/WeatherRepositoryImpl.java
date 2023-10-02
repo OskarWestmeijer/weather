@@ -1,6 +1,5 @@
 package westmeijer.oskar.weatherapi.weather.repository;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -29,15 +28,6 @@ public class WeatherRepositoryImpl implements WeatherRepository {
   public List<Weather> getLastThreeDays(String localZipCode) {
     Objects.requireNonNull(localZipCode, "localZipCode should not be null");
     List<WeatherEntity> weatherEntities = weatherJpaRepository.getLastThreeDays(localZipCode);
-    return weatherEntityMapper.mapList(weatherEntities);
-  }
-
-  @Override
-  public List<Weather> getSpecificDay(String localZipCode, Instant start, Instant end) {
-    Objects.requireNonNull(localZipCode, "localZipCode should not be null");
-    Objects.requireNonNull(start, "start should not be null");
-    Objects.requireNonNull(end, "end should not be null");
-    List<WeatherEntity> weatherEntities = weatherJpaRepository.getSpecificDay(localZipCode, start, end);
     return weatherEntityMapper.mapList(weatherEntities);
   }
 

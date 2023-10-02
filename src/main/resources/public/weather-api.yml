@@ -19,31 +19,47 @@ externalDocs:
   description: https://github.com/OskarWestmeijer/weather-api
   url: 'https://github.com/OskarWestmeijer/weather-api'
 tags:
-  - name: locations
-    description: Request Weather for these locations.
-  - name: weather
-    description: Weather results for a location.
+  - name: locations_resource
+    x-displayName: locations
+    description: Available locations for weather requests.
+  - name: weather_resource
+    x-displayName: weather
+    description: Weather for a location.
+
   - name: location_dto
-    x-displayName: The LocationDto Model
+    x-displayName: LocationElement
     description: |
+      Element of the LocationResponse
       <SchemaDefinition schemaRef="#/components/schemas/LocationDto" />
-  - name: weather_response
-    x-displayName: The WeatherResponse Model
+  - name: location_response
+    x-displayName: LocationResponse
     description: |
-      <SchemaDefinition schemaRef="#/components/schemas/WeatherResponse" />
+      Container for multiple location elements
+      <SchemaDefinition schemaRef="#/components/schemas/LocationResponse" />
+
   - name: weather_dto
-    x-displayName: The WeatherDto Model
+    x-displayName: WeatherElement
     description: |
+      Element of the WeatherResponse
       <SchemaDefinition schemaRef="#/components/schemas/WeatherDto" />
+  - name: weather_response
+    x-displayName: WeatherResponse
+    description: |
+      Container for multiple weather elements
+      <SchemaDefinition schemaRef="#/components/schemas/WeatherResponse" />
+
 x-tagGroups:
   - name: Resources
     tags:
-      - locations
-      - weather
+      - locations_resource
+      - weather_resource
   - name: Response Models
     tags:
-      - location_dto
+      - location_response
       - weather_response
+  - name: Response elements
+    tags:
+      - location_dto
       - weather_dto
 paths:
   /locations:
@@ -51,21 +67,21 @@ paths:
       summary: Get all locations
       operationId: getLocations
       tags:
-        - locations
+        - locations_resource
       responses:
         '200':
           description: Request Weather for these locations.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Locations"
+                $ref: "#/components/schemas/LocationResponse"
 
   /weather/{localZipCode}/3d:
     get:
       summary: Get weather of last 3 days for location
       operationId: getWeatherLast3Days
       tags:
-        - weather
+        - weather_resource
       parameters:
         - name: localZipCode
           in: path
@@ -87,7 +103,7 @@ paths:
       summary: Get weather of last 24 hours for location
       operationId: getWeatherLast24Hours
       tags:
-        - weather
+        - weather_resource
       parameters:
         - name: localZipCode
           in: path
@@ -96,58 +112,6 @@ paths:
           schema:
             type: string
             example: "20095"
-      responses:
-        '200':
-          description: Weather results for the location.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/WeatherResponse"
-
-  /weather/{localZipCode}/now:
-    get:
-      summary: Get latest weather for location
-      operationId: getLatestWeather
-      tags:
-        - weather
-      parameters:
-        - name: localZipCode
-          in: path
-          required: true
-          description: localZipCode of location
-          schema:
-            type: string
-            example: "20095"
-      responses:
-        '200':
-          description: Weather results for the location.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/WeatherResponse"
-
-  /weather/{localZipCode}/{date}:
-    get:
-      summary: Get weather for specific date and location
-      operationId: getSpecificWeather
-      tags:
-        - weather
-      parameters:
-        - name: localZipCode
-          in: path
-          required: true
-          description: localZipCode of location
-          schema:
-            type: string
-            example: "20095"
-        - name: date
-          in: path
-          required: true
-          description: date for weather lookup
-          schema:
-            type: string
-            format: date
-            example: "2023-07-15"
       responses:
         '200':
           description: Weather results for the location.
@@ -160,34 +124,61 @@ components:
   schemas:
     LocationDto:
       type: object
-      description: Describes unique location
+      description: Requestable location
       required:
+        - uuid
         - localZipCode
-        - openWeatherApiLocationCode
+        - locationCode
         - cityName
         - country
+        - countryCode
         - lastImportAt
       properties:
+        uuid:
+          type: string
+          format: uuid
+          description: request weather for a location with this technical id
+          example: "eac4f85d-c683-4a9c-91e3-a4d3b0b91a04"
         localZipCode:
           type: string
+          description: national postal code, to be considered in combination with 'countryCode'
           example: "20095"
         locationCode:
           type: string
+          description: deprecated, replaced by uuid
           example: "2911298"
         cityName:
           type: string
+          description: city name in countries local spelling
           example: "Hamburg"
         country:
           type: string
+          description: deprecated, replaced by countryCode
           example: "Germany"
+        countryCode:
+          type: string
+          description: ISO 3166-1 ALPHA-3 codes
+          example: "GER"
         lastImportAt:
           type: string
           format: date-time
+          description: UTC
           example: "2022-08-29T21:56:18.602546Z"
     Locations:
       type: array
       items:
         $ref: "#/components/schemas/LocationDto"
+
+    LocationResponse:
+      type: object
+      description: Container for multiple location elements.
+      required:
+        - locations
+      properties:
+        locations:
+          type: array
+          items:
+            $ref: "#/components/schemas/LocationDto"
 
     WeatherResponse:
       type: object

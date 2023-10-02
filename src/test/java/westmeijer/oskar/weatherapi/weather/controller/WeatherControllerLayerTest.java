@@ -18,13 +18,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import westmeijer.oskar.weatherapi.WebMvcMappersTestConfig;
 import westmeijer.oskar.weatherapi.location.exception.LocationNotSupportedException;
 import westmeijer.oskar.weatherapi.location.service.LocationService;
-import westmeijer.oskar.weatherapi.weather.service.WeatherService;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.weather.service.WeatherService;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
-import westmeijer.oskar.weatherapi.WebMvcMappersTestConfig;
-import westmeijer.oskar.weatherapi.weather.controller.WeatherController;
 
 @WebMvcTest(WeatherController.class)
 @Import(WebMvcMappersTestConfig.class)
@@ -44,7 +43,14 @@ public class WeatherControllerLayerTest {
   public void shouldRequestWeatherLast24h() {
     List<Weather> weatherList = List.of(
         new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, 88, 11.66, "23552", 1, Instant.now()));
-    Location location = new Location(1, "23552", "2875601", "Lübeck", "Germany", Instant.now());
+    Location location = new Location(1,
+        UUID.randomUUID(),
+        "23552",
+        "2875601",
+        "Lübeck",
+        "Germany",
+        "GER",
+        Instant.now());
 
     given(weatherService.getLast24h("23552")).willReturn(weatherList);
     given(locationService.findByLocalZipCode("23552")).willReturn(location);

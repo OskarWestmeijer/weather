@@ -30,6 +30,7 @@ public class LocationEntity {
 
   private String cityName;
 
+  @Deprecated
   private String country;
 
   private String countryCode;
