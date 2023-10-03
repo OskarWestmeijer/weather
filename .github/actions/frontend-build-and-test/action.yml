@@ -10,13 +10,17 @@ runs:
     - name: setup node
       uses: actions/setup-node@v3
       with:
-        node-version: '18.13.0'
+        node-version: '18.18.0'
         cache: 'npm'
         cache-dependency-path: frontend/package-lock.json
     - name: npm ci
       shell: bash
       working-directory: ${{ inputs.frontend-directory }}
       run: npm ci
+    - name: npm test
+      shell: bash
+      working-directory: ${{ inputs.frontend-directory }}
+      run: npm test
     - name: npm run build
       shell: bash
       working-directory: ${{ inputs.frontend-directory }}
