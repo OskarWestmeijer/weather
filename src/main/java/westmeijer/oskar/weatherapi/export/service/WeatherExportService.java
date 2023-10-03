@@ -26,7 +26,7 @@ public class WeatherExportService {
     this.weatherJpaRepository = weatherJpaRepository;
   }
 
-  public void writeWeatherToCsv(Writer writer, String localZipCode, Instant start) {
+  public void writeWeatherToCsv(Writer writer, String localZipCode, Instant start) throws IOException {
     Instant end = start.plus(1L, ChronoUnit.DAYS);
 
     List<WeatherEntity> weatherEntityList = weatherJpaRepository.getSpecificDay(localZipCode, start, end);
@@ -41,6 +41,7 @@ public class WeatherExportService {
       }
     } catch (IOException e) {
       logger.error("Error while writing CSV.", e);
+      throw e;
     }
   }
 

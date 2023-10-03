@@ -1,19 +1,14 @@
 import { React, useState, useEffect } from "react";
 import apiClient from "../../http-common";
 import WeatherChart from "./WeatherChart";
-import DatePicker from "react-datepicker";
-
-import "react-datepicker/dist/react-datepicker.css";
-
 
 export default function Dashboard(props) {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     const [locations, setLocations] = useState(null);
-    const [selectedLocation, setSelectedLocation] = useState('');
+    const [selectedLocation, setSelectedLocation] = useState(null);
     const [timerange, setTimerange] = useState('3d');
-    const [specificDate, setSpecificDate] = useState(new Date())
 
     const [result, setResult] = useState(null);
     const [temperature, setTemperature] = useState(null);
@@ -41,21 +36,12 @@ export default function Dashboard(props) {
         return arr;
     }
 
-    function handleLocationChange(event) {
-        setSelectedLocation(event.target.value);
-    }
-
-    function handleTimerangeChange(event) {
-        setTimerange(event.target.value)
-    }
-
     function requestLocations() {
-        let apiPath = 'locations'
-
-        apiClient.get(apiPath)
+        apiClient.get('locations')
             .then(response => {
-                setLocations(response.data);
-                setSelectedLocation(response.data[0].localZipCode)
+                let locations = response.data.locations
+                setLocations(locations);
+                setSelectedLocation(locations[0].localZipCode)
             }).catch(error => {
                 setError(error);
                 console.error('There was an error requesting the API!', error);
@@ -63,9 +49,7 @@ export default function Dashboard(props) {
     }
 
     function requestWeather() {
-        let pickedDate = specificDate.toISOString().slice(0, 10); // yyyy-MM-dd
-        let timeMode = timerange === 'specific' ? pickedDate : timerange
-        let apiPath = 'weather/' + selectedLocation + '/' + timeMode
+        let apiPath = 'weather/' + selectedLocation + '/' + timerange
 
         apiClient.get(apiPath)
             .then(response => {
@@ -86,10 +70,10 @@ export default function Dashboard(props) {
     useEffect(() => {
         if (locations === null) {
             requestLocations()
-        } else if (selectedLocation != '') {
+        } else if (selectedLocation != null) {
             requestWeather()
         }
-    }, [timerange, selectedLocation, specificDate]);
+    }, [timerange, selectedLocation]);
 
     if (error) {
         return <h5 className="text-center pt-5 mt-4">Error: {error.message}</h5>;
@@ -106,9 +90,9 @@ export default function Dashboard(props) {
                             <div className="form-group row">
                                 <label className="col-lg-2 col-md-12 col-form-label">Location</label>
                                 <div className="col-lg-5 col-md-12">
-                                    <select value={selectedLocation} onChange={handleLocationChange} className="form-select" aria-label="Location">
+                                    <select value={selectedLocation} onChange={e => setSelectedLocation(e.target.value)} className="form-select" aria-label="Location">
                                         {locations.map((option) => (
-                                            <option key={option.localZipCode} value={option.localZipCode}>{option.cityName}, {option.country}</option>
+                                            <option key={option.localZipCode} value={option.localZipCode}>{option.cityName}, {option.countryCode}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -116,25 +100,12 @@ export default function Dashboard(props) {
                             <div className="form-group row mt-1">
                                 <label className="col-lg-2 col-md-12 col-form-label">Timerange</label>
                                 <div className="col-lg-5 col-md-12">
-                                    <select value={timerange} onChange={handleTimerangeChange} className="form-select" aria-label="Timerange">
+                                    <select value={timerange} onChange={e => setTimerange(e.target.value)} className="form-select" aria-label="Timerange">
                                         <option value="24h">24 hours</option>
                                         <option value="3d">3 days</option>
-                                        <option value="specific">specific</option>
                                     </select>
                                 </div>
                             </div>
-                            {timerange === 'specific' ?
-                                <div className="form-group row mt-1" id="specific_date">
-                                    <label className="col-lg-2 col-md-12 col-form-label">Specific date</label>
-                                    <div className="col-lg-5 col-md-12">
-                                        <DatePicker
-                                            selected={specificDate}
-                                            dateFormat="yyyy/MM/dd"
-                                            onChange={setSpecificDate}
-                                        />
-                                    </div>
-                                </div>
-                                : null}
 
                             <WeatherChart
                                 chartData={result.weatherData}
