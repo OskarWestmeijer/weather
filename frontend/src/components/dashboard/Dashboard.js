@@ -37,15 +37,12 @@ export default function Dashboard(props) {
     }
 
     function requestLocations() {
-        let apiPath = 'locations'
-
-        apiClient.get(apiPath)
+        apiClient.get('locations')
             .then(response => {
                 let locations = response.data.locations
                 setLocations(locations);
                 setSelectedLocation(locations[0].localZipCode)
             }).catch(error => {
-                console.log(error)
                 setError(error);
                 console.error('There was an error requesting the API!', error);
             })
