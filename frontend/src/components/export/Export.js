@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from "react";
-import apiClient from "../../http-common";
-import { weatherApiBaseURL } from "../../http-common";
+import { apiClient, weatherApiBaseURL } from "../../http-common";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
