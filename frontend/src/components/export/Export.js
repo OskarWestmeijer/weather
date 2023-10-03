@@ -1,6 +1,8 @@
 import { React, useState, useEffect } from "react";
 import apiClient from "../../http-common";
+import { weatherApiBaseURL } from "../../http-common";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Export() {
     const [error, setError] = useState(null);
@@ -10,18 +12,14 @@ export default function Export() {
     const [selectedLocation, setSelectedLocation] = useState('');
     const [specificDate, setSpecificDate] = useState(new Date())
 
-
-    function handleLocationChange(event) {
-        setSelectedLocation(event.target.value);
-    }
-
     function getLocations() {
         let apiPath = 'locations'
 
         apiClient.get(apiPath)
             .then(response => {
-                setLocations(response.data);
-                setSelectedLocation(response.data[0].localZipCode)
+                let locations = response.data.locations
+                setLocations(locations);
+                setSelectedLocation(locations[0].localZipCode)
                 setIsLoading(false);
             }).catch(error => {
                 setError(error);
@@ -32,7 +30,8 @@ export default function Export() {
 
     function downloadCsv() {
         let pickedDate = specificDate.toISOString().slice(0, 10); // yyyy-MM-dd
-        let url = 'https://api.oskar-westmeijer.com/csv/weather/' + selectedLocation + '/' + pickedDate
+        let url = weatherApiBaseURL + '/csv/weather/' + selectedLocation + '/' + pickedDate
+        console.log(url)
         return url
     }
 
@@ -51,13 +50,13 @@ export default function Export() {
                     <div className="row">
                         <div className="col-lg-2 col-sm-12" />
                         <div className="col-lg-8 col-sm-12">
-                            <h2 className="text-center display-6">Export</h2>
+                            <h2 className="text-center display-6">File Export</h2>
                             <div className="form-group row">
                                 <label className="col-lg-2 col-md-12 col-form-label">Location</label>
                                 <div className="col-lg-5 col-md-12">
-                                    <select value={selectedLocation} onChange={handleLocationChange} className="form-select" aria-label="Location">
+                                    <select value={selectedLocation} onChange={e => setSelectedLocation(e.target.value)} className="form-select" aria-label="Location">
                                         {locations.map((option) => (
-                                            <option key={option.localZipCode} value={option.localZipCode}>{option.cityName}, {option.country}</option>
+                                            <option key={option.localZipCode} value={option.localZipCode}>{option.cityName}, {option.countryCode}</option>
                                         ))}
                                     </select>
                                 </div>
