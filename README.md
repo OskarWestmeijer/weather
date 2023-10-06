@@ -70,7 +70,7 @@ client library.
 
 ### Release image
 
-The image will be released by Github actions. Every merge to main will trigger a build & release.
+The image will be released by Github actions. Merging into main will trigger a build & release.
 
 ## Documentation
 
