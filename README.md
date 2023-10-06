@@ -1,6 +1,6 @@
 # Weather-Api
 
-![main branch](https://github.com/OskarWestmeijer/weather-api/actions/workflows/main-build-test-release-deploy.yml/badge.svg)
+![main branch](https://github.com/OskarWestmeijer/weather-api/actions/workflows/main-build-test-release.yml/badge.svg)
 
 ## Introduction
 
@@ -70,7 +70,7 @@ client library.
 
 ### Release image
 
-The image will be released by Github actions. Every merge to main will trigger a build & release.
+The image will be released by Github actions. Merging into main will trigger a build & release.
 
 ## Documentation
 

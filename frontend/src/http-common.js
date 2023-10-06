@@ -1,11 +1,13 @@
 import axios from "axios";
 
-//export const weatherApiBaseURL = 'http://localhost:8080';
-export const weatherApiBaseURL = 'https://api.oskar-westmeijer.com';
-export default axios.create({
+const weatherApiBaseURL = process.env.REACT_APP_DEPLOYMENT_ENV === 'production' ? 'https://api.oskar-westmeijer.com' : 'http://localhost:8080';
+
+const apiClient = axios.create({
     baseURL: weatherApiBaseURL,
     mode: 'cors',
     headers: {
         "Content-type": "application/json;charset=UTF-8"
     }
 });
+
+export { weatherApiBaseURL, apiClient }

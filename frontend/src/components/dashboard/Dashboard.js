@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import apiClient from "../../http-common";
+import { apiClient } from "../../http-common";
 import WeatherChart from "./WeatherChart";
 
 export default function Dashboard(props) {

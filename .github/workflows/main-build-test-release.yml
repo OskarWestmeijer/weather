@@ -1,4 +1,4 @@
-name: main-build-test-release-deploy
+name: main-build-test-release
 
 on:
   push:
