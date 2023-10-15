@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { OverviewModule } from './overview/overview.module';
+import { ChartsModule } from './charts/charts.module';
+
 import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
 
@@ -17,7 +19,8 @@ import { FooterComponent } from './footer/footer.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    OverviewModule
+    OverviewModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
