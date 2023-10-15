@@ -1,6 +1,6 @@
 openapi: "3.0.3"
 servers:
-  - url: https://api.oskar-westmeijer.com/api/v1
+  - url: https://api.oskar-westmeijer.com
     description: url of production environment
 info:
   description: |
