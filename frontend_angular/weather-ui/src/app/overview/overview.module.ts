@@ -10,6 +10,9 @@ import { OverviewComponent } from './overview/overview.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    OverviewComponent
   ]
 })
 export class OverviewModule { }
