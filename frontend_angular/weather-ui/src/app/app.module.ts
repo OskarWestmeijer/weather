@@ -23,6 +23,8 @@ import { FooterComponent } from './footer/footer.component';
     ChartsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
