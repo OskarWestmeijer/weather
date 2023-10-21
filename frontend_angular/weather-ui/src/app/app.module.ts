@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+
+import { ApiHttpService } from './core/services/api-http.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,10 +22,13 @@ import { FooterComponent } from './footer/footer.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     OverviewModule,
     ChartsModule
   ],
-  providers: [],
+  providers: [
+    ApiHttpService
+  ],
   bootstrap: [
     AppComponent
   ]
