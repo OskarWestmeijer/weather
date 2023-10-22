@@ -23,8 +23,9 @@ export class OverviewComponent implements OnInit {
   private getLocations(): void {
     this.apiHttpService.getLocations()
       .subscribe((locationsResponse: LocationsResponse) => {
-        console.log(locationsResponse)
-        this.locationList = locationsResponse.locations;
+        if (locationsResponse) {
+          this.locationList = locationsResponse.locations;
+        }
       });
   }
 
