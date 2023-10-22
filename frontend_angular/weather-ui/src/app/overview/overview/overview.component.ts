@@ -1,27 +1,31 @@
 import { Component } from '@angular/core';
 import { ApiHttpService } from 'src/app/core/services/api-http.service';
+import { LocationsResponse } from 'src/app/model/locations-response';
+import { OnInit } from '@angular/core';
+import { Location } from 'src/app/model/location';
 
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css']
 })
-export class OverviewComponent {
+export class OverviewComponent implements OnInit {
 
-  locations: [] = [];
+  locationList: Location[] = [];
 
   constructor(private apiHttpService: ApiHttpService) {
-    console.log('overview requesting locations')
-    this.apiHttpService.get("https://api.oskar-westmeijer.com/locations")
-      .subscribe(response => {
-        console.log(response)
-      });
   }
 
-  getLocations(): void {
-    console.log('overview requesting locations')
-    var locationsRaw = this.apiHttpService.get("https://api.oskar-westmeijer.com/locations");
-    console.log(locationsRaw)
+  ngOnInit() {
+    this.getLocations()
+  }
+
+  private getLocations(): void {
+    this.apiHttpService.getLocations()
+      .subscribe((locationsResponse: LocationsResponse) => {
+        console.log(locationsResponse)
+        this.locationList = locationsResponse.locations;
+      });
   }
 
 }

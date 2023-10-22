@@ -1,29 +1,18 @@
 <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Location</th>
-        <th scope="col">Temperature</th>
-        <th scope="col">Humidity</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Location</th>
+      <th scope="col">Temperature</th>
+      <th scope="col">Humidity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let location of locationList; let i = index">
+      <td>{{i+1}}</td>
+      <td>{{location.cityName}}, {{location.countryCode}}</td>
+      <td>10</td>
+      <td>55</td>
+    </tr>
+  </tbody>
 </table>
