@@ -1,27 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Constants } from 'src/app/config/constants';
+import { LocationsResponse } from 'src/app/model/locations-response';
 
 @Injectable()
 export class ApiHttpService {
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private constants: Constants) {
 
     }
 
-    public get(url: string, options?: any) {
-        console.log('service requesting locations')
-        return this.http.get(url, options);
+    public getLocations() {
+        return this.http.get<LocationsResponse>(this.constants.API_ENDPOINT + '/locations')
     }
 
-    public post(url: string, data: any, options?: any) {
-        return this.http.post(url, data, options);
-    }
-
-    public put(url: string, data: any, options?: any) {
-        return this.http.put(url, data, options);
-    }
-
-    public delete(url: string, options?: any) {
-        return this.http.delete(url, options);
-    }
 }
