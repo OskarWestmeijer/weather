@@ -23,8 +23,10 @@ export class OverviewComponent implements OnInit {
   private getLocations(): void {
     this.apiHttpService.getLocations()
       .subscribe((locationsResponse: LocationsResponse) => {
-        if (locationsResponse) {
+        if (locationsResponse !== undefined) {
           this.locationList = locationsResponse.locations;
+        } else {
+          console.log('Undefined response.')
         }
       });
   }
