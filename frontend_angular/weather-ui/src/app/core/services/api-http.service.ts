@@ -15,4 +15,5 @@ export class ApiHttpService {
         return this.http.get<LocationsResponse>(this.constants.API_ENDPOINT + '/locations')
     }
 
+
 }

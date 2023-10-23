@@ -3,6 +3,9 @@ import { ApiHttpService } from 'src/app/core/services/api-http.service';
 import { LocationsResponse } from 'src/app/model/locations-response';
 import { OnInit } from '@angular/core';
 import { Location } from 'src/app/model/location';
+import { LocationsResponse } from 'src/app/model/locations-response';
+import { OnInit } from '@angular/core';
+import { Location } from 'src/app/model/location';
 
 @Component({
   selector: 'app-overview',
@@ -10,7 +13,9 @@ import { Location } from 'src/app/model/location';
   styleUrls: ['./overview.component.css']
 })
 export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit {
 
+  locationList: Location[] = [];
   locationList: Location[] = [];
 
   constructor(private apiHttpService: ApiHttpService) {

@@ -8,8 +8,6 @@ describe('OverviewComponent', () => {
   let fixture: ComponentFixture<OverviewComponent>;
   const mockApiHttpService = jasmine.createSpyObj("ApiHttpService", ["getLocations"]);
 
-  // TODO: https://ng-mocks.sudo.eu/extra/mock-observables/
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [OverviewComponent],
