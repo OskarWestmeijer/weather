@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent {
-  @Input('title') title = '';
+  @Input({ required: true }) title = '';
 }
