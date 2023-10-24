@@ -1,28 +1,31 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ApiHttpService } from 'src/app/core/services/api-http.service';
 import { OverviewComponent } from './overview.component';
-import { waitForAsync } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { LocationsResponse } from 'src/app/model/locations-response';
 
 describe('OverviewComponent', () => {
-  let component: OverviewComponent;
-  let fixture: ComponentFixture<OverviewComponent>;
-  const mockApiHttpService = jasmine.createSpyObj("ApiHttpService", ["getLocations"]);
+  let overviewComponent: OverviewComponent;
+  let apiHttpServiceSpy: jasmine.SpyObj<ApiHttpService>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [OverviewComponent],
-      providers: [{ provide: ApiHttpService, useValue: mockApiHttpService }]
-    }).compileComponents();
+  beforeEach(() => {
+    apiHttpServiceSpy = jasmine.createSpyObj('ApiHttpService', ['getLocations']);
+    overviewComponent = new OverviewComponent(apiHttpServiceSpy);
+  });
 
-    fixture = TestBed.createComponent(OverviewComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+  it('should create component with locations', () => {
 
-  it('should create', () => {
-    mockApiHttpService.getLocations.and.returnValue('');
-    expect(mockApiHttpService.getLocations).toHaveBeenCalled();
+    const expectedLocationResponse: LocationsResponse = { locations: [{ cityName: 'Helsinki', country: 'Finland', countryCode: 'FIN', localZipCode: '425534', lastImportAt: 'today', locationCode: '234235', uuid: '3254' }] };
+    apiHttpServiceSpy.getLocations.and.returnValue(of(expectedLocationResponse));
+    overviewComponent.ngOnInit();
 
-    expect(component).toBeTruthy();
+    expect(overviewComponent).toBeTruthy();
+
+    expect(overviewComponent.locationList.length)
+      .withContext('has one location entry')
+      .toBe(1);
+
+    expect(apiHttpServiceSpy.getLocations.calls.count())
+      .withContext('calls api service for locations')
+      .toBe(1)
   });
 });
