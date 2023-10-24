@@ -3,19 +3,19 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChartsComponent } from './charts.component';
 
 describe('ChartsComponent', () => {
-  let component: ChartsComponent;
-  let fixture: ComponentFixture<ChartsComponent>;
+    let component: ChartsComponent;
+    let fixture: ComponentFixture<ChartsComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ChartsComponent]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [ChartsComponent]
+        });
+        fixture = TestBed.createComponent(ChartsComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
     });
-    fixture = TestBed.createComponent(ChartsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

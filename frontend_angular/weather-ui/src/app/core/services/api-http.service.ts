@@ -6,14 +6,14 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ApiHttpService {
-
-    constructor(private http: HttpClient, private constants: Constants) {
-
-    }
+    constructor(
+        private http: HttpClient,
+        private constants: Constants
+    ) {}
 
     public getLocations(): Observable<LocationsResponse> {
-        return this.http.get<LocationsResponse>(this.constants.API_ENDPOINT + '/locations')
+        return this.http.get<LocationsResponse>(
+            this.constants.API_ENDPOINT + '/locations'
+        );
     }
-
-
 }

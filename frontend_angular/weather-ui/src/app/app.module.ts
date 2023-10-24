@@ -15,24 +15,15 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavigationComponent,
-    FooterComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    OverviewModule,
-    ChartsModule
-  ],
-  providers: [
-    ApiHttpService,
-    Constants
-  ],
-  bootstrap: [
-    AppComponent
-  ]
+    declarations: [AppComponent, NavigationComponent, FooterComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        OverviewModule,
+        ChartsModule
+    ],
+    providers: [ApiHttpService, Constants],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

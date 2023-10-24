@@ -5,25 +5,22 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
 
 describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule],
-    declarations: [
-      AppComponent,
-      NavigationComponent,
-      FooterComponent
-    ]
-  }));
+    beforeEach(() =>
+        TestBed.configureTestingModule({
+            imports: [RouterTestingModule],
+            declarations: [AppComponent, NavigationComponent, FooterComponent]
+        })
+    );
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+    it('should create the app', () => {
+        const fixture = TestBed.createComponent(AppComponent);
+        const app = fixture.componentInstance;
+        expect(app).toBeTruthy();
+    });
 
-  it(`should have as title 'weather-ui'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('weather-ui');
-  });
-
+    it(`should have as title 'weather-ui'`, () => {
+        const fixture = TestBed.createComponent(AppComponent);
+        const app = fixture.componentInstance;
+        expect(app.title).toEqual('weather-ui');
+    });
 });

@@ -5,30 +5,28 @@ import { OnInit } from '@angular/core';
 import { Location } from 'src/app/model/location';
 
 @Component({
-  selector: 'app-overview',
-  templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.css']
+    selector: 'app-overview',
+    templateUrl: './overview.component.html',
+    styleUrls: ['./overview.component.css']
 })
 export class OverviewComponent implements OnInit {
+    locationList: Location[] = [];
 
-  locationList: Location[] = [];
+    constructor(private apiHttpService: ApiHttpService) {}
 
-  constructor(private apiHttpService: ApiHttpService) {
-  }
+    ngOnInit() {
+        this.getLocations();
+    }
 
-  ngOnInit() {
-    this.getLocations()
-  }
-
-  private getLocations(): void {
-    this.apiHttpService.getLocations()
-      .subscribe((locationsResponse: LocationsResponse) => {
-        if (locationsResponse !== undefined) {
-          this.locationList = locationsResponse.locations;
-        } else {
-          console.log('Undefined response.')
-        }
-      });
-  }
-
+    private getLocations(): void {
+        this.apiHttpService
+            .getLocations()
+            .subscribe((locationsResponse: LocationsResponse) => {
+                if (locationsResponse !== undefined) {
+                    this.locationList = locationsResponse.locations;
+                } else {
+                    console.log('Undefined response.');
+                }
+            });
+    }
 }
