@@ -7,11 +7,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'weather-ui';
-  router: Router;
+  title: string = 'weather-ui';
 
-  constructor(private _router: Router) {
+  constructor(private router: Router) {
+  }
 
-    this.router = _router;
+  getRouterUrl(): string {
+    return this.router.url;
   }
 }
