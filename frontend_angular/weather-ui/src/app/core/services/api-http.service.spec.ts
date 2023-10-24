@@ -2,8 +2,7 @@ import { of } from 'rxjs';
 import { Constants } from "src/app/config/constants";
 import { LocationsResponse } from "src/app/model/locations-response";
 import { ApiHttpService } from "./api-http.service";
-import { TestBed } from '@angular/core/testing';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 
 describe('ApiHttpService tests', () => {
