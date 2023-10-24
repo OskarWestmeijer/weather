@@ -1,5 +1,5 @@
-import { Location } from './location'
+import { Location } from './location';
 
 export interface LocationsResponse {
-    locations: Location[]
+    locations: Location[];
 }
