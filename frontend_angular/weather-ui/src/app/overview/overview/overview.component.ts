@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ApiHttpService } from 'src/app/core/services/api-http.service';
+import { ApiHttpService } from 'src/app/services/api-http.service';
 import { LocationsResponse } from 'src/app/model/locations-response';
 import { OnInit } from '@angular/core';
 import { Location } from 'src/app/model/location';

@@ -1,4 +1,4 @@
-import { ApiHttpService } from 'src/app/core/services/api-http.service';
+import { ApiHttpService } from 'src/app/services/api-http.service';
 import { OverviewComponent } from './overview.component';
 import { of } from 'rxjs';
 import { LocationsResponse } from 'src/app/model/locations-response';
