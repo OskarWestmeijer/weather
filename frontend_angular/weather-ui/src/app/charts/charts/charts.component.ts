@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiHttpService } from 'src/app/core/services/api-http.service';
-import { LocationsResponse } from 'src/app/model/locations-response';
-import { Location } from 'src/app/model/location';
+import { ApiHttpService } from 'src/app/service/api-http.service';
+import { LocationsResponse } from 'src/app/model/locations-response.model';
+import { Location } from 'src/app/model/location.model';
+import { Weather } from 'src/app/model/weather.model';
+import { WeatherResponse } from 'src/app/model/weather-response.model';
 
 @Component({
     selector: 'app-charts',
@@ -10,7 +12,9 @@ import { Location } from 'src/app/model/location';
 })
 export class ChartsComponent implements OnInit {
     public locationList: Location[] = [];
-    public selectedLocation: string = '';
+    public selectedLocation?: Location;
+
+    public weatherList?: Weather[];
 
     constructor(private apiHttpService: ApiHttpService) {}
 
@@ -18,8 +22,10 @@ export class ChartsComponent implements OnInit {
         this.getLocations();
     }
 
-    public onSelectChange(locationId: string): void {
-        console.log('changed to locationId: ' + locationId);
+    public onSelectChange(selectedLocation: Location): void {
+        console.dir(selectedLocation);
+        console.log('changed to location: ' + selectedLocation?.cityName);
+        this.getWeather(selectedLocation);
     }
 
     private getLocations(): void {
@@ -28,9 +34,22 @@ export class ChartsComponent implements OnInit {
             .subscribe((locationsResponse: LocationsResponse) => {
                 if (locationsResponse !== undefined) {
                     this.locationList = locationsResponse.locations;
-                    this.selectedLocation = this.locationList[0]?.uuid;
+                    this.selectedLocation = this.locationList[0];
+                    this.getWeather(this.selectedLocation);
                 } else {
-                    console.log('Undefined response.');
+                    console.log('Undefined locations response.');
+                }
+            });
+    }
+
+    private getWeather(location: Location): void {
+        this.apiHttpService
+            .getWeather(location)
+            .subscribe((weatherResponse: WeatherResponse) => {
+                if (weatherResponse !== undefined) {
+                    this.weatherList = weatherResponse.weatherData;
+                } else {
+                    console.log('Undefined weather response.');
                 }
             });
     }

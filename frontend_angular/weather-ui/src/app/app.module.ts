@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
-import { ApiHttpService } from './core/services/api-http.service';
+import { ApiHttpService } from './service/api-http.service';
 import { Constants } from './config/constants';
 
 import { AppRoutingModule } from './app-routing.module';
