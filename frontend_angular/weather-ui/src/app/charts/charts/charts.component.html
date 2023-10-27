@@ -3,15 +3,41 @@
         <div class="form-group">
             <label class="col-lg-2 col-md-12 col-form-label">Location</label>
             <div class="col-lg-5 col-md-12">
-                <select [(ngModel)]="selectedLocation" (ngModelChange)="onSelectChange($event)" class="form-select" aria-label="Location">
+                <select
+                    [(ngModel)]="selectedLocation"
+                    (ngModelChange)="onSelectChange($event)"
+                    name="selectedLocation"
+                    class="form-select"
+                    aria-label="Location"
+                >
                     <option
                         *ngFor="let location of locationList"
-                        [value]="location.uuid"
+                        [ngValue]="location"
                     >
                         {{ location.cityName }}, {{ location.countryCode }}
                     </option>
                 </select>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Temperature</th>
+                    <th scope="col">Humidity</th>
+                    <th scope="col">Windspeed</th>
+                    <th scope="col">Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let weather of weatherList; let i = index">
+                    <td>{{ weather.temperature }}</td>
+                    <td>{{ weather.humidity }}</td>
+                    <td>{{ weather.windSpeed }}</td>
+                    <td>{{ weather.recordedAt }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
