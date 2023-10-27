@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ApiHttpService } from 'src/app/core/services/api-http.service';
-import { LocationsResponse } from 'src/app/model/locations-response';
+import { ApiHttpService } from 'src/app/service/api-http.service';
+import { LocationsResponse } from 'src/app/model/locations-response.model';
 import { OnInit } from '@angular/core';
-import { Location } from 'src/app/model/location';
+import { Location } from 'src/app/model/location.model';
 
 @Component({
     selector: 'app-overview',

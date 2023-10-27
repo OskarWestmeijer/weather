@@ -1,4 +1,4 @@
-import { Weather } from './weather';
+import { Weather } from './weather.model';
 
 export interface WeatherResponse {
     cityName: string;

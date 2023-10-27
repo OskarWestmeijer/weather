@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiHttpService } from 'src/app/core/services/api-http.service';
-import { LocationsResponse } from 'src/app/model/locations-response';
-import { Location } from 'src/app/model/location';
-import { Weather } from 'src/app/model/weather';
-import { WeatherResponse } from 'src/app/model/weather-response';
+import { ApiHttpService } from 'src/app/service/api-http.service';
+import { LocationsResponse } from 'src/app/model/locations-response.model';
+import { Location } from 'src/app/model/location.model';
+import { Weather } from 'src/app/model/weather.model';
+import { WeatherResponse } from 'src/app/model/weather-response.model';
 
 @Component({
     selector: 'app-charts',

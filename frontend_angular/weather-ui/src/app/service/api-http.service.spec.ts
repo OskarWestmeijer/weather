@@ -1,6 +1,6 @@
 import { of } from 'rxjs';
 import { Constants } from 'src/app/config/constants';
-import { LocationsResponse } from 'src/app/model/locations-response';
+import { LocationsResponse } from 'src/app/model/locations-response.model';
 import { ApiHttpService } from './api-http.service';
 import { HttpClient } from '@angular/common/http';
 

@@ -1,8 +1,8 @@
 import { ChartsComponent } from './charts.component';
-import { ApiHttpService } from 'src/app/core/services/api-http.service';
-import { LocationsResponse } from 'src/app/model/locations-response';
+import { ApiHttpService } from 'src/app/service/api-http.service';
+import { LocationsResponse } from 'src/app/model/locations-response.model';
 import { of } from 'rxjs';
-import { WeatherResponse } from 'src/app/model/weather-response';
+import { WeatherResponse } from 'src/app/model/weather-response.model';
 
 describe('ChartsComponent', () => {
     let chartsComponent: ChartsComponent;

@@ -1,7 +1,7 @@
-import { ApiHttpService } from 'src/app/core/services/api-http.service';
+import { ApiHttpService } from 'src/app/service/api-http.service';
 import { OverviewComponent } from './overview.component';
 import { of } from 'rxjs';
-import { LocationsResponse } from 'src/app/model/locations-response';
+import { LocationsResponse } from 'src/app/model/locations-response.model';
 
 describe('OverviewComponent', () => {
     let overviewComponent: OverviewComponent;
