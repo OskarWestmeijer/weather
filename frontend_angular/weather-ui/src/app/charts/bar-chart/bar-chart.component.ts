@@ -21,22 +21,20 @@ export class BarChartComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
         this.createChart();
-        console.log('init chart: ' + this.chart);
     }
+
     ngOnChanges(changes: SimpleChanges): void {
         console.log('change detected');
         var chartExist = Chart.getChart('BarChart');
         if (chartExist != undefined) {
-            console.log('would destroy now')
+            this.createChart();
         }
     }
 
-    public createChart(): void {
+    private createChart(): void {
         const data = this.dataMap?.get(this.type);
-        console.log(data)
-        console.log(this.type)
 
-        //Chart.getChart('BarChart')?.destroy();
+        Chart.getChart('BarChart')?.destroy();
         this.chart = new Chart('BarChart', {
             type: 'bar',
 
