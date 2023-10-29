@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApiHttpService } from 'src/app/service/api-http.service';
 import { LocationsResponse } from 'src/app/model/locations-response.model';
 import { Location } from 'src/app/model/location.model';
-import { Weather } from 'src/app/model/weather.model';
 import { WeatherResponse } from 'src/app/model/weather-response.model';
 import { ChartData } from 'src/app/model/chart-data.model';
 import { WeatherService } from 'src/app/service/weather.service';
@@ -17,7 +16,6 @@ export class ChartsComponent implements OnInit {
     public locationList: Location[] = [];
     public selectedLocation?: Location;
 
-    public weatherList?: Weather[];
     public weatherMap?: Map<ChartType, ChartData[]>;
 
     public ChartType = ChartType;
@@ -48,15 +46,10 @@ export class ChartsComponent implements OnInit {
     }
 
     private requestWeather(location: Location): void {
-        this.apiHttpService
-            .requestWeather(location)
-            .subscribe((weatherResponse: WeatherResponse) => {
-                if (weatherResponse != undefined) {
-                    this.weatherList = weatherResponse.weatherData;
-                    this.weatherMap = this.weatherService.transformToMap(
-                        weatherResponse.weatherData
-                    );
-                }
-            });
+        this.apiHttpService.requestWeather(location).subscribe((weatherResponse: WeatherResponse) => {
+            if (weatherResponse != undefined) {
+                this.weatherMap = this.weatherService.toChartDataMap(weatherResponse.weatherData);
+            }
+        });
     }
 }

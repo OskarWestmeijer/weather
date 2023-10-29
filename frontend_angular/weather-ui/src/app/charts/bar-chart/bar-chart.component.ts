@@ -31,7 +31,6 @@ export class BarChartComponent implements OnInit, OnChanges {
             Chart.getChart('BarChart')?.destroy();
             this.chart = new Chart('BarChart', {
                 type: 'bar',
-
                 data: {
                     labels: data?.map((item) => item.recordedAt),
                     datasets: [
@@ -43,7 +42,12 @@ export class BarChartComponent implements OnInit, OnChanges {
                     ]
                 },
                 options: {
-                    aspectRatio: 2.5
+                    aspectRatio: 2.5,
+                    scales: {
+                        y: {
+                            suggestedMin: 0
+                        }
+                    }
                 }
             });
         }

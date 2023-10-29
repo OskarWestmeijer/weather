@@ -64,7 +64,7 @@ describe('ChartsComponent', () => {
         apiHttpServiceSpy.requestLocations.and.returnValue(of(expectedLocationResponse));
         apiHttpServiceSpy.requestWeather.and.returnValue(of(expectedWeatherResponse));
 
-        weatherServiceSpy.transformToMap.and.returnValue(expectedChartDataModel);
+        weatherServiceSpy.toChartDataMap.and.returnValue(expectedChartDataModel);
 
         chartsComponent.ngOnInit();
 
