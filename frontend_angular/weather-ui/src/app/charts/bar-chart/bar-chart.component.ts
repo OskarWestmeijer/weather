@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { ChartData } from 'src/app/model/chart-data.model';
+import { ChartType } from 'src/app/model/chart-type.enum';
 
 @Component({
     selector: 'app-bar-chart',
@@ -14,26 +15,24 @@ import { ChartData } from 'src/app/model/chart-data.model';
     styleUrls: ['./bar-chart.component.css']
 })
 export class BarChartComponent implements OnInit, OnChanges {
-    @Input({ required: true }) dataMap?: Map<string, ChartData[]>;
-    @Input({ required: true }) type: string = '';
+    @Input({ required: true }) dataMap?: Map<ChartType, ChartData[]>;
+    @Input({ required: true }) chartType?: ChartType;
 
     public chart: any;
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.createChart();
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        console.log('change detected');
+    public ngOnChanges(changes: SimpleChanges): void {
         if (changes['dataMap'] && Chart.getChart('BarChart') != undefined) {
-            console.log('dataMap change detected');
             this.createChart();
         }
     }
 
     private createChart(): void {
-        if (this.dataMap != undefined) {
-            const data = this.dataMap.get(this.type);
+        if (this.dataMap != undefined && this.chartType != undefined) {
+            const data = this.dataMap.get(this.chartType);
 
             Chart.getChart('BarChart')?.destroy();
             this.chart = new Chart('BarChart', {
@@ -43,7 +42,7 @@ export class BarChartComponent implements OnInit, OnChanges {
                     labels: data?.map((item) => item.recordedAt),
                     datasets: [
                         {
-                            label: this.type,
+                            label: this.chartType,
                             data: data?.map((item) => item.data),
                             backgroundColor: 'blue'
                         }

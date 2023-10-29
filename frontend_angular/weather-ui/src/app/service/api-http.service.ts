@@ -6,7 +6,9 @@ import { Observable } from 'rxjs';
 import { WeatherResponse } from 'src/app/model/weather-response.model';
 import { Location } from 'src/app/model/location.model';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ApiHttpService {
     constructor(
         private http: HttpClient,

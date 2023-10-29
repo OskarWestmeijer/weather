@@ -21,6 +21,10 @@
         </div>
     </div>
     <div class="row">
-        <app-bar-chart *ngIf="weatherMap" [dataMap]="weatherMap" [type]="'Temperature'"></app-bar-chart>
+        <app-bar-chart
+            *ngIf="weatherMap"
+            [dataMap]="weatherMap"
+            [chartType]="ChartType.TEMPERATURE"
+        ></app-bar-chart>
     </div>
 </div>

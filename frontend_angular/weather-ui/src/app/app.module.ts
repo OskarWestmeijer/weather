@@ -23,7 +23,7 @@ import { FooterComponent } from './footer/footer.component';
         OverviewModule,
         ChartsModule
     ],
-    providers: [ApiHttpService, Constants],
+    providers: [Constants],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

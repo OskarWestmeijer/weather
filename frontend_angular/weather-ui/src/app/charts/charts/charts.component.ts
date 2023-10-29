@@ -5,6 +5,8 @@ import { Location } from 'src/app/model/location.model';
 import { Weather } from 'src/app/model/weather.model';
 import { WeatherResponse } from 'src/app/model/weather-response.model';
 import { ChartData } from 'src/app/model/chart-data.model';
+import { WeatherService } from 'src/app/service/weather.service';
+import { ChartType } from 'src/app/model/chart-type.enum';
 
 @Component({
     selector: 'app-charts',
@@ -16,9 +18,14 @@ export class ChartsComponent implements OnInit {
     public selectedLocation?: Location;
 
     public weatherList?: Weather[];
-    public weatherMap?: Map<string, ChartData[]>;
+    public weatherMap?: Map<ChartType, ChartData[]>;
 
-    constructor(private apiHttpService: ApiHttpService) {}
+    public ChartType = ChartType;
+
+    constructor(
+        private apiHttpService: ApiHttpService,
+        private weatherService: WeatherService
+    ) {}
 
     public ngOnInit() {
         this.requestLocations();
@@ -48,36 +55,10 @@ export class ChartsComponent implements OnInit {
             .subscribe((weatherResponse: WeatherResponse) => {
                 if (weatherResponse != undefined) {
                     this.weatherList = weatherResponse.weatherData;
-                    this.weatherMap = this.transformToMap(
+                    this.weatherMap = this.weatherService.transformToMap(
                         weatherResponse.weatherData
                     );
                 }
             });
-    }
-
-    private transformToMap(weatherData: Weather[]): Map<string, ChartData[]> {
-        const temperatureModel: ChartData[] = weatherData.map(
-            (weather: Weather) => ({
-                data: weather.temperature,
-                recordedAt: weather.recordedAt
-            })
-        );
-        const humidityModel: ChartData[] = weatherData.map(
-            (weather: Weather) => ({
-                data: weather.humidity,
-                recordedAt: weather.recordedAt
-            })
-        );
-        const windSpeedModel: ChartData[] = weatherData.map(
-            (weather: Weather) => ({
-                data: weather.windSpeed,
-                recordedAt: weather.recordedAt
-            })
-        );
-        const weatherMap = new Map();
-        weatherMap.set('Temperature', temperatureModel);
-        weatherMap.set('Humidity', humidityModel);
-        weatherMap.set('WindSpeed', windSpeedModel);
-        return weatherMap;
     }
 }
