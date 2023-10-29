@@ -13,10 +13,7 @@ describe('ChartsComponent', () => {
     let weatherServiceSpy: jasmine.SpyObj<WeatherService>;
 
     beforeEach(() => {
-        apiHttpServiceSpy = jasmine.createSpyObj('ApiHttpService', [
-            'requestLocations',
-            'requestWeather'
-        ]);
+        apiHttpServiceSpy = jasmine.createSpyObj('ApiHttpService', ['requestLocations', 'requestWeather']);
         weatherServiceSpy = jasmine.createSpyObj('WeatherService', ['transformToMap']);
         chartsComponent = new ChartsComponent(apiHttpServiceSpy, weatherServiceSpy);
     });
@@ -54,12 +51,8 @@ describe('ChartsComponent', () => {
         expectedChartDataModel.set(ChartType.TEMPERATURE, [
             { data: '34.56', recordedAt: '2023-10-27T19:11:21.738405Z' }
         ]);
-        expectedChartDataModel.set(ChartType.HUMIDITY, [
-            { data: '66', recordedAt: '2023-10-27T19:11:21.738405Z' }
-        ]);
-        expectedChartDataModel.set(ChartType.WIND_SPEED, [
-            { data: '5.76', recordedAt: '2023-10-27T19:11:21.738405Z' }
-        ]);
+        expectedChartDataModel.set(ChartType.HUMIDITY, [{ data: '66', recordedAt: '2023-10-27T19:11:21.738405Z' }]);
+        expectedChartDataModel.set(ChartType.WIND_SPEED, [{ data: '5.76', recordedAt: '2023-10-27T19:11:21.738405Z' }]);
 
         apiHttpServiceSpy.requestLocations.and.returnValue(of(expectedLocationResponse));
         apiHttpServiceSpy.requestWeather.and.returnValue(of(expectedWeatherResponse));
@@ -72,9 +65,7 @@ describe('ChartsComponent', () => {
 
         expect(chartsComponent.locationList.length).withContext('has one location entry').toBe(1);
 
-        expect(apiHttpServiceSpy.requestLocations.calls.count())
-            .withContext('calls api service for locations')
-            .toBe(1);
+        expect(apiHttpServiceSpy.requestLocations.calls.count()).withContext('calls api service for locations').toBe(1);
 
         expect(chartsComponent.selectedLocation)
             .withContext('has selected location')
@@ -88,8 +79,6 @@ describe('ChartsComponent', () => {
             .withContext('has three entries')
             .toBe(3);
 
-        expect(apiHttpServiceSpy.requestWeather.calls.count())
-            .withContext('calls api service for weather')
-            .toBe(1);
+        expect(apiHttpServiceSpy.requestWeather.calls.count()).withContext('calls api service for weather').toBe(1);
     });
 });

@@ -33,8 +33,6 @@ describe('OverviewComponent', () => {
 
         expect(overviewComponent.locationList.length).withContext('has one location entry').toBe(1);
 
-        expect(apiHttpServiceSpy.requestLocations.calls.count())
-            .withContext('calls api service for locations')
-            .toBe(1);
+        expect(apiHttpServiceSpy.requestLocations.calls.count()).withContext('calls api service for locations').toBe(1);
     });
 });
