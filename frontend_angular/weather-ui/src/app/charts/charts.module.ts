@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChartsComponent } from './charts/charts.component';
 import { FormsModule } from '@angular/forms';
-import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { TimelapseChartComponent } from './bar-chart/timelapse-chart.component';
 
 @NgModule({
-    declarations: [ChartsComponent, BarChartComponent],
+    declarations: [ChartsComponent, TimelapseChartComponent],
     imports: [CommonModule, FormsModule],
     exports: [ChartsComponent]
 })

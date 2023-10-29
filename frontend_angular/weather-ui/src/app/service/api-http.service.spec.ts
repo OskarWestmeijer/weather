@@ -20,12 +20,8 @@ describe('ApiHttpService tests', () => {
 
         apiHttpService.requestLocations().subscribe({
             next: (actualResponse) => {
-                expect(actualResponse)
-                    .withContext('expected response')
-                    .toEqual(expectedLocationResponse);
-                expect(actualResponse.locations.length)
-                    .withContext('has no location entry')
-                    .toBe(0);
+                expect(actualResponse).withContext('expected response').toEqual(expectedLocationResponse);
+                expect(actualResponse.locations.length).withContext('has no location entry').toBe(0);
             }
         });
         expect(httpClientSpy.get.calls.count()).withContext('one call').toBe(1);
@@ -50,12 +46,8 @@ describe('ApiHttpService tests', () => {
 
         apiHttpService.requestLocations().subscribe({
             next: (actualResponse) => {
-                expect(actualResponse)
-                    .withContext('expected response')
-                    .toEqual(expectedLocationResponse);
-                expect(actualResponse.locations.length)
-                    .withContext('has one location entry')
-                    .toBe(1);
+                expect(actualResponse).withContext('expected response').toEqual(expectedLocationResponse);
+                expect(actualResponse.locations.length).withContext('has one location entry').toBe(1);
             }
         });
         expect(httpClientSpy.get.calls.count()).withContext('one call').toBe(1);

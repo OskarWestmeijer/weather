@@ -1,5 +1,5 @@
 export enum ChartType {
-    TEMPERATURE = 'Temperature',
-    HUMIDITY = 'Humidity',
-    WIND_SPEED = 'Wind speed'
+    TEMPERATURE = 'Temperature [°C]',
+    HUMIDITY = 'Humidity [%]',
+    WIND_SPEED = 'Wind speed [km/h]'
 }

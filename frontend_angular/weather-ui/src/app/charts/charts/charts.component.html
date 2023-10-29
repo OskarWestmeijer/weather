@@ -1,9 +1,7 @@
 <div class="container pt-3 mt-4">
     <div class="row">
         <div class="form-group">
-            <label class="col-lg-2 col-md-12 col-form-label" htmlFor="location-select"
-                >Location</label
-            >
+            <label class="col-lg-2 col-md-12 col-form-label" htmlFor="location-select">Location</label>
             <div class="col-lg-5 col-md-12">
                 <select
                     [(ngModel)]="selectedLocation"
@@ -21,10 +19,6 @@
         </div>
     </div>
     <div class="row">
-        <app-bar-chart
-            *ngIf="weatherMap"
-            [dataMap]="weatherMap"
-            [chartType]="ChartType.TEMPERATURE"
-        ></app-bar-chart>
+        <app-bar-chart *ngIf="weatherMap" [dataMap]="weatherMap" [chartType]="ChartType.TEMPERATURE"></app-bar-chart>
     </div>
 </div>
