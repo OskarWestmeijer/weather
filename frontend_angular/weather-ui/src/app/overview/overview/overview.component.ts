@@ -15,10 +15,10 @@ export class OverviewComponent implements OnInit {
     constructor(private apiHttpService: ApiHttpService) {}
 
     ngOnInit() {
-        this.getLocations();
+        this.requestLocations();
     }
 
-    private getLocations(): void {
+    private requestLocations(): void {
         this.apiHttpService
             .requestLocations()
             .subscribe((locationsResponse: LocationsResponse) => {

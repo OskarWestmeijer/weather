@@ -10,8 +10,8 @@ describe('ChartsComponent', () => {
 
     beforeEach(() => {
         apiHttpServiceSpy = jasmine.createSpyObj('ApiHttpService', [
-            'getLocations',
-            'getWeather'
+            'requestLocations',
+            'requestWeather'
         ]);
         chartsComponent = new ChartsComponent(apiHttpServiceSpy);
     });

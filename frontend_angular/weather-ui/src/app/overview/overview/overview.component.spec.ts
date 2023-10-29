@@ -9,7 +9,7 @@ describe('OverviewComponent', () => {
 
     beforeEach(() => {
         apiHttpServiceSpy = jasmine.createSpyObj('ApiHttpService', [
-            'getLocations'
+            'requestLocations'
         ]);
         overviewComponent = new OverviewComponent(apiHttpServiceSpy);
     });
