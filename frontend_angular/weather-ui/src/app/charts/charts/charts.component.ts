@@ -38,15 +38,13 @@ export class ChartsComponent implements OnInit {
     }
 
     private requestLocations(): void {
-        this.apiHttpService
-            .requestLocations()
-            .subscribe((locationsResponse: LocationsResponse) => {
-                if (locationsResponse != undefined) {
-                    this.locationList = locationsResponse.locations;
-                    this.selectedLocation = this.locationList[0];
-                    this.requestWeather(this.selectedLocation);
-                }
-            });
+        this.apiHttpService.requestLocations().subscribe((locationsResponse: LocationsResponse) => {
+            if (locationsResponse != undefined) {
+                this.locationList = locationsResponse.locations;
+                this.selectedLocation = this.locationList[0];
+                this.requestWeather(this.selectedLocation);
+            }
+        });
     }
 
     private requestWeather(location: Location): void {

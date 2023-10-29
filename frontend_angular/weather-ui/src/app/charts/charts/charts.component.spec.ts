@@ -17,13 +17,8 @@ describe('ChartsComponent', () => {
             'requestLocations',
             'requestWeather'
         ]);
-        weatherServiceSpy = jasmine.createSpyObj('WeatherService', [
-            'transformToMap'
-        ]);
-        chartsComponent = new ChartsComponent(
-            apiHttpServiceSpy,
-            weatherServiceSpy
-        );
+        weatherServiceSpy = jasmine.createSpyObj('WeatherService', ['transformToMap']);
+        chartsComponent = new ChartsComponent(apiHttpServiceSpy, weatherServiceSpy);
     });
 
     it('should create component with locations and weather', () => {
@@ -66,24 +61,16 @@ describe('ChartsComponent', () => {
             { data: '5.76', recordedAt: '2023-10-27T19:11:21.738405Z' }
         ]);
 
-        apiHttpServiceSpy.requestLocations.and.returnValue(
-            of(expectedLocationResponse)
-        );
-        apiHttpServiceSpy.requestWeather.and.returnValue(
-            of(expectedWeatherResponse)
-        );
+        apiHttpServiceSpy.requestLocations.and.returnValue(of(expectedLocationResponse));
+        apiHttpServiceSpy.requestWeather.and.returnValue(of(expectedWeatherResponse));
 
-        weatherServiceSpy.transformToMap.and.returnValue(
-            expectedChartDataModel
-        );
+        weatherServiceSpy.transformToMap.and.returnValue(expectedChartDataModel);
 
         chartsComponent.ngOnInit();
 
         expect(chartsComponent).toBeTruthy();
 
-        expect(chartsComponent.locationList.length)
-            .withContext('has one location entry')
-            .toBe(1);
+        expect(chartsComponent.locationList.length).withContext('has one location entry').toBe(1);
 
         expect(apiHttpServiceSpy.requestLocations.calls.count())
             .withContext('calls api service for locations')

@@ -10,10 +10,7 @@
                     class="form-select"
                     aria-label="Location"
                 >
-                    <option
-                        *ngFor="let location of locationList"
-                        [ngValue]="location"
-                    >
+                    <option *ngFor="let location of locationList" [ngValue]="location">
                         {{ location.cityName }}, {{ location.countryCode }}
                     </option>
                 </select>

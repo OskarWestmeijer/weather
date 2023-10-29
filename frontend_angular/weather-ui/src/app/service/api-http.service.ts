@@ -16,17 +16,11 @@ export class ApiHttpService {
     ) {}
 
     public requestLocations(): Observable<LocationsResponse> {
-        return this.http.get<LocationsResponse>(
-            this.constants.API_ENDPOINT + '/locations'
-        );
+        return this.http.get<LocationsResponse>(this.constants.API_ENDPOINT + '/locations');
     }
 
     public requestWeather(location: Location): Observable<WeatherResponse> {
-        let url =
-            this.constants.API_ENDPOINT +
-            '/weather/' +
-            location.localZipCode +
-            '/24h';
+        let url = this.constants.API_ENDPOINT + '/weather/' + location.localZipCode + '/24h';
         return this.http.get<WeatherResponse>(url);
     }
 }

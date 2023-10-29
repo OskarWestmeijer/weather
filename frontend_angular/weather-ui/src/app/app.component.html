@@ -1,9 +1,7 @@
 <app-navigation [title]="title"></app-navigation>
 
 <!-- example on how to add conditional component -->
-<app-overview
-    *ngIf="getRouterUrl() === '/never-going-to-happen'"
-></app-overview>
+<app-overview *ngIf="getRouterUrl() === '/never-going-to-happen'"></app-overview>
 
 <router-outlet></router-outlet>
 
