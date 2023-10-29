@@ -26,27 +26,66 @@ export class BarChartComponent implements OnInit, OnChanges {
 
     private createChart(): void {
         if (this.dataMap != undefined && this.chartType != undefined) {
-            const data = this.dataMap.get(this.chartType);
-
             Chart.getChart('BarChart')?.destroy();
             this.chart = new Chart('BarChart', {
-                type: 'bar',
                 data: {
-                    labels: data?.map((item) => item.recordedAt),
+                    labels: this.dataMap.get(ChartType.TEMPERATURE)?.map((item) => item.recordedAt),
                     datasets: [
                         {
-                            label: this.chartType,
-                            data: data?.map((item) => item.data),
-                            backgroundColor: 'blue'
+                            type: 'line',
+                            label: ChartType.TEMPERATURE,
+                            data: this.dataMap.get(ChartType.TEMPERATURE)?.map((item) => item.data),
+                            backgroundColor: 'orange',
+                            borderColor: 'orange',
+                            fill: false,
+                            yAxisID: 'temperatureY'
+                        },
+                        {
+                            type: 'bar',
+                            label: ChartType.HUMIDITY,
+                            data: this.dataMap.get(ChartType.HUMIDITY)?.map((item) => item.data),
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgba(75,192,192,0.2)',
+                            yAxisID: 'humidityY'
+                        },
+                        {
+                            type: 'bar',
+                            label: ChartType.WIND_SPEED,
+                            data: this.dataMap.get(ChartType.WIND_SPEED)?.map((item) => item.data),
+                            backgroundColor: 'rgba(0,0,0,0.2)',
+                            xAxisID: 'topX',
+                            yAxisID: 'windSpeedY'
                         }
                     ]
                 },
                 options: {
-                    aspectRatio: 2.5,
+                    aspectRatio: 2.7,
                     scales: {
-                        y: {
-                            suggestedMin: 0
-                        }
+                        temperatureY: {
+                            position: 'left'
+                        },
+                        humidityY: {
+                            position: 'right',
+                            ticks: {
+                                stepSize: 10,
+                                callback: function (value, index, ticks) {
+                                    return value + '%';
+                                }
+                            }
+                        },
+                        windSpeedY: {
+                            display: false
+                        },
+                        topX: {
+                            position: 'top',
+                            display: true,
+                            ticks: {
+                                stepSize: 10,
+                                callback: function (value, index, ticks) {
+                                    return index.toString();
+                                }
+                            }
+                        },
                     }
                 }
             });
