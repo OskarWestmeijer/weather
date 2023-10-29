@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
-import { ApiHttpService } from './service/api-http.service';
 import { Constants } from './config/constants';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,14 +15,8 @@ import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
     declarations: [AppComponent, NavigationComponent, FooterComponent],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        OverviewModule,
-        ChartsModule
-    ],
-    providers: [ApiHttpService, Constants],
+    imports: [BrowserModule, AppRoutingModule, HttpClientModule, OverviewModule, ChartsModule],
+    providers: [Constants],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

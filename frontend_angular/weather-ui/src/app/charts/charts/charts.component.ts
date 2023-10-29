@@ -4,6 +4,9 @@ import { LocationsResponse } from 'src/app/model/locations-response.model';
 import { Location } from 'src/app/model/location.model';
 import { Weather } from 'src/app/model/weather.model';
 import { WeatherResponse } from 'src/app/model/weather-response.model';
+import { ChartData } from 'src/app/model/chart-data.model';
+import { WeatherService } from 'src/app/service/weather.service';
+import { ChartType } from 'src/app/model/chart-type.enum';
 
 @Component({
     selector: 'app-charts',
@@ -15,41 +18,44 @@ export class ChartsComponent implements OnInit {
     public selectedLocation?: Location;
 
     public weatherList?: Weather[];
+    public weatherMap?: Map<ChartType, ChartData[]>;
 
-    constructor(private apiHttpService: ApiHttpService) {}
+    public ChartType = ChartType;
 
-    ngOnInit() {
-        this.getLocations();
+    constructor(
+        private apiHttpService: ApiHttpService,
+        private weatherService: WeatherService
+    ) {}
+
+    public ngOnInit() {
+        this.requestLocations();
     }
 
     public onSelectChange(selectedLocation: Location): void {
         console.dir(selectedLocation);
         console.log('changed to location: ' + selectedLocation?.cityName);
-        this.getWeather(selectedLocation);
+        this.requestWeather(selectedLocation);
     }
 
-    private getLocations(): void {
-        this.apiHttpService
-            .getLocations()
-            .subscribe((locationsResponse: LocationsResponse) => {
-                if (locationsResponse !== undefined) {
-                    this.locationList = locationsResponse.locations;
-                    this.selectedLocation = this.locationList[0];
-                    this.getWeather(this.selectedLocation);
-                } else {
-                    console.log('Undefined locations response.');
-                }
-            });
+    private requestLocations(): void {
+        this.apiHttpService.requestLocations().subscribe((locationsResponse: LocationsResponse) => {
+            if (locationsResponse != undefined) {
+                this.locationList = locationsResponse.locations;
+                this.selectedLocation = this.locationList[0];
+                this.requestWeather(this.selectedLocation);
+            }
+        });
     }
 
-    private getWeather(location: Location): void {
+    private requestWeather(location: Location): void {
         this.apiHttpService
-            .getWeather(location)
+            .requestWeather(location)
             .subscribe((weatherResponse: WeatherResponse) => {
-                if (weatherResponse !== undefined) {
+                if (weatherResponse != undefined) {
                     this.weatherList = weatherResponse.weatherData;
-                } else {
-                    console.log('Undefined weather response.');
+                    this.weatherMap = this.weatherService.transformToMap(
+                        weatherResponse.weatherData
+                    );
                 }
             });
     }

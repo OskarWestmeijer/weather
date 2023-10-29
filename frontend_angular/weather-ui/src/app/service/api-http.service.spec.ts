@@ -18,7 +18,7 @@ describe('ApiHttpService tests', () => {
 
         httpClientSpy.get.and.returnValue(of(expectedLocationResponse));
 
-        apiHttpService.getLocations().subscribe({
+        apiHttpService.requestLocations().subscribe({
             next: (actualResponse) => {
                 expect(actualResponse)
                     .withContext('expected response')
@@ -48,7 +48,7 @@ describe('ApiHttpService tests', () => {
 
         httpClientSpy.get.and.returnValue(of(expectedLocationResponse));
 
-        apiHttpService.getLocations().subscribe({
+        apiHttpService.requestLocations().subscribe({
             next: (actualResponse) => {
                 expect(actualResponse)
                     .withContext('expected response')

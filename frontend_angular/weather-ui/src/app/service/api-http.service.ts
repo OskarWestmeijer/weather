@@ -6,25 +6,21 @@ import { Observable } from 'rxjs';
 import { WeatherResponse } from 'src/app/model/weather-response.model';
 import { Location } from 'src/app/model/location.model';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ApiHttpService {
     constructor(
         private http: HttpClient,
         private constants: Constants
     ) {}
 
-    public getLocations(): Observable<LocationsResponse> {
-        return this.http.get<LocationsResponse>(
-            this.constants.API_ENDPOINT + '/locations'
-        );
+    public requestLocations(): Observable<LocationsResponse> {
+        return this.http.get<LocationsResponse>(this.constants.API_ENDPOINT + '/locations');
     }
 
-    public getWeather(location: Location): Observable<WeatherResponse> {
-        let url =
-            this.constants.API_ENDPOINT +
-            '/weather/' +
-            location.localZipCode +
-            '/24h';
+    public requestWeather(location: Location): Observable<WeatherResponse> {
+        const url = this.constants.API_ENDPOINT + '/weather/' + location.localZipCode + '/24h';
         return this.http.get<WeatherResponse>(url);
     }
 }

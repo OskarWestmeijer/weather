@@ -8,9 +8,7 @@ describe('OverviewComponent', () => {
     let apiHttpServiceSpy: jasmine.SpyObj<ApiHttpService>;
 
     beforeEach(() => {
-        apiHttpServiceSpy = jasmine.createSpyObj('ApiHttpService', [
-            'getLocations'
-        ]);
+        apiHttpServiceSpy = jasmine.createSpyObj('ApiHttpService', ['requestLocations']);
         overviewComponent = new OverviewComponent(apiHttpServiceSpy);
     });
 
@@ -28,18 +26,14 @@ describe('OverviewComponent', () => {
                 }
             ]
         };
-        apiHttpServiceSpy.getLocations.and.returnValue(
-            of(expectedLocationResponse)
-        );
+        apiHttpServiceSpy.requestLocations.and.returnValue(of(expectedLocationResponse));
         overviewComponent.ngOnInit();
 
         expect(overviewComponent).toBeTruthy();
 
-        expect(overviewComponent.locationList.length)
-            .withContext('has one location entry')
-            .toBe(1);
+        expect(overviewComponent.locationList.length).withContext('has one location entry').toBe(1);
 
-        expect(apiHttpServiceSpy.getLocations.calls.count())
+        expect(apiHttpServiceSpy.requestLocations.calls.count())
             .withContext('calls api service for locations')
             .toBe(1);
     });

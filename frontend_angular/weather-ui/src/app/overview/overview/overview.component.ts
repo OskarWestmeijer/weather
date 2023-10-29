@@ -15,18 +15,16 @@ export class OverviewComponent implements OnInit {
     constructor(private apiHttpService: ApiHttpService) {}
 
     ngOnInit() {
-        this.getLocations();
+        this.requestLocations();
     }
 
-    private getLocations(): void {
-        this.apiHttpService
-            .getLocations()
-            .subscribe((locationsResponse: LocationsResponse) => {
-                if (locationsResponse !== undefined) {
-                    this.locationList = locationsResponse.locations;
-                } else {
-                    console.log('Undefined response.');
-                }
-            });
+    private requestLocations(): void {
+        this.apiHttpService.requestLocations().subscribe((locationsResponse: LocationsResponse) => {
+            if (locationsResponse !== undefined) {
+                this.locationList = locationsResponse.locations;
+            } else {
+                console.log('Undefined response.');
+            }
+        });
     }
 }
