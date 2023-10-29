@@ -28,7 +28,7 @@ describe('OverviewComponent', () => {
                 }
             ]
         };
-        apiHttpServiceSpy.getLocations.and.returnValue(
+        apiHttpServiceSpy.requestLocations.and.returnValue(
             of(expectedLocationResponse)
         );
         overviewComponent.ngOnInit();
@@ -39,7 +39,7 @@ describe('OverviewComponent', () => {
             .withContext('has one location entry')
             .toBe(1);
 
-        expect(apiHttpServiceSpy.getLocations.calls.count())
+        expect(apiHttpServiceSpy.requestLocations.calls.count())
             .withContext('calls api service for locations')
             .toBe(1);
     });

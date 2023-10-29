@@ -20,54 +20,64 @@ export class ChartsComponent implements OnInit {
 
     constructor(private apiHttpService: ApiHttpService) {}
 
-    ngOnInit() {
-        this.getLocations();
+    public ngOnInit() {
+        this.requestLocations();
     }
 
     public onSelectChange(selectedLocation: Location): void {
         console.dir(selectedLocation);
         console.log('changed to location: ' + selectedLocation?.cityName);
-        this.getWeather(selectedLocation);
+        this.requestWeather(selectedLocation);
     }
 
-    private getLocations(): void {
+    private requestLocations(): void {
         this.apiHttpService
-            .getLocations()
+            .requestLocations()
             .subscribe((locationsResponse: LocationsResponse) => {
                 if (locationsResponse != undefined) {
                     this.locationList = locationsResponse.locations;
                     this.selectedLocation = this.locationList[0];
-                    this.getWeather(this.selectedLocation);
+                    this.requestWeather(this.selectedLocation);
                 }
             });
     }
 
-    private getWeather(location: Location): void {
+    private requestWeather(location: Location): void {
         this.apiHttpService
-            .getWeather(location)
+            .requestWeather(location)
             .subscribe((weatherResponse: WeatherResponse) => {
                 if (weatherResponse != undefined) {
                     this.weatherList = weatherResponse.weatherData;
-                    const temperatureModel: ChartData[] =
-                        weatherResponse.weatherData.map((weather: Weather) => ({
-                            data: weather.temperature,
-                            recordedAt: weather.recordedAt
-                        }));
-                    const humidityModel: ChartData[] =
-                        weatherResponse.weatherData.map((weather: Weather) => ({
-                            data: weather.humidity,
-                            recordedAt: weather.recordedAt
-                        }));
-                    const windSpeedModel: ChartData[] =
-                        weatherResponse.weatherData.map((weather: Weather) => ({
-                            data: weather.windSpeed,
-                            recordedAt: weather.recordedAt
-                        }));
-                    this.weatherMap = new Map();
-                    this.weatherMap?.set('Temperature', temperatureModel);
-                    this.weatherMap?.set('Humidity', humidityModel);
-                    this.weatherMap?.set('WindSpeed', windSpeedModel);
+                    this.weatherMap = this.transformToMap(
+                        weatherResponse.weatherData
+                    );
                 }
             });
+    }
+
+    private transformToMap(weatherData: Weather[]): Map<string, ChartData[]> {
+        const temperatureModel: ChartData[] = weatherData.map(
+            (weather: Weather) => ({
+                data: weather.temperature,
+                recordedAt: weather.recordedAt
+            })
+        );
+        const humidityModel: ChartData[] = weatherData.map(
+            (weather: Weather) => ({
+                data: weather.humidity,
+                recordedAt: weather.recordedAt
+            })
+        );
+        const windSpeedModel: ChartData[] = weatherData.map(
+            (weather: Weather) => ({
+                data: weather.windSpeed,
+                recordedAt: weather.recordedAt
+            })
+        );
+        const weatherMap = new Map();
+        weatherMap.set('Temperature', temperatureModel);
+        weatherMap.set('Humidity', humidityModel);
+        weatherMap.set('WindSpeed', windSpeedModel);
+        return weatherMap;
     }
 }

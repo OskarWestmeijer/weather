@@ -45,10 +45,10 @@ describe('ChartsComponent', () => {
             ]
         };
 
-        apiHttpServiceSpy.getLocations.and.returnValue(
+        apiHttpServiceSpy.requestLocations.and.returnValue(
             of(expectedLocationResponse)
         );
-        apiHttpServiceSpy.getWeather.and.returnValue(
+        apiHttpServiceSpy.requestWeather.and.returnValue(
             of(expectedWeatherResponse)
         );
         chartsComponent.ngOnInit();
@@ -59,7 +59,7 @@ describe('ChartsComponent', () => {
             .withContext('has one location entry')
             .toBe(1);
 
-        expect(apiHttpServiceSpy.getLocations.calls.count())
+        expect(apiHttpServiceSpy.requestLocations.calls.count())
             .withContext('calls api service for locations')
             .toBe(1);
 
@@ -71,7 +71,7 @@ describe('ChartsComponent', () => {
             .withContext('has no entry')
             .toBe(1);
 
-        expect(apiHttpServiceSpy.getWeather.calls.count())
+        expect(apiHttpServiceSpy.requestWeather.calls.count())
             .withContext('calls api service for weather')
             .toBe(1);
     });

@@ -20,7 +20,7 @@ export class OverviewComponent implements OnInit {
 
     private getLocations(): void {
         this.apiHttpService
-            .getLocations()
+            .requestLocations()
             .subscribe((locationsResponse: LocationsResponse) => {
                 if (locationsResponse !== undefined) {
                     this.locationList = locationsResponse.locations;

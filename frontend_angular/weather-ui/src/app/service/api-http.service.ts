@@ -13,13 +13,13 @@ export class ApiHttpService {
         private constants: Constants
     ) {}
 
-    public getLocations(): Observable<LocationsResponse> {
+    public requestLocations(): Observable<LocationsResponse> {
         return this.http.get<LocationsResponse>(
             this.constants.API_ENDPOINT + '/locations'
         );
     }
 
-    public getWeather(location: Location): Observable<WeatherResponse> {
+    public requestWeather(location: Location): Observable<WeatherResponse> {
         let url =
             this.constants.API_ENDPOINT +
             '/weather/' +

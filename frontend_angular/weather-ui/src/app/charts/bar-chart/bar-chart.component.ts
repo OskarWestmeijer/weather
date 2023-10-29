@@ -25,33 +25,34 @@ export class BarChartComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         console.log('change detected');
-        var chartExist = Chart.getChart('BarChart');
-        if (chartExist != undefined) {
+        if (changes['dataMap'] && Chart.getChart('BarChart') != undefined) {
+            console.log('dataMap change detected');
             this.createChart();
         }
     }
 
     private createChart(): void {
-        const data = this.dataMap?.get(this.type);
+        if (this.dataMap != undefined) {
+            const data = this.dataMap.get(this.type);
 
-        Chart.getChart('BarChart')?.destroy();
-        this.chart = new Chart('BarChart', {
-            type: 'bar',
+            Chart.getChart('BarChart')?.destroy();
+            this.chart = new Chart('BarChart', {
+                type: 'bar',
 
-            data: {
-                // values on X-Axis
-                labels: data?.map((item) => item.recordedAt),
-                datasets: [
-                    {
-                        label: this.type,
-                        data: data?.map((item) => item.data),
-                        backgroundColor: 'blue'
-                    }
-                ]
-            },
-            options: {
-                aspectRatio: 2.5
-            }
-        });
+                data: {
+                    labels: data?.map((item) => item.recordedAt),
+                    datasets: [
+                        {
+                            label: this.type,
+                            data: data?.map((item) => item.data),
+                            backgroundColor: 'blue'
+                        }
+                    ]
+                },
+                options: {
+                    aspectRatio: 2.5
+                }
+            });
+        }
     }
 }
