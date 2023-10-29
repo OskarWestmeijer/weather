@@ -7,8 +7,6 @@ import { ChartType } from '../model/chart-type.enum';
     providedIn: 'root'
 })
 export class WeatherService {
-    constructor() {}
-
     public transformToMap(weatherData: Weather[]): Map<ChartType, ChartData[]> {
         const temperatureModel: ChartData[] = weatherData.map((weather: Weather) => ({
             data: weather.temperature,
