@@ -1,7 +1,9 @@
 <div class="container pt-3 mt-4">
     <div class="row">
         <div class="form-group">
-            <label class="col-lg-2 col-md-12 col-form-label">Location</label>
+            <label class="col-lg-2 col-md-12 col-form-label" htmlFor="location-select"
+                >Location</label
+            >
             <div class="col-lg-5 col-md-12">
                 <select
                     [(ngModel)]="selectedLocation"
@@ -9,6 +11,7 @@
                     name="selectedLocation"
                     class="form-select"
                     aria-label="Location"
+                    id="location-select"
                 >
                     <option *ngFor="let location of locationList" [ngValue]="location">
                         {{ location.cityName }}, {{ location.countryCode }}
