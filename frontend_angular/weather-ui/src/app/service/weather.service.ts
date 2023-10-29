@@ -35,9 +35,9 @@ export class WeatherService {
         const chartDataMap = this.initChartMap();
 
         hourlyWeather.forEach((items: Weather[], hour: string) => {
-            let temparatureSum: number = 0;
-            let humiditySum: number = 0;
-            let windSpeedSum: number = 0;
+            let temparatureSum = 0;
+            let humiditySum = 0;
+            let windSpeedSum = 0;
 
             items.forEach((weather) => {
                 temparatureSum += parseFloat(weather.temperature);

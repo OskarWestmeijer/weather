@@ -5,10 +5,10 @@ import { ChartType } from 'src/app/model/chart-type.enum';
 
 @Component({
     selector: 'app-bar-chart',
-    templateUrl: './bar-chart.component.html',
-    styleUrls: ['./bar-chart.component.css']
+    templateUrl: './timelapse-chart.component.html',
+    styleUrls: ['./timelapse-chart.component.css']
 })
-export class BarChartComponent implements OnInit, OnChanges {
+export class TimelapseChartComponent implements OnInit, OnChanges {
     @Input({ required: true }) dataMap?: Map<ChartType, ChartData[]>;
     @Input({ required: true }) chartType?: ChartType;
 
@@ -65,7 +65,7 @@ export class BarChartComponent implements OnInit, OnChanges {
                             ticks: {
                                 stepSize: 10,
                                 maxTicksLimit: 100,
-                                callback: function (value, index, ticks) {
+                                callback: function (value) {
                                     return value + '%';
                                 }
                             },
