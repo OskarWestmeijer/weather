@@ -12,5 +12,5 @@ public interface LocationRepository {
 
   ImportJobLocation getNextImportLocation();
 
-  Location findByLocalZipCode(String localZipCode);
+  Location getByLocalZipCode(String localZipCode);
 }

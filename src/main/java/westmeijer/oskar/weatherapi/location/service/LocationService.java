@@ -14,9 +14,9 @@ public class LocationService {
 
   private final LocationRepository locationRepository;
 
-  public Location findByLocalZipCode(String localZipCode) {
+  public Location getByLocalZipCode(String localZipCode) {
     Objects.requireNonNull(localZipCode, "localZipCode must not be null");
-    return locationRepository.findByLocalZipCode(localZipCode);
+    return locationRepository.getByLocalZipCode(localZipCode);
   }
 
   public List<Location> getAll() {

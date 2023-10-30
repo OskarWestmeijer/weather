@@ -41,7 +41,7 @@ public class WeatherExportController {
     requireNonNull(date, "date cannot be null");
     log.info("Received weather export request. localZipCode: {}, date: {}", localZipCode, date);
 
-    Location location = locationService.findByLocalZipCode(localZipCode);
+    Location location = locationService.getByLocalZipCode(localZipCode);
     String fileName = buildFileName(location, date, CSV_FILE);
 
     servletResponse.setContentType("text/csv");

@@ -53,7 +53,7 @@ public class WeatherControllerLayerTest {
         Instant.now());
 
     given(weatherService.getLast24h("23552")).willReturn(weatherList);
-    given(locationService.findByLocalZipCode("23552")).willReturn(location);
+    given(locationService.getByLocalZipCode("23552")).willReturn(location);
 
     @Language("json")
     String expectedBody = """
@@ -75,20 +75,20 @@ public class WeatherControllerLayerTest {
         .andExpect(content().json(expectedBody));
 
     then(weatherService).should().getLast24h("23552");
-    then(locationService).should().findByLocalZipCode("23552");
+    then(locationService).should().getByLocalZipCode("23552");
   }
 
   @Test
   @SneakyThrows
   public void expect404OnLocationNotFound() {
-    given(locationService.findByLocalZipCode("46286")).willThrow(new LocationNotSupportedException("46286"));
+    given(locationService.getByLocalZipCode("46286")).willThrow(new LocationNotSupportedException("46286"));
 
     mockMvc.perform(get("/weather/46286/24h"))
         .andExpect(status().isNotFound())
         .andExpect(content().string("Requested zip_code not found. Please verify it is supported. zip_code: 46286"));
 
     then(weatherService).shouldHaveNoInteractions();
-    then(locationService).should().findByLocalZipCode("46286");
+    then(locationService).should().getByLocalZipCode("46286");
   }
 
 
