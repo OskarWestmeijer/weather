@@ -6,7 +6,7 @@ import { ChartType } from '../model/chart-type.enum';
 @Injectable({
     providedIn: 'root'
 })
-export class WeatherService {
+export class DetailsService {
     /**
      * Increase readability of the ui-chart by calculating hourly means for weather types.
      * @param weatherData
@@ -40,9 +40,9 @@ export class WeatherService {
             let windSpeedSum = 0;
 
             items.forEach((weather) => {
-                temparatureSum += parseFloat(weather.temperature);
-                humiditySum += parseFloat(weather.humidity);
-                windSpeedSum += parseFloat(weather.windSpeed);
+                temparatureSum += weather.temperature;
+                humiditySum += weather.humidity;
+                windSpeedSum += weather.windSpeed;
             });
 
             chartDataMap.get(ChartType.TEMPERATURE)?.unshift(this.toChartData(hour, temparatureSum, items.length));

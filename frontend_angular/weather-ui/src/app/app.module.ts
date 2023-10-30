@@ -7,15 +7,15 @@ import { Constants } from './config/constants';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { OverviewModule } from './overview/overview.module';
-import { ChartsModule } from './charts/charts.module';
+import { OverviewPageModule } from './overview-page/overview-page.module';
+import { DetailsPageModule } from './details-page/details-page.module';
 
 import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
     declarations: [AppComponent, NavigationComponent, FooterComponent],
-    imports: [BrowserModule, AppRoutingModule, HttpClientModule, OverviewModule, ChartsModule],
+    imports: [BrowserModule, AppRoutingModule, HttpClientModule, OverviewPageModule, DetailsPageModule],
     providers: [Constants],
     bootstrap: [AppComponent]
 })

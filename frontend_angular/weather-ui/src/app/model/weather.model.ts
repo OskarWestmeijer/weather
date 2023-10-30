@@ -1,6 +1,6 @@
 export interface Weather {
-    temperature: string;
-    humidity: string;
-    windSpeed: string;
+    temperature: number;
+    humidity: number;
+    windSpeed: number;
     recordedAt: string;
 }

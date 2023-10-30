@@ -4,15 +4,15 @@ import { LocationsResponse } from 'src/app/model/locations-response.model';
 import { Location } from 'src/app/model/location.model';
 import { WeatherResponse } from 'src/app/model/weather-response.model';
 import { ChartData } from 'src/app/model/chart-data.model';
-import { WeatherService } from 'src/app/service/weather.service';
+import { DetailsService } from 'src/app/service/details.service';
 import { ChartType } from 'src/app/model/chart-type.enum';
 
 @Component({
-    selector: 'app-charts',
-    templateUrl: './charts.component.html',
-    styleUrls: ['./charts.component.css']
+    selector: 'app-details-page',
+    templateUrl: './details-page.component.html',
+    styleUrls: ['./details-page.component.css']
 })
-export class ChartsComponent implements OnInit {
+export class DetailsPageComponent implements OnInit {
     public locationList: Location[] = [];
     public selectedLocation?: Location;
 
@@ -22,7 +22,7 @@ export class ChartsComponent implements OnInit {
 
     constructor(
         private apiHttpService: ApiHttpService,
-        private weatherService: WeatherService
+        private weatherService: DetailsService
     ) {}
 
     public ngOnInit() {
@@ -30,8 +30,6 @@ export class ChartsComponent implements OnInit {
     }
 
     public onSelectChange(selectedLocation: Location): void {
-        console.dir(selectedLocation);
-        console.log('changed to location: ' + selectedLocation?.cityName);
         this.requestWeather(selectedLocation);
     }
 
