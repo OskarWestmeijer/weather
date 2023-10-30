@@ -3,7 +3,7 @@ export interface OverviewLocation {
     cityName: string;
     countryCode: string;
     temperature: string;
-    humditiy: string;
+    humidity: string;
     windSpeed: string;
     recordedAt: string;
 }

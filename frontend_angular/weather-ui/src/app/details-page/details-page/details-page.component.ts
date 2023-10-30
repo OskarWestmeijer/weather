@@ -30,8 +30,6 @@ export class DetailsPageComponent implements OnInit {
     }
 
     public onSelectChange(selectedLocation: Location): void {
-        console.dir(selectedLocation);
-        console.log('changed to location: ' + selectedLocation?.cityName);
         this.requestWeather(selectedLocation);
     }
 
