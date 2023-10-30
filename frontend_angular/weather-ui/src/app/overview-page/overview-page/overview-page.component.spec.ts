@@ -1,38 +1,26 @@
-import { ApiHttpService } from 'src/app/service/api-http.service';
-import { OverviewPageComponent } from './overview-page.component';
 import { of } from 'rxjs';
-import { LocationsResponse } from 'src/app/model/locations-response.model';
+import { OverviewLocationsResponse } from 'src/app/model/overview-locations-response.model';
+import { ApiHttpService } from 'src/app/service/api-http.service';
+import { chartLocationsResponse } from 'src/mock-api-responses/chart-locations-response';
+import { OverviewPageComponent } from './overview-page.component';
 
 describe('OverviewPageComponent', () => {
-    let overviewComponent: OverviewPageComponent;
+    let overviewPageComponent: OverviewPageComponent;
     let apiHttpServiceSpy: jasmine.SpyObj<ApiHttpService>;
 
     beforeEach(() => {
-        apiHttpServiceSpy = jasmine.createSpyObj('ApiHttpService', ['requestLocations']);
-        overviewComponent = new OverviewPageComponent(apiHttpServiceSpy);
+        apiHttpServiceSpy = jasmine.createSpyObj('ApiHttpService', ['requestOverviewLocations']);
+        overviewPageComponent = new OverviewPageComponent(apiHttpServiceSpy);
     });
 
     it('should create component with locations', () => {
-        const expectedLocationResponse: LocationsResponse = {
-            locations: [
-                {
-                    cityName: 'Helsinki',
-                    country: 'Finland',
-                    countryCode: 'FIN',
-                    localZipCode: '425534',
-                    lastImportAt: 'today',
-                    locationCode: '234235',
-                    uuid: '3254'
-                }
-            ]
-        };
-        apiHttpServiceSpy.requestOverviewLocations.and.returnValue(of(expectedLocationResponse));
-        overviewComponent.ngOnInit();
+        const expectedOverviewLocationsResponse: OverviewLocationsResponse = chartLocationsResponse;
 
-        expect(overviewComponent).toBeTruthy();
+        apiHttpServiceSpy.requestOverviewLocations.and.returnValue(of(expectedOverviewLocationsResponse));
+        overviewPageComponent.ngOnInit();
 
-        expect(overviewComponent.overviewLocations.length).withContext('has one location entry').toBe(1);
-
-        expect(apiHttpServiceSpy.requestOverviewLocations.calls.count()).withContext('calls api service for overview locations').toBe(1);
+        expect(overviewPageComponent).toBeTruthy();
+        expect(overviewPageComponent.overviewLocations.length).toBe(5);
+        expect(apiHttpServiceSpy.requestOverviewLocations.calls.count()).toBe(1);
     });
 });
