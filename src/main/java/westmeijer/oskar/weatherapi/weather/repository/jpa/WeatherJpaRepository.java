@@ -21,4 +21,7 @@ public interface WeatherJpaRepository extends JpaRepository<WeatherEntity, UUID>
   List<WeatherEntity> getSpecificDay(@Param("local_zip_code") String localZipCode, @Param("start_date") Instant start,
       @Param("end_date") Instant end);
 
+  @Query(value = "SELECT * FROM weather.weather WHERE location_id = :location_id ORDER BY recorded_at DESC LIMIT 1", nativeQuery = true)
+  WeatherEntity getLatestWeather(@Param("location_id") Integer locationId);
+
 }

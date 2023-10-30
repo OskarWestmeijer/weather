@@ -1,6 +1,7 @@
 package westmeijer.oskar.weatherapi.weather.repository;
 
 import java.util.List;
+import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 public interface WeatherRepository {
@@ -11,4 +12,5 @@ public interface WeatherRepository {
 
   Weather saveAndFlush(Weather weather);
 
+  Weather getLatestWeather(Location location);
 }
