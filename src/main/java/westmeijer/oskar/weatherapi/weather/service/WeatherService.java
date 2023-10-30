@@ -25,7 +25,7 @@ public class WeatherService {
    * @return
    */
   public List<Weather> getLast24h(String localZipCode) {
-    List<Weather> weatherList = weatherRepository.getLatestEntries(localZipCode);
+    List<Weather> weatherList = weatherRepository.getLast24h(localZipCode);
 
     return weatherList.stream()
         .sorted(Comparator.comparing(Weather::recordedAt).reversed())
@@ -39,7 +39,7 @@ public class WeatherService {
    * @return
    */
   public List<Weather> getLast3Days(String localZipCode) {
-    List<Weather> weatherList = weatherRepository.getLastThreeDays(localZipCode);
+    List<Weather> weatherList = weatherRepository.getLast3Days(localZipCode);
 
     return weatherList.stream()
         .sorted(Comparator.comparing(Weather::recordedAt).reversed())
@@ -48,7 +48,7 @@ public class WeatherService {
 
   public Weather getLatestWeather(Location location){
     requireNonNull(location, "Location must not be null");
-    return weatherRepository.getLatestWeather(location);
+    return weatherRepository.getLatest(location);
   }
 
   public Weather saveAndFlush(Weather importedWeather) {

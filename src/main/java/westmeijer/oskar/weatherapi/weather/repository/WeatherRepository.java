@@ -6,11 +6,11 @@ import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 public interface WeatherRepository {
 
-  List<Weather> getLatestEntries(String localZipCode);
+  List<Weather> getLast24h(String localZipCode);
 
-  List<Weather> getLastThreeDays(String localZipCode);
+  List<Weather> getLast3Days(String localZipCode);
 
   Weather saveAndFlush(Weather weather);
 
-  Weather getLatestWeather(Location location);
+  Weather getLatest(Location location);
 }
