@@ -169,8 +169,9 @@
         <artifactId>openapi-generator-maven-plugin</artifactId>
         <version>7.0.1</version>
         <executions>
+          <!-- public rest-api -->
           <execution>
-            <id>generate-server</id>
+            <id>generate-public-api-server</id>
             <goals>
               <goal>generate</goal>
             </goals>
@@ -199,8 +200,40 @@
               </importMappings>
             </configuration>
           </execution>
+          <!-- frontend specific chart-api -->
           <execution>
-            <id>generate-client</id>
+            <id>generate-chart-api-server</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>
+                ${project.basedir}/src/main/resources/public/chart-api.yml
+              </inputSpec>
+              <generatorName>spring</generatorName>
+              <apiPackage>westmeijer.oskar.weatherapi.openapi.server.chart.api</apiPackage>
+              <modelPackage>westmeijer.oskar.weatherapi.openapi.server.chart.model</modelPackage>
+              <configOptions>
+                <library>spring-boot</library>
+                <oas3>true</oas3>
+                <interfaceOnly>true</interfaceOnly>
+                <!-- javax.* to jakarta.* -->
+                <useSpringBoot3>true</useSpringBoot3>
+                <useSpringfox>false</useSpringfox>
+                <java8>true</java8>
+                <dateLibrary>custom</dateLibrary>
+              </configOptions>
+              <typeMappings>
+                <typeMapping>DateTime=Instant</typeMapping>
+              </typeMappings>
+              <importMappings>
+                <importMapping>Instant=java.time.Instant</importMapping>
+              </importMappings>
+            </configuration>
+          </execution>
+          <!-- external openweatherapi definition -->
+          <execution>
+            <id>generate-external-client</id>
             <goals>
               <goal>generate</goal>
             </goals>

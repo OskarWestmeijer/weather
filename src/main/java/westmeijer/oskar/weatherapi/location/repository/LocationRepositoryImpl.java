@@ -27,7 +27,7 @@ public class LocationRepositoryImpl implements LocationRepository {
 
   @Override
   public ImportJobLocation getNextImportLocation() {
-    LocationEntity location = locationJpaRepository.findFirstByOrderByLastImportAtAsc();
+    LocationEntity location = locationJpaRepository.getNextImportLocation();
     return locationEntityMapper.mapToJobLocation(location);
   }
 
@@ -37,9 +37,9 @@ public class LocationRepositoryImpl implements LocationRepository {
   }
 
   @Override
-  public Location findByLocalZipCode(String localZipCode) {
+  public Location getByLocalZipCode(String localZipCode) {
     Objects.requireNonNull(localZipCode, "localZipCode must not be null");
-    LocationEntity locationEntity = locationJpaRepository.findByLocalZipCode(localZipCode)
+    LocationEntity locationEntity = locationJpaRepository.getByLocalZipCode(localZipCode)
         .orElseThrow(() -> new LocationNotSupportedException(localZipCode));
     return locationEntityMapper.map(locationEntity);
   }

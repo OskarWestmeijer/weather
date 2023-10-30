@@ -29,17 +29,17 @@ public class LocationServiceTest {
   public void shouldFindByIdLocalZipCode() {
     String localZipCode = "20535";
     Location expectedLocation = mock(Location.class);
-    given(locationRepository.findByLocalZipCode(localZipCode)).willReturn(expectedLocation);
+    given(locationRepository.getByLocalZipCode(localZipCode)).willReturn(expectedLocation);
 
-    Location actualLocation = locationService.findByLocalZipCode(localZipCode);
+    Location actualLocation = locationService.getByLocalZipCode(localZipCode);
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
-    then(locationRepository).should().findByLocalZipCode(localZipCode);
+    then(locationRepository).should().getByLocalZipCode(localZipCode);
   }
 
   @Test
   public void findById_shouldThrowExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationService.findByLocalZipCode(null))
+    assertThatThrownBy(() -> locationService.getByLocalZipCode(null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("localZipCode must not be null");
 

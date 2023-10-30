@@ -11,14 +11,29 @@ import java.util.UUID;
 
 public interface WeatherJpaRepository extends JpaRepository<WeatherEntity, UUID> {
 
-  @Query(value = "SELECT * FROM weather.weather WHERE recorded_at BETWEEN NOW() - INTERVAL '24 HOURS' AND NOW() AND local_zip_code = :local_zip_code ORDER BY recorded_at DESC", nativeQuery = true)
-  List<WeatherEntity> getLatestEntries(@Param("local_zip_code") String localZipCode);
+  @Query(value = """
+      SELECT * FROM weather.weather
+      WHERE recorded_at BETWEEN NOW() - INTERVAL '24 HOURS' AND NOW() AND local_zip_code = :local_zip_code 
+      ORDER BY recorded_at DESC""", nativeQuery = true)
+  List<WeatherEntity> getLast24h(@Param("local_zip_code") String localZipCode);
 
-  @Query(value = "SELECT * FROM weather.weather WHERE recorded_at BETWEEN NOW() - INTERVAL '3 DAYS' AND NOW() AND local_zip_code = :local_zip_code ORDER BY recorded_at DESC", nativeQuery = true)
-  List<WeatherEntity> getLastThreeDays(@Param("local_zip_code") String localZipCode);
+  @Query(value = """
+      SELECT * FROM weather.weather
+      WHERE recorded_at BETWEEN NOW() - INTERVAL '3 DAYS' AND NOW() AND local_zip_code = :local_zip_code
+      ORDER BY recorded_at DESC""", nativeQuery = true)
+  List<WeatherEntity> getLast3Days(@Param("local_zip_code") String localZipCode);
 
-  @Query(value = "SELECT * FROM weather.weather WHERE recorded_at >= :start_date AND recorded_at <= :end_date AND local_zip_code = :local_zip_code ORDER BY recorded_at DESC", nativeQuery = true)
+  @Query(value = """
+      SELECT * FROM weather.weather
+      WHERE recorded_at >= :start_date AND recorded_at <= :end_date AND local_zip_code = :local_zip_code
+      ORDER BY recorded_at DESC""", nativeQuery = true)
   List<WeatherEntity> getSpecificDay(@Param("local_zip_code") String localZipCode, @Param("start_date") Instant start,
       @Param("end_date") Instant end);
+
+  @Query(value = """
+      SELECT * FROM weather.weather
+      WHERE location_id = :location_id 
+      ORDER BY recorded_at DESC LIMIT 1""", nativeQuery = true)
+  WeatherEntity getLatest(@Param("location_id") Integer locationId);
 
 }
