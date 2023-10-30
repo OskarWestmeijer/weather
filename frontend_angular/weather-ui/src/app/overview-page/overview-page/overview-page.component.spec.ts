@@ -26,13 +26,13 @@ describe('OverviewPageComponent', () => {
                 }
             ]
         };
-        apiHttpServiceSpy.requestLocations.and.returnValue(of(expectedLocationResponse));
+        apiHttpServiceSpy.requestOverviewLocations.and.returnValue(of(expectedLocationResponse));
         overviewComponent.ngOnInit();
 
         expect(overviewComponent).toBeTruthy();
 
-        expect(overviewComponent.locationList.length).withContext('has one location entry').toBe(1);
+        expect(overviewComponent.overviewLocations.length).withContext('has one location entry').toBe(1);
 
-        expect(apiHttpServiceSpy.requestLocations.calls.count()).withContext('calls api service for locations').toBe(1);
+        expect(apiHttpServiceSpy.requestOverviewLocations.calls.count()).withContext('calls api service for overview locations').toBe(1);
     });
 });

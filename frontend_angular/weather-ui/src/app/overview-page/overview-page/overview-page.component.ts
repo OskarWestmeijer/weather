@@ -3,6 +3,8 @@ import { ApiHttpService } from 'src/app/service/api-http.service';
 import { LocationsResponse } from 'src/app/model/locations-response.model';
 import { OnInit } from '@angular/core';
 import { Location } from 'src/app/model/location.model';
+import { OverviewLocationsResponse } from 'src/app/model/overview-locations-response.model';
+import { OverviewLocation } from 'src/app/model/overview-location.model';
 
 @Component({
     selector: 'app-overview-page',
@@ -10,20 +12,18 @@ import { Location } from 'src/app/model/location.model';
     styleUrls: ['./overview-page.component.css']
 })
 export class OverviewPageComponent implements OnInit {
-    locationList: Location[] = [];
+    overviewLocations: OverviewLocation[] = [];
 
     constructor(private apiHttpService: ApiHttpService) {}
 
     ngOnInit() {
-        this.requestLocations();
+        this.requestOverviewLocations();
     }
 
-    private requestLocations(): void {
-        this.apiHttpService.requestLocations().subscribe((locationsResponse: LocationsResponse) => {
-            if (locationsResponse !== undefined) {
-                this.locationList = locationsResponse.locations;
-            } else {
-                console.log('Undefined response.');
+    private requestOverviewLocations(): void {
+        this.apiHttpService.requestOverviewLocations().subscribe((overviewLocations: OverviewLocationsResponse) => {
+            if (overviewLocations !== undefined) {
+                this.overviewLocations = overviewLocations.chartLocations;
             }
         });
     }

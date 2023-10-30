@@ -5,6 +5,7 @@ import { LocationsResponse } from 'src/app/model/locations-response.model';
 import { Observable } from 'rxjs';
 import { WeatherResponse } from 'src/app/model/weather-response.model';
 import { Location } from 'src/app/model/location.model';
+import { OverviewLocationsResponse } from '../model/overview-locations-response.model';
 
 @Injectable({
     providedIn: 'root'
@@ -14,6 +15,10 @@ export class ApiHttpService {
         private http: HttpClient,
         private constants: Constants
     ) {}
+
+    public requestOverviewLocations(): Observable<OverviewLocationsResponse> {
+        return this.http.get<OverviewLocationsResponse>(this.constants.API_ENDPOINT + '/chart/locations');
+    }
 
     public requestLocations(): Observable<LocationsResponse> {
         return this.http.get<LocationsResponse>(this.constants.API_ENDPOINT + '/locations');
