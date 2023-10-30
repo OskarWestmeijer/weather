@@ -8,11 +8,11 @@ import { WeatherService } from 'src/app/service/weather.service';
 import { ChartType } from 'src/app/model/chart-type.enum';
 
 @Component({
-    selector: 'app-charts',
-    templateUrl: './charts.component.html',
-    styleUrls: ['./charts.component.css']
+    selector: 'app-details-page',
+    templateUrl: './details-page.component.html',
+    styleUrls: ['./details-page.component.css']
 })
-export class ChartsComponent implements OnInit {
+export class DetailsPageComponent implements OnInit {
     public locationList: Location[] = [];
     public selectedLocation?: Location;
 

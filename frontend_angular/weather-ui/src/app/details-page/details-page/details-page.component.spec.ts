@@ -1,4 +1,4 @@
-import { ChartsComponent } from './charts.component';
+import { DetailsPageComponent } from './details-page.component';
 import { ApiHttpService } from 'src/app/service/api-http.service';
 import { LocationsResponse } from 'src/app/model/locations-response.model';
 import { of } from 'rxjs';
@@ -7,15 +7,15 @@ import { WeatherService } from 'src/app/service/weather.service';
 import { ChartData } from 'src/app/model/chart-data.model';
 import { ChartType } from 'src/app/model/chart-type.enum';
 
-describe('ChartsComponent', () => {
-    let chartsComponent: ChartsComponent;
+describe('DetailsPageComponent', () => {
+    let chartsComponent: DetailsPageComponent;
     let apiHttpServiceSpy: jasmine.SpyObj<ApiHttpService>;
     let weatherServiceSpy: jasmine.SpyObj<WeatherService>;
 
     beforeEach(() => {
         apiHttpServiceSpy = jasmine.createSpyObj('ApiHttpService', ['requestLocations', 'requestWeather']);
         weatherServiceSpy = jasmine.createSpyObj('WeatherService', ['transformToMap']);
-        chartsComponent = new ChartsComponent(apiHttpServiceSpy, weatherServiceSpy);
+        chartsComponent = new DetailsPageComponent(apiHttpServiceSpy, weatherServiceSpy);
     });
 
     it('should create component with locations and weather', () => {

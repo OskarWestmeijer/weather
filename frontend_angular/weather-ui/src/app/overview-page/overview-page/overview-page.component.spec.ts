@@ -1,15 +1,15 @@
 import { ApiHttpService } from 'src/app/service/api-http.service';
-import { OverviewComponent } from './overview.component';
+import { OverviewPageComponent } from './overview-page.component';
 import { of } from 'rxjs';
 import { LocationsResponse } from 'src/app/model/locations-response.model';
 
-describe('OverviewComponent', () => {
-    let overviewComponent: OverviewComponent;
+describe('OverviewPageComponent', () => {
+    let overviewComponent: OverviewPageComponent;
     let apiHttpServiceSpy: jasmine.SpyObj<ApiHttpService>;
 
     beforeEach(() => {
         apiHttpServiceSpy = jasmine.createSpyObj('ApiHttpService', ['requestLocations']);
-        overviewComponent = new OverviewComponent(apiHttpServiceSpy);
+        overviewComponent = new OverviewPageComponent(apiHttpServiceSpy);
     });
 
     it('should create component with locations', () => {

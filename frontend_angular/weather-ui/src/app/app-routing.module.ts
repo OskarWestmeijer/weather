@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { OverviewComponent } from './overview/overview/overview.component';
-import { ChartsComponent } from './charts/charts/charts.component';
+import { OverviewPageComponent } from './overview-page/overview-page/overview-page.component';
+import { DetailsPageComponent } from './details-page/details-page/details-page.component';
 
 const routes: Routes = [
-    { path: '', component: OverviewComponent },
-    { path: 'charts', component: ChartsComponent }
+    { path: '', component: OverviewPageComponent },
+    { path: 'details', component: DetailsPageComponent }
 ];
 
 @NgModule({

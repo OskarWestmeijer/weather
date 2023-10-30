@@ -4,7 +4,7 @@ import { ChartData } from 'src/app/model/chart-data.model';
 import { ChartType } from 'src/app/model/chart-type.enum';
 
 @Component({
-    selector: 'app-bar-chart',
+    selector: 'app-timelapse-chart',
     templateUrl: './timelapse-chart.component.html',
     styleUrls: ['./timelapse-chart.component.css']
 })

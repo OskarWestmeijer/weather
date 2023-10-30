@@ -5,11 +5,11 @@ import { OnInit } from '@angular/core';
 import { Location } from 'src/app/model/location.model';
 
 @Component({
-    selector: 'app-overview',
-    templateUrl: './overview.component.html',
-    styleUrls: ['./overview.component.css']
+    selector: 'app-overview-page',
+    templateUrl: './overview-page.component.html',
+    styleUrls: ['./overview-page.component.css']
 })
-export class OverviewComponent implements OnInit {
+export class OverviewPageComponent implements OnInit {
     locationList: Location[] = [];
 
     constructor(private apiHttpService: ApiHttpService) {}
