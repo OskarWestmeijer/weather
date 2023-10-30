@@ -4,7 +4,7 @@ import { LocationsResponse } from 'src/app/model/locations-response.model';
 import { Location } from 'src/app/model/location.model';
 import { WeatherResponse } from 'src/app/model/weather-response.model';
 import { ChartData } from 'src/app/model/chart-data.model';
-import { WeatherService } from 'src/app/service/weather.service';
+import { DetailsService } from 'src/app/service/details.service';
 import { ChartType } from 'src/app/model/chart-type.enum';
 
 @Component({
@@ -22,7 +22,7 @@ export class DetailsPageComponent implements OnInit {
 
     constructor(
         private apiHttpService: ApiHttpService,
-        private weatherService: WeatherService
+        private weatherService: DetailsService
     ) {}
 
     public ngOnInit() {

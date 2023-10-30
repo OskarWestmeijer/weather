@@ -6,7 +6,7 @@ import { ChartType } from '../model/chart-type.enum';
 @Injectable({
     providedIn: 'root'
 })
-export class WeatherService {
+export class DetailsService {
     /**
      * Increase readability of the ui-chart by calculating hourly means for weather types.
      * @param weatherData

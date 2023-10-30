@@ -3,7 +3,7 @@ import { ApiHttpService } from 'src/app/service/api-http.service';
 import { LocationsResponse } from 'src/app/model/locations-response.model';
 import { of } from 'rxjs';
 import { WeatherResponse } from 'src/app/model/weather-response.model';
-import { WeatherService } from 'src/app/service/weather.service';
+import { DetailsService } from 'src/app/service/details.service';
 import { ChartData } from 'src/app/model/chart-data.model';
 import { ChartType } from 'src/app/model/chart-type.enum';
 import { expectedLocationsResponse } from 'src/mock-api-responses/locations-response';
@@ -12,7 +12,7 @@ import { expectedHelsinkiWeatherResponse } from 'src/mock-api-responses/weather-
 describe('DetailsPageComponent', () => {
     let chartsComponent: DetailsPageComponent;
     let apiHttpServiceSpy: jasmine.SpyObj<ApiHttpService>;
-    let weatherServiceSpy: jasmine.SpyObj<WeatherService>;
+    let weatherServiceSpy: jasmine.SpyObj<DetailsService>;
 
     beforeEach(() => {
         apiHttpServiceSpy = jasmine.createSpyObj('ApiHttpService', ['requestLocations', 'requestWeather']);
