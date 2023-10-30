@@ -54,6 +54,7 @@ export class OverviewPageComponent implements OnInit {
 
     private createChart(backgroundColors: string[]): void {
         if (this.overviewLocations != undefined) {
+           const time = new Date().toLocaleString();
             Chart.getChart('OverviewChart')?.destroy();
             this.chart = new Chart('OverviewChart', {
                 data: {
@@ -61,7 +62,7 @@ export class OverviewPageComponent implements OnInit {
                     datasets: [
                         {
                             type: 'bar',
-                            label: ChartType.TEMPERATURE,
+                            label: ChartType.TEMPERATURE.concat(' - ' + time + ' UTC'),
                             data: this.overviewLocations.map((item) => item.temperature.toFixed(0)),
                             borderColor: 'orange',
                             order: 1,
@@ -76,6 +77,26 @@ export class OverviewPageComponent implements OnInit {
                     datasets: {
                         bar: {
                             maxBarThickness: 45
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: {
+                                font: {
+                                    size: 17
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                // This more specific font property overrides the global property
+                                font: {
+                                    size: 20,
+                                    weight: '450'
+                                }
+                            }
                         }
                     }
                 }
