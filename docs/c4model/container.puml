@@ -2,25 +2,24 @@
 
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-
-
 title C4Model Container diagram for Weather-Api
 
 Person(user, "User", "Access website for weather information")
 
 System_Boundary(weatherSystem, "Weather-Api System") {
-    Container(weather_ui, "Weather-Ui", "ReactJs", $descr="Provides web interface for weather data")
-    Container(weather_api, "Weather-Api", "Spring-Boot", $descr="Provides REST Api for weather data")
-    ContainerDb(postgres_db, "Database", "PostgreSql", "Stores weather data")
+    Container(nginx_proxy, "Proxy", "Nginx", $descr="Routes requests")
+    Container(weather_api, "Weather-Api", "Spring-Boot", $descr="REST Api for weather data")
+    ContainerDb(postgres_db, "Database", "PostgreSql", $descr="Stores weather data")
+    Container(weather_ui, "Weather-Ui", "Nginx & Angular", $descr="Displays weather data")
 }
-System_Ext(open_weather_api, "OpenWeatherApi", "Provides CURRENT weather data")
+System_Ext(open_weather_api, "OpenWeatherApi", "External Api for weather data")
 
 
-Rel(user, weather_ui, "View weather", "https")
-Rel(weather_ui, weather_api, "Request weather data", "https GET")
-Rel_L(weather_api, open_weather_api, "Get CURRENT weather as scheduled job", "https GET")
-Rel_R(weather_api, postgres_db, "Read/Write weather data")
+Rel(user, nginx_proxy, "View weather", "https")
+Rel(nginx_proxy, weather_ui, "Route to UI", "https")
+Rel(nginx_proxy, weather_api, "Route to API", "https")
+Rel_L(weather_api, open_weather_api, "Harvest weather", "https")
+Rel_R(weather_api, postgres_db, "Read/Write weather")
 LAYOUT_LANDSCAPE()
-
 
 @enduml
