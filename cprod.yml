@@ -32,7 +32,7 @@ services:
       - "80"
     restart: always
     volumes:
-      - ./frontend/nginx/conf.d/:/etc/nginx/conf.d/:ro
+      - ./frontend/weather-ui/nginx/conf.d/:/etc/nginx/conf.d/:ro
 networks:
   default:
     name: proxy
