@@ -1,6 +1,5 @@
 name: frontend-build-and-test
 description: "frontend-build-and-test"
-inputs:
 runs:
   using: "composite"
   steps:
