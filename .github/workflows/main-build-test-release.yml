@@ -95,7 +95,6 @@ jobs:
       - name: image tagging
         id: meta
         uses: docker/metadata-action@v5
-        working-directory: angular_frontend/weather-ui
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/weather-ui
           tags: |
@@ -104,9 +103,8 @@ jobs:
             type=sha,format=long
       - name: build and push image
         uses: docker/build-push-action@v5
-        working-directory: angular_frontend/weather-ui
         with:
           context: .
           push: true
-          file: Dockerfile
+          file: angular_frontend/weather-ui/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
