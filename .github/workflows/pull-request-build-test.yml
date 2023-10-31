@@ -15,8 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/frontend-build-and-test
-        with:
-          frontend-directory: frontend
+        working-directory: frontend_angular/weather-ui
 
   codeql-check:
     uses: ./.github/workflows/codeql.yml

@@ -1,27 +1,21 @@
 name: frontend-build-and-test
-description: 'frontend-build-and-test'
+description: "frontend-build-and-test"
 inputs:
-  frontend-directory:
-    description: Frontend directory from project root
-    required: true
 runs:
   using: "composite"
   steps:
     - name: setup node
       uses: actions/setup-node@v3
       with:
-        node-version: '18.18.0'
-        cache: 'npm'
-        cache-dependency-path: frontend/package-lock.json
+        node-version: "20.9.0"
+        cache: "npm"
+        cache-dependency-path: package-lock.json
     - name: npm ci
       shell: bash
-      working-directory: ${{ inputs.frontend-directory }}
       run: npm ci
     - name: npm test
       shell: bash
-      working-directory: ${{ inputs.frontend-directory }}
-      run: npm test
+      run: npm run test-headless
     - name: npm run build
       shell: bash
-      working-directory: ${{ inputs.frontend-directory }}
-      run: CI=false npm run build
+      run: CI=true npm run build
