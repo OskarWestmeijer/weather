@@ -2,7 +2,7 @@
 FROM node:20.9.0-alpine3.18 as build-stage
 
 WORKDIR /usr/local/app
-COPY ./frontend/weather-ui ./
+COPY ./ ./
 RUN npm install
 RUN npm run build
 
