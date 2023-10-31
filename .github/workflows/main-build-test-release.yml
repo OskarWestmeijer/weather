@@ -106,5 +106,5 @@ jobs:
         with:
           context: .
           push: true
-          file: angular_frontend/weather-ui/Dockerfile
+          file: frontend_angular/weather-ui/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
