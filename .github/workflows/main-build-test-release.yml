@@ -16,7 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/frontend-build-and-test
+      - name: build & test frontend
+        uses: ./.github/actions/frontend-build-and-test
         working-directory: frontend_angular/weather-ui
 
   codeql-check:
