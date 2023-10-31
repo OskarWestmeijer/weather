@@ -14,11 +14,14 @@ jobs:
 
   frontend-build-and-test:
     runs-on: ubuntu-latest
+    defaults:
+    run:
+      shell: bash
+      working-directory: frontend_angular/weather-ui
     steps:
       - uses: actions/checkout@v4
       - name: build & test frontend
         uses: ./.github/actions/frontend-build-and-test
-        working-directory: frontend_angular/weather-ui
 
   codeql-check:
     uses: ./.github/workflows/codeql.yml
