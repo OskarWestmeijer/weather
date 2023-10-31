@@ -81,7 +81,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
 
   release-frontend-docker-image:
-    needs: [backend-build-and-test, frontend-build-and-test]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
     if: github.ref == 'refs/heads/main'
@@ -104,7 +103,6 @@ jobs:
       - name: build and push image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: frontend/weather-ui
           push: true
-          file: frontend/weather-ui/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
