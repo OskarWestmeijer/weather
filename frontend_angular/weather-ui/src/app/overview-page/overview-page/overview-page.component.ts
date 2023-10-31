@@ -25,6 +25,7 @@ export class OverviewPageComponent implements OnInit {
             if (overviewLocations !== undefined) {
                 this.overviewLocations = overviewLocations['chart-locations'];
                 this.overviewLocations.sort((a, b) => a.temperature - b.temperature);
+                this.overviewLocations.forEach((item) => item.temperature = parseInt(item.temperature.toFixed(0)))
 
                 const backgroundColors: string[] = this.determineBackgroundColors();
 
@@ -36,13 +37,13 @@ export class OverviewPageComponent implements OnInit {
     private determineBackgroundColors(): string[] {
         const backgroundColors: string[] = [];
         this.overviewLocations.forEach((l) => {
-            if (l.temperature < 0) {
+            if (l.temperature <= 0) {
                 backgroundColors.push('rgba(54, 162, 235, 0.6)');
-            } else if (l.temperature < 5) {
+            } else if (l.temperature <= 5) {
                 backgroundColors.push('rgba(75, 192, 192, 0.4)');
-            } else if (l.temperature < 10) {
+            } else if (l.temperature <= 10) {
                 backgroundColors.push('rgba(255, 159, 64, 0.2)');
-            } else if (l.temperature < 20) {
+            } else if (l.temperature <= 20) {
                 backgroundColors.push('rgba(255, 159, 64, 0.4)');
             } else {
                 backgroundColors.push('rgba(255, 99, 132, 0.4)');
