@@ -2,19 +2,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-nav {
-    background-color: #abf2ab;
-}
-
-footer {
-    background-color: #abf2ab;
-}
-
-a {
-    text-decoration: none;
-}
-
-.ci-bg {
-    background-color: #abf2ab;
-}
