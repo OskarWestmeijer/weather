@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { ChartType } from 'src/app/model/chart-type.enum';
 import { OverviewLocation } from 'src/app/model/overview-location.model';
