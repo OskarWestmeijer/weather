@@ -35,8 +35,9 @@ export class TimelapseChartComponent implements OnInit, OnChanges {
                             type: 'line',
                             label: ChartType.TEMPERATURE,
                             data: this.dataMap.get(ChartType.TEMPERATURE)?.map((item) => item.data),
-                            backgroundColor: 'orange',
-                            borderColor: 'orange',
+                            // daisy ui accent-color copied
+                            backgroundColor: '#64ffda',
+                            borderColor: '#64ffda',
                             fill: false,
                             tension: 0.25,
                             yAxisID: 'temperatureY',
@@ -46,22 +47,38 @@ export class TimelapseChartComponent implements OnInit, OnChanges {
                             type: 'bar',
                             label: ChartType.HUMIDITY,
                             data: this.dataMap.get(ChartType.HUMIDITY)?.map((item) => item.data),
-                            borderColor: 'rgb(255, 99, 132)',
-                            backgroundColor: 'rgba(75,192,192,0.2)',
+                            //borderColor: 'rgb(255, 99, 132)',
+                            borderColor: '#ffffff',
+                            backgroundColor: 'rgba(75,192,192,0.4)',
                             yAxisID: 'humidityY',
                             order: 2
                         }
                     ]
                 },
                 options: {
+                    parsing: {
+                        xAxisKey: 'data',
+                        yAxisKey: 'recordedAt'
+                    },
                     aspectRatio: 2.7,
                     scales: {
+                        x: {
+                            border: {
+                                color: 'white'
+                            }
+                        },
                         temperatureY: {
                             beginAtZero: true,
-                            position: 'left'
+                            position: 'left',
+                            border: {
+                                color: 'white'
+                            }
                         },
                         humidityY: {
                             position: 'right',
+                            border: {
+                                color: 'white'
+                            },
                             ticks: {
                                 stepSize: 10,
                                 maxTicksLimit: 100,
@@ -72,6 +89,12 @@ export class TimelapseChartComponent implements OnInit, OnChanges {
                             grid: {
                                 display: false
                             }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: { color: '#ffffff' }
                         }
                     }
                 }
