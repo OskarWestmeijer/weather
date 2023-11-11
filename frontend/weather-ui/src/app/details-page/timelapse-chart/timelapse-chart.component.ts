@@ -13,6 +13,9 @@ export class TimelapseChartComponent implements OnInit, OnChanges {
     @Input({ required: true }) chartType?: ChartType;
 
     public chart: any;
+    private colorWhite = 'white';
+    // daisy ui accent-color copied
+    private colorDaisyUiAccent = '#64ffda';
 
     public ngOnInit(): void {
         this.createChart();
@@ -35,9 +38,8 @@ export class TimelapseChartComponent implements OnInit, OnChanges {
                             type: 'line',
                             label: ChartType.TEMPERATURE,
                             data: this.dataMap.get(ChartType.TEMPERATURE)?.map((item) => item.data),
-                            // daisy ui accent-color copied
-                            backgroundColor: '#64ffda',
-                            borderColor: '#64ffda',
+                            backgroundColor: this.colorDaisyUiAccent,
+                            borderColor: this.colorDaisyUiAccent,
                             fill: false,
                             tension: 0.25,
                             yAxisID: 'temperatureY',
@@ -47,8 +49,7 @@ export class TimelapseChartComponent implements OnInit, OnChanges {
                             type: 'bar',
                             label: ChartType.HUMIDITY,
                             data: this.dataMap.get(ChartType.HUMIDITY)?.map((item) => item.data),
-                            //borderColor: 'rgb(255, 99, 132)',
-                            borderColor: '#ffffff',
+                            borderColor: this.colorWhite,
                             backgroundColor: 'rgba(75,192,192,0.4)',
                             yAxisID: 'humidityY',
                             order: 2
@@ -64,22 +65,29 @@ export class TimelapseChartComponent implements OnInit, OnChanges {
                     scales: {
                         x: {
                             border: {
-                                color: 'white'
+                                color: this.colorWhite
+                            },
+                            ticks: {
+                                color: this.colorWhite
                             }
                         },
                         temperatureY: {
                             beginAtZero: true,
                             position: 'left',
+                            ticks: {
+                                color: this.colorWhite
+                            },
                             border: {
-                                color: 'white'
+                                color: this.colorWhite
                             }
                         },
                         humidityY: {
                             position: 'right',
                             border: {
-                                color: 'white'
+                                color: this.colorWhite
                             },
                             ticks: {
+                                color: this.colorWhite,
                                 stepSize: 10,
                                 maxTicksLimit: 100,
                                 callback: function (value) {
@@ -94,7 +102,7 @@ export class TimelapseChartComponent implements OnInit, OnChanges {
                     plugins: {
                         legend: {
                             display: true,
-                            labels: { color: '#ffffff' }
+                            labels: { color: this.colorWhite }
                         }
                     }
                 }
