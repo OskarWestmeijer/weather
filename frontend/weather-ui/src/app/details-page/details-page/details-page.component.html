@@ -1,24 +1,20 @@
-<div class="container pt-3 mt-4">
-    <div class="row">
-        <div class="form-group">
-            <label class="col-lg-2 col-md-12 col-form-label" htmlFor="location-select">Location</label>
-            <div class="col-lg-5 col-md-12">
-                <select
-                    [(ngModel)]="selectedLocation"
-                    (ngModelChange)="onSelectChange($event)"
-                    name="selectedLocation"
-                    class="form-select"
-                    aria-label="Location"
-                    id="location-select"
-                >
-                    <option *ngFor="let location of locationList" [ngValue]="location">
-                        {{ location.cityName }}, {{ location.countryCode }}
-                    </option>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <app-timelapse-chart *ngIf="weatherMap" [dataMap]="weatherMap" [chartType]="ChartType.TEMPERATURE"></app-timelapse-chart>
-    </div>
+<div class="flex flex-col items-center space-y-6">
+    <select
+        [(ngModel)]="selectedLocation"
+        (ngModelChange)="onSelectChange($event)"
+        name="selectedLocation"
+        class="select bg-secondary text-base-100 w-full max-w-xs"
+        aria-label="Location"
+        id="location-select"
+    >
+        <option *ngFor="let location of locationList" [ngValue]="location">
+            {{ location.cityName }}, {{ location.countryCode }}
+        </option>
+    </select>
+    <app-timelapse-chart
+        *ngIf="weatherMap"
+        [dataMap]="weatherMap"
+        [chartType]="ChartType.TEMPERATURE"
+        class="w-full max-w-[90%]"
+    ></app-timelapse-chart>
 </div>
