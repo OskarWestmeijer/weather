@@ -9,5 +9,5 @@ RUN npm run build
 # production-stage
 FROM nginx:1.25.3-alpine3.18-slim as production-stage
 
-COPY --from=build-stage /usr/local/app/dist/weather-ui /usr/share/nginx/html
+COPY --from=build-stage /usr/local/app/dist/weather-ui/browser /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
