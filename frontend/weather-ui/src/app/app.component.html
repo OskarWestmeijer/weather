@@ -1,8 +1,11 @@
-<app-navigation [title]="title"></app-navigation>
+<div class="min-h-screen">
+    <app-navigation [title]="title"></app-navigation>
 
-<!-- example on how to add conditional component -->
-<app-overview-page *ngIf="getRouterUrl() === '/never-going-to-happen'"></app-overview-page>
+    <!-- example on how to add conditional component -->
+    <app-overview-page *ngIf="getRouterUrl() === '/never-going-to-happen'"></app-overview-page>
 
-<router-outlet></router-outlet>
-
-<app-footer></app-footer>
+    <router-outlet></router-outlet>
+</div>
+<div class="mt-auto">
+    <app-footer></app-footer>
+</div>

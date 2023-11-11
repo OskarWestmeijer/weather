@@ -14,8 +14,7 @@ export class TimelapseChartComponent implements OnInit, OnChanges {
 
     public chart: any;
     private colorWhite = 'white';
-    // daisy ui accent-color copied
-    private colorDaisyUiAccent = '#64ffda';
+    private colorOrange = 'rgba(255, 159, 64, 1)';
 
     public ngOnInit(): void {
         this.createChart();
@@ -38,8 +37,8 @@ export class TimelapseChartComponent implements OnInit, OnChanges {
                             type: 'line',
                             label: ChartType.TEMPERATURE,
                             data: this.dataMap.get(ChartType.TEMPERATURE)?.map((item) => item.data),
-                            backgroundColor: this.colorDaisyUiAccent,
-                            borderColor: this.colorDaisyUiAccent,
+                            backgroundColor: this.colorOrange,
+                            borderColor: this.colorOrange,
                             fill: false,
                             tension: 0.25,
                             yAxisID: 'temperatureY',

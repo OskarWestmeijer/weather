@@ -7,9 +7,6 @@ module.exports = {
     plugins: [require('daisyui')],
     daisyui: {
         themes: [
-            'light',
-            'dark',
-            'cupcake',
             {
                 customtheme: {
                     // Navy #0a192f
