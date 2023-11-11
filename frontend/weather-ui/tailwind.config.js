@@ -12,22 +12,19 @@ module.exports = {
             'cupcake',
             {
                 customtheme: {
-                    primary: '#529b03',
-
-                    secondary: '#e9e92f',
-
-                    accent: '#f6f9c8',
-
+                    // Navy #0a192f
+                    // light navy #112240
+                    // lightest navy #233554
+                    // Green #64ffda
+                    primary: '#112240',
+                    secondary: '#233554',
+                    accent: '#64ffda',
+                    'accent-focus': '#ffffff',
                     neutral: '#191a3e',
-
                     'base-100': '#ffffff',
-
                     info: '#cae2e8',
-
                     success: '#dff2a1',
-
                     warning: '#f7e488',
-
                     error: '#f2b6b5'
                 }
             }
