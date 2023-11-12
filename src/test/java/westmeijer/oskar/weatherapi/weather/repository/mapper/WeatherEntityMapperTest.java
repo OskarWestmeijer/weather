@@ -10,6 +10,7 @@ import java.util.UUID;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
+import westmeijer.oskar.weatherapi.location.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
@@ -35,7 +36,7 @@ public class WeatherEntityMapperTest {
   @Test
   public void mapsToWeather() {
     Instant now = Instant.now().truncatedTo(ChronoUnit.MICROS);
-    WeatherEntity weatherEntity = new WeatherEntity(UUID.randomUUID(), 22.54d, 34, 89.12d, "1234", 1, now, now);
+    WeatherEntity weatherEntity = new WeatherEntity(UUID.randomUUID(), 22.54d, 34, 89.12d, "1234", new LocationEntity(), now, now);
 
     Weather weather = weatherEntityMapper.map(weatherEntity);
 
@@ -50,8 +51,8 @@ public class WeatherEntityMapperTest {
   @Test
   public void mapsToWeatherList() {
     Instant now = Instant.now().truncatedTo(ChronoUnit.MICROS);
-    WeatherEntity luebeck = new WeatherEntity(UUID.randomUUID(), 22.54d, 34, 89.12d, "1234", 1, now, now);
-    WeatherEntity hamburg = new WeatherEntity(UUID.randomUUID(), 22.54d, 34, 89.12d, "1234", 1, now, now);
+    WeatherEntity luebeck = new WeatherEntity(UUID.randomUUID(), 22.54d, 34, 89.12d, "1234", new LocationEntity(), now, now);
+    WeatherEntity hamburg = new WeatherEntity(UUID.randomUUID(), 22.54d, 34, 89.12d, "1234", new LocationEntity(), now, now);
 
     List<Weather> weatherList = weatherEntityMapper.mapList(List.of(luebeck, hamburg));
 

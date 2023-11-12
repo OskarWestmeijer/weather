@@ -2,13 +2,16 @@ package westmeijer.oskar.weatherapi.location.repository.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 
 
 @Table(name = "location", schema = "weather")
@@ -44,5 +47,8 @@ public class LocationEntity {
   private Instant modifiedAt;
 
   private Instant createdAt;
+
+  @OneToMany(mappedBy = "location")
+  private List<WeatherEntity> weather;
 
 }
