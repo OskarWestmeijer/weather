@@ -1,8 +1,8 @@
 # Weather-Api
 
 ![main branch](https://github.com/OskarWestmeijer/weather-api/actions/workflows/main-build-test-release.yml/badge.svg)
+[![codecov](https://codecov.io/github/OskarWestmeijer/weather-api/graph/badge.svg?token=KPHN0THI0X)](https://codecov.io/github/OskarWestmeijer/weather-api)
 [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/vmxk.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
-
 ## Introduction
 
 This Api provides Weather data for predefined locations. The backend service harvests weather data every minute
