@@ -39,7 +39,7 @@
         "@angular/cli": "^17.0.0",
         "@angular/compiler-cli": "^17.0.2",
         "@types/jasmine": "~5.1.2",
-        "@typescript-eslint/eslint-plugin": "6.10.0",
+        "@typescript-eslint/eslint-plugin": "6.11.0",
         "@typescript-eslint/parser": "6.11.0",
         "autoprefixer": "^10.4.16",
         "daisyui": "^4.0.3",
