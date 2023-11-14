@@ -4,6 +4,7 @@ import { ChartType } from 'src/app/model/chart-type.enum';
 import { OverviewLocation } from 'src/app/model/overview-location.model';
 import { OverviewLocationsResponse } from 'src/app/model/overview-locations-response.model';
 import { ApiHttpService } from 'src/app/service/api-http.service';
+import { HostListener } from '@angular/core';
 
 @Component({
     selector: 'app-overview-page',
@@ -14,14 +15,31 @@ export class OverviewPageComponent implements OnInit {
     public overviewLocations: OverviewLocation[] = [];
     public chart: any;
 
+    private screenHeight: number = 1000;
+    private screenWidth: number = 1000;
+
     private colorWhite = 'white';
-    // daisy ui accent-color copied
+    // daisy ui colors copied
     private colorDaisyUiAccent = '#64ffda';
+    private colorDaisyUiPrimary = '#112240';
 
     constructor(private apiHttpService: ApiHttpService) {}
 
     public ngOnInit() {
         this.requestOverviewLocations();
+        this.onResize();
+    }
+
+    @HostListener('window:resize', ['$event'])
+    private onResize() {
+        this.screenHeight = window.innerHeight;
+        this.screenWidth = window.innerWidth;
+        if (this.chart != undefined) {
+            console.log(this.chart.options.plugins.legend.labels.font.size);
+            this.chart.options.plugins.legend.labels.font.size = this.screenWidth > 1000 ? 25 : 15;
+            this.chart.options.scales.y.ticks.font.size = this.screenWidth > 1000 ? 18 : 12;
+            this.chart.update();
+        }
     }
 
     private requestOverviewLocations(): void {
@@ -75,12 +93,12 @@ export class OverviewPageComponent implements OnInit {
                     ]
                 },
                 options: {
-                    aspectRatio: 2.7,
+                    aspectRatio: 2,
                     // creates horizontal bar-chart
                     indexAxis: 'y',
                     datasets: {
                         bar: {
-                            maxBarThickness: 45
+                            minBarLength: 10
                         }
                     },
                     scales: {
@@ -91,7 +109,7 @@ export class OverviewPageComponent implements OnInit {
                             ticks: {
                                 color: this.colorWhite,
                                 font: {
-                                    size: 17
+                                    size: this.screenWidth > 1000 ? 18 : 12
                                 }
                             }
                         },
@@ -104,16 +122,27 @@ export class OverviewPageComponent implements OnInit {
                             }
                         }
                     },
+                    elements: {
+                        bar: {
+                            borderRadius: 4,
+                            inflateAmount: 'auto'
+                        }
+                    },
+                    animation: {
+                        duration: 1250,
+                        easing: 'easeOutExpo'
+                    },
                     plugins: {
                         legend: {
                             display: true,
                             labels: {
                                 color: this.colorWhite,
                                 // This more specific font property overrides the global property
-                                font: {
-                                    size: 20
-                                }
+                                font: { size: this.screenWidth > 1000 ? 25 : 15 }
                             }
+                        },
+                        tooltip: {
+                            backgroundColor: this.colorDaisyUiPrimary
                         }
                     }
                 }
