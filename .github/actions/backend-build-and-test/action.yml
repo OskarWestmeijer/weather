@@ -1,5 +1,9 @@
 name: backend-build-and-test
 description: 'backend-build-and-test'
+inputs:
+  code-cov:
+    description: code-cov
+    required: true
 runs:
   using: "composite"
   steps:
@@ -24,7 +28,7 @@ runs:
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
       env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        CODECOV_TOKEN: ${{ inputs.code-cov }}
 
     - name: Upload Checkstyle result
       uses: actions/upload-artifact@v3

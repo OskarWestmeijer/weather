@@ -11,6 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/backend-build-and-test
+        with:
+          code-cov: ${{ secrets.DOCKER_USERNAME }}
 
   frontend-build-and-test:
     runs-on: ubuntu-latest
@@ -29,7 +31,7 @@ jobs:
 
   trivy-image-check-backend:
     runs-on: ubuntu-latest
-    needs: [backend-build-and-test]
+    needs: [ backend-build-and-test ]
     environment: oskar-westmeijer-environment
     permissions:
       actions: read
@@ -43,7 +45,7 @@ jobs:
           github-sha: ${{ github.sha }}
 
   release-backend-docker-image:
-    needs: [backend-build-and-test, frontend-build-and-test]
+    needs: [ backend-build-and-test, frontend-build-and-test ]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
     if: github.ref == 'refs/heads/main'
