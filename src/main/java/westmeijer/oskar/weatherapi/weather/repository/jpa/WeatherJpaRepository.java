@@ -13,15 +13,9 @@ public interface WeatherJpaRepository extends JpaRepository<WeatherEntity, UUID>
 
   @Query(value = """
       SELECT * FROM weather.weather
-      WHERE recorded_at BETWEEN NOW() - INTERVAL '24 HOURS' AND NOW() AND local_zip_code = :local_zip_code 
+      WHERE recorded_at BETWEEN NOW() - INTERVAL '24 HOURS' AND NOW() AND id = :location_id
       ORDER BY recorded_at DESC""", nativeQuery = true)
-  List<WeatherEntity> getLast24h(@Param("local_zip_code") String localZipCode);
-
-  @Query(value = """
-      SELECT * FROM weather.weather
-      WHERE recorded_at BETWEEN NOW() - INTERVAL '3 DAYS' AND NOW() AND local_zip_code = :local_zip_code
-      ORDER BY recorded_at DESC""", nativeQuery = true)
-  List<WeatherEntity> getLast3Days(@Param("local_zip_code") String localZipCode);
+  List<WeatherEntity> getLast24h(@Param("location_id") Integer locationId);
 
   @Query(value = """
       SELECT * FROM weather.weather
@@ -32,7 +26,7 @@ public interface WeatherJpaRepository extends JpaRepository<WeatherEntity, UUID>
 
   @Query(value = """
       SELECT * FROM weather.weather
-      WHERE location_id = :location_id 
+      WHERE location_id = :location_id
       ORDER BY recorded_at DESC LIMIT 1""", nativeQuery = true)
   WeatherEntity getLatest(@Param("location_id") Integer locationId);
 

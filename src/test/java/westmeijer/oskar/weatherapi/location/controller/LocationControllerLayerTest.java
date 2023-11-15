@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import lombok.SneakyThrows;
@@ -19,9 +20,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import westmeijer.oskar.weatherapi.WebMvcMappersTestConfig;
 import westmeijer.oskar.weatherapi.location.service.LocationService;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
-import westmeijer.oskar.weatherapi.WebMvcMappersTestConfig;
 
 @WebMvcTest(LocationController.class)
 @Import(WebMvcMappersTestConfig.class)
@@ -46,7 +47,10 @@ public class LocationControllerLayerTest {
         "Lübeck",
         "Germany",
         "GER",
-        now
+        "51.659088",
+        "6.966170",
+        now,
+        Collections.emptyList()
     );
     Location hamburg = new Location(
         2,
@@ -56,7 +60,10 @@ public class LocationControllerLayerTest {
         "Hamburg",
         "Germany",
         "GER",
-        now
+        "51.659088",
+        "6.966170",
+        now,
+        Collections.emptyList()
     );
     given(locationService.getAll()).willReturn(List.of(luebeck, hamburg));
 
@@ -65,18 +72,18 @@ public class LocationControllerLayerTest {
         {
           "locations":  [
             {
+              "locationId": 1,
               "uuid":"%s",
               "localZipCode":"23552",
-              "locationCode":"2875601",
               "cityName":"Lübeck",
               "country":"Germany",
               "countryCode":"GER",
               "lastImportAt":"%s"
             },
             {
+              "locationId": 2,
               "uuid":"%s",
               "localZipCode":"20095",
-              "locationCode":"2911298",
               "cityName":"Hamburg",
               "country":"Germany",
               "countryCode":"GER",

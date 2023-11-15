@@ -12,10 +12,10 @@ public interface LocationEntityMapper {
 
   List<Location> mapList(List<LocationEntity> locationEntityList);
 
+  @Mapping(target = "locationId", source = "id")
   Location map(LocationEntity locationEntity);
 
-  ImportJobLocation mapToJobLocation(LocationEntity locationEntity);
-
+  @Mapping(target = "id", source = "locationId")
   @Mapping(target = "modifiedAt", expression = "java(Instant.now().truncatedTo(java.time.temporal.ChronoUnit.MICROS))")
   LocationEntity map(Location location);
 

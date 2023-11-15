@@ -11,8 +11,8 @@ import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 @Mapper(componentModel = "spring")
 public interface WeatherDtoMapper {
 
+  @Mapping(source = "location.locationId", target = "locationId")
   @Mapping(source = "location.cityName", target = "cityName")
-  @Mapping(source = "location.localZipCode", target = "localZipCode")
   @Mapping(source = "location.country", target = "country")
   @Mapping(source = "weatherList", target = "weatherData")
   WeatherResponse mapTo(Location location, List<Weather> weatherList);

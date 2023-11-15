@@ -6,6 +6,8 @@ import java.time.Instant;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
+import westmeijer.oskar.weatherapi.TestLocationFactory;
+import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.openapi.client.model.GeneratedOpenWeatherApiResponse;
 import westmeijer.oskar.weatherapi.openapi.client.model.Main;
 import westmeijer.oskar.weatherapi.openapi.client.model.Wind;
@@ -20,8 +22,7 @@ public class OpenWeatherApiMapperTest {
     Integer humidity = 55;
     Double windSpeed = 25.55;
     Double temperature = -10.35;
-    String localZipCode = "20535";
-    Integer locationId = 1;
+    Location location = TestLocationFactory.location();
 
     Main main = new Main()
         .humidity(humidity)
@@ -32,14 +33,13 @@ public class OpenWeatherApiMapperTest {
         .main(main)
         .wind(wind);
 
-    Weather weather = openWeatherApiMapper.map(response, localZipCode, locationId);
+    Weather weather = openWeatherApiMapper.map(response, location);
 
     assertThat(weather)
         .returns(windSpeed, Weather::windSpeed)
         .returns(humidity, Weather::humidity)
         .returns(temperature, Weather::temperature)
-        .returns(localZipCode, Weather::localZipCode)
-        .returns(locationId, Weather::locationId)
+        .returns(location, Weather::location)
         .returns(UUID.class, w -> w.id().getClass())
         .returns(Instant.class, w -> w.recordedAt().getClass());
   }

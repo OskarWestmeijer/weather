@@ -17,9 +17,9 @@ public interface LocationJpaRepository extends JpaRepository<LocationEntity, Str
 
   @Query(value = """
       SELECT * FROM weather.location
-      WHERE local_zip_code = :local_zip_code AND id IS NOT null
+      WHERE id = :location_id AND id IS NOT null
       LIMIT 1""", nativeQuery = true)
-  Optional<LocationEntity> getByLocalZipCode(@Param("local_zip_code") String localZipCode);
+  Optional<LocationEntity> getById(@Param("location_id") Integer locationId);
 
   @Query(value = """
       SELECT * FROM weather.location

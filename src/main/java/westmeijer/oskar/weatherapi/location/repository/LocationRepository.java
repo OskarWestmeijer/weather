@@ -6,11 +6,11 @@ import westmeijer.oskar.weatherapi.location.service.model.Location;
 
 public interface LocationRepository {
 
-  void updateLastImportAt(ImportJobLocation location);
+  void updateLastImportAt(Integer locationId);
 
   List<Location> getAll();
 
-  ImportJobLocation getNextImportLocation();
+  Location getNextImportLocation();
 
-  Location getByLocalZipCode(String localZipCode);
+  Location getById(Integer locationId);
 }

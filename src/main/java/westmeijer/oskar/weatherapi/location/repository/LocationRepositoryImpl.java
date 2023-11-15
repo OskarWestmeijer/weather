@@ -1,5 +1,7 @@
 package westmeijer.oskar.weatherapi.location.repository;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -26,21 +28,21 @@ public class LocationRepositoryImpl implements LocationRepository {
   }
 
   @Override
-  public ImportJobLocation getNextImportLocation() {
+  public Location getNextImportLocation() {
     LocationEntity location = locationJpaRepository.getNextImportLocation();
-    return locationEntityMapper.mapToJobLocation(location);
+    return locationEntityMapper.map(location);
   }
 
-  public void updateLastImportAt(ImportJobLocation location) {
-    Objects.requireNonNull(location, "location must not be null");
-    locationJpaRepository.updateLastImportAt(location.id());
+  public void updateLastImportAt(Integer locationId) {
+    requireNonNull(locationId, "locationId is required");
+    locationJpaRepository.updateLastImportAt(locationId);
   }
 
   @Override
-  public Location getByLocalZipCode(String localZipCode) {
-    Objects.requireNonNull(localZipCode, "localZipCode must not be null");
-    LocationEntity locationEntity = locationJpaRepository.getByLocalZipCode(localZipCode)
-        .orElseThrow(() -> new LocationNotSupportedException(localZipCode));
+  public Location getById(Integer locationId) {
+    requireNonNull(locationId, "locationId is required");
+    LocationEntity locationEntity = locationJpaRepository.getById(locationId)
+        .orElseThrow(() -> new LocationNotSupportedException(locationId));
     return locationEntityMapper.map(locationEntity);
   }
 }

@@ -1,0 +1,1 @@
+ALTER TABLE WEATHER DROP COLUMN local_zip_code;

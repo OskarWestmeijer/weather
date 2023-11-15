@@ -16,7 +16,6 @@ public interface LocationDtoMapper {
 
   List<LocationDto> mapList(List<Location> location);
 
-  @Mapping(source = "openWeatherApiLocationCode", target = "locationCode")
   LocationDto map(Location location);
 
 }

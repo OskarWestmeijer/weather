@@ -10,6 +10,7 @@ import westmeijer.oskar.weatherapi.importjob.client.OpenWeatherApiClient;
 import westmeijer.oskar.weatherapi.importjob.exception.OpenWeatherApiRequestException;
 import westmeijer.oskar.weatherapi.importjob.service.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.location.service.LocationService;
+import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.weather.service.WeatherService;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
@@ -33,12 +34,12 @@ public class WeatherImportJob {
     try {
       meterRegistry.counter("import.job", "import", "execution").increment();
 
-      ImportJobLocation location = locationService.getNextImportLocation();
-      log.info("Import weather for location: {}", location);
+      Location nextImportLocation = locationService.getNextImportLocation();
+      log.info("Import weather for location: {}", nextImportLocation);
 
-      Weather importedWeather = openWeatherApiClient.requestWithGeneratedClient(location);
+      Weather importedWeather = openWeatherApiClient.requestWithGeneratedClient(nextImportLocation);
       Weather savedWeather = weatherService.saveAndFlush(importedWeather);
-      locationService.updateLastImportAt(location);
+      locationService.updateLastImportAt(nextImportLocation.locationId());
 
       log.info("Saved imported weather: {}", savedWeather);
     } catch (OpenWeatherApiRequestException requestException) {

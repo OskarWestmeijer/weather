@@ -20,16 +20,9 @@ public class WeatherRepositoryImpl implements WeatherRepository {
   private final WeatherJpaRepository weatherJpaRepository;
 
   @Override
-  public List<Weather> getLast24h(String localZipCode) {
-    requireNonNull(localZipCode, "localZipCode should not be null");
-    List<WeatherEntity> weatherEntities = weatherJpaRepository.getLast24h(localZipCode);
-    return weatherEntityMapper.mapList(weatherEntities);
-  }
-
-  @Override
-  public List<Weather> getLast3Days(String localZipCode) {
-    requireNonNull(localZipCode, "localZipCode should not be null");
-    List<WeatherEntity> weatherEntities = weatherJpaRepository.getLast3Days(localZipCode);
+  public List<Weather> getLast24h(Integer locationId) {
+    requireNonNull(locationId, "locationId should not be null");
+    List<WeatherEntity> weatherEntities = weatherJpaRepository.getLast24h(locationId);
     return weatherEntityMapper.mapList(weatherEntities);
   }
 
@@ -42,9 +35,9 @@ public class WeatherRepositoryImpl implements WeatherRepository {
   }
 
   @Override
-  public Weather getLatest(Location location) {
-    requireNonNull(location, "location must not be null");
-    WeatherEntity weatherEntity = weatherJpaRepository.getLatest(location.id());
+  public Weather getLatest(Integer locationId) {
+    requireNonNull(locationId, "locationId is required");
+    WeatherEntity weatherEntity = weatherJpaRepository.getLatest(locationId);
     return weatherEntityMapper.map(weatherEntity);
   }
 

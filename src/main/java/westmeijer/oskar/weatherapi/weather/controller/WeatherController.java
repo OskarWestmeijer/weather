@@ -28,19 +28,10 @@ public class WeatherController implements WeatherApi {
   private final WeatherDtoMapper weatherDtoMapper;
 
   @Override
-  public ResponseEntity<WeatherResponse> getWeatherLast24Hours(@PathVariable String localZipCode) {
-    log.info("Received Weather request 24h for localZipCode: {}", localZipCode);
-    Location location = locationService.getByLocalZipCode(localZipCode);
-    List<Weather> weatherList = weatherService.getLast24h(localZipCode);
-    WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherList);
-    return ResponseEntity.ok(weatherResponse);
-  }
-
-  @Override
-  public ResponseEntity<WeatherResponse> getWeatherLast3Days(@PathVariable String localZipCode) {
-    log.info("Received Weather request 3d for localZipCode: {}", localZipCode);
-    Location location = locationService.getByLocalZipCode(localZipCode);
-    List<Weather> weatherList = weatherService.getLast3Days(localZipCode);
+  public ResponseEntity<WeatherResponse> getWeatherLast24Hours(@PathVariable Integer locationId) {
+    log.info("Received Weather request 24h for locationId: {}", locationId);
+    Location location = locationService.getById(locationId);
+    List<Weather> weatherList = weatherService.getLast24h(locationId);
     WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherList);
     return ResponseEntity.ok(weatherResponse);
   }

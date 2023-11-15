@@ -52,39 +52,39 @@ public class LocationRepositoryImplTest {
     LocationEntity locationEntity = mock(LocationEntity.class);
     given(locationJpaRepository.getNextImportLocation()).willReturn(locationEntity);
 
-    ImportJobLocation expectedLocation = mock(ImportJobLocation.class);
-    given(locationEntityMapper.mapToJobLocation(locationEntity)).willReturn(expectedLocation);
+    Location expectedLocation = mock(Location.class);
+    given(locationEntityMapper.map(locationEntity)).willReturn(expectedLocation);
 
-    ImportJobLocation actualLocation = locationRepository.getNextImportLocation();
+    Location actualLocation = locationRepository.getNextImportLocation();
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
     then(locationJpaRepository).should().getNextImportLocation();
-    then(locationEntityMapper).should().mapToJobLocation(locationEntity);
+    then(locationEntityMapper).should().map(locationEntity);
   }
 
   @Test
   public void shouldUpdateImportTs() {
-    ImportJobLocation newLocation = mock(ImportJobLocation.class);
+    Integer locationId = 1;
 
-    locationRepository.updateLastImportAt(newLocation);
+    locationRepository.updateLastImportAt(locationId);
 
-    then(locationJpaRepository).should().updateLastImportAt(newLocation.id());
+    then(locationJpaRepository).should().updateLastImportAt(locationId);
   }
 
   @Test
   public void updateImportTs_throwsExceptionOnNullParam() {
     assertThatThrownBy(() -> locationRepository.updateLastImportAt(null))
         .isInstanceOf(NullPointerException.class)
-        .hasMessageContaining("location must not be null");
+        .hasMessageContaining("locationId is required");
 
     then(locationJpaRepository).shouldHaveNoInteractions();
   }
 
   @Test
   public void findById_throwsExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationRepository.getByLocalZipCode(null))
+    assertThatThrownBy(() -> locationRepository.getById(null))
         .isInstanceOf(NullPointerException.class)
-        .hasMessageContaining("localZipCode must not be null");
+        .hasMessageContaining("locationId is required");
 
     then(locationEntityMapper).shouldHaveNoInteractions();
     then(locationJpaRepository).shouldHaveNoInteractions();
@@ -92,31 +92,31 @@ public class LocationRepositoryImplTest {
 
   @Test
   public void findById_throwsExceptionOnNotFound() {
-    String localZipCode = "20535";
-    given(locationJpaRepository.getByLocalZipCode(localZipCode)).willReturn(Optional.empty());
+    Integer locationId = 1;
+    given(locationJpaRepository.getById(locationId)).willReturn(Optional.empty());
 
-    assertThatThrownBy(() -> locationRepository.getByLocalZipCode(localZipCode))
+    assertThatThrownBy(() -> locationRepository.getById(locationId))
         .isInstanceOf(LocationNotSupportedException.class)
-        .hasMessageContaining("Location lookup for localZipCode  failed. localZipCode: 20535");
+        .hasMessageContaining("Location lookup for locationId  failed. locationId: 1");
 
     then(locationEntityMapper).shouldHaveNoInteractions();
-    then(locationJpaRepository).should().getByLocalZipCode(localZipCode);
+    then(locationJpaRepository).should().getById(locationId);
   }
 
   @Test
   public void shouldFindById() {
     LocationEntity locationEntity = mock(LocationEntity.class);
     Location expectedLocation = mock(Location.class);
-    String localZipCode = "20535";
+    Integer locationId = 1;
 
-    given(locationJpaRepository.getByLocalZipCode(localZipCode)).willReturn(Optional.of(locationEntity));
+    given(locationJpaRepository.getById(locationId)).willReturn(Optional.of(locationEntity));
     given(locationEntityMapper.map(locationEntity)).willReturn(expectedLocation);
 
-    Location actualLocation = locationRepository.getByLocalZipCode(localZipCode);
+    Location actualLocation = locationRepository.getById(locationId);
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
     then(locationEntityMapper).should().map(locationEntity);
-    then(locationJpaRepository).should().getByLocalZipCode(localZipCode);
+    then(locationJpaRepository).should().getById(locationId);
   }
 
 }

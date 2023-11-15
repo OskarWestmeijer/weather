@@ -25,9 +25,9 @@ public class LocationDtoJsonTest {
   public void serializeToJson() {
     Instant recordedAt = Instant.now().truncatedTo(ChronoUnit.MICROS);
     LocationDto locationDto = new LocationDto()
+        .locationId(1)
         .uuid(UUID.randomUUID())
         .localZipCode("23552")
-        .locationCode("2875601")
         .cityName("Lübeck")
         .country("Germany")
         .countryCode("GER")
@@ -36,9 +36,9 @@ public class LocationDtoJsonTest {
     @Language("json")
     String jsonTemplate = """
         {
+          "locationId":1,
           "uuid":"%s",
           "localZipCode":"23552",
-          "locationCode":"2875601",
           "cityName":"Lübeck",
           "country":"Germany",
           "countryCode":"GER",

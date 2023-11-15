@@ -31,14 +31,6 @@ public class WeatherEntity {
 
   private Double windSpeed;
 
-  /**
-   * The local zip code. Only numeric. Example: 00100
-   *
-   * @deprecated zip code is a poor international location matcher. Uniqueness is not guaranteed. Make use of Location.
-   */
-  @Deprecated
-  private String localZipCode;
-
   @ManyToOne
   @JoinColumn(name = "location_id")
   private LocationEntity location;
