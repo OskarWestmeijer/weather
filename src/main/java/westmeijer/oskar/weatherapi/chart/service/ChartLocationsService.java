@@ -22,7 +22,7 @@ public class ChartLocationsService {
   public List<ChartLocation> getChartLocations() {
     List<Location> locations = locationService.getAll();
     return locations.stream()
-        .map(location -> chartLocationMapper.mapTo(location, weatherService.getLatestWeather(location.locationId())))
+        .map(location -> chartLocationMapper.mapTo(location, weatherService.getLatestWeather(location.getLocationId())))
         .toList();
   }
 }

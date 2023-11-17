@@ -4,22 +4,23 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.Instant;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
 
-public record Weather(UUID id,
-                      Double temperature,
-                      Integer humidity,
-                      Double windSpeed,
-                      Location location,
-                      Instant recordedAt) {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class Weather {
 
-  public Weather {
-    requireNonNull(id, "id is required");
-    requireNonNull(temperature, "temperature is required");
-    requireNonNull(humidity, "humidity is required");
-    requireNonNull(windSpeed, "windSpeed is required");
-    requireNonNull(location, "location is required");
-    requireNonNull(recordedAt, "recordedAt is required");
-  }
+  UUID id;
+  Double temperature;
+  Integer humidity;
+  Double windSpeed;
+  Location location;
+  Instant recordedAt;
 
 }

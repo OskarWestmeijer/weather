@@ -23,12 +23,12 @@ public class WeatherTest {
     Weather weather = new Weather(id, temp, humidity, windSpeed, location, recordedAt);
 
     assertThat(weather)
-        .returns(id, Weather::id)
-        .returns(temp, Weather::temperature)
-        .returns(humidity, Weather::humidity)
-        .returns(windSpeed, Weather::windSpeed)
-        .returns(location, Weather::location)
-        .returns(recordedAt, Weather::recordedAt);
+        .returns(id, Weather::getId)
+        .returns(temp, Weather::getTemperature)
+        .returns(humidity, Weather::getHumidity)
+        .returns(windSpeed, Weather::getWindSpeed)
+        .returns(location, Weather::getLocation)
+        .returns(recordedAt, Weather::getRecordedAt);
   }
 
   @Test

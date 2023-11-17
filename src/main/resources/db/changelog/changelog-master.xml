@@ -22,5 +22,8 @@
   <changeSet id="006" author="OskarWestmeijer">
     <sqlFile path="006_add_constraints.sql" relativeToChangelogFile="true"/>
   </changeSet>
+  <changeSet id="007" author="OskarWestmeijer">
+    <sqlFile path="007_drop_columns.sql" relativeToChangelogFile="true"/>
+  </changeSet>
 
 </databaseChangeLog>

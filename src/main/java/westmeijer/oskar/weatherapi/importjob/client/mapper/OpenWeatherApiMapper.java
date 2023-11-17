@@ -13,7 +13,7 @@ public interface OpenWeatherApiMapper {
   @Mapping(target = "temperature", source = "response.main.temp")
   @Mapping(target = "humidity", source = "response.main.humidity")
   @Mapping(target = "windSpeed", source = "response.wind.speed")
-  @Mapping(target = "recordedAt", expression = "java(Instant.now().truncatedTo(java.time.temporal.ChronoUnit.MICROS))")
+  @Mapping(target = "recordedAt", expression = "java(java.time.Instant.now().truncatedTo(java.time.temporal.ChronoUnit.MICROS))")
   Weather map(GeneratedOpenWeatherApiResponse response, Location location);
 
 }

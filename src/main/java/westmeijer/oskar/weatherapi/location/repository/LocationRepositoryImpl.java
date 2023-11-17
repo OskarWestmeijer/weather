@@ -3,10 +3,9 @@ package westmeijer.oskar.weatherapi.location.repository;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
-import westmeijer.oskar.weatherapi.importjob.service.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.location.exception.LocationNotSupportedException;
 import westmeijer.oskar.weatherapi.location.repository.jpa.LocationJpaRepository;
 import westmeijer.oskar.weatherapi.location.repository.mapper.LocationEntityMapper;
@@ -24,13 +23,13 @@ public class LocationRepositoryImpl implements LocationRepository {
   @Override
   public List<Location> getAll() {
     List<LocationEntity> locationEntities = locationJpaRepository.findAll();
-    return locationEntityMapper.mapList(locationEntities);
+    return locationEntityMapper.mapToLocationList(locationEntities);
   }
 
   @Override
   public Location getNextImportLocation() {
     LocationEntity location = locationJpaRepository.getNextImportLocation();
-    return locationEntityMapper.map(location);
+    return locationEntityMapper.mapToLocation(location);
   }
 
   public void updateLastImportAt(Integer locationId) {
@@ -43,6 +42,6 @@ public class LocationRepositoryImpl implements LocationRepository {
     requireNonNull(locationId, "locationId is required");
     LocationEntity locationEntity = locationJpaRepository.getById(locationId)
         .orElseThrow(() -> new LocationNotSupportedException(locationId));
-    return locationEntityMapper.map(locationEntity);
+    return locationEntityMapper.mapToLocation(locationEntity);
   }
 }

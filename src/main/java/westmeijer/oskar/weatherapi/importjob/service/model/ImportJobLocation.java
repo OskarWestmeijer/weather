@@ -1,19 +1,21 @@
 package westmeijer.oskar.weatherapi.importjob.service.model;
 
-import static java.util.Objects.requireNonNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
-import javax.annotation.Nonnull;
+@RequiredArgsConstructor
+@AllArgsConstructor
+@Getter
+public class ImportJobLocation {
 
-public record ImportJobLocation(@Nonnull Integer id,
-                                @Nonnull String latitude,
-                                @Nonnull String longitude,
-                                @Nonnull String localZipCode) {
+  private final Integer locationId;
+  private final String latitude;
+  private final String longitude;
 
-  public ImportJobLocation {
-    requireNonNull(id, "id cannot be null");
-    requireNonNull(latitude, "latitude cannot be null");
-    requireNonNull(longitude, "longitude cannot be null");
-    requireNonNull(localZipCode, "localZipCode cannot be null");
-  }
+  @Setter
+  private Weather weather;
 
 }

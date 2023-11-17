@@ -5,12 +5,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 
 
@@ -20,6 +24,7 @@ import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 @NoArgsConstructor
 @Builder
 @Getter
+@Setter
 public class LocationEntity {
 
   @Id
@@ -49,6 +54,11 @@ public class LocationEntity {
   private Instant createdAt;
 
   @OneToMany(mappedBy = "location")
-  private List<WeatherEntity> weather;
+  private List<WeatherEntity> weather = new ArrayList<>();
+
+  public void addWeather(WeatherEntity weatherEntity) {
+    this.weather.add(weatherEntity);
+    weatherEntity.setLocation(this);
+  }
 
 }

@@ -2,6 +2,8 @@ package westmeijer.oskar.weatherapi.importjob.service;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import jakarta.transaction.Transactional;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -9,8 +11,12 @@ import org.springframework.stereotype.Component;
 import westmeijer.oskar.weatherapi.importjob.client.OpenWeatherApiClient;
 import westmeijer.oskar.weatherapi.importjob.exception.OpenWeatherApiRequestException;
 import westmeijer.oskar.weatherapi.importjob.service.model.ImportJobLocation;
+import westmeijer.oskar.weatherapi.location.repository.jpa.LocationJpaRepository;
+import westmeijer.oskar.weatherapi.location.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.location.service.LocationService;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.weather.repository.jpa.WeatherJpaRepository;
+import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.weather.service.WeatherService;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
@@ -27,6 +33,9 @@ public class WeatherImportJob {
 
   private final OpenWeatherApiClient openWeatherApiClient;
 
+  private final LocationJpaRepository locationJpaRepository;
+  private final WeatherJpaRepository weatherJpaRepository;
+
 
   @Scheduled(fixedDelay = 60000)
   @Transactional
@@ -34,14 +43,18 @@ public class WeatherImportJob {
     try {
       meterRegistry.counter("import.job", "import", "execution").increment();
 
-      Location nextImportLocation = locationService.getNextImportLocation();
-      log.info("Import weather for location: {}", nextImportLocation);
+      //Location nextImportLocation = locationService.getNextImportLocation();
+      LocationEntity location = locationJpaRepository.getNextImportLocation();
+      log.info("Import weather for location: {}", location.getCityName());
 
-      Weather importedWeather = openWeatherApiClient.requestWithGeneratedClient(nextImportLocation);
-      Weather savedWeather = weatherService.saveAndFlush(importedWeather);
-      locationService.updateLastImportAt(nextImportLocation.locationId());
+      WeatherEntity importedWeather = openWeatherApiClient.requestWithGeneratedClient(location);
+      location.setLastImportAt(Instant.now().truncatedTo(ChronoUnit.MICROS));
+      weatherJpaRepository.saveAndFlush(importedWeather);
 
-      log.info("Saved imported weather: {}", savedWeather);
+      //Weather savedWeather = weatherService.saveAndFlush(importedWeather);
+      //locationService.updateLastImportAt(nextImportLocation.locationId());
+
+      log.info("Saved imported weather: {}", importedWeather.getLocation().getCityName());
     } catch (OpenWeatherApiRequestException requestException) {
       log.error("OpenWeatherApi request failed!", requestException);
       meterRegistry.counter("import.job", "error", "request").increment();

@@ -22,7 +22,7 @@ public class WeatherService {
     List<Weather> weatherList = weatherRepository.getLast24h(locationId);
 
     return weatherList.stream()
-        .sorted(Comparator.comparing(Weather::recordedAt).reversed())
+        .sorted(Comparator.comparing(Weather::getRecordedAt).reversed())
         .toList();
   }
 

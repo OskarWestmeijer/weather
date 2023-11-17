@@ -6,11 +6,12 @@ import org.mapstruct.Mapping;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.openapi.server.model.LocationDto;
 import westmeijer.oskar.weatherapi.openapi.server.model.LocationResponse;
+import westmeijer.oskar.weatherapi.weather.controller.mapper.WeatherDtoMapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = WeatherDtoMapper.class)
 public interface LocationDtoMapper {
 
-  default LocationResponse mapToResponse(List<Location> locations) {
+  default LocationResponse mapToLocationResponse(List<Location> locations) {
     return new LocationResponse(mapList(locations));
   }
 

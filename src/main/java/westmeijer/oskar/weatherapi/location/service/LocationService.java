@@ -3,10 +3,8 @@ package westmeijer.oskar.weatherapi.location.service;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import westmeijer.oskar.weatherapi.importjob.service.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.location.repository.LocationRepository;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
 
@@ -22,7 +20,8 @@ public class LocationService {
   }
 
   public List<Location> getAll() {
-    return locationRepository.getAll();
+    List<Location> locations = locationRepository.getAll();
+    return locations;
   }
 
   public Location getNextImportLocation() {
