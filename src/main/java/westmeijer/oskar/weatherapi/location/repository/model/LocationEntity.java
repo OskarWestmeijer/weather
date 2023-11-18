@@ -21,7 +21,6 @@ import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Getter
 @Setter
 public class LocationEntity {

@@ -30,6 +30,8 @@ public class WeatherTest {
         .returns(windSpeed, Weather::getWindSpeed)
         .returns(location, Weather::getLocation)
         .returns(recordedAt, Weather::getRecordedAt);
+
+    assertThat(weather.getLocation()).isEqualTo(location);
   }
 
 }
