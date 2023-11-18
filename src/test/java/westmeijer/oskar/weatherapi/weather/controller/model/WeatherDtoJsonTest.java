@@ -2,6 +2,7 @@ package westmeijer.oskar.weatherapi.weather.controller.model;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.UUID;
 import lombok.SneakyThrows;
 import org.intellij.lang.annotations.Language;
 import org.junit.jupiter.api.Test;
@@ -22,18 +23,20 @@ public class WeatherDtoJsonTest {
   @SneakyThrows
   public void serializeToJson() {
     Instant recordedAt = Instant.now().truncatedTo(ChronoUnit.MICROS);
-    WeatherDto weatherDTO = new WeatherDto(22.54d, 34, 89.12d, recordedAt);
+    UUID uuid = UUID.randomUUID();
+    WeatherDto weatherDTO = new WeatherDto(uuid, 22.54d, 34, 89.12d, recordedAt);
 
-    @Language("json")
     String jsonTemplate = """
         {
+          "id":"%s",
           "temperature":%s,
-          "humidity":%s,
+          "humidity":%d,
           "windSpeed":%s,
           "recordedAt":"%s"
         }""";
 
-    String expectedJson = jsonTemplate.formatted(weatherDTO.getTemperature(), weatherDTO.getHumidity(), weatherDTO.getWindSpeed(),
+    String expectedJson = jsonTemplate.formatted(weatherDTO.getId(), weatherDTO.getTemperature(), weatherDTO.getHumidity(),
+        weatherDTO.getWindSpeed(),
         weatherDTO.getRecordedAt());
     JsonContent<WeatherDto> actualJson = tester.write(weatherDTO);
 

@@ -182,11 +182,17 @@ components:
       type: object
       description: Weather at recorded time. Wrapped in WeatherResponse, with location information.
       required:
+        - id
         - temperature
         - humidity
         - windSpeed
         - recordedAt
       properties:
+        id:
+          type: string
+          format: uuid
+          example: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15"
+          description: "Technical id of the weather element"
         temperature:
           type: number
           format: double
