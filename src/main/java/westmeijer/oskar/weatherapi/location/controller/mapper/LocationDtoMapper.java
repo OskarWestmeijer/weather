@@ -1,5 +1,6 @@
 package westmeijer.oskar.weatherapi.location.controller.mapper;
 
+import java.util.Comparator;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,7 +13,8 @@ import westmeijer.oskar.weatherapi.weather.controller.mapper.WeatherDtoMapper;
 public interface LocationDtoMapper {
 
   default LocationResponse mapToLocationResponse(List<Location> locations) {
-    return new LocationResponse(mapList(locations));
+    List<LocationDto> locationDtos = mapList(locations).stream().sorted(Comparator.comparingInt(LocationDto::getLocationId)).toList();
+    return new LocationResponse(locationDtos);
   }
 
   List<LocationDto> mapList(List<Location> location);

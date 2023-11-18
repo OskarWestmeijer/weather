@@ -19,6 +19,11 @@ public class LocationService {
     return locationRepository.getById(locationId);
   }
 
+  public List<Location> getAllWithLatest() {
+    List<Location> locations = locationRepository.getAllWithLatest();
+    return locations;
+  }
+
   public List<Location> getAllOmitWeather() {
     List<Location> locations = locationRepository.getAllOmitWeather();
     return locations;

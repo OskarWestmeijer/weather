@@ -1,5 +1,6 @@
 package westmeijer.oskar.weatherapi.location.controller;
 
+import java.util.Comparator;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import westmeijer.oskar.weatherapi.location.controller.mapper.LocationDtoMapper;
 import westmeijer.oskar.weatherapi.location.service.LocationService;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.openapi.server.api.LocationsApi;
+import westmeijer.oskar.weatherapi.openapi.server.model.LocationDto;
 import westmeijer.oskar.weatherapi.openapi.server.model.LocationResponse;
 
 @Controller

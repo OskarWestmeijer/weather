@@ -32,6 +32,12 @@ public class LocationRepositoryImpl implements LocationRepository {
     return locationEntityMapper.mapToLocationWithoutWeather(location);
   }
 
+  @Override
+  public List<Location> getAllWithLatest() {
+    List<LocationEntity> locationEntities = locationJpaRepository.getAllWithLatest();
+    return locationEntityMapper.mapToLocationList(locationEntities);
+  }
+
   public void updateLastImportAt(Integer locationId) {
     requireNonNull(locationId, "locationId is required");
     locationJpaRepository.updateLastImportAt(locationId);
@@ -44,4 +50,6 @@ public class LocationRepositoryImpl implements LocationRepository {
         .orElseThrow(() -> new LocationNotSupportedException(locationId));
     return locationEntityMapper.mapToLocationWithoutWeather(locationEntity);
   }
+
+
 }

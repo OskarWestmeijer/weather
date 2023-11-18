@@ -14,4 +14,5 @@ public interface LocationRepository {
 
   Location getNextImportLocation();
 
+  List<Location> getAllWithLatest();
 }
