@@ -24,7 +24,7 @@ public class TestLocationFactory {
     return location;
   }
 
-  public static Location locationWithWeather() {
+  public static Location location() {
     Location location = new Location(1,
         UUID.randomUUID(),
         "1234",
@@ -36,7 +36,7 @@ public class TestLocationFactory {
         "6.966170",
         Instant.now().truncatedTo(ChronoUnit.MICROS),
         new ArrayList<>());
-    location.addWeather(TestWeatherFactory.weatherWithLocation());
+    location.addWeather(TestWeatherFactory.weather());
     return location;
   }
 
@@ -53,6 +53,23 @@ public class TestLocationFactory {
         Instant.now().truncatedTo(ChronoUnit.MICROS),
         Instant.now().truncatedTo(ChronoUnit.MICROS),
         new ArrayList<>());
+    return location;
+  }
+
+  public static LocationEntity locationEntity() {
+    LocationEntity location = new LocationEntity(1,
+        UUID.randomUUID(),
+        "1234",
+        "5678",
+        "Luebeck",
+        "Germany",
+        "GER",
+        "60.35",
+        "8.966170",
+        Instant.now().truncatedTo(ChronoUnit.MICROS),
+        Instant.now().truncatedTo(ChronoUnit.MICROS),
+        new ArrayList<>());
+    location.addWeather(TestWeatherFactory.weatherEntityWithoutLocation());
     return location;
   }
 

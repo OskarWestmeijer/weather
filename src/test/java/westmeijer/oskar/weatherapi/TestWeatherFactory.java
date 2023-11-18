@@ -10,7 +10,7 @@ import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 public class TestWeatherFactory {
 
-  public static Weather weatherWithLocation() {
+  public static Weather weather() {
     Location location = new Location(1,
         UUID.randomUUID(),
         "1234",

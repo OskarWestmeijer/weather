@@ -26,14 +26,14 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 
   @Override
   public List<Weather> getLast24h(Integer locationId) {
-    requireNonNull(locationId, "locationId should not be null");
+    requireNonNull(locationId, "locationId is required");
     List<WeatherEntity> weatherEntities = weatherJpaRepository.getLast24h(locationId);
     return weatherEntityMapper.mapList(weatherEntities);
   }
 
   @Override
   public Weather saveAndFlush(Weather weather) {
-    requireNonNull(weather, "weather must not be null");
+    requireNonNull(weather, "weather is required");
     WeatherEntity weatherEntity = weatherEntityImportMapper.mapToWeatherEntity(weather);
     WeatherEntity savedWeather = weatherJpaRepository.saveAndFlush(weatherEntity);
     return weatherEntityMapper.map(savedWeather);

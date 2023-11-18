@@ -62,6 +62,21 @@ public class LocationRepositoryImplTest {
   }
 
   @Test
+  public void shouldGetAllWithLatest() {
+    LocationEntity locationEntity = mock(LocationEntity.class);
+    given(locationJpaRepository.getAllWithLatest()).willReturn(List.of(locationEntity));
+
+    Location expectedLocation = mock(Location.class);
+    given(locationEntityMapper.mapToLocationList(List.of(locationEntity))).willReturn(List.of(expectedLocation));
+
+    List<Location> actualLocationList = locationRepository.getAllWithLatest();
+
+    assertThat(actualLocationList).isEqualTo(List.of(expectedLocation));
+    then(locationJpaRepository).should().getAllWithLatest();
+    then(locationEntityMapper).should().mapToLocationList(List.of(locationEntity));
+  }
+
+  @Test
   public void getByIdOmitWeather_throwsExceptionOnNullParam() {
     assertThatThrownBy(() -> locationRepository.getByIdOmitWeather(null))
         .isInstanceOf(NullPointerException.class)

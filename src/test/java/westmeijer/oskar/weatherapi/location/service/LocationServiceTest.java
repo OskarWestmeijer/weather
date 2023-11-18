@@ -37,12 +37,23 @@ public class LocationServiceTest {
   }
 
   @Test
-  public void getByIdOmitWeather_shouldThrowExceptionOnNullParam() {
+  public void getByIdOmitWeather_throwExceptionOnNullParam() {
     assertThatThrownBy(() -> locationService.getByIdOmitWeather(null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("locationId is required");
 
     then(locationRepository).shouldHaveNoInteractions();
+  }
+
+  @Test
+  public void shouldGetAllWithLatest() {
+    Location expectedLocation = mock(Location.class);
+    given(locationRepository.getAllWithLatest()).willReturn(List.of(expectedLocation));
+
+    List<Location> actualLocations = locationService.getAllWithLatest();
+
+    assertThat(actualLocations).isEqualTo(List.of(expectedLocation));
+    then(locationRepository).should().getAllWithLatest();
   }
 
   @Test

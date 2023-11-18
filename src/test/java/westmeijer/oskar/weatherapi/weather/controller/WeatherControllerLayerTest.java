@@ -42,7 +42,7 @@ public class WeatherControllerLayerTest {
   @SneakyThrows
   public void shouldRequestWeatherLast24h() {
     Location location = TestLocationFactory.locationWithoutWeather();
-    Weather weather = TestWeatherFactory.weatherWithLocation();
+    Weather weather = TestWeatherFactory.weather();
     List<Weather> weatherList = List.of(weather);
 
     given(locationService.getByIdOmitWeather(1)).willReturn(location);

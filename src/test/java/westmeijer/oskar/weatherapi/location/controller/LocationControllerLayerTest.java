@@ -36,7 +36,7 @@ public class LocationControllerLayerTest {
 
   @Test
   @SneakyThrows
-  public void shouldReturnLocations() {
+  public void shouldGetLocations() {
     Instant now = Instant.now().truncatedTo(ChronoUnit.MICROS);
 
     Location luebeck = new Location(
