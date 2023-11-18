@@ -26,11 +26,6 @@ public class WeatherService {
         .toList();
   }
 
-  public Weather getLatestWeather(Integer locationId) {
-    requireNonNull(locationId, "locationId is required");
-    return weatherRepository.getLatest(locationId);
-  }
-
   public Weather saveAndFlush(Weather importedWeather) {
     requireNonNull(importedWeather, "importedWeather must not be null");
     return weatherRepository.saveAndFlush(importedWeather);

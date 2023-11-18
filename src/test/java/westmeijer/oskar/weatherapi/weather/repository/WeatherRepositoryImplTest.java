@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import westmeijer.oskar.weatherapi.weather.repository.jpa.WeatherJpaRepository;
+import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityImportMapper;
 import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityMapper;
 import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
@@ -23,18 +24,21 @@ public class WeatherRepositoryImplTest {
   @Mock
   private WeatherEntityMapper weatherEntityMapper;
 
+  @Mock
+  private WeatherEntityImportMapper weatherEntityImportMapper;
+
   @InjectMocks
   private WeatherRepositoryImpl weatherRepository;
 
   @Test
-  public void saveAndFlushWeather() {
+  public void shouldSaveAndFlush() {
     Weather importedWeather = mock(Weather.class);
     WeatherEntity mappedWeather = mock(WeatherEntity.class);
-    given(weatherEntityMapper.map(importedWeather)).willReturn(mappedWeather);
+    given(weatherEntityImportMapper.mapToWeatherEntity(importedWeather)).willReturn(mappedWeather);
 
     weatherRepository.saveAndFlush(importedWeather);
 
-    then(weatherEntityMapper).should().map(importedWeather);
+    then(weatherEntityImportMapper).should().mapToWeatherEntity(importedWeather);
     then(weatherJpaRepository).should().saveAndFlush(mappedWeather);
   }
 

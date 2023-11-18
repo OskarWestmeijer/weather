@@ -18,7 +18,7 @@ public class OpenWeatherApiMapperTest {
   private final OpenWeatherApiMapper openWeatherApiMapper = Mappers.getMapper(OpenWeatherApiMapper.class);
 
   @Test
-  public void shouldMapSuccessfully() {
+  public void shouldMapToWeather() {
     Integer humidity = 55;
     Double windSpeed = 25.55;
     Double temperature = -10.35;
@@ -33,9 +33,9 @@ public class OpenWeatherApiMapperTest {
         .main(main)
         .wind(wind);
 
-    Weather weather = openWeatherApiMapper.map(response, location);
+    Weather actualWeather = openWeatherApiMapper.mapToWeather(response, location);
 
-    assertThat(weather)
+    assertThat(actualWeather)
         .returns(windSpeed, Weather::getWindSpeed)
         .returns(humidity, Weather::getHumidity)
         .returns(temperature, Weather::getTemperature)

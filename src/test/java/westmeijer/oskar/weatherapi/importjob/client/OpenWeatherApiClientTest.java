@@ -47,7 +47,7 @@ public class OpenWeatherApiClientTest {
         requestLocation.getLongitude(), "metric", appId)).willReturn(apiResponseMono);
     given(apiResponseMono.block()).willReturn(apiResponseEntity);
     given(apiResponseEntity.getBody()).willReturn(apiResponse);
-    given(openWeatherApiMapper.map(apiResponse, requestLocation)).willReturn(expectedWeather);
+    given(openWeatherApiMapper.mapToWeather(apiResponse, requestLocation)).willReturn(expectedWeather);
 
     Weather actualWeather = openWeatherApiClient.requestWithGeneratedClient(requestLocation);
 

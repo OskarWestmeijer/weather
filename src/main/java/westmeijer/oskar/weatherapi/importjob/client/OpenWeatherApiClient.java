@@ -42,7 +42,7 @@ public class OpenWeatherApiClient {
       requireNonNull(response, "response is required");
       GeneratedOpenWeatherApiResponse body = requireNonNull(response.getBody(), "body is required");
 
-      return openWeatherApiMapper.map(body, location);
+      return openWeatherApiMapper.mapToWeather(body, location);
     } catch (Exception e) {
       throw new OpenWeatherApiRequestException("Exception during OpenWeatherApi request.", e);
     }

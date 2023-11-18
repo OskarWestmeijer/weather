@@ -17,7 +17,7 @@ public interface OpenWeatherApiMapper {
   @Mapping(target = "windSpeed", source = "response.wind.speed")
   @Mapping(target = "recordedAt", expression = "java(java.time.Instant.now().truncatedTo(java.time.temporal.ChronoUnit.MICROS))")
   @Mapping(target = "location", ignore = true)
-  Weather map(GeneratedOpenWeatherApiResponse response, Location location);
+  Weather mapToWeather(GeneratedOpenWeatherApiResponse response, Location location);
 
   @AfterMapping
   default void bindWeatherToLocation(@MappingTarget Weather weather, Location location) {
