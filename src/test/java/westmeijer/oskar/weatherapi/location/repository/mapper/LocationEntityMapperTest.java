@@ -23,7 +23,7 @@ public class LocationEntityMapperTest {
 
   @Test
   public void shouldMapToLocationWithoutWeather() {
-    LocationEntity locationEntity = TestLocationFactory.locationEntity();
+    LocationEntity locationEntity = TestLocationFactory.locationEntityWithoutWeather();
 
     Location location = locationEntityMapper.mapToLocationWithoutWeather(locationEntity);
 

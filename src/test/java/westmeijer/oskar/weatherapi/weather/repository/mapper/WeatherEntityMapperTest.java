@@ -3,16 +3,10 @@ package westmeijer.oskar.weatherapi.weather.repository.mapper;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.UUID;
-import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import westmeijer.oskar.weatherapi.TestLocationFactory;
 import westmeijer.oskar.weatherapi.TestWeatherFactory;
-import westmeijer.oskar.weatherapi.location.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
@@ -22,7 +16,7 @@ public class WeatherEntityMapperTest {
 
   @Test
   public void shouldMapWeather() {
-    WeatherEntity weatherEntity = TestWeatherFactory.weatherEntity();
+    WeatherEntity weatherEntity = TestWeatherFactory.weatherEntityWithoutLocation();
     Weather weather = weatherEntityMapper.map(weatherEntity);
 
     assertThat(weatherEntity.getId()).isEqualTo(weather.getId());
@@ -35,7 +29,7 @@ public class WeatherEntityMapperTest {
 
   @Test
   public void shouldMapWeatherList() {
-    WeatherEntity weatherEntity = TestWeatherFactory.weatherEntity();
+    WeatherEntity weatherEntity = TestWeatherFactory.weatherEntityWithoutLocation();
 
     List<Weather> actualList = weatherEntityMapper.mapList(List.of(weatherEntity));
 

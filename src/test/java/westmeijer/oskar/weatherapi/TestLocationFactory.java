@@ -3,14 +3,13 @@ package westmeijer.oskar.weatherapi;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.UUID;
 import westmeijer.oskar.weatherapi.location.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
 
 public class TestLocationFactory {
 
-  public static Location location() {
+  public static Location locationWithoutWeather() {
     Location location = new Location(1,
         UUID.randomUUID(),
         "1234",
@@ -37,11 +36,11 @@ public class TestLocationFactory {
         "6.966170",
         Instant.now().truncatedTo(ChronoUnit.MICROS),
         new ArrayList<>());
-    location.addWeather(TestWeatherFactory.weather());
+    location.addWeather(TestWeatherFactory.weatherWithLocation());
     return location;
   }
 
-  public static LocationEntity locationEntity() {
+  public static LocationEntity locationEntityWithoutWeather() {
     LocationEntity location = new LocationEntity(1,
         UUID.randomUUID(),
         "1234",
@@ -49,11 +48,11 @@ public class TestLocationFactory {
         "Luebeck",
         "Germany",
         "GER",
-        "51.659088",
-        "6.966170",
+        "60.35",
+        "8.966170",
         Instant.now().truncatedTo(ChronoUnit.MICROS),
         Instant.now().truncatedTo(ChronoUnit.MICROS),
-        Collections.emptyList());
+        new ArrayList<>());
     return location;
   }
 

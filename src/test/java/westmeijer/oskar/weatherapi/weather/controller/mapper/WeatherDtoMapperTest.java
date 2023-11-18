@@ -21,7 +21,7 @@ public class WeatherDtoMapperTest {
 
   @Test
   public void successfulMappingToResponse() {
-    Location location = TestLocationFactory.location();
+    Location location = TestLocationFactory.locationWithoutWeather();
 
     List<Weather> weatherList = List.of(
         new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, location, Instant.now().truncatedTo(ChronoUnit.MICROS)),
@@ -36,7 +36,7 @@ public class WeatherDtoMapperTest {
 
   @Test
   public void successfulMappingToWeatherDTO() {
-    Weather weather = new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, TestLocationFactory.location(),
+    Weather weather = new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, TestLocationFactory.locationWithoutWeather(),
         Instant.now().truncatedTo(ChronoUnit.MICROS));
 
     WeatherDto weatherDTO = weatherDtoMapper.mapTo(weather);

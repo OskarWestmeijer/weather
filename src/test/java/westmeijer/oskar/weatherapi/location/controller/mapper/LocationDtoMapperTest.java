@@ -19,7 +19,7 @@ public class LocationDtoMapperTest {
 
   @Test
   public void shouldMapToLocation() {
-    Location location = TestLocationFactory.location();
+    Location location = TestLocationFactory.locationWithoutWeather();
 
     LocationDto locationDto = locationDtoMapper.map(location);
 

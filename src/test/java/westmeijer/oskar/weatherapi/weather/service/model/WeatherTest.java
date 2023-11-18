@@ -18,9 +18,10 @@ public class WeatherTest {
     Integer humidity = 55;
     Double windSpeed = 10.34d;
     Instant recordedAt = Instant.now();
-    Location location = TestLocationFactory.location();
 
+    Location location = TestLocationFactory.locationWithoutWeather();
     Weather weather = new Weather(id, temp, humidity, windSpeed, location, recordedAt);
+    location.addWeather(weather);
 
     assertThat(weather)
         .returns(id, Weather::getId)
@@ -29,13 +30,6 @@ public class WeatherTest {
         .returns(windSpeed, Weather::getWindSpeed)
         .returns(location, Weather::getLocation)
         .returns(recordedAt, Weather::getRecordedAt);
-  }
-
-  @Test
-  public void shouldNotInitNull() {
-    assertThatThrownBy(() -> new Weather(null, null, null, null, null, null))
-        .isInstanceOf(NullPointerException.class)
-        .hasMessageContaining("id is required");
   }
 
 }

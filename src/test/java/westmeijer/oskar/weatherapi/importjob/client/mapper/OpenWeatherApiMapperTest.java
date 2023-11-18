@@ -22,7 +22,7 @@ public class OpenWeatherApiMapperTest {
     Integer humidity = 55;
     Double windSpeed = 25.55;
     Double temperature = -10.35;
-    Location location = TestLocationFactory.location();
+    Location location = TestLocationFactory.locationWithoutWeather();
 
     Main main = new Main()
         .humidity(humidity)

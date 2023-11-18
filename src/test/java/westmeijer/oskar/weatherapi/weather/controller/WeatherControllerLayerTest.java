@@ -41,8 +41,8 @@ public class WeatherControllerLayerTest {
   @Test
   @SneakyThrows
   public void shouldRequestWeatherLast24h() {
-    Location location = TestLocationFactory.location();
-    Weather weather = TestWeatherFactory.weather();
+    Location location = TestLocationFactory.locationWithoutWeather();
+    Weather weather = TestWeatherFactory.weatherWithLocation();
     List<Weather> weatherList = List.of(weather);
 
     given(locationService.getByIdOmitWeather(1)).willReturn(location);
@@ -56,9 +56,9 @@ public class WeatherControllerLayerTest {
           "country" : "Germany",
           "weatherData" : [
             {
-              "temperature": 5.45,
-              "humidity": 88,
-              "windSpeed":11.66
+              "temperature": 25.34,
+              "humidity": 55,
+              "windSpeed":10.34
             }
           ]
         }""";
