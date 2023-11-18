@@ -1,6 +1,7 @@
 package westmeijer.oskar.weatherapi.location.repository.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -53,7 +54,7 @@ public class LocationEntity {
 
   private Instant createdAt;
 
-  @OneToMany(mappedBy = "location")
+  @OneToMany(mappedBy = "location", fetch = FetchType.LAZY)
   private List<WeatherEntity> weather = new ArrayList<>();
 
   public void addWeather(WeatherEntity weatherEntity) {

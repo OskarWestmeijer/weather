@@ -22,7 +22,7 @@ public class LocationController implements LocationsApi {
 
   @Override
   public ResponseEntity<LocationResponse> getLocations() {
-    List<Location> locations = locationService.getAll();
+    List<Location> locations = locationService.getAllOmitWeather();
     LocationResponse response = locationDtoMapper.mapToLocationResponse(locations);
     return ResponseEntity.ok(response);
   }

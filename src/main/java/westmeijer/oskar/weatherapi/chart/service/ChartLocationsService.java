@@ -20,7 +20,7 @@ public class ChartLocationsService {
   private final ChartLocationMapper chartLocationMapper;
 
   public List<ChartLocation> getChartLocations() {
-    List<Location> locations = locationService.getAll();
+    List<Location> locations = locationService.getAllOmitWeather();
     return locations.stream()
         .map(location -> chartLocationMapper.mapTo(location, weatherService.getLatestWeather(location.getLocationId())))
         .toList();

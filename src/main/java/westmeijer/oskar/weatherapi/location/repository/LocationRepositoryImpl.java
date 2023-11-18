@@ -21,9 +21,9 @@ public class LocationRepositoryImpl implements LocationRepository {
   private final LocationEntityMapper locationEntityMapper;
 
   @Override
-  public List<Location> getAll() {
+  public List<Location> getAllOmitWeather() {
     List<LocationEntity> locationEntities = locationJpaRepository.findAll();
-    return locationEntityMapper.mapToLocationList(locationEntities);
+    return locationEntityMapper.mapToLocationListWithoutWeather(locationEntities);
   }
 
   @Override
