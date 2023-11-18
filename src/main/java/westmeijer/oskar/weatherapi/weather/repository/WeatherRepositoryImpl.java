@@ -8,6 +8,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.weather.repository.jpa.WeatherJpaRepository;
+import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityImportMapper;
 import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityMapper;
 import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
@@ -18,7 +19,10 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 
   private final WeatherEntityMapper weatherEntityMapper;
 
+  private final WeatherEntityImportMapper weatherEntityImportMapper;
+
   private final WeatherJpaRepository weatherJpaRepository;
+
 
   @Override
   public List<Weather> getLast24h(Integer locationId) {
@@ -30,7 +34,7 @@ public class WeatherRepositoryImpl implements WeatherRepository {
   @Override
   public Weather saveAndFlush(Weather weather) {
     requireNonNull(weather, "weather must not be null");
-    WeatherEntity weatherEntity = weatherEntityMapper.map(weather);
+    WeatherEntity weatherEntity = weatherEntityImportMapper.mapToWeatherEntity(weather);
     WeatherEntity savedWeather = weatherJpaRepository.saveAndFlush(weatherEntity);
     return weatherEntityMapper.map(savedWeather);
   }

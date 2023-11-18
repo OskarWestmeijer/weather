@@ -3,9 +3,11 @@ package westmeijer.oskar.weatherapi.weather.repository.mapper;
 import java.util.List;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.CollectionMappingStrategy;
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 import westmeijer.oskar.weatherapi.location.repository.mapper.LocationEntityMapper;
 import westmeijer.oskar.weatherapi.location.repository.model.LocationEntity;
@@ -20,8 +22,5 @@ public interface WeatherEntityMapper {
   Weather map(WeatherEntity weatherEntity);
 
   List<Weather> mapList(List<WeatherEntity> weatherEntity);
-
-  @Mapping(target = "modifiedAt", expression = "java(java.time.Instant.now().truncatedTo(java.time.temporal.ChronoUnit.MICROS))")
-  WeatherEntity map(Weather weather);
 
 }

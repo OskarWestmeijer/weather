@@ -13,7 +13,7 @@ public interface WeatherJpaRepository extends JpaRepository<WeatherEntity, UUID>
 
   @Query(value = """
       SELECT * FROM weather.weather
-      WHERE recorded_at BETWEEN NOW() - INTERVAL '24 HOURS' AND NOW() AND id = :location_id
+      WHERE recorded_at BETWEEN NOW() - INTERVAL '24 HOURS' AND NOW() AND location_id = :location_id
       ORDER BY recorded_at DESC""", nativeQuery = true)
   List<WeatherEntity> getLast24h(@Param("location_id") Integer locationId);
 

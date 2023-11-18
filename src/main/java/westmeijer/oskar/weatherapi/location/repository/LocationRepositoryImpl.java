@@ -29,7 +29,7 @@ public class LocationRepositoryImpl implements LocationRepository {
   @Override
   public Location getNextImportLocation() {
     LocationEntity location = locationJpaRepository.getNextImportLocation();
-    return locationEntityMapper.mapToLocation(location);
+    return locationEntityMapper.mapToLocationWithoutWeather(location);
   }
 
   public void updateLastImportAt(Integer locationId) {
@@ -42,6 +42,6 @@ public class LocationRepositoryImpl implements LocationRepository {
     requireNonNull(locationId, "locationId is required");
     LocationEntity locationEntity = locationJpaRepository.getById(locationId)
         .orElseThrow(() -> new LocationNotSupportedException(locationId));
-    return locationEntityMapper.mapToLocation(locationEntity);
+    return locationEntityMapper.mapToLocationWithoutWeather(locationEntity);
   }
 }

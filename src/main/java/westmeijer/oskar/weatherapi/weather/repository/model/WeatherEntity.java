@@ -1,6 +1,8 @@
 package westmeijer.oskar.weatherapi.weather.repository.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -11,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
 import westmeijer.oskar.weatherapi.location.repository.model.LocationEntity;
 
 
@@ -31,7 +34,7 @@ public class WeatherEntity {
 
   private Double windSpeed;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
   @JoinColumn(name = "location_id")
   private LocationEntity location;
 

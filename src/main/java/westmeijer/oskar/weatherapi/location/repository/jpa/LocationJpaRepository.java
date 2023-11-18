@@ -15,10 +15,7 @@ public interface LocationJpaRepository extends JpaRepository<LocationEntity, Str
   @Modifying
   void updateLastImportAt(@Param("id") Integer id);
 
-  @Query(value = """
-      SELECT * FROM weather.location
-      WHERE id = :location_id AND id IS NOT null
-      LIMIT 1""", nativeQuery = true)
+  @Query(value = "SELECT l FROM LocationEntity l WHERE l.id = ?1")
   Optional<LocationEntity> getById(@Param("location_id") Integer locationId);
 
   @Query(value = """

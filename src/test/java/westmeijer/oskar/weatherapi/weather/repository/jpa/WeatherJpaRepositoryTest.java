@@ -23,6 +23,7 @@ public class WeatherJpaRepositoryTest extends IntegrationTestContainers {
   private WeatherJpaRepository weatherJpaRepository;
 
   @Test
+  // TODO: migrate test to other methods
   public void fetchWeatherForSpecificDay() {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate localDate = LocalDate.from(formatter.parse("2022-08-28"));

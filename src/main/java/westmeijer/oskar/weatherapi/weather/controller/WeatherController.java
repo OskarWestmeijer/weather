@@ -30,7 +30,7 @@ public class WeatherController implements WeatherApi {
   @Override
   public ResponseEntity<WeatherResponse> getWeatherLast24Hours(@PathVariable Integer locationId) {
     log.info("Received Weather request 24h for locationId: {}", locationId);
-    Location location = locationService.getById(locationId);
+    Location location = locationService.getByIdOmitWeather(locationId);
     List<Weather> weatherList = weatherService.getLast24h(locationId);
     WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherList);
     return ResponseEntity.ok(weatherResponse);

@@ -43,18 +43,17 @@ public class WeatherImportJob {
     try {
       meterRegistry.counter("import.job", "import", "execution").increment();
 
-      //Location nextImportLocation = locationService.getNextImportLocation();
-      LocationEntity location = locationJpaRepository.getNextImportLocation();
-      log.info("Import weather for location: {}", location.getCityName());
+      Location location = locationService.getNextImportLocation();
+      //LocationEntity location = locationJpaRepository.getNextImportLocation();
+      log.info("Import weather for location: {}, last_imported_at: {}", location.getCityName(), location.getLastImportAt());
 
-      WeatherEntity importedWeather = openWeatherApiClient.requestWithGeneratedClient(location);
+      Weather importedWeather = openWeatherApiClient.requestWithGeneratedClient(location);
       location.setLastImportAt(Instant.now().truncatedTo(ChronoUnit.MICROS));
-      weatherJpaRepository.saveAndFlush(importedWeather);
 
-      //Weather savedWeather = weatherService.saveAndFlush(importedWeather);
+      Weather savedWeather = weatherService.saveAndFlush(importedWeather);
       //locationService.updateLastImportAt(nextImportLocation.locationId());
 
-      log.info("Saved imported weather: {}", importedWeather.getLocation().getCityName());
+      log.info("Saved imported weather: {}", importedWeather);
     } catch (OpenWeatherApiRequestException requestException) {
       log.error("OpenWeatherApi request failed!", requestException);
       meterRegistry.counter("import.job", "error", "request").increment();

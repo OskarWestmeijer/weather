@@ -14,7 +14,7 @@ public class LocationService {
 
   private final LocationRepository locationRepository;
 
-  public Location getById(Integer locationId) {
+  public Location getByIdOmitWeather(Integer locationId) {
     requireNonNull(locationId, "locationId is required");
     return locationRepository.getById(locationId);
   }

@@ -2,6 +2,7 @@ package westmeijer.oskar.weatherapi.location.repository.mapper;
 
 import java.util.List;
 import org.mapstruct.AfterMapping;
+import org.mapstruct.Builder;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -15,7 +16,7 @@ import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityMapper;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
-@Mapper(componentModel = "spring", uses = WeatherEntityMapper.class, collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED)
+@Mapper(componentModel = "spring", uses = WeatherEntityMapper.class, collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED, builder = @Builder(disableBuilder = true))
 public interface LocationEntityMapper {
 
   @Named("mapToLocationListWithoutWeather")
@@ -35,9 +36,5 @@ public interface LocationEntityMapper {
   @Named("mapToLocation")
   @Mapping(target = "locationId", source = "id")
   Location mapToLocation(LocationEntity locationEntity);
-
-  @Mapping(target = "id", source = "locationId")
-  @Mapping(target = "modifiedAt", expression = "java(java.time.Instant.now().truncatedTo(java.time.temporal.ChronoUnit.MICROS))")
-  LocationEntity map(Location location);
 
 }
