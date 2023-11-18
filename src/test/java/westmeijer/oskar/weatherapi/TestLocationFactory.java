@@ -36,7 +36,6 @@ public class TestLocationFactory {
         "6.966170",
         Instant.now().truncatedTo(ChronoUnit.MICROS),
         Instant.now().truncatedTo(ChronoUnit.MICROS),
-        Instant.now().truncatedTo(ChronoUnit.MICROS),
         Collections.emptyList());
     return location;
   }

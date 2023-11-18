@@ -25,20 +25,20 @@ public class LocationServiceTest {
   private LocationService locationService;
 
   @Test
-  public void shouldFindByLocationId() {
+  public void shouldGetByIdOmitWeather() {
     Integer locationId = 1;
     Location expectedLocation = mock(Location.class);
-    given(locationRepository.getById(locationId)).willReturn(expectedLocation);
+    given(locationRepository.getByIdOmitWeather(locationId)).willReturn(expectedLocation);
 
-    Location actualLocation = locationService.getById(locationId);
+    Location actualLocation = locationService.getByIdOmitWeather(locationId);
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
-    then(locationRepository).should().getById(locationId);
+    then(locationRepository).should().getByIdOmitWeather(locationId);
   }
 
   @Test
-  public void findById_shouldThrowExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationService.getById(null))
+  public void getByIdOmitWeather_shouldThrowExceptionOnNullParam() {
+    assertThatThrownBy(() -> locationService.getByIdOmitWeather(null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("locationId is required");
 
@@ -46,14 +46,14 @@ public class LocationServiceTest {
   }
 
   @Test
-  public void shouldGetAll() {
+  public void shouldGetAllOmitWeather() {
     Location expectedLocation = mock(Location.class);
-    given(locationRepository.getAll()).willReturn(List.of(expectedLocation));
+    given(locationRepository.getAllOmitWeather()).willReturn(List.of(expectedLocation));
 
-    List<Location> actualLocations = locationService.getAll();
+    List<Location> actualLocations = locationService.getAllOmitWeather();
 
     assertThat(actualLocations).isEqualTo(List.of(expectedLocation));
-    then(locationRepository).should().getAll();
+    then(locationRepository).should().getAllOmitWeather();
   }
 
   @Test
@@ -65,22 +65,6 @@ public class LocationServiceTest {
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
     then(locationRepository).should().getNextImportLocation();
-  }
-
-  @Test
-  public void updateLastImportedAt_shouldThrowExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationService.updateLastImportAt(null))
-        .isInstanceOf(NullPointerException.class)
-        .hasMessageContaining("locationId is required");
-
-    then(locationRepository).shouldHaveNoInteractions();
-  }
-
-  @Test
-  public void shouldUpdateLastImportedAt() {
-    Integer locationId = 1;
-    locationService.updateLastImportAt(locationId);
-    then(locationRepository).should().updateLastImportAt(locationId);
   }
 
 }

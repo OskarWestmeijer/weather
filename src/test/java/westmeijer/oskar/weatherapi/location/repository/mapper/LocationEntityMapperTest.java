@@ -1,10 +1,12 @@
 package westmeijer.oskar.weatherapi.location.repository.mapper;
 
+import static net.bytebuddy.matcher.ElementMatchers.returns;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -20,24 +22,24 @@ public class LocationEntityMapperTest {
   private final LocationEntityMapper locationEntityMapper = Mappers.getMapper(LocationEntityMapper.class);
 
   @Test
-  public void shouldMapToLocation() {
+  public void shouldMapToLocationWithoutWeather() {
     LocationEntity locationEntity = TestLocationFactory.locationEntity();
 
-    Location location = locationEntityMapper.map(locationEntity);
+    Location location = locationEntityMapper.mapToLocationWithoutWeather(locationEntity);
 
     assertThat(location)
-        .returns(locationEntity.getId(), Location::locationId)
-        .returns(locationEntity.getOpenWeatherApiLocationCode(), Location::openWeatherApiLocationCode)
-        .returns(locationEntity.getLocalZipCode(), Location::localZipCode)
-        .returns(locationEntity.getCityName(), Location::cityName)
-        .returns(locationEntity.getCountry(), Location::country)
-        .returns(locationEntity.getCountryCode(), Location::countryCode)
-        .returns(locationEntity.getLastImportAt(), Location::lastImportAt);
-    // TODO: assert weather elements
+        .returns(locationEntity.getId(), Location::getLocationId)
+        .returns(locationEntity.getOpenWeatherApiLocationCode(), Location::getOpenWeatherApiLocationCode)
+        .returns(locationEntity.getLocalZipCode(), Location::getLocalZipCode)
+        .returns(locationEntity.getCityName(), Location::getCityName)
+        .returns(locationEntity.getCountry(), Location::getCountry)
+        .returns(locationEntity.getCountryCode(), Location::getCountryCode)
+        .returns(locationEntity.getLastImportAt(), Location::getLastImportAt)
+        .returns(locationEntity.getWeather(), l -> new ArrayList<Location>());
   }
 
   @Test
-  public void shouldMapListToLocations() {
+  public void mapToLocationListWithoutWeather() {
     LocationEntity luebeck = LocationEntity.builder()
         .id(1)
         .uuid(UUID.randomUUID())
@@ -68,29 +70,11 @@ public class LocationEntityMapperTest {
         .weather(Collections.emptyList())
         .build();
 
-    List<Location> locations = locationEntityMapper.mapList(List.of(luebeck, hamburg));
+    List<Location> locations = locationEntityMapper.mapToLocationListWithoutWeather(List.of(luebeck, hamburg));
 
     assertThat(locations)
         .hasSize(2);
     // TODO: assert elements
-  }
-
-  @Test
-  public void shouldMapToLocationEntity() {
-    Instant now = Instant.now().truncatedTo(ChronoUnit.MICROS);
-    Location location = TestLocationFactory.location();
-
-    LocationEntity locationEntity = locationEntityMapper.map(location);
-
-    assertThat(locationEntity.getId()).isEqualTo(location.locationId());
-    assertThat(locationEntity.getUuid()).isEqualTo(location.uuid());
-    assertThat(locationEntity.getLocalZipCode()).isEqualTo(location.localZipCode());
-    assertThat(locationEntity.getOpenWeatherApiLocationCode()).isEqualTo(location.openWeatherApiLocationCode());
-    assertThat(locationEntity.getCountry()).isEqualTo(location.country());
-    assertThat(locationEntity.getCountryCode()).isEqualTo(location.countryCode());
-    assertThat(locationEntity.getCityName()).isEqualTo(location.cityName());
-    assertThat(locationEntity.getLastImportAt()).isEqualTo(location.lastImportAt());
-    assertThat(locationEntity.getModifiedAt()).isCloseTo(now, within(1, ChronoUnit.SECONDS));
   }
 
 }

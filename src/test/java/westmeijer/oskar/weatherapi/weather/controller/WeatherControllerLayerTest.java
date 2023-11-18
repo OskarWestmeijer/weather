@@ -6,10 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.UUID;
 import lombok.SneakyThrows;
 import org.intellij.lang.annotations.Language;
 import org.junit.jupiter.api.Test;
@@ -20,6 +17,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import westmeijer.oskar.weatherapi.TestLocationFactory;
+import westmeijer.oskar.weatherapi.TestWeatherFactory;
 import westmeijer.oskar.weatherapi.WebMvcMappersTestConfig;
 import westmeijer.oskar.weatherapi.location.exception.LocationNotSupportedException;
 import westmeijer.oskar.weatherapi.location.service.LocationService;
@@ -44,12 +42,10 @@ public class WeatherControllerLayerTest {
   @SneakyThrows
   public void shouldRequestWeatherLast24h() {
     Location location = TestLocationFactory.location();
-    List<Weather> weatherList = List.of(
-        new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, 88, 11.66, location,
-            Instant.now().truncatedTo(
-                ChronoUnit.MICROS)));
+    Weather weather = TestWeatherFactory.weather();
+    List<Weather> weatherList = List.of(weather);
 
-    given(locationService.getById(1)).willReturn(location);
+    given(locationService.getByIdOmitWeather(1)).willReturn(location);
     given(weatherService.getLast24h(1)).willReturn(weatherList);
 
     @Language("json")
@@ -72,20 +68,20 @@ public class WeatherControllerLayerTest {
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(expectedBody));
 
+    then(locationService).should().getByIdOmitWeather(1);
     then(weatherService).should().getLast24h(1);
-    then(locationService).should().getById(1);
   }
 
   @Test
   @SneakyThrows
   public void expect404OnLocationNotFound() {
-    given(locationService.getById(1)).willThrow(new LocationNotSupportedException(1));
+    given(locationService.getByIdOmitWeather(1)).willThrow(new LocationNotSupportedException(1));
 
     mockMvc.perform(get("/weather/1"))
         .andExpect(status().isNotFound())
         .andExpect(content().string("Requested locationId not found. Please verify it is supported. locationId: 1"));
 
-    then(locationService).should().getById(1);
+    then(locationService).should().getByIdOmitWeather(1);
     then(weatherService).shouldHaveNoInteractions();
   }
 

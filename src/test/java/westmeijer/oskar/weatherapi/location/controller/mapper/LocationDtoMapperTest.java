@@ -24,13 +24,12 @@ public class LocationDtoMapperTest {
     LocationDto locationDto = locationDtoMapper.map(location);
 
     assertThat(locationDto)
-        .returns(location.locationId(), LocationDto::getLocationId)
-        .returns(location.uuid(), LocationDto::getUuid)
-        .returns(location.localZipCode(), LocationDto::getLocalZipCode)
-        .returns(location.cityName(), LocationDto::getCityName)
-        .returns(location.country(), LocationDto::getCountry)
-        .returns(location.countryCode(), LocationDto::getCountryCode)
-        .returns(location.lastImportAt(), LocationDto::getLastImportAt);
+        .returns(location.getLocationId(), LocationDto::getLocationId)
+        .returns(location.getLocalZipCode(), LocationDto::getLocalZipCode)
+        .returns(location.getCityName(), LocationDto::getCityName)
+        .returns(location.getCountry(), LocationDto::getCountry)
+        .returns(location.getCountryCode(), LocationDto::getCountryCode)
+        .returns(location.getLastImportAt(), LocationDto::getLastImportAt);
   }
 
   @Test
@@ -69,21 +68,19 @@ public class LocationDtoMapperTest {
     // expected mappings
     LocationDto expectedLuebeck = new LocationDto()
         .locationId(1)
-        .uuid(luebeck.uuid())
         .localZipCode("23552")
         .cityName("Lübeck")
         .country("Germany")
         .countryCode("GER")
-        .lastImportAt(luebeck.lastImportAt());
+        .lastImportAt(luebeck.getLastImportAt());
 
     LocationDto expectedHamburg = new LocationDto()
         .locationId(2)
-        .uuid(hamburg.uuid())
         .localZipCode("20095")
         .cityName("Hamburg")
         .country("Germany")
         .countryCode("GER")
-        .lastImportAt(hamburg.lastImportAt());
+        .lastImportAt(hamburg.getLastImportAt());
 
     List<LocationDto> locations = locationDtoMapper.mapList(List.of(luebeck, hamburg));
 

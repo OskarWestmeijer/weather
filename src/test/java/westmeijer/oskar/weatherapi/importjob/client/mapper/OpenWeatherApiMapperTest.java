@@ -36,12 +36,12 @@ public class OpenWeatherApiMapperTest {
     Weather weather = openWeatherApiMapper.map(response, location);
 
     assertThat(weather)
-        .returns(windSpeed, Weather::windSpeed)
-        .returns(humidity, Weather::humidity)
-        .returns(temperature, Weather::temperature)
-        .returns(location, Weather::location)
-        .returns(UUID.class, w -> w.id().getClass())
-        .returns(Instant.class, w -> w.recordedAt().getClass());
+        .returns(windSpeed, Weather::getWindSpeed)
+        .returns(humidity, Weather::getHumidity)
+        .returns(temperature, Weather::getTemperature)
+        .returns(location, Weather::getLocation)
+        .returns(UUID.class, w -> w.getId().getClass())
+        .returns(Instant.class, w -> w.getRecordedAt().getClass());
   }
 
 }

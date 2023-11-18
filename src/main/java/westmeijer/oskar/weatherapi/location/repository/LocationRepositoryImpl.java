@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 import westmeijer.oskar.weatherapi.location.exception.LocationNotSupportedException;
 import westmeijer.oskar.weatherapi.location.repository.jpa.LocationJpaRepository;
@@ -38,13 +37,8 @@ public class LocationRepositoryImpl implements LocationRepository {
     return locationEntityMapper.mapToLocationList(locationEntities);
   }
 
-  public void updateLastImportAt(Integer locationId) {
-    requireNonNull(locationId, "locationId is required");
-    locationJpaRepository.updateLastImportAt(locationId);
-  }
-
   @Override
-  public Location getById(Integer locationId) {
+  public Location getByIdOmitWeather(Integer locationId) {
     requireNonNull(locationId, "locationId is required");
     LocationEntity locationEntity = locationJpaRepository.getById(locationId)
         .orElseThrow(() -> new LocationNotSupportedException(locationId));

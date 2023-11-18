@@ -16,26 +16,19 @@ public class LocationService {
 
   public Location getByIdOmitWeather(Integer locationId) {
     requireNonNull(locationId, "locationId is required");
-    return locationRepository.getById(locationId);
+    return locationRepository.getByIdOmitWeather(locationId);
   }
 
   public List<Location> getAllWithLatest() {
-    List<Location> locations = locationRepository.getAllWithLatest();
-    return locations;
+    return locationRepository.getAllWithLatest();
   }
 
   public List<Location> getAllOmitWeather() {
-    List<Location> locations = locationRepository.getAllOmitWeather();
-    return locations;
+    return locationRepository.getAllOmitWeather();
   }
 
   public Location getNextImportLocation() {
     return locationRepository.getNextImportLocation();
-  }
-
-  public void updateLastImportAt(Integer locationId) {
-    requireNonNull(locationId, "locationId is required");
-    locationRepository.updateLastImportAt(locationId);
   }
 
 }

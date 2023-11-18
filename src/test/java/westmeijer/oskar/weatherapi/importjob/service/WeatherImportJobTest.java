@@ -42,10 +42,7 @@ public class WeatherImportJobTest {
   @Test
   public void shouldImportWeather() {
     Location importLocation = mock(Location.class);
-    Integer locationId = 1;
-
     given(locationService.getNextImportLocation()).willReturn(importLocation);
-    given(importLocation.locationId()).willReturn(locationId);
 
     Weather importedWeather = mock(Weather.class);
     given(openWeatherApiClient.requestWithGeneratedClient(importLocation)).willReturn(importedWeather);
@@ -62,7 +59,6 @@ public class WeatherImportJobTest {
     then(locationService).should().getNextImportLocation();
     then(openWeatherApiClient).should().requestWithGeneratedClient(importLocation);
     then(weatherService).should().saveAndFlush(importedWeather);
-    then(locationService).should().updateLastImportAt(locationId);
   }
 
   @Test
@@ -81,7 +77,6 @@ public class WeatherImportJobTest {
     then(locationService).should().getNextImportLocation();
     then(openWeatherApiClient).should().requestWithGeneratedClient(importLocation);
     then(weatherService).shouldHaveNoInteractions();
-    then(locationService).should(never()).updateLastImportAt(anyInt());
   }
 
 

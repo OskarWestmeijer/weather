@@ -13,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import westmeijer.oskar.weatherapi.importjob.service.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.location.exception.LocationNotSupportedException;
 import westmeijer.oskar.weatherapi.location.repository.jpa.LocationJpaRepository;
 import westmeijer.oskar.weatherapi.location.repository.mapper.LocationEntityMapper;
@@ -33,18 +32,18 @@ public class LocationRepositoryImplTest {
   private LocationRepositoryImpl locationRepository;
 
   @Test
-  public void shouldGetAll() {
+  public void shouldGetAllOmitWeather() {
     List<LocationEntity> locationEntityList = List.of(mock(LocationEntity.class));
     given(locationJpaRepository.findAll()).willReturn(locationEntityList);
 
     List<Location> expectedLocationList = List.of(mock(Location.class));
-    given(locationEntityMapper.mapList(locationEntityList)).willReturn(expectedLocationList);
+    given(locationEntityMapper.mapToLocationListWithoutWeather(locationEntityList)).willReturn(expectedLocationList);
 
-    List<Location> actualLocationList = locationRepository.getAll();
+    List<Location> actualLocationList = locationRepository.getAllOmitWeather();
 
     assertThat(actualLocationList).isEqualTo(expectedLocationList);
     then(locationJpaRepository).should().findAll();
-    then(locationEntityMapper).should().mapList(locationEntityList);
+    then(locationEntityMapper).should().mapToLocationListWithoutWeather(locationEntityList);
   }
 
   @Test
@@ -53,36 +52,18 @@ public class LocationRepositoryImplTest {
     given(locationJpaRepository.getNextImportLocation()).willReturn(locationEntity);
 
     Location expectedLocation = mock(Location.class);
-    given(locationEntityMapper.map(locationEntity)).willReturn(expectedLocation);
+    given(locationEntityMapper.mapToLocationWithoutWeather(locationEntity)).willReturn(expectedLocation);
 
     Location actualLocation = locationRepository.getNextImportLocation();
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
     then(locationJpaRepository).should().getNextImportLocation();
-    then(locationEntityMapper).should().map(locationEntity);
+    then(locationEntityMapper).should().mapToLocationWithoutWeather(locationEntity);
   }
 
   @Test
-  public void shouldUpdateImportTs() {
-    Integer locationId = 1;
-
-    locationRepository.updateLastImportAt(locationId);
-
-    then(locationJpaRepository).should().updateLastImportAt(locationId);
-  }
-
-  @Test
-  public void updateImportTs_throwsExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationRepository.updateLastImportAt(null))
-        .isInstanceOf(NullPointerException.class)
-        .hasMessageContaining("locationId is required");
-
-    then(locationJpaRepository).shouldHaveNoInteractions();
-  }
-
-  @Test
-  public void findById_throwsExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationRepository.getById(null))
+  public void getByIdOmitWeather_throwsExceptionOnNullParam() {
+    assertThatThrownBy(() -> locationRepository.getByIdOmitWeather(null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("locationId is required");
 
@@ -91,11 +72,11 @@ public class LocationRepositoryImplTest {
   }
 
   @Test
-  public void findById_throwsExceptionOnNotFound() {
+  public void getByIdOmitWeather_throwsExceptionOnNotFound() {
     Integer locationId = 1;
     given(locationJpaRepository.getById(locationId)).willReturn(Optional.empty());
 
-    assertThatThrownBy(() -> locationRepository.getById(locationId))
+    assertThatThrownBy(() -> locationRepository.getByIdOmitWeather(locationId))
         .isInstanceOf(LocationNotSupportedException.class)
         .hasMessageContaining("Location lookup for locationId  failed. locationId: 1");
 
@@ -104,18 +85,18 @@ public class LocationRepositoryImplTest {
   }
 
   @Test
-  public void shouldFindById() {
+  public void shouldGetByIdOmitWeather() {
     LocationEntity locationEntity = mock(LocationEntity.class);
     Location expectedLocation = mock(Location.class);
     Integer locationId = 1;
 
     given(locationJpaRepository.getById(locationId)).willReturn(Optional.of(locationEntity));
-    given(locationEntityMapper.map(locationEntity)).willReturn(expectedLocation);
+    given(locationEntityMapper.mapToLocationWithoutWeather(locationEntity)).willReturn(expectedLocation);
 
-    Location actualLocation = locationRepository.getById(locationId);
+    Location actualLocation = locationRepository.getByIdOmitWeather(locationId);
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
-    then(locationEntityMapper).should().map(locationEntity);
+    then(locationEntityMapper).should().mapToLocationWithoutWeather(locationEntity);
     then(locationJpaRepository).should().getById(locationId);
   }
 

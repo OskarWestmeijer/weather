@@ -65,7 +65,7 @@ public class LocationControllerLayerTest {
         now,
         Collections.emptyList()
     );
-    given(locationService.getAll()).willReturn(List.of(luebeck, hamburg));
+    given(locationService.getAllOmitWeather()).willReturn(List.of(luebeck, hamburg));
 
     @Language("json")
     String expectedBody = """
@@ -73,7 +73,6 @@ public class LocationControllerLayerTest {
           "locations":  [
             {
               "locationId": 1,
-              "uuid":"%s",
               "localZipCode":"23552",
               "cityName":"Lübeck",
               "country":"Germany",
@@ -82,7 +81,6 @@ public class LocationControllerLayerTest {
             },
             {
               "locationId": 2,
-              "uuid":"%s",
               "localZipCode":"20095",
               "cityName":"Hamburg",
               "country":"Germany",
@@ -96,9 +94,9 @@ public class LocationControllerLayerTest {
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(
-            expectedBody.formatted(luebeck.uuid(), luebeck.lastImportAt(), hamburg.uuid(), hamburg.lastImportAt())));
+            expectedBody.formatted(luebeck.getLastImportAt(), hamburg.getLastImportAt())));
 
-    then(locationService).should().getAll();
+    then(locationService).should().getAllOmitWeather();
   }
 
 }

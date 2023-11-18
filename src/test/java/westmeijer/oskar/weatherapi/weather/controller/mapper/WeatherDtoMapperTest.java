@@ -29,9 +29,9 @@ public class WeatherDtoMapperTest {
 
     WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherList);
 
-    assertThat(weatherResponse.getCityName()).isEqualTo(location.cityName());
-    assertThat(weatherResponse.getCountry()).isEqualTo(location.country());
-    assertThat(weatherResponse.getLocationId()).isEqualTo(location.locationId());
+    assertThat(weatherResponse.getCityName()).isEqualTo(location.getCityName());
+    assertThat(weatherResponse.getCountry()).isEqualTo(location.getCountry());
+    assertThat(weatherResponse.getLocationId()).isEqualTo(location.getLocationId());
   }
 
   @Test
@@ -42,10 +42,10 @@ public class WeatherDtoMapperTest {
     WeatherDto weatherDTO = weatherDtoMapper.mapTo(weather);
 
     assertThat(weatherDTO)
-        .returns(weather.humidity(), WeatherDto::getHumidity)
-        .returns(weather.temperature(), WeatherDto::getTemperature)
-        .returns(weather.windSpeed(), WeatherDto::getWindSpeed)
-        .returns(weather.recordedAt(), WeatherDto::getRecordedAt);
+        .returns(weather.getHumidity(), WeatherDto::getHumidity)
+        .returns(weather.getTemperature(), WeatherDto::getTemperature)
+        .returns(weather.getWindSpeed(), WeatherDto::getWindSpeed)
+        .returns(weather.getRecordedAt(), WeatherDto::getRecordedAt);
   }
 
 }

@@ -26,7 +26,6 @@ public class LocationDtoJsonTest {
     Instant recordedAt = Instant.now().truncatedTo(ChronoUnit.MICROS);
     LocationDto locationDto = new LocationDto()
         .locationId(1)
-        .uuid(UUID.randomUUID())
         .localZipCode("23552")
         .cityName("Lübeck")
         .country("Germany")
@@ -37,7 +36,6 @@ public class LocationDtoJsonTest {
     String jsonTemplate = """
         {
           "locationId":1,
-          "uuid":"%s",
           "localZipCode":"23552",
           "cityName":"Lübeck",
           "country":"Germany",
@@ -45,7 +43,7 @@ public class LocationDtoJsonTest {
           "lastImportAt":"%s"
         }""";
 
-    String expectedJson = jsonTemplate.formatted(locationDto.getUuid(), locationDto.getLastImportAt());
+    String expectedJson = jsonTemplate.formatted(locationDto.getLastImportAt());
     JsonContent<LocationDto> actualJson = tester.write(locationDto);
 
     JSONAssert.assertEquals(expectedJson, actualJson.getJson(), true);

@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.UUID;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 public class TestWeatherFactory {
@@ -24,6 +25,11 @@ public class TestWeatherFactory {
     Weather weather = new Weather(UUID.randomUUID(), 25.34d, 55, 10.34d, location, Instant.now().truncatedTo(ChronoUnit.MICROS));
 
     return weather;
+  }
+
+  public static WeatherEntity weatherEntity() {
+    return new WeatherEntity(UUID.randomUUID(), 22.54d, 34, 89.12d, null, Instant.now().truncatedTo(ChronoUnit.MICROS),
+        Instant.now().truncatedTo(ChronoUnit.MICROS));
   }
 
 
