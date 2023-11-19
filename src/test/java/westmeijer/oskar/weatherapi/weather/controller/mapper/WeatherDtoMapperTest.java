@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
+import westmeijer.oskar.weatherapi.TestLocationFactory;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.openapi.server.model.WeatherDto;
 import westmeijer.oskar.weatherapi.openapi.server.model.WeatherResponse;
@@ -20,37 +21,31 @@ public class WeatherDtoMapperTest {
 
   @Test
   public void successfulMappingToResponse() {
-    Location location = new Location(1,
-        UUID.randomUUID(),
-        "1234",
-        "5678",
-        "Luebeck",
-        "Germany",
-        "GER",
-        Instant.now());
+    Location location = TestLocationFactory.locationWithoutWeather();
 
     List<Weather> weatherList = List.of(
-        new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, "1234", 1, Instant.now()),
-        new Weather(UUID.randomUUID(), 5.00d, 30, 4.00d, "1234", 1, Instant.now()));
+        new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, location, Instant.now().truncatedTo(ChronoUnit.MICROS)),
+        new Weather(UUID.randomUUID(), 5.00d, 30, 4.00d, location, Instant.now().truncatedTo(ChronoUnit.MICROS)));
 
     WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherList);
 
-    assertThat(weatherResponse.getCityName()).isEqualTo(location.cityName());
-    assertThat(weatherResponse.getCountry()).isEqualTo(location.country());
-    assertThat(weatherResponse.getLocalZipCode()).isEqualTo(String.valueOf(location.localZipCode()));
+    assertThat(weatherResponse.getCityName()).isEqualTo(location.getCityName());
+    assertThat(weatherResponse.getCountry()).isEqualTo(location.getCountry());
+    assertThat(weatherResponse.getLocationId()).isEqualTo(location.getLocationId());
   }
 
   @Test
   public void successfulMappingToWeatherDTO() {
-    Weather weather = new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, "1234", 1, Instant.now().truncatedTo(ChronoUnit.MICROS));
+    Weather weather = new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, TestLocationFactory.locationWithoutWeather(),
+        Instant.now().truncatedTo(ChronoUnit.MICROS));
 
     WeatherDto weatherDTO = weatherDtoMapper.mapTo(weather);
 
     assertThat(weatherDTO)
-        .returns(weather.humidity(), WeatherDto::getHumidity)
-        .returns(weather.temperature(), WeatherDto::getTemperature)
-        .returns(weather.windSpeed(), WeatherDto::getWindSpeed)
-        .returns(weather.recordedAt(), WeatherDto::getRecordedAt);
+        .returns(weather.getHumidity(), WeatherDto::getHumidity)
+        .returns(weather.getTemperature(), WeatherDto::getTemperature)
+        .returns(weather.getWindSpeed(), WeatherDto::getWindSpeed)
+        .returns(weather.getRecordedAt(), WeatherDto::getRecordedAt);
   }
 
 }

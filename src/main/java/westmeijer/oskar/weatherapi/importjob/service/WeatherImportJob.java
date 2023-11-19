@@ -2,14 +2,16 @@ package westmeijer.oskar.weatherapi.importjob.service;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import jakarta.transaction.Transactional;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import westmeijer.oskar.weatherapi.importjob.client.OpenWeatherApiClient;
 import westmeijer.oskar.weatherapi.importjob.exception.OpenWeatherApiRequestException;
-import westmeijer.oskar.weatherapi.importjob.service.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.location.service.LocationService;
+import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.weather.service.WeatherService;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
@@ -26,21 +28,19 @@ public class WeatherImportJob {
 
   private final OpenWeatherApiClient openWeatherApiClient;
 
-
   @Scheduled(fixedDelay = 60000)
   @Transactional
   public void refreshWeather() {
     try {
       meterRegistry.counter("import.job", "import", "execution").increment();
 
-      ImportJobLocation location = locationService.getNextImportLocation();
-      log.info("Import weather for location: {}", location);
+      Location location = locationService.getNextImportLocation();
+      log.info("Import weather for location: {}, last_imported_at: {}", location.getCityName(), location.getLastImportAt());
 
       Weather importedWeather = openWeatherApiClient.requestWithGeneratedClient(location);
-      Weather savedWeather = weatherService.saveAndFlush(importedWeather);
-      locationService.updateLastImportAt(location);
+      location.setLastImportAt(Instant.now().truncatedTo(ChronoUnit.MICROS));
 
-      log.info("Saved imported weather: {}", savedWeather);
+      weatherService.saveAndFlush(importedWeather);
     } catch (OpenWeatherApiRequestException requestException) {
       log.error("OpenWeatherApi request failed!", requestException);
       meterRegistry.counter("import.job", "error", "request").increment();

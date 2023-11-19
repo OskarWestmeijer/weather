@@ -4,10 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
+import westmeijer.oskar.weatherapi.TestLocationFactory;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.openapi.server.model.LocationDto;
 
@@ -17,27 +19,17 @@ public class LocationDtoMapperTest {
 
   @Test
   public void shouldMapToLocation() {
-    Location location = new Location(
-        1,
-        UUID.randomUUID(),
-        "23552",
-        "2875601",
-        "Lübeck",
-        "Germany",
-        "GER",
-        Instant.now().truncatedTo(ChronoUnit.MICROS)
-    );
+    Location location = TestLocationFactory.locationWithoutWeather();
 
     LocationDto locationDto = locationDtoMapper.map(location);
 
     assertThat(locationDto)
-        .returns(location.uuid(), LocationDto::getUuid)
-        .returns(location.localZipCode(), LocationDto::getLocalZipCode)
-        .returns(location.cityName(), LocationDto::getCityName)
-        .returns(location.country(), LocationDto::getCountry)
-        .returns(location.countryCode(), LocationDto::getCountryCode)
-        .returns(location.openWeatherApiLocationCode(), LocationDto::getLocationCode)
-        .returns(location.lastImportAt(), LocationDto::getLastImportAt);
+        .returns(location.getLocationId(), LocationDto::getLocationId)
+        .returns(location.getLocalZipCode(), LocationDto::getLocalZipCode)
+        .returns(location.getCityName(), LocationDto::getCityName)
+        .returns(location.getCountry(), LocationDto::getCountry)
+        .returns(location.getCountryCode(), LocationDto::getCountryCode)
+        .returns(location.getLastImportAt(), LocationDto::getLastImportAt);
   }
 
   @Test
@@ -53,38 +45,42 @@ public class LocationDtoMapperTest {
         "Lübeck",
         "Germany",
         "GER",
-        now
+        "51.659088",
+        "6.966170",
+        now,
+        Collections.emptyList()
     );
 
     Location hamburg = new Location(
-        1,
+        2,
         UUID.randomUUID(),
         "20095",
         "2911298",
         "Hamburg",
         "Germany",
         "GER",
-        now
+        "51.659088",
+        "6.966170",
+        now,
+        Collections.emptyList()
     );
 
     // expected mappings
     LocationDto expectedLuebeck = new LocationDto()
-        .uuid(luebeck.uuid())
+        .locationId(1)
         .localZipCode("23552")
-        .locationCode("2875601")
         .cityName("Lübeck")
         .country("Germany")
         .countryCode("GER")
-        .lastImportAt(luebeck.lastImportAt());
+        .lastImportAt(luebeck.getLastImportAt());
 
     LocationDto expectedHamburg = new LocationDto()
-        .uuid(hamburg.uuid())
+        .locationId(2)
         .localZipCode("20095")
-        .locationCode("2911298")
         .cityName("Hamburg")
         .country("Germany")
         .countryCode("GER")
-        .lastImportAt(hamburg.lastImportAt());
+        .lastImportAt(hamburg.getLastImportAt());
 
     List<LocationDto> locations = locationDtoMapper.mapList(List.of(luebeck, hamburg));
 

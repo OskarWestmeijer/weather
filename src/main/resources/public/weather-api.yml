@@ -76,42 +76,20 @@ paths:
               schema:
                 $ref: "#/components/schemas/LocationResponse"
 
-  /weather/{localZipCode}/3d:
-    get:
-      summary: Get weather of last 3 days for location
-      operationId: getWeatherLast3Days
-      tags:
-        - weather_resource
-      parameters:
-        - name: localZipCode
-          in: path
-          required: true
-          description: localZipCode of location
-          schema:
-            type: string
-            example: "20095"
-      responses:
-        '200':
-          description: Weather results for the location.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/WeatherResponse"
-
-  /weather/{localZipCode}/24h:
+  /weather/{locationId}:
     get:
       summary: Get weather of last 24 hours for location
       operationId: getWeatherLast24Hours
       tags:
         - weather_resource
       parameters:
-        - name: localZipCode
+        - name: locationId
           in: path
           required: true
-          description: localZipCode of location
+          description: api locationId
           schema:
-            type: string
-            example: "20095"
+            type: integer
+            example: 1
       responses:
         '200':
           description: Weather results for the location.
@@ -126,27 +104,22 @@ components:
       type: object
       description: Requestable location
       required:
+        - locationId
         - uuid
         - localZipCode
-        - locationCode
         - cityName
         - country
         - countryCode
         - lastImportAt
       properties:
-        uuid:
-          type: string
-          format: uuid
-          description: request weather for a location with this technical id
-          example: "eac4f85d-c683-4a9c-91e3-a4d3b0b91a04"
+        locationId:
+          type: integer
+          description: api locationId, request weather with this id
+          example: 1
         localZipCode:
           type: string
           description: national postal code, to be considered in combination with 'countryCode'
           example: "20095"
-        locationCode:
-          type: string
-          description: deprecated, replaced by uuid
-          example: "2911298"
         cityName:
           type: string
           description: city name in countries local spelling
@@ -184,17 +157,19 @@ components:
       type: object
       description: Weather results for a location.
       required:
+        - locationId
         - cityName
-        - localZipCode
         - country
         - weatherData
       properties:
+        locationId:
+          type: integer
+          format: int32
+          description: api locationId
+          example: 1
         cityName:
           type: string
           example: "Hamburg"
-        localZipCode:
-          type: string
-          example: "20095"
         country:
           type: string
           example: "Germany"
@@ -207,11 +182,17 @@ components:
       type: object
       description: Weather at recorded time. Wrapped in WeatherResponse, with location information.
       required:
+        - id
         - temperature
         - humidity
         - windSpeed
         - recordedAt
       properties:
+        id:
+          type: string
+          format: uuid
+          example: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15"
+          description: "Technical id of the weather element"
         temperature:
           type: number
           format: double

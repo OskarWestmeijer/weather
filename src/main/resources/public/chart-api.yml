@@ -32,7 +32,7 @@ components:
       type: object
       description: Requestable location
       required:
-        - uuid
+        - locationId
         - cityName
         - countryCode
         - temperature
@@ -40,11 +40,11 @@ components:
         - windSpeed
         - recordedAt
       properties:
-        uuid:
-          type: string
-          format: uuid
-          description: request weather for a location with this technical id
-          example: "eac4f85d-c683-4a9c-91e3-a4d3b0b91a04"
+        locationId:
+          type: integer
+          format: int32
+          description: api locationId, request weather with this id
+          example: 1
         cityName:
           type: string
           description: city name in countries local spelling

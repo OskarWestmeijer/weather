@@ -6,6 +6,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.time.Instant;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
+import westmeijer.oskar.weatherapi.TestLocationFactory;
+import westmeijer.oskar.weatherapi.location.service.model.Location;
 
 public class WeatherTest {
 
@@ -15,27 +17,21 @@ public class WeatherTest {
     Double temp = 25.34d;
     Integer humidity = 55;
     Double windSpeed = 10.34d;
-    String localZipCode = "20535";
-    Integer locationId = 1;
     Instant recordedAt = Instant.now();
 
-    Weather weather = new Weather(id, temp, humidity, windSpeed, localZipCode, locationId, recordedAt);
+    Location location = TestLocationFactory.locationWithoutWeather();
+    Weather weather = new Weather(id, temp, humidity, windSpeed, location, recordedAt);
+    location.addWeather(weather);
 
     assertThat(weather)
-        .returns(id, Weather::id)
-        .returns(temp, Weather::temperature)
-        .returns(humidity, Weather::humidity)
-        .returns(windSpeed, Weather::windSpeed)
-        .returns(localZipCode, Weather::localZipCode)
-        .returns(locationId, Weather::locationId)
-        .returns(recordedAt, Weather::recordedAt);
-  }
+        .returns(id, Weather::getId)
+        .returns(temp, Weather::getTemperature)
+        .returns(humidity, Weather::getHumidity)
+        .returns(windSpeed, Weather::getWindSpeed)
+        .returns(location, Weather::getLocation)
+        .returns(recordedAt, Weather::getRecordedAt);
 
-  @Test
-  public void shouldNotInitNull() {
-    assertThatThrownBy(() -> new Weather(null, null, null, null, null, null, null))
-        .isInstanceOf(NullPointerException.class)
-        .hasMessageContaining("id must not be null");
+    assertThat(weather.getLocation()).isEqualTo(location);
   }
 
 }

@@ -25,9 +25,8 @@ public class LocationDtoJsonTest {
   public void serializeToJson() {
     Instant recordedAt = Instant.now().truncatedTo(ChronoUnit.MICROS);
     LocationDto locationDto = new LocationDto()
-        .uuid(UUID.randomUUID())
+        .locationId(1)
         .localZipCode("23552")
-        .locationCode("2875601")
         .cityName("Lübeck")
         .country("Germany")
         .countryCode("GER")
@@ -36,16 +35,15 @@ public class LocationDtoJsonTest {
     @Language("json")
     String jsonTemplate = """
         {
-          "uuid":"%s",
+          "locationId":1,
           "localZipCode":"23552",
-          "locationCode":"2875601",
           "cityName":"Lübeck",
           "country":"Germany",
           "countryCode":"GER",
           "lastImportAt":"%s"
         }""";
 
-    String expectedJson = jsonTemplate.formatted(locationDto.getUuid(), locationDto.getLastImportAt());
+    String expectedJson = jsonTemplate.formatted(locationDto.getLastImportAt());
     JsonContent<LocationDto> actualJson = tester.write(locationDto);
 
     JSONAssert.assertEquals(expectedJson, actualJson.getJson(), true);

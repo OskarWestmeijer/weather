@@ -13,7 +13,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
   @ExceptionHandler(value = {LocationNotSupportedException.class})
   protected ResponseEntity<String> handleLocationNotSupported(LocationNotSupportedException ex) {
     logger.error("Exception occurred during weather lookup for request.", ex);
-    String message = String.format("Requested zip_code not found. Please verify it is supported. zip_code: %s", ex.getZipCode());
+    String message = String.format("Requested locationId not found. Please verify it is supported. locationId: %s", ex.getLocationId());
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
   }
 

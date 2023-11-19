@@ -2,17 +2,14 @@ package westmeijer.oskar.weatherapi.weather.repository.jpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import westmeijer.oskar.weatherapi.IntegrationTestContainers;
+import westmeijer.oskar.weatherapi.TestLocationFactory;
+import westmeijer.oskar.weatherapi.TestWeatherFactory;
+import westmeijer.oskar.weatherapi.location.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 
 @DataJpaTest
@@ -23,18 +20,38 @@ public class WeatherJpaRepositoryTest extends IntegrationTestContainers {
   private WeatherJpaRepository weatherJpaRepository;
 
   @Test
-  public void fetchWeatherForSpecificDay() {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    LocalDate localDate = LocalDate.from(formatter.parse("2022-08-28"));
-    Instant start = localDate.atStartOfDay(ZoneId.of("UTC")).toInstant();
-    Instant end = start.plus(1L, ChronoUnit.DAYS);
+  public void shouldGetLatest() {
 
-    List<WeatherEntity> weatherEntityData = weatherJpaRepository.getSpecificDay("23552", start, end);
+    WeatherEntity expectedWeather = TestWeatherFactory.weatherEntityWithoutLocation();
+    LocationEntity expectedLocation = TestLocationFactory.locationEntityWithoutWeather();
+    expectedLocation.setId(9999);
+    expectedLocation.addWeather(expectedWeather);
 
-    assertThat(weatherEntityData)
-        .hasSize(5)
-        .first()
-        .returns(12.45, WeatherEntity::getTemperature);
+    weatherJpaRepository.saveAndFlush(expectedWeather);
+
+    WeatherEntity actualWeather = weatherJpaRepository.getLatest(9999);
+
+    assertThat(actualWeather).isNotNull();
+    assertThat(expectedWeather)
+        .returns(actualWeather.getId(), WeatherEntity::getId)
+        .returns(actualWeather.getTemperature(), WeatherEntity::getTemperature)
+        .returns(actualWeather.getHumidity(), WeatherEntity::getHumidity)
+        .returns(actualWeather.getWindSpeed(), WeatherEntity::getWindSpeed)
+        .returns(actualWeather.getRecordedAt(), WeatherEntity::getRecordedAt)
+        .returns(actualWeather.getModifiedAt(), WeatherEntity::getModifiedAt);
+
+    LocationEntity actualLocation = actualWeather.getLocation();
+    assertThat(actualLocation).isNotNull();
+    assertThat(actualLocation)
+        .returns(expectedLocation.getId(), LocationEntity::getId)
+        .returns(actualLocation.getLatitude(), LocationEntity::getLatitude)
+        .returns(actualLocation.getLongitude(), LocationEntity::getLongitude)
+        .returns(actualLocation.getCityName(), LocationEntity::getCityName)
+        .returns(actualLocation.getCountryCode(), LocationEntity::getCountryCode)
+        .returns(actualLocation.getCountry(), LocationEntity::getCountry)
+        .returns(actualLocation.getLocalZipCode(), LocationEntity::getLocalZipCode)
+        .returns(actualLocation.getLastImportAt(), LocationEntity::getLastImportAt)
+        .returns(actualLocation.getOpenWeatherApiLocationCode(), LocationEntity::getOpenWeatherApiLocationCode);
   }
 
 }

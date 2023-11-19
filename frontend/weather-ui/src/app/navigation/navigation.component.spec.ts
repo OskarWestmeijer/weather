@@ -6,7 +6,6 @@ describe('NavigationComponent', () => {
     let component: NavigationComponent;
     let fixture: ComponentFixture<NavigationComponent>;
 
-
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [NavigationComponent]

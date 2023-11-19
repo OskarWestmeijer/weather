@@ -1,7 +1,11 @@
 package westmeijer.oskar.weatherapi.weather.repository.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.Instant;
 import java.util.UUID;
@@ -9,6 +13,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import westmeijer.oskar.weatherapi.location.repository.model.LocationEntity;
 
 
 @Table(name = "weather", schema = "weather")
@@ -28,15 +34,9 @@ public class WeatherEntity {
 
   private Double windSpeed;
 
-  /**
-   * The local zip code. Only numeric. Example: 00100
-   *
-   * @deprecated zip code is a poor international location matcher. Uniqueness is not guaranteed. Make use of Location.
-   */
-  @Deprecated
-  private String localZipCode;
-
-  private Integer locationId;
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+  @JoinColumn(name = "location_id")
+  private LocationEntity location;
 
   private Instant recordedAt;
 

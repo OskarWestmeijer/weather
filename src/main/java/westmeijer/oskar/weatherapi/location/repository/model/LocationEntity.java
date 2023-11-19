@@ -1,22 +1,28 @@
 package westmeijer.oskar.weatherapi.location.repository.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 
 
 @Table(name = "location", schema = "weather")
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Getter
+@Setter
 public class LocationEntity {
 
   @Id
@@ -43,6 +49,12 @@ public class LocationEntity {
 
   private Instant modifiedAt;
 
-  private Instant createdAt;
+  @OneToMany(mappedBy = "location", fetch = FetchType.LAZY)
+  private List<WeatherEntity> weather = new ArrayList<>();
+
+  public void addWeather(WeatherEntity weatherEntity) {
+    this.weather.add(weatherEntity);
+    weatherEntity.setLocation(this);
+  }
 
 }

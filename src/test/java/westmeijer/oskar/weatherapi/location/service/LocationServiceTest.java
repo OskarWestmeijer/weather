@@ -12,7 +12,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import westmeijer.oskar.weatherapi.importjob.service.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.location.repository.LocationRepository;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
 
@@ -26,62 +25,57 @@ public class LocationServiceTest {
   private LocationService locationService;
 
   @Test
-  public void shouldFindByIdLocalZipCode() {
-    String localZipCode = "20535";
+  public void shouldGetByIdOmitWeather() {
+    Integer locationId = 1;
     Location expectedLocation = mock(Location.class);
-    given(locationRepository.getByLocalZipCode(localZipCode)).willReturn(expectedLocation);
+    given(locationRepository.getByIdOmitWeather(locationId)).willReturn(expectedLocation);
 
-    Location actualLocation = locationService.getByLocalZipCode(localZipCode);
+    Location actualLocation = locationService.getByIdOmitWeather(locationId);
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
-    then(locationRepository).should().getByLocalZipCode(localZipCode);
+    then(locationRepository).should().getByIdOmitWeather(locationId);
   }
 
   @Test
-  public void findById_shouldThrowExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationService.getByLocalZipCode(null))
+  public void getByIdOmitWeather_throwExceptionOnNullParam() {
+    assertThatThrownBy(() -> locationService.getByIdOmitWeather(null))
         .isInstanceOf(NullPointerException.class)
-        .hasMessageContaining("localZipCode must not be null");
+        .hasMessageContaining("locationId is required");
 
     then(locationRepository).shouldHaveNoInteractions();
   }
 
   @Test
-  public void shouldGetAll() {
+  public void shouldGetAllWithLatest() {
     Location expectedLocation = mock(Location.class);
-    given(locationRepository.getAll()).willReturn(List.of(expectedLocation));
+    given(locationRepository.getAllWithLatest()).willReturn(List.of(expectedLocation));
 
-    List<Location> actualLocations = locationService.getAll();
+    List<Location> actualLocations = locationService.getAllWithLatest();
 
     assertThat(actualLocations).isEqualTo(List.of(expectedLocation));
-    then(locationRepository).should().getAll();
+    then(locationRepository).should().getAllWithLatest();
+  }
+
+  @Test
+  public void shouldGetAllOmitWeather() {
+    Location expectedLocation = mock(Location.class);
+    given(locationRepository.getAllOmitWeather()).willReturn(List.of(expectedLocation));
+
+    List<Location> actualLocations = locationService.getAllOmitWeather();
+
+    assertThat(actualLocations).isEqualTo(List.of(expectedLocation));
+    then(locationRepository).should().getAllOmitWeather();
   }
 
   @Test
   public void shouldGetNextImportLocation() {
-    ImportJobLocation expectedLocation = mock(ImportJobLocation.class);
+    Location expectedLocation = mock(Location.class);
     given(locationRepository.getNextImportLocation()).willReturn(expectedLocation);
 
-    ImportJobLocation actualLocation = locationService.getNextImportLocation();
+    Location actualLocation = locationService.getNextImportLocation();
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
     then(locationRepository).should().getNextImportLocation();
-  }
-
-  @Test
-  public void updateLastImportedAt_shouldThrowExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationService.updateLastImportAt(null))
-        .isInstanceOf(NullPointerException.class)
-        .hasMessageContaining("location must not be null");
-
-    then(locationRepository).shouldHaveNoInteractions();
-  }
-
-  @Test
-  public void shouldupdateLastImportedAt() {
-    ImportJobLocation location = mock(ImportJobLocation.class);
-    locationService.updateLastImportAt(location);
-    then(locationRepository).should().updateLastImportAt(location);
   }
 
 }

@@ -11,17 +11,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
+import westmeijer.oskar.weatherapi.importjob.client.mapper.OpenWeatherApiMapper;
+import westmeijer.oskar.weatherapi.importjob.exception.OpenWeatherApiRequestException;
+import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.openapi.client.api.GeneratedOpenWeatherApi;
 import westmeijer.oskar.weatherapi.openapi.client.model.GeneratedOpenWeatherApiResponse;
-import westmeijer.oskar.weatherapi.importjob.exception.OpenWeatherApiRequestException;
-import westmeijer.oskar.weatherapi.importjob.client.mapper.OpenWeatherApiMapper;
-import westmeijer.oskar.weatherapi.importjob.service.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 @ExtendWith(MockitoExtension.class)
 public class OpenWeatherApiClientTest {
 
-  private OpenWeatherApiMapper openWeatherApiMapper = mock(OpenWeatherApiMapper.class);
+  private final OpenWeatherApiMapper openWeatherApiMapper = mock(OpenWeatherApiMapper.class);
 
   private final GeneratedOpenWeatherApi generatedOpenWeatherApi = mock(GeneratedOpenWeatherApi.class);
 
@@ -36,18 +36,18 @@ public class OpenWeatherApiClientTest {
 
   @Test
   public void shouldRequestWeather() {
-    ImportJobLocation requestLocation = mock(ImportJobLocation.class);
+    Location requestLocation = mock(Location.class);
 
     Mono<ResponseEntity<GeneratedOpenWeatherApiResponse>> apiResponseMono = mock(Mono.class);
     ResponseEntity<GeneratedOpenWeatherApiResponse> apiResponseEntity = mock(ResponseEntity.class);
     GeneratedOpenWeatherApiResponse apiResponse = mock(GeneratedOpenWeatherApiResponse.class);
     Weather expectedWeather = mock(Weather.class);
 
-    given(generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(requestLocation.latitude(),
-        requestLocation.longitude(), "metric", appId)).willReturn(apiResponseMono);
+    given(generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(requestLocation.getLatitude(),
+        requestLocation.getLongitude(), "metric", appId)).willReturn(apiResponseMono);
     given(apiResponseMono.block()).willReturn(apiResponseEntity);
     given(apiResponseEntity.getBody()).willReturn(apiResponse);
-    given(openWeatherApiMapper.map(apiResponse, requestLocation.localZipCode(), requestLocation.id())).willReturn(expectedWeather);
+    given(openWeatherApiMapper.mapToWeather(apiResponse, requestLocation)).willReturn(expectedWeather);
 
     Weather actualWeather = openWeatherApiClient.requestWithGeneratedClient(requestLocation);
 
@@ -56,8 +56,8 @@ public class OpenWeatherApiClientTest {
 
   @Test
   public void handleErrorResponses() {
-    ImportJobLocation requestLocation = mock(ImportJobLocation.class);
-    given(generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(requestLocation.latitude(), requestLocation.longitude(), "metric",
+    Location requestLocation = mock(Location.class);
+    given(generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(requestLocation.getLatitude(), requestLocation.getLongitude(), "metric",
         appId)).willThrow(
         RuntimeException.class);
 

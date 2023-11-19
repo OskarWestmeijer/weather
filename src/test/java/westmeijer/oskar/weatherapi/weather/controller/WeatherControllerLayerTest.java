@@ -6,9 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 import lombok.SneakyThrows;
 import org.intellij.lang.annotations.Language;
 import org.junit.jupiter.api.Test;
@@ -18,6 +16,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import westmeijer.oskar.weatherapi.TestLocationFactory;
+import westmeijer.oskar.weatherapi.TestWeatherFactory;
 import westmeijer.oskar.weatherapi.WebMvcMappersTestConfig;
 import westmeijer.oskar.weatherapi.location.exception.LocationNotSupportedException;
 import westmeijer.oskar.weatherapi.location.service.LocationService;
@@ -41,54 +41,48 @@ public class WeatherControllerLayerTest {
   @Test
   @SneakyThrows
   public void shouldRequestWeatherLast24h() {
-    List<Weather> weatherList = List.of(
-        new Weather(UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"), 5.45, 88, 11.66, "23552", 1, Instant.now()));
-    Location location = new Location(1,
-        UUID.randomUUID(),
-        "23552",
-        "2875601",
-        "Lübeck",
-        "Germany",
-        "GER",
-        Instant.now());
+    Location location = TestLocationFactory.locationWithoutWeather();
+    Weather weather = TestWeatherFactory.weather();
+    List<Weather> weatherList = List.of(weather);
 
-    given(weatherService.getLast24h("23552")).willReturn(weatherList);
-    given(locationService.getByLocalZipCode("23552")).willReturn(location);
+    given(locationService.getByIdOmitWeather(1)).willReturn(location);
+    given(weatherService.getLast24h(1)).willReturn(weatherList);
 
     @Language("json")
     String expectedBody = """
         {
-          "cityName" : "Lübeck",
-          "localZipCode" : "23552",
+          "locationId" : 1,
+          "cityName" : "Luebeck",
           "country" : "Germany",
           "weatherData" : [
             {
-              "temperature": 5.45,
-              "humidity": 88
+              "temperature": 25.34,
+              "humidity": 55,
+              "windSpeed":10.34
             }
           ]
         }""";
 
-    mockMvc.perform(get("/weather/23552/24h"))
+    mockMvc.perform(get("/weather/1"))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(expectedBody));
 
-    then(weatherService).should().getLast24h("23552");
-    then(locationService).should().getByLocalZipCode("23552");
+    then(locationService).should().getByIdOmitWeather(1);
+    then(weatherService).should().getLast24h(1);
   }
 
   @Test
   @SneakyThrows
   public void expect404OnLocationNotFound() {
-    given(locationService.getByLocalZipCode("46286")).willThrow(new LocationNotSupportedException("46286"));
+    given(locationService.getByIdOmitWeather(1)).willThrow(new LocationNotSupportedException(1));
 
-    mockMvc.perform(get("/weather/46286/24h"))
+    mockMvc.perform(get("/weather/1"))
         .andExpect(status().isNotFound())
-        .andExpect(content().string("Requested zip_code not found. Please verify it is supported. zip_code: 46286"));
+        .andExpect(content().string("Requested locationId not found. Please verify it is supported. locationId: 1"));
 
+    then(locationService).should().getByIdOmitWeather(1);
     then(weatherService).shouldHaveNoInteractions();
-    then(locationService).should().getByLocalZipCode("46286");
   }
 
 

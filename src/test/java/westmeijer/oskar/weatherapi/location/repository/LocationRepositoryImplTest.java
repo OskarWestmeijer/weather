@@ -13,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import westmeijer.oskar.weatherapi.importjob.service.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.location.exception.LocationNotSupportedException;
 import westmeijer.oskar.weatherapi.location.repository.jpa.LocationJpaRepository;
 import westmeijer.oskar.weatherapi.location.repository.mapper.LocationEntityMapper;
@@ -33,18 +32,18 @@ public class LocationRepositoryImplTest {
   private LocationRepositoryImpl locationRepository;
 
   @Test
-  public void shouldGetAll() {
+  public void shouldGetAllOmitWeather() {
     List<LocationEntity> locationEntityList = List.of(mock(LocationEntity.class));
     given(locationJpaRepository.findAll()).willReturn(locationEntityList);
 
     List<Location> expectedLocationList = List.of(mock(Location.class));
-    given(locationEntityMapper.mapList(locationEntityList)).willReturn(expectedLocationList);
+    given(locationEntityMapper.mapToLocationListWithoutWeather(locationEntityList)).willReturn(expectedLocationList);
 
-    List<Location> actualLocationList = locationRepository.getAll();
+    List<Location> actualLocationList = locationRepository.getAllOmitWeather();
 
     assertThat(actualLocationList).isEqualTo(expectedLocationList);
     then(locationJpaRepository).should().findAll();
-    then(locationEntityMapper).should().mapList(locationEntityList);
+    then(locationEntityMapper).should().mapToLocationListWithoutWeather(locationEntityList);
   }
 
   @Test
@@ -52,71 +51,68 @@ public class LocationRepositoryImplTest {
     LocationEntity locationEntity = mock(LocationEntity.class);
     given(locationJpaRepository.getNextImportLocation()).willReturn(locationEntity);
 
-    ImportJobLocation expectedLocation = mock(ImportJobLocation.class);
-    given(locationEntityMapper.mapToJobLocation(locationEntity)).willReturn(expectedLocation);
+    Location expectedLocation = mock(Location.class);
+    given(locationEntityMapper.mapToLocationWithoutWeather(locationEntity)).willReturn(expectedLocation);
 
-    ImportJobLocation actualLocation = locationRepository.getNextImportLocation();
+    Location actualLocation = locationRepository.getNextImportLocation();
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
     then(locationJpaRepository).should().getNextImportLocation();
-    then(locationEntityMapper).should().mapToJobLocation(locationEntity);
+    then(locationEntityMapper).should().mapToLocationWithoutWeather(locationEntity);
   }
 
   @Test
-  public void shouldUpdateImportTs() {
-    ImportJobLocation newLocation = mock(ImportJobLocation.class);
+  public void shouldGetAllWithLatest() {
+    LocationEntity locationEntity = mock(LocationEntity.class);
+    given(locationJpaRepository.getAllWithLatest()).willReturn(List.of(locationEntity));
 
-    locationRepository.updateLastImportAt(newLocation);
+    Location expectedLocation = mock(Location.class);
+    given(locationEntityMapper.mapToLocationList(List.of(locationEntity))).willReturn(List.of(expectedLocation));
 
-    then(locationJpaRepository).should().updateLastImportAt(newLocation.id());
+    List<Location> actualLocationList = locationRepository.getAllWithLatest();
+
+    assertThat(actualLocationList).isEqualTo(List.of(expectedLocation));
+    then(locationJpaRepository).should().getAllWithLatest();
+    then(locationEntityMapper).should().mapToLocationList(List.of(locationEntity));
   }
 
   @Test
-  public void updateImportTs_throwsExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationRepository.updateLastImportAt(null))
+  public void getByIdOmitWeather_throwsExceptionOnNullParam() {
+    assertThatThrownBy(() -> locationRepository.getByIdOmitWeather(null))
         .isInstanceOf(NullPointerException.class)
-        .hasMessageContaining("location must not be null");
-
-    then(locationJpaRepository).shouldHaveNoInteractions();
-  }
-
-  @Test
-  public void findById_throwsExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationRepository.getByLocalZipCode(null))
-        .isInstanceOf(NullPointerException.class)
-        .hasMessageContaining("localZipCode must not be null");
+        .hasMessageContaining("locationId is required");
 
     then(locationEntityMapper).shouldHaveNoInteractions();
     then(locationJpaRepository).shouldHaveNoInteractions();
   }
 
   @Test
-  public void findById_throwsExceptionOnNotFound() {
-    String localZipCode = "20535";
-    given(locationJpaRepository.getByLocalZipCode(localZipCode)).willReturn(Optional.empty());
+  public void getByIdOmitWeather_throwsExceptionOnNotFound() {
+    Integer locationId = 1;
+    given(locationJpaRepository.getById(locationId)).willReturn(Optional.empty());
 
-    assertThatThrownBy(() -> locationRepository.getByLocalZipCode(localZipCode))
+    assertThatThrownBy(() -> locationRepository.getByIdOmitWeather(locationId))
         .isInstanceOf(LocationNotSupportedException.class)
-        .hasMessageContaining("Location lookup for localZipCode  failed. localZipCode: 20535");
+        .hasMessageContaining("Location lookup for locationId  failed. locationId: 1");
 
     then(locationEntityMapper).shouldHaveNoInteractions();
-    then(locationJpaRepository).should().getByLocalZipCode(localZipCode);
+    then(locationJpaRepository).should().getById(locationId);
   }
 
   @Test
-  public void shouldFindById() {
+  public void shouldGetByIdOmitWeather() {
     LocationEntity locationEntity = mock(LocationEntity.class);
     Location expectedLocation = mock(Location.class);
-    String localZipCode = "20535";
+    Integer locationId = 1;
 
-    given(locationJpaRepository.getByLocalZipCode(localZipCode)).willReturn(Optional.of(locationEntity));
-    given(locationEntityMapper.map(locationEntity)).willReturn(expectedLocation);
+    given(locationJpaRepository.getById(locationId)).willReturn(Optional.of(locationEntity));
+    given(locationEntityMapper.mapToLocationWithoutWeather(locationEntity)).willReturn(expectedLocation);
 
-    Location actualLocation = locationRepository.getByLocalZipCode(localZipCode);
+    Location actualLocation = locationRepository.getByIdOmitWeather(locationId);
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
-    then(locationEntityMapper).should().map(locationEntity);
-    then(locationJpaRepository).should().getByLocalZipCode(localZipCode);
+    then(locationEntityMapper).should().mapToLocationWithoutWeather(locationEntity);
+    then(locationJpaRepository).should().getById(locationId);
   }
 
 }

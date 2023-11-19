@@ -1,10 +1,10 @@
 package westmeijer.oskar.weatherapi.location.repository;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import westmeijer.oskar.weatherapi.importjob.service.model.ImportJobLocation;
 import westmeijer.oskar.weatherapi.location.exception.LocationNotSupportedException;
 import westmeijer.oskar.weatherapi.location.repository.jpa.LocationJpaRepository;
 import westmeijer.oskar.weatherapi.location.repository.mapper.LocationEntityMapper;
@@ -20,27 +20,30 @@ public class LocationRepositoryImpl implements LocationRepository {
   private final LocationEntityMapper locationEntityMapper;
 
   @Override
-  public List<Location> getAll() {
+  public List<Location> getAllOmitWeather() {
     List<LocationEntity> locationEntities = locationJpaRepository.findAll();
-    return locationEntityMapper.mapList(locationEntities);
+    return locationEntityMapper.mapToLocationListWithoutWeather(locationEntities);
   }
 
   @Override
-  public ImportJobLocation getNextImportLocation() {
+  public Location getNextImportLocation() {
     LocationEntity location = locationJpaRepository.getNextImportLocation();
-    return locationEntityMapper.mapToJobLocation(location);
-  }
-
-  public void updateLastImportAt(ImportJobLocation location) {
-    Objects.requireNonNull(location, "location must not be null");
-    locationJpaRepository.updateLastImportAt(location.id());
+    return locationEntityMapper.mapToLocationWithoutWeather(location);
   }
 
   @Override
-  public Location getByLocalZipCode(String localZipCode) {
-    Objects.requireNonNull(localZipCode, "localZipCode must not be null");
-    LocationEntity locationEntity = locationJpaRepository.getByLocalZipCode(localZipCode)
-        .orElseThrow(() -> new LocationNotSupportedException(localZipCode));
-    return locationEntityMapper.map(locationEntity);
+  public List<Location> getAllWithLatest() {
+    List<LocationEntity> locationEntities = locationJpaRepository.getAllWithLatest();
+    return locationEntityMapper.mapToLocationList(locationEntities);
   }
+
+  @Override
+  public Location getByIdOmitWeather(Integer locationId) {
+    requireNonNull(locationId, "locationId is required");
+    LocationEntity locationEntity = locationJpaRepository.getById(locationId)
+        .orElseThrow(() -> new LocationNotSupportedException(locationId));
+    return locationEntityMapper.mapToLocationWithoutWeather(locationEntity);
+  }
+
+
 }

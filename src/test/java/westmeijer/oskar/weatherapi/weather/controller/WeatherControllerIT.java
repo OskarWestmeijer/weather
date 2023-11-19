@@ -24,22 +24,22 @@ public class WeatherControllerIT extends IntegrationTestContainers {
   @Test
   @SneakyThrows
   public void shouldReturnWeather() {
-    @Language("json")
+
     String expectedResponse = """
         {
+          "locationId" : 1,
           "cityName" : "Lübeck",
-          "localZipCode" : "23552",
           "country" : "Germany",
           "weatherData":
           [
-            {"temperature":15.45,"humidity":45,"windSpeed":2.57},
-            {"temperature":16.45,"humidity":45,"windSpeed":2.57},
-            {"temperature":17.45,"humidity":45,"windSpeed":2.57},
-            {"temperature":20.75,"humidity":45,"windSpeed": 2.57}
+            {"id":"a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15","temperature":15.45,"humidity":45,"windSpeed":2.57},
+            {"id":"a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a16","temperature":16.45,"humidity":45,"windSpeed":2.57},
+            {"id":"a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a17","temperature":17.45,"humidity":45,"windSpeed":2.57},
+            {"id":"b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a18","temperature":20.75,"humidity":45,"windSpeed":2.57}
           ]
         }""";
 
-    mockMvc.perform(get("/weather/23552/24h"))
+    mockMvc.perform(get("/weather/1"))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(expectedResponse, false));

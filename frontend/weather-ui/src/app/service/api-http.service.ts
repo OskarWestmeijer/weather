@@ -25,7 +25,7 @@ export class ApiHttpService {
     }
 
     public requestWeather(location: Location): Observable<WeatherResponse> {
-        const url = this.constants.API_ENDPOINT + '/weather/' + location.localZipCode + '/24h';
+        const url = this.constants.API_ENDPOINT + '/weather/' + location.locationId;
         return this.http.get<WeatherResponse>(url);
     }
 }
