@@ -1,5 +1,5 @@
 export interface OverviewLocation {
-    uuid: string;
+    locationId: number;
     cityName: string;
     countryCode: string;
     temperature: number;

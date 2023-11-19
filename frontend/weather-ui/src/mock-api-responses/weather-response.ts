@@ -1,21 +1,23 @@
-import { WeatherResponse } from "src/app/model/weather-response.model";
+import { WeatherResponse } from 'src/app/model/weather-response.model';
 
 export const expectedHelsinkiWeatherResponse: WeatherResponse = {
+    locationId: 4,
     cityName: 'Helsinki',
-    localZipCode: '00100',
     country: 'Finland',
     weatherData: [
         {
-            temperature: 0.96,
-            humidity: 90,
-            windSpeed: 4.92,
-            recordedAt: '2023-10-30T18:49:45.461955Z'
+            id: 'a24a8128-e7b8-4eff-8a73-1d2d63593f46',
+            temperature: 10.0,
+            humidity: 85,
+            windSpeed: 2.57,
+            recordedAt: '2023-11-19T11:00:15.793186Z'
         },
         {
-            temperature: 1.01,
-            humidity: 90,
-            windSpeed: 4.92,
-            recordedAt: '2023-10-30T18:44:45.110622Z'
+            id: 'd8a9f33e-d5ae-4f79-b3e8-35319044592e',
+            temperature: 10.0,
+            humidity: 85,
+            windSpeed: 2.57,
+            recordedAt: '2023-11-19T10:55:15.512857Z'
         }
     ]
 };

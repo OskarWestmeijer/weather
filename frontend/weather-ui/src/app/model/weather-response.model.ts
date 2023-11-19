@@ -1,8 +1,8 @@
 import { Weather } from './weather.model';
 
 export interface WeatherResponse {
+    locationId: number;
     cityName: string;
-    localZipCode: string;
     country: string;
     weatherData: Weather[];
 }
