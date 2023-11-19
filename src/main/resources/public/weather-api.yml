@@ -25,6 +25,9 @@ tags:
   - name: weather_resource
     x-displayName: weather
     description: Weather for a location.
+  - name: overview_resource
+    x-displayName: overview
+    description: Available locations with latest weather.
 
   - name: location_dto
     x-displayName: LocationElement
@@ -34,7 +37,7 @@ tags:
   - name: location_response
     x-displayName: LocationResponse
     description: |
-      Container for multiple location elements
+      Container for multiple LocationDto elements
       <SchemaDefinition schemaRef="#/components/schemas/LocationResponse" />
 
   - name: weather_dto
@@ -45,22 +48,37 @@ tags:
   - name: weather_response
     x-displayName: WeatherResponse
     description: |
-      Container for multiple weather elements
+      Container for multiple WeatherDto elements
       <SchemaDefinition schemaRef="#/components/schemas/WeatherResponse" />
+
+  - name: overview_dto
+    x-displayName: OverviewElement
+    description: |
+      Element of the OverviewResponse
+      <SchemaDefinition schemaRef="#/components/schemas/OverviewDto" />
+  - name: overview_response
+    x-displayName: OverviewResponse
+    description: |
+      Container for multiple OverviewDto elements
+      <SchemaDefinition schemaRef="#/components/schemas/OverviewResponse" />
+
 
 x-tagGroups:
   - name: Resources
     tags:
       - locations_resource
       - weather_resource
+      - overview_resource
   - name: Response Models
     tags:
       - location_response
       - weather_response
+      - overview_response
   - name: Response elements
     tags:
       - location_dto
       - weather_dto
+      - overview_dto
 paths:
   /locations:
     get:
@@ -97,6 +115,20 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/WeatherResponse"
+
+  /overview:
+    get:
+      summary: Get all locations enriched with current weather data
+      operationId: getOverview
+      tags:
+        - overview_resource
+      responses:
+        '200':
+          description: Get all locations enriched with current weather data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OverviewResponse"
 
 components:
   schemas:
@@ -196,16 +228,69 @@ components:
         temperature:
           type: number
           format: double
-          example: "11.45"
+          example: 11.45
         humidity:
           type: integer
           format: int32
-          example: "55"
+          example: 55
         windSpeed:
           type: number
           format: double
-          example: "2.57"
+          example: 2.57
         recordedAt:
           type: string
           format: date-time
           example: "2022-08-29T21:56:18.602546Z"
+
+    OverviewDto:
+      type: object
+      description: Overview of location and current weather
+      required:
+        - locationId
+        - cityName
+        - countryCode
+        - temperature
+        - humidity
+        - windSpeed
+        - recordedAt
+      properties:
+        locationId:
+          type: integer
+          format: int32
+          description: api locationId, request weather with this id
+          example: 1
+        cityName:
+          type: string
+          description: city name in countries local spelling
+          example: "Hamburg"
+        countryCode:
+          type: string
+          description: ISO 3166-1 ALPHA-3 codes
+          example: "GER"
+        temperature:
+          type: number
+          format: double
+          example: 11.45
+        humidity:
+          type: integer
+          format: int32
+          example: 55
+        windSpeed:
+          type: number
+          format: double
+          example: 2.57
+        recordedAt:
+          type: string
+          format: date-time
+          example: "2022-08-29T21:56:18.602546Z"
+
+    OverviewResponse:
+      type: object
+      description: Overview of all locations and latest weather
+      required:
+        - chart-locations
+      properties:
+        overview:
+          type: array
+          items:
+            $ref: "#/components/schemas/OverviewDto"
