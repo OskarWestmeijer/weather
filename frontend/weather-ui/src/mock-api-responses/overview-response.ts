@@ -1,7 +1,7 @@
 import { OverviewLocationsResponse } from 'src/app/model/overview-locations-response.model';
 
-export const chartLocationsResponse: OverviewLocationsResponse = {
-    'chart-locations': [
+export const overviewResponse: OverviewLocationsResponse = {
+    overview: [
         {
             locationId: 1,
             cityName: 'Lübeck',

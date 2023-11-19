@@ -8,14 +8,24 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import westmeijer.oskar.weatherapi.TestLocationFactory;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.openapi.server.model.LocationDto;
+import westmeijer.oskar.weatherapi.overview.service.mapper.OverviewMapperImpl;
 
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {
+    LocationDtoMapperImpl.class,
+})
 public class LocationDtoMapperTest {
 
-  private final LocationDtoMapper locationDtoMapper = Mappers.getMapper(LocationDtoMapper.class);
+  @Autowired
+  private LocationDtoMapper locationDtoMapper;
 
   @Test
   public void shouldMapToLocation() {

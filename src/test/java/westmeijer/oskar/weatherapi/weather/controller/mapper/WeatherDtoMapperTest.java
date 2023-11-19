@@ -7,17 +7,24 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
-import org.mapstruct.factory.Mappers;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import westmeijer.oskar.weatherapi.TestLocationFactory;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.openapi.server.model.WeatherDto;
 import westmeijer.oskar.weatherapi.openapi.server.model.WeatherResponse;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
-
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {
+    WeatherDtoMapperImpl.class,
+})
 public class WeatherDtoMapperTest {
 
-  private final WeatherDtoMapper weatherDtoMapper = Mappers.getMapper(WeatherDtoMapper.class);
+  @Autowired
+  private WeatherDtoMapper weatherDtoMapper;
 
   @Test
   public void successfulMappingToResponse() {

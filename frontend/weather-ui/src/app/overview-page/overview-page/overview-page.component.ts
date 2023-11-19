@@ -45,7 +45,7 @@ export class OverviewPageComponent implements OnInit {
     private requestOverviewLocations(): void {
         this.apiHttpService.requestOverviewLocations().subscribe((overviewLocations: OverviewLocationsResponse) => {
             if (overviewLocations !== undefined) {
-                this.overviewLocations = overviewLocations['chart-locations'];
+                this.overviewLocations = overviewLocations['overview'];
                 this.overviewLocations.sort((a, b) => a.temperature - b.temperature);
                 this.overviewLocations.forEach((item) => (item.temperature = parseInt(item.temperature.toFixed(0))));
 

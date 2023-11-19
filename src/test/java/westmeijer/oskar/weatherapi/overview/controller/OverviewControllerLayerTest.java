@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.chart.controller;
+package westmeijer.oskar.weatherapi.overview.controller;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
@@ -19,30 +19,30 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import westmeijer.oskar.weatherapi.WebMvcMappersTestConfig;
-import westmeijer.oskar.weatherapi.chart.service.ChartLocationsService;
-import westmeijer.oskar.weatherapi.chart.service.model.ChartLocation;
+import westmeijer.oskar.weatherapi.overview.service.OverviewService;
+import westmeijer.oskar.weatherapi.overview.service.model.Overview;
 
-@WebMvcTest(ChartLocationsController.class)
+@WebMvcTest(OverviewController.class)
 @Import(WebMvcMappersTestConfig.class)
-public class ChartLocationControllerLayerTest {
+public class OverviewControllerLayerTest {
 
   @MockBean
-  private ChartLocationsService chartLocationsService;
+  private OverviewService overviewService;
 
   @Autowired
   MockMvc mockMvc;
 
   @Test
   @SneakyThrows
-  public void shouldGetLocations() {
-    ChartLocation chartLocation = new ChartLocation(1, "Luebeck", "GER", 15.66, 44, 10.11, Instant.now().truncatedTo(ChronoUnit.MICROS));
+  public void shouldGetOverview() {
+    Overview overview = new Overview(1, "Luebeck", "GER", 15.66, 44, 10.11, Instant.now().truncatedTo(ChronoUnit.MICROS));
 
-    given(chartLocationsService.getChartLocations()).willReturn(List.of(chartLocation));
+    given(overviewService.getOverview()).willReturn(List.of(overview));
 
     @Language("json")
     String expectedBody = """
         {
-          "chart-locations":  [
+          "overview":  [
             {
               "locationId": 1,
               "cityName":"Luebeck",
@@ -55,13 +55,13 @@ public class ChartLocationControllerLayerTest {
           ]
         }""";
 
-    mockMvc.perform(get("/chart/locations"))
+    mockMvc.perform(get("/overview"))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(
-            expectedBody.formatted(chartLocation.recordedAt())));
+            expectedBody.formatted(overview.recordedAt())));
 
-    then(chartLocationsService).should().getChartLocations();
+    then(overviewService).should().getOverview();
   }
 
 }

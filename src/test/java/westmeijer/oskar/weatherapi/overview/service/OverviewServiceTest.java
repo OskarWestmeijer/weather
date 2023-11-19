@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.chart.service;
+package westmeijer.oskar.weatherapi.overview.service;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,37 +12,37 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import westmeijer.oskar.weatherapi.chart.service.mapper.ChartLocationMapper;
-import westmeijer.oskar.weatherapi.chart.service.model.ChartLocation;
 import westmeijer.oskar.weatherapi.location.service.LocationService;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.overview.service.mapper.OverviewMapper;
+import westmeijer.oskar.weatherapi.overview.service.model.Overview;
 
 @ExtendWith(MockitoExtension.class)
-public class ChartLocationServiceTest {
+public class OverviewServiceTest {
 
   @Mock
   private LocationService locationService;
 
   @Mock
-  private ChartLocationMapper chartLocationMapper;
+  private OverviewMapper overviewMapper;
 
   @InjectMocks
-  ChartLocationsService chartLocationsService;
+  OverviewService overviewService;
 
   @Test
-  void shouldGetChartLocations() {
+  void shouldGetOverview() {
 
     Location location = mock(Location.class);
     given(locationService.getAllWithLatest()).willReturn(List.of(location));
 
-    ChartLocation expectedChartLocation = mock(ChartLocation.class);
-    given(chartLocationMapper.mapToChartLocationList(List.of(location))).willReturn(List.of(expectedChartLocation));
+    Overview expectedOverview = mock(Overview.class);
+    given(overviewMapper.mapToOverviewList(List.of(location))).willReturn(List.of(expectedOverview));
 
-    List<ChartLocation> actualChartLocationList = chartLocationsService.getChartLocations();
+    List<Overview> actualOverviewList = overviewService.getOverview();
 
-    assertThat(actualChartLocationList).isEqualTo(List.of(expectedChartLocation));
+    assertThat(actualOverviewList).isEqualTo(List.of(expectedOverview));
     then(locationService).should().getAllWithLatest();
-    then(chartLocationMapper).should().mapToChartLocationList(List.of(location));
+    then(overviewMapper).should().mapToOverviewList(List.of(location));
 
   }
 

@@ -62,7 +62,7 @@ public class WeatherImportJobTest {
   }
 
   @Test
-  public void refreshWeather_throwExceptionOnApiFailure() {
+  public void throwsOnApiRequestException() {
     Location importLocation = mock(Location.class);
 
     given(locationService.getNextImportLocation()).willReturn(importLocation);
@@ -76,6 +76,21 @@ public class WeatherImportJobTest {
 
     then(locationService).should().getNextImportLocation();
     then(openWeatherApiClient).should().requestWithGeneratedClient(importLocation);
+    then(weatherService).shouldHaveNoInteractions();
+  }
+
+  @Test
+  public void throwsOnNpe() {
+    given(locationService.getNextImportLocation()).willReturn(null);
+
+    weatherImportJob.refreshWeather();
+
+    assertThat(meterRegistry.counter("import.job", "import", "execution").count()).isEqualTo(1.00d);
+    assertThat(meterRegistry.counter("import.job", "error", "request").count()).isEqualTo(0.00d);
+    assertThat(meterRegistry.counter("import.job", "error", "process").count()).isEqualTo(1.00d);
+
+    then(locationService).should().getNextImportLocation();
+    then(openWeatherApiClient).shouldHaveNoInteractions();
     then(weatherService).shouldHaveNoInteractions();
   }
 

@@ -1,5 +1,7 @@
 package westmeijer.oskar.weatherapi.importjob.client.mapper;
 
+import static java.util.Objects.requireNonNull;
+
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -21,6 +23,9 @@ public interface OpenWeatherApiMapper {
 
   @AfterMapping
   default void bindWeatherToLocation(@MappingTarget Weather weather, Location location) {
+    requireNonNull(weather.getTemperature(), "temperature is required");
+    requireNonNull(weather.getHumidity(), "humidity is required");
+    requireNonNull(weather.getWindSpeed(), "windSpeed is required");
     location.addWeather(weather);
   }
 

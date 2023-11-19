@@ -1,5 +1,7 @@
 package westmeijer.oskar.weatherapi.importjob.service;
 
+import static java.util.Objects.requireNonNull;
+
 import io.micrometer.core.instrument.MeterRegistry;
 import jakarta.transaction.Transactional;
 import java.time.Instant;
@@ -34,7 +36,7 @@ public class WeatherImportJob {
     try {
       meterRegistry.counter("import.job", "import", "execution").increment();
 
-      Location location = locationService.getNextImportLocation();
+      Location location = requireNonNull(locationService.getNextImportLocation(), "location is required");
       log.info("Import weather for location: {}, last_imported_at: {}", location.getCityName(), location.getLastImportAt());
 
       Weather importedWeather = openWeatherApiClient.requestWithGeneratedClient(location);

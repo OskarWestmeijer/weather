@@ -17,7 +17,7 @@ export class ApiHttpService {
     ) {}
 
     public requestOverviewLocations(): Observable<OverviewLocationsResponse> {
-        return this.http.get<OverviewLocationsResponse>(this.constants.API_ENDPOINT + '/chart/locations');
+        return this.http.get<OverviewLocationsResponse>(this.constants.API_ENDPOINT + '/overview');
     }
 
     public requestLocations(): Observable<LocationsResponse> {

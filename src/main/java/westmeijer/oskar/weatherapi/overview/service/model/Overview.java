@@ -1,9 +1,8 @@
-package westmeijer.oskar.weatherapi.chart.service.model;
+package westmeijer.oskar.weatherapi.overview.service.model;
 
 import java.time.Instant;
-import java.util.UUID;
 
-public record ChartLocation(
+public record Overview(
     Integer locationId,
     String cityName,
     String countryCode,

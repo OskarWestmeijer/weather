@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   database:
-    image: postgres:15.3
+    image: postgres:16.0
     ports:
       - "5432:5432"
     environment:
@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: password1
       POSTGRES_DB: weather
   wiremock:
-    image: wiremock/wiremock:2.35.0
+    image: wiremock/wiremock:3.3.1
     ports:
       - "9000:8080"
     volumes:
