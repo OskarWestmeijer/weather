@@ -1,7 +1,7 @@
 import { of } from 'rxjs';
 import { OverviewLocationsResponse } from 'src/app/model/overview-locations-response.model';
 import { ApiHttpService } from 'src/app/service/api-http.service';
-import { chartLocationsResponse } from 'src/mock-api-responses/chart-locations-response';
+import { overviewResponse } from 'src/mock-api-responses/overview-response';
 import { OverviewPageComponent } from './overview-page.component';
 
 describe('OverviewPageComponent', () => {
@@ -16,7 +16,7 @@ describe('OverviewPageComponent', () => {
     });
 
     it('should create component with locations', () => {
-        const expectedOverviewLocationsResponse: OverviewLocationsResponse = chartLocationsResponse;
+        const expectedOverviewLocationsResponse: OverviewLocationsResponse = overviewResponse;
 
         apiHttpServiceSpy.requestOverviewLocations.and.returnValue(of(expectedOverviewLocationsResponse));
         overviewPageComponent.ngOnInit();
