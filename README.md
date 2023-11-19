@@ -3,7 +3,6 @@
 ![main branch](https://github.com/OskarWestmeijer/weather-api/actions/workflows/main-build-test-release.yml/badge.svg)
 [![codecov](https://codecov.io/github/OskarWestmeijer/weather-api/graph/badge.svg?token=KPHN0THI0X)](https://codecov.io/github/OskarWestmeijer/weather-api)
 [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/vmxk.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
-## Introduction
 
 This Api provides Weather data for predefined locations. The backend service harvests weather data every minute
 from the external Openweathermap Api. The weather information is stored in a database. The OpenApi specification is documented with Redoc.
@@ -14,10 +13,7 @@ An Angular frontend displays the weather data in charts over time.
 - [https://api.oskar-westmeijer.com](https://api.oskar-westmeijer.com) (Redoc OpenApi spec)
 - [https://openweathermap.org/](https://openweathermap.org/) (external harvesting location)
 
-### Technologies used
-
-The repository contains frontend and backend services. The backend interacts with a PostgreSQL database.
-Proxy routing to these services is handled by another private proxy service.
+### Technologies
 
 ```
 - Java, Maven & Spring-Boot
@@ -28,13 +24,11 @@ Proxy routing to these services is handled by another private proxy service.
 - Github Actions, Docker & PostgreSQL
 ```
 
-## Local development
-
-### Build & test
+### Build & Test
 
 This projects uses the library Testcontainers. The Integration-Test dependencies will be automatically started.
 
-```
+``` bash
 # ensure docker is running
 ./mvnw clean verify
 ```
@@ -44,37 +38,36 @@ This projects uses the library Testcontainers. The Integration-Test dependencies
 Docker Compose mocks all external system dependencies, there are no connections to actual production systems.
 Wiremock mocks the OpenWeatherApi harvesting source.
 
-```
+``` bash
 docker compose up -d
 ./mvnw spring-boot:run
 ```
+
+### Image release
+
+Merging into main will trigger a build & release from the Github Actions pipeline.
 
 ## OpenApi Generator
 
 This project uses OpenApi code-generator. The Controller interfaces, external web client and response models are generated at compile phase.
 
-### Server (Weather-Api)
+#### Server (this Weather-Api)
 
-The Server-Api specification file is located here `src/main/resources/public/weather-api.yml`. The Api definition is documented by Redoc.
+The Api definition is documented by Redoc.
 Open the file in a browser, or navigate there after startup application startup.
+
+`src/main/resources/public/weather-api.yml`
 
 - http://localhost:8080
 - https://api.oskar-westmeijer.com
 
-### Client (OpenWeatherApi Client)
+#### Client (external OpenWeatherApi)
 
-The client OpenApi specification is internal only and therefore located in a separate
-directory `src/main/resources/openapi/openweatherapi.yml`. Webflux is used as
-client library.
+The client OpenApi specification is for internal usage only and therefore located in a separate
+directory.
 
-## Deployment
+`src/main/resources/openapi/openweatherapi.yml`
 
-### Release image
-
-The image will be released by Github actions. Merging into main will trigger a build & release.
-
-## Documentation
-
-A c4-model container diagram describes the architecture.
+## Architecture
 
 ![Alt c4-model system context diagram](docs/c4model/c4_container.svg)
