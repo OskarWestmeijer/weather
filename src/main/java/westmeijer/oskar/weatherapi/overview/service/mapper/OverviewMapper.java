@@ -15,17 +15,14 @@ import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 @Mapper(componentModel = "spring")
 public interface OverviewMapper {
 
-  @Mapping(target = "locationId", source = "location.locationId")
-  Overview mapTo(Location location, Weather weather);
+  @IterableMapping(qualifiedByName = "mapToOverview")
+  List<Overview> mapToOverviewList(List<Location> location);
 
-  @IterableMapping(qualifiedByName = "mapToChartLocation")
-  List<Overview> mapToChartLocationList(List<Location> location);
-
-  @Named("mapToChartLocation")
-  default Overview mapToChartLocation(Location location) {
+  @Named("mapToOverview")
+  default Overview mapToOverview(Location location) {
     requireNonNull(location, "location is required");
     requireNonNull(location.getWeather(), "weather is required");
-    checkArgument(location.getWeather().size() == 1);
+    checkArgument(location.getWeather().size() == 1, "requires exactly one weather element");
 
     Weather w = location.getWeather().get(0);
     return new Overview(location.getLocationId(), location.getCityName(), location.getCountryCode(),

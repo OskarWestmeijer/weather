@@ -18,7 +18,7 @@ public class OverviewService {
 
   public List<Overview> getOverview() {
     List<Location> locations = locationService.getAllWithLatest();
-    return overviewMapper.mapToChartLocationList(locations);
+    return overviewMapper.mapToOverviewList(locations);
   }
 
 }

@@ -12,10 +12,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import westmeijer.oskar.weatherapi.overview.service.mapper.OverviewMapper;
-import westmeijer.oskar.weatherapi.overview.service.model.Overview;
 import westmeijer.oskar.weatherapi.location.service.LocationService;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.overview.service.mapper.OverviewMapper;
+import westmeijer.oskar.weatherapi.overview.service.model.Overview;
 
 @ExtendWith(MockitoExtension.class)
 public class OverviewServiceTest {
@@ -36,13 +36,13 @@ public class OverviewServiceTest {
     given(locationService.getAllWithLatest()).willReturn(List.of(location));
 
     Overview expectedOverview = mock(Overview.class);
-    given(overviewMapper.mapToChartLocationList(List.of(location))).willReturn(List.of(expectedOverview));
+    given(overviewMapper.mapToOverviewList(List.of(location))).willReturn(List.of(expectedOverview));
 
     List<Overview> actualOverviewList = overviewService.getOverview();
 
     assertThat(actualOverviewList).isEqualTo(List.of(expectedOverview));
     then(locationService).should().getAllWithLatest();
-    then(overviewMapper).should().mapToChartLocationList(List.of(location));
+    then(overviewMapper).should().mapToOverviewList(List.of(location));
 
   }
 
