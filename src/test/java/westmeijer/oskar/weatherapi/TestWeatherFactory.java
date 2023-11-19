@@ -28,6 +28,10 @@ public class TestWeatherFactory {
     return weather;
   }
 
+  public static Weather weatherWithoutLocation() {
+    return new Weather(UUID.randomUUID(), 25.34d, 55, 10.34d, null, Instant.now().truncatedTo(ChronoUnit.MICROS));
+  }
+
   public static WeatherEntity weatherEntityWithoutLocation() {
     return new WeatherEntity(UUID.randomUUID(), 22.54d, 34, 89.12d, null, Instant.now().truncatedTo(ChronoUnit.MICROS),
         Instant.now().truncatedTo(ChronoUnit.MICROS));

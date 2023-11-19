@@ -1,18 +1,25 @@
 package westmeijer.oskar.weatherapi.weather.repository.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.within;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import org.mapstruct.factory.Mappers;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import westmeijer.oskar.weatherapi.TestWeatherFactory;
 import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {
+    WeatherEntityMapperImpl.class,
+})
 public class WeatherEntityMapperTest {
 
-  private final WeatherEntityMapper weatherEntityMapper = Mappers.getMapper(WeatherEntityMapper.class);
+  @Autowired
+  private WeatherEntityMapper weatherEntityMapper;
 
   @Test
   public void shouldMapWeather() {
