@@ -1,25 +1,14 @@
 package westmeijer.oskar.weatherapi;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import westmeijer.oskar.weatherapi.location.repository.jpa.LocationJpaRepository;
-import westmeijer.oskar.weatherapi.importjob.service.WeatherImportJob;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@ExtendWith(MockitoExtension.class)
-public class WeatherApiApplicationTests {
+@SpringBootTest
+public class WeatherApiApplicationTests extends IntegrationTestContainers {
 
-    @Mock
-    private LocationJpaRepository locationJpaRepository;
+  @Test
+  void contextLoads() {
 
-    @Mock
-    private WeatherImportJob weatherImportJob;
-
-    @Test
-    void contextLoads() {
-
-
-    }
+  }
 
 }
