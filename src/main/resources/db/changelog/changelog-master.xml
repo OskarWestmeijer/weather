@@ -25,5 +25,8 @@
   <changeSet id="007" author="OskarWestmeijer">
     <sqlFile path="007_drop_columns.sql" relativeToChangelogFile="true"/>
   </changeSet>
+  <changeSet id="008" author="OskarWestmeijer">
+    <sqlFile path="008_add_weather_index.sql" relativeToChangelogFile="true"/>
+  </changeSet>
 
 </databaseChangeLog>
