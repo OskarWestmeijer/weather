@@ -1,0 +1,9 @@
+.main-comp {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-comp {
+    margin-top: auto;
+}
