@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/backend-build-and-test
         with:
-          code-cov: ${{ secrets.DOCKER_USERNAME }}
+          code-cov: ${{ secrets.CODECOV_TOKEN }}
 
   frontend-build-and-test:
     runs-on: ubuntu-latest
