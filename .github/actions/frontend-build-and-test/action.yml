@@ -13,14 +13,17 @@ runs:
         node-version: "20.9.0"
         cache: "npm"
         cache-dependency-path: ${{ inputs.frontend-directory }}/package-lock.json
+
     - name: npm ci
       shell: bash
       working-directory: ${{ inputs.frontend-directory }}
       run: npm ci
+
     - name: npm test
       shell: bash
       working-directory: ${{ inputs.frontend-directory }}
       run: npm run test-headless
+
     - name: npm run build
       shell: bash
       working-directory: ${{ inputs.frontend-directory }}
