@@ -1,7 +1,7 @@
 # Weather
 
 ![main branch](https://github.com/OskarWestmeijer/weather/actions/workflows/main-build-test-release.yml/badge.svg)
-[![codecov](https://codecov.io/github/OskarWestmeijer/weather/graph/badge.svg?token=KPHN0THI0X)](https://codecov.io/github/OskarWestmeijer/weather)
+[![codecov](https://codecov.io/gh/OskarWestmeijer/weather/graph/badge.svg?token=KPHN0THI0X)](https://codecov.io/gh/OskarWestmeijer/weather)
 [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/vmxk.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
 
 Provides weather data for selected locations. The frontend displays the weather in charts. The backend service offers a public
