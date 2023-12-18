@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://api.oskar-westmeijer.com'
+    apiUrl: 'https://api.weather.oskar-westmeijer.com'
 };

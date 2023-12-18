@@ -1,23 +1,22 @@
 openapi: "3.0.3"
 servers:
-  - url: https://api.oskar-westmeijer.com
+  - url: https://api.weather.oskar-westmeijer.com
     description: url of production environment
 info:
   description: |
     # Introduction
-    This Api provides Weather data for predefined locations. The backend service harvests weather data every minute
-    from the external Openweathermap Api. The weather information is stored in a database. The OpenApi specification is documented with Redoc.
+    Provides weather data for selected locations. The frontend displays the weather in charts. The backend service offers a public
+    Api. The weather data is harvested every minute from `openweathermap.org`. The information is stored in a database. Furthermore the Api is
+    documented with an OpenApi specification.
     
-    An Angular frontend displays the weather data in charts over time.
-    
-    - [ https://ui.oskar-westmeijer.com ](https://ui.oskar-westmeijer.com) (Angular frontend)
-    - [ https://api.oskar-westmeijer.com ](https://api.oskar-westmeijer.com) (Redoc OpenApi spec)
-    - [ https://openweathermap.org/ ](https://openweathermap.org/) (external harvesting location)
+    - [ https://weather.oskar-westmeijer.com ](https://weather.oskar-westmeijer.com) (Angular frontend)
+    - [ https://api.weather.oskar-westmeijer.com ](https://api.weather.oskar-westmeijer.com) (Spring Boot backend)
+
   version: 1.0.0
   title: Weather-Api
 externalDocs:
-  description: https://github.com/OskarWestmeijer/weather-api
-  url: 'https://github.com/OskarWestmeijer/weather-api'
+  description: https://github.com/OskarWestmeijer/weather
+  url: 'https://github.com/OskarWestmeijer/weather'
 tags:
   - name: locations_resource
     x-displayName: locations

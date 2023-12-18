@@ -1,15 +1,15 @@
 # Weather
 
-![main branch](https://github.com/OskarWestmeijer/weather-api/actions/workflows/main-build-test-release.yml/badge.svg)
-[![codecov](https://codecov.io/github/OskarWestmeijer/weather-api/graph/badge.svg?token=KPHN0THI0X)](https://codecov.io/github/OskarWestmeijer/weather-api)
+![main branch](https://github.com/OskarWestmeijer/weather/actions/workflows/main-build-test-release.yml/badge.svg)
+[![codecov](https://codecov.io/github/OskarWestmeijer/weather/graph/badge.svg?token=KPHN0THI0X)](https://codecov.io/github/OskarWestmeijer/weather)
 [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/vmxk.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
 
 Provides weather data for selected locations. The frontend displays the weather in charts. The backend service offers a public
 Api. The weather data is harvested every minute from `openweathermap.org`. The information is stored in a database. Furthermore the Api is
 documented with an OpenApi specification.
 
-- [https://ui.oskar-westmeijer.com](https://ui.oskar-westmeijer.com) (Angular frontend)
-- [https://api.oskar-westmeijer.com](https://api.oskar-westmeijer.com) (Spring Boot backend)
+- [https://weather.oskar-westmeijer.com](https://weather.oskar-westmeijer.com) (Angular frontend)
+- [https://api.weather.oskar-westmeijer.com](https://api.weather.oskar-westmeijer.com) (Spring Boot backend)
 
 ### Technologies
 
