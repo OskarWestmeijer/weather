@@ -39,26 +39,15 @@ export class TimelapseChartComponent implements OnInit, OnChanges {
                             data: this.dataMap.get(ChartType.TEMPERATURE)?.map((item) => item.data),
                             backgroundColor: this.colorOrange,
                             borderColor: this.colorOrange,
-                            fill: false,
                             tension: 0.25,
-                            yAxisID: 'temperatureY',
-                            order: 1
-                        },
-                        {
-                            type: 'bar',
-                            label: ChartType.HUMIDITY,
-                            data: this.dataMap.get(ChartType.HUMIDITY)?.map((item) => item.data),
-                            borderColor: this.colorWhite,
-                            backgroundColor: 'rgba(75,192,192,0.4)',
-                            yAxisID: 'humidityY',
-                            order: 2
                         }
                     ]
                 },
                 options: {
-                    parsing: {
-                        xAxisKey: 'data',
-                        yAxisKey: 'recordedAt'
+                    datasets: {
+                        line: {
+                            borderWidth: 5
+                        }
                     },
                     aspectRatio: 2.7,
                     scales: {
@@ -70,38 +59,21 @@ export class TimelapseChartComponent implements OnInit, OnChanges {
                                 color: this.colorWhite
                             }
                         },
-                        temperatureY: {
+                        y: {
                             beginAtZero: true,
-                            position: 'left',
                             ticks: {
                                 color: this.colorWhite
                             },
                             border: {
                                 color: this.colorWhite
-                            }
-                        },
-                        humidityY: {
-                            position: 'right',
-                            border: {
-                                color: this.colorWhite
                             },
-                            ticks: {
-                                color: this.colorWhite,
-                                stepSize: 10,
-                                maxTicksLimit: 100,
-                                callback: function (value) {
-                                    return value + '%';
-                                }
-                            },
-                            grid: {
-                                display: false
-                            }
                         }
                     },
                     plugins: {
                         legend: {
-                            display: true,
-                            labels: { color: this.colorWhite }
+                            labels: {
+                                color: this.colorWhite,
+                            }
                         }
                     }
                 }

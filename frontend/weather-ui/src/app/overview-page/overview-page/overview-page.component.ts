@@ -59,15 +59,28 @@ export class OverviewPageComponent implements OnInit {
     private determineBackgroundColors(): string[] {
         const backgroundColors: string[] = [];
         this.overviewLocations.forEach((l) => {
-            if (l.temperature <= 0) {
+            const temp = l.temperature;
+
+            if (temp < -5) {
+                // dark blue
+                backgroundColors.push('rgba(49, 99, 169, 1)');
+            } else if (temp < 0) {
+                // light blue
                 backgroundColors.push('rgba(54, 162, 235, 1)');
-            } else if (l.temperature <= 5) {
+            } else if (temp < 5) {
+                // light green
                 backgroundColors.push('rgba(75, 192, 192, 1)');
-            } else if (l.temperature < 10) {
-                backgroundColors.push('rgba(255, 159, 64, 1)');
-            } else if (l.temperature < 20) {
+            } else if (temp < 10) {
+                // lime green
+                backgroundColors.push('rgba(79,218,73,1)');
+            } else if (temp < 15) {
+                // yellow
+                backgroundColors.push('rgb(244,229,67,1)');
+            } else if (temp < 25) {
+                // orange
                 backgroundColors.push('rgba(255, 159, 64, 1)');
             } else {
+                // red
                 backgroundColors.push('rgba(255, 99, 132, 1)');
             }
         });
@@ -77,15 +90,16 @@ export class OverviewPageComponent implements OnInit {
 
     private createChart(backgroundColors: string[]): void {
         if (this.overviewLocations != undefined) {
-            const time = new Date().toLocaleString();
             Chart.getChart('OverviewChart')?.destroy();
+            const time = new Date().toUTCString();
+
             this.chart = new Chart('OverviewChart', {
                 data: {
                     labels: this.overviewLocations.map((item) => item.cityName + ', ' + item.countryCode),
                     datasets: [
                         {
                             type: 'bar',
-                            label: ChartType.TEMPERATURE.concat(' - ' + time + ' UTC'),
+                            label: ChartType.TEMPERATURE,
                             data: this.overviewLocations.map((item) => item.temperature.toFixed(0)),
                             order: 1,
                             backgroundColor: backgroundColors
@@ -133,6 +147,12 @@ export class OverviewPageComponent implements OnInit {
                         easing: 'easeOutExpo'
                     },
                     plugins: {
+                        title: {
+                            display: true,
+                            text: time,
+                            color: this.colorWhite,
+                            font: { size: this.screenWidth > 1000 ? 20 : 15, weight: 400 }
+                        },
                         legend: {
                             display: true,
                             labels: {
