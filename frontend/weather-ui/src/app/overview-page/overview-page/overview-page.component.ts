@@ -27,7 +27,6 @@ export class OverviewPageComponent implements OnInit {
 
     public ngOnInit() {
         this.requestOverviewLocations();
-        //this.resizeChart();
     }
 
     private resizeChart() {
