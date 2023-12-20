@@ -15,6 +15,7 @@ export class OverviewPageComponent implements OnInit {
     public chart: any;
 
     private WIDTH_BREAKPOINT: number = 1000;
+    private HEIGHT_BREAKPOINT: number = 500;
 
     private colorWhite = 'white';
     // daisy ui colors copied
@@ -31,6 +32,7 @@ export class OverviewPageComponent implements OnInit {
         if (this.chart != undefined) {
             this.chart.options.plugins.legend.labels.font.size = window.innerWidth > this.WIDTH_BREAKPOINT ? 25 : 15;
             this.chart.options.scales.y.ticks.font.size = window.innerWidth > this.WIDTH_BREAKPOINT ? 18 : 12;
+            this.chart.options.elements.bar.borderRadius = window.innerHeight > this.WIDTH_BREAKPOINT ? 4 : 1;
             this.chart.resize();
         }
     }
@@ -110,7 +112,7 @@ export class OverviewPageComponent implements OnInit {
                     },
                     datasets: {
                         bar: {
-                            minBarLength: 10
+                            minBarLength: window.innerWidth > this.WIDTH_BREAKPOINT ? 10 : 2
                         }
                     },
                     scales: {
@@ -136,7 +138,7 @@ export class OverviewPageComponent implements OnInit {
                     },
                     elements: {
                         bar: {
-                            borderRadius: 4,
+                            borderRadius: window.innerHeight > this.WIDTH_BREAKPOINT ? 4 : 1,
                             inflateAmount: 'auto'
                         }
                     },

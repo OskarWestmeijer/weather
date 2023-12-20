@@ -1,9 +1,9 @@
 .chart-container {
     position: relative;
     margin: auto;
-    height: 80%;
-    width: 80%;
-    max-width: 2000px;
+    width: 70%;
+    height: 70%;
+    max-width: 1800px;
 }
 
 #OverviewChart {
@@ -11,8 +11,7 @@
     height: 100%;
 }
 
-canvas {
-    border: 1px dotted red;
+:host {
+  width: 100%;
+  height: 100%;
 }
-
-
