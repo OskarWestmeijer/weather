@@ -14,8 +14,9 @@ export class OverviewPageComponent implements OnInit {
     public overviewLocations: OverviewLocation[] = [];
     public chart: any;
 
-    private WIDTH_BREAKPOINT: number = 1000;
-    private HEIGHT_BREAKPOINT: number = 500;
+    private TABLET_WIDTH_BREAKPOINT: number = 1000;
+    private PHONE_WIDTH_BREAKPOINT: number = 500;
+    private FONT_SIZE: number = 25;
 
     private colorWhite = 'white';
     // daisy ui colors copied
@@ -26,14 +27,32 @@ export class OverviewPageComponent implements OnInit {
 
     public ngOnInit() {
         this.requestOverviewLocations();
+        //this.resizeChart();
     }
 
     private resizeChart() {
         if (this.chart != undefined) {
-            this.chart.options.plugins.legend.labels.font.size = window.innerWidth > this.WIDTH_BREAKPOINT ? 25 : 15;
-            this.chart.options.scales.y.ticks.font.size = window.innerWidth > this.WIDTH_BREAKPOINT ? 18 : 12;
-            this.chart.options.elements.bar.borderRadius = window.innerHeight > this.WIDTH_BREAKPOINT ? 4 : 1;
+            const windowWidth = window.innerWidth;
+
+            if (windowWidth < this.TABLET_WIDTH_BREAKPOINT && windowWidth > this.PHONE_WIDTH_BREAKPOINT) {
+                // tablet
+                console.log('tablet');
+                this.FONT_SIZE = 15;
+            } else if (windowWidth < this.PHONE_WIDTH_BREAKPOINT) {
+                // mobile phone
+                console.log('phone');
+                this.FONT_SIZE = 10;
+            } else {
+                // regular
+                console.log('regular');
+                this.FONT_SIZE = 25;
+            }
+
+            this.chart.options.plugins.legend.labels.font.size = this.FONT_SIZE;
+            this.chart.options.plugins.title.font.size = this.FONT_SIZE;
+            this.chart.options.scales.y.ticks.font.size = this.FONT_SIZE;
             this.chart.resize();
+            this.chart.update();
         }
     }
 
@@ -112,7 +131,7 @@ export class OverviewPageComponent implements OnInit {
                     },
                     datasets: {
                         bar: {
-                            minBarLength: window.innerWidth > this.WIDTH_BREAKPOINT ? 10 : 2
+                            minBarLength: 10
                         }
                     },
                     scales: {
@@ -123,7 +142,7 @@ export class OverviewPageComponent implements OnInit {
                             ticks: {
                                 color: this.colorWhite,
                                 font: {
-                                    size: window.innerWidth > this.WIDTH_BREAKPOINT ? 18 : 12
+                                    size: this.FONT_SIZE
                                 }
                             }
                         },
@@ -138,7 +157,7 @@ export class OverviewPageComponent implements OnInit {
                     },
                     elements: {
                         bar: {
-                            borderRadius: window.innerHeight > this.WIDTH_BREAKPOINT ? 4 : 1,
+                            borderRadius: 4,
                             inflateAmount: 'auto'
                         }
                     },
@@ -151,14 +170,14 @@ export class OverviewPageComponent implements OnInit {
                             display: true,
                             text: time,
                             color: this.colorWhite,
-                            font: { size: window.innerWidth > this.WIDTH_BREAKPOINT ? 20 : 15, weight: 400 }
+                            font: { size: this.FONT_SIZE, weight: 400 }
                         },
                         legend: {
                             display: true,
                             labels: {
                                 color: this.colorWhite,
                                 // This more specific font property overrides the global property
-                                font: { size: window.innerWidth > this.WIDTH_BREAKPOINT ? 25 : 15 }
+                                font: { size: this.FONT_SIZE }
                             }
                         },
                         tooltip: {
@@ -167,6 +186,7 @@ export class OverviewPageComponent implements OnInit {
                     }
                 }
             });
+            this.resizeChart();
         }
     }
 }
