@@ -4,7 +4,6 @@ import { ChartType } from 'src/app/model/chart-type.enum';
 import { OverviewLocation } from 'src/app/model/overview-location.model';
 import { OverviewLocationsResponse } from 'src/app/model/overview-locations-response.model';
 import { ApiHttpService } from 'src/app/service/api-http.service';
-import { HostListener } from '@angular/core';
 
 @Component({
     selector: 'app-overview-page',
@@ -15,8 +14,8 @@ export class OverviewPageComponent implements OnInit {
     public overviewLocations: OverviewLocation[] = [];
     public chart: any;
 
-    private screenHeight: number = 1000;
-    private screenWidth: number = 1000;
+    private WIDTH_BREAKPOINT: number = 1000;
+    private HEIGHT_BREAKPOINT: number = 500;
 
     private colorWhite = 'white';
     // daisy ui colors copied
@@ -27,18 +26,14 @@ export class OverviewPageComponent implements OnInit {
 
     public ngOnInit() {
         this.requestOverviewLocations();
-        this.onResize();
     }
 
-    @HostListener('window:resize', ['$event'])
-    private onResize() {
-        this.screenHeight = window.innerHeight;
-        this.screenWidth = window.innerWidth;
+    private resizeChart() {
         if (this.chart != undefined) {
-            console.log(this.chart.options.plugins.legend.labels.font.size);
-            this.chart.options.plugins.legend.labels.font.size = this.screenWidth > 1000 ? 25 : 15;
-            this.chart.options.scales.y.ticks.font.size = this.screenWidth > 1000 ? 18 : 12;
-            this.chart.update();
+            this.chart.options.plugins.legend.labels.font.size = window.innerWidth > this.WIDTH_BREAKPOINT ? 25 : 15;
+            this.chart.options.scales.y.ticks.font.size = window.innerWidth > this.WIDTH_BREAKPOINT ? 18 : 12;
+            this.chart.options.elements.bar.borderRadius = window.innerHeight > this.WIDTH_BREAKPOINT ? 4 : 1;
+            this.chart.resize();
         }
     }
 
@@ -108,11 +103,16 @@ export class OverviewPageComponent implements OnInit {
                 },
                 options: {
                     aspectRatio: 2,
+                    maintainAspectRatio: false,
+                    responsive: true,
                     // creates horizontal bar-chart
                     indexAxis: 'y',
+                    onResize: () => {
+                        this.resizeChart();
+                    },
                     datasets: {
                         bar: {
-                            minBarLength: 10
+                            minBarLength: window.innerWidth > this.WIDTH_BREAKPOINT ? 10 : 2
                         }
                     },
                     scales: {
@@ -123,7 +123,7 @@ export class OverviewPageComponent implements OnInit {
                             ticks: {
                                 color: this.colorWhite,
                                 font: {
-                                    size: this.screenWidth > 1000 ? 18 : 12
+                                    size: window.innerWidth > this.WIDTH_BREAKPOINT ? 18 : 12
                                 }
                             }
                         },
@@ -138,7 +138,7 @@ export class OverviewPageComponent implements OnInit {
                     },
                     elements: {
                         bar: {
-                            borderRadius: 4,
+                            borderRadius: window.innerHeight > this.WIDTH_BREAKPOINT ? 4 : 1,
                             inflateAmount: 'auto'
                         }
                     },
@@ -151,14 +151,14 @@ export class OverviewPageComponent implements OnInit {
                             display: true,
                             text: time,
                             color: this.colorWhite,
-                            font: { size: this.screenWidth > 1000 ? 20 : 15, weight: 400 }
+                            font: { size: window.innerWidth > this.WIDTH_BREAKPOINT ? 20 : 15, weight: 400 }
                         },
                         legend: {
                             display: true,
                             labels: {
                                 color: this.colorWhite,
                                 // This more specific font property overrides the global property
-                                font: { size: this.screenWidth > 1000 ? 25 : 15 }
+                                font: { size: window.innerWidth > this.WIDTH_BREAKPOINT ? 25 : 15 }
                             }
                         },
                         tooltip: {
