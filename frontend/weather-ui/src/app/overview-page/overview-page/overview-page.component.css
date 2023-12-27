@@ -2,9 +2,9 @@
     position: relative;
     flex-grow: 1;
     width: 95%;
-    height: 100%;
-    max-width: 1200px;
-    max-height: 1200px;
+    height: 95%;
+    max-width: 1000px;
+    max-height: 1000px;
 }
 
 #OverviewChart {

@@ -44,7 +44,7 @@ export class OverviewPageComponent implements OnInit {
             } else {
                 // regular
                 console.log('regular');
-                this.FONT_SIZE = 25;
+                this.FONT_SIZE = 15;
             }
 
             this.chart.options.plugins.legend.labels.font.size = this.FONT_SIZE;
