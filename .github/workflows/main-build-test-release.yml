@@ -59,6 +59,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: app-jar
+          path: target
       - name: image tagging
         id: meta
         uses: docker/metadata-action@v5
@@ -68,12 +69,6 @@ jobs:
             # set latest tag for master branch
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
             type=sha,format=long
-      - name: build image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          load: true
-          tags: ${{ steps.meta.outputs.tags }}
       - name: push image
         uses: docker/build-push-action@v5
         with:
