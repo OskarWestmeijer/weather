@@ -13,6 +13,7 @@ runs:
     - uses: actions/download-artifact@v4
       with:
         name: app-jar
+        path: target
     - name: build image
       shell: bash
       run: |
