@@ -43,22 +43,13 @@ docker compose up -d
 
 ## OpenApi Generator
 
-This project uses OpenApi code-generator. The Controller interfaces, external web client and response models are generated at compile phase.
-
-#### Server (this Weather-Api)
-
-The public Api definition is documented with Redoc. Open the file in a browser, or navigate there after startup application startup.
+This project uses OpenApi code-generator. The Server interface, client and model classes are generated from OpenApi specification files.
 
 `src/main/resources/public/weather-api.yml`
 
-- http://localhost:8080
-- https://api.oskar-westmeijer.com
-
-#### Client (external OpenWeatherApi)
-
-The client OpenApi specification is for internal usage only and therefore located in a separate directory.
-
 `src/main/resources/openapi/openweatherapi.yml`
+
+Hosted Api documentation is available at https://api.weather.oskar-westmeijer.com
 
 ## Architecture
 
