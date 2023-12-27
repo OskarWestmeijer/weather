@@ -30,7 +30,7 @@ ng serve --configuration=production
 
 ## Linter and Prettier
 
-```
+```bash
 ng lint
 npx prettier -w .
 ```
@@ -46,5 +46,4 @@ ncu -u --target=patch
 ncu -u --target=minor
 
 ncu -u
-npm update --save
 ```
