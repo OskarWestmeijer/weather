@@ -276,7 +276,7 @@
     <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
     <org.projectlombok.version>1.18.30</org.projectlombok.version>
     <com.google.guava>33.0.0-jre</com.google.guava>
-    <liquibase.version>4.25.1</liquibase.version>
+    <liquibase.version>4.26.0</liquibase.version>
     <preliquibase.version>1.5.0</preliquibase.version>
     <commons.csv.version>1.10.0</commons.csv.version>
     <testcontainers.version>1.19.4</testcontainers.version>
