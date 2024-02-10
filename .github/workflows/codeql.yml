@@ -37,7 +37,7 @@ jobs:
         if: ${{ matrix.language == 'java' }}
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
           cache: maven
       - name: build java project
         if: ${{ matrix.language == 'java' }}
