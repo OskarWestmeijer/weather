@@ -42,7 +42,7 @@
         "@typescript-eslint/eslint-plugin": "6.21.0",
         "@typescript-eslint/parser": "6.21.0",
         "autoprefixer": "^10.4.17",
-        "daisyui": "^4.6.2",
+        "daisyui": "^4.6.3",
         "eslint": "^8.56.0",
         "jasmine-core": "~5.1.2",
         "karma": "~6.4.2",
