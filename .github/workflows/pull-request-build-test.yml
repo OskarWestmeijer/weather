@@ -53,7 +53,7 @@ jobs:
       - run: echo "event name is:" ${{ github.event_name }}
       - run: echo "event type is:" ${{ github.event.action }}
       - name: Dependabot metadata
-        uses: dependabot/fetch-metadata@v1
+        uses: dependabot/fetch-metadata@v2
         with:
           github-token: "${{ secrets.MASTER_TOKEN }}"
       - name: approve PR
