@@ -47,3 +47,12 @@ ncu -u --target=minor
 
 ncu -u
 ```
+
+## Configuration files overview
+
+```
+- angular.json - provides workspace-wide and project-specific configuration defaults
+- tsconfig.json - specifies the base TypeScript and Angular compiler options that all projects in the workspace inherit
+- tsconfig.app.json - app specific (types are configured), extends tsconfig
+- tsconfig.spec.json - app (test) specific (types are configured), extends tsconfig
+```

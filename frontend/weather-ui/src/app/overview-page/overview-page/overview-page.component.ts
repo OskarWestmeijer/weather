@@ -12,7 +12,7 @@ import { ApiHttpService } from 'src/app/service/api-http.service';
 })
 export class OverviewPageComponent implements OnInit {
     public overviewLocations: OverviewLocation[] = [];
-    public chart: any;
+    public chart!: any;
 
     private TABLET_WIDTH_BREAKPOINT: number = 1000;
     private PHONE_WIDTH_BREAKPOINT: number = 500;

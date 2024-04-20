@@ -7,6 +7,9 @@ module.exports = {
     plugins: [require('daisyui')],
     daisyui: {
         themes: [
+            // set theme in index.html: data-theme="customtheme"
+            'synthwave',
+            'cupcake',
             {
                 customtheme: {
                     // Navy #0a192f
@@ -15,7 +18,7 @@ module.exports = {
                     // Green #64ffda
                     primary: '#112240',
                     secondary: '#233554',
-                    accent: '#64ffda',
+                    accent: '#ffd200',
                     'accent-focus': '#ffffff',
                     neutral: '#191a3e',
                     'base-100': '#ffffff',
