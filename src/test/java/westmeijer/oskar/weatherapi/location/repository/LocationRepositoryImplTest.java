@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import westmeijer.oskar.weatherapi.location.exception.LocationNotSupportedException;
 import westmeijer.oskar.weatherapi.location.repository.jpa.LocationJpaRepository;
+import westmeijer.oskar.weatherapi.location.repository.mapper.LocationEntityImportMapper;
 import westmeijer.oskar.weatherapi.location.repository.mapper.LocationEntityMapper;
 import westmeijer.oskar.weatherapi.location.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
@@ -27,6 +28,9 @@ public class LocationRepositoryImplTest {
 
   @Mock
   private LocationEntityMapper locationEntityMapper;
+
+  @Mock
+  private LocationEntityImportMapper locationEntityImportMapper;
 
   @InjectMocks
   private LocationRepositoryImpl locationRepository;
@@ -113,6 +117,28 @@ public class LocationRepositoryImplTest {
     assertThat(actualLocation).isEqualTo(expectedLocation);
     then(locationEntityMapper).should().mapToLocationWithoutWeather(locationEntity);
     then(locationJpaRepository).should().getById(locationId);
+  }
+
+  @Test
+  public void shouldSaveAndFlush() {
+    Location updatedLocation = mock(Location.class);
+    LocationEntity locationEntity = mock(LocationEntity.class);
+    given(locationEntityImportMapper.mapToLocationEntity(updatedLocation)).willReturn(locationEntity);
+
+    locationRepository.save(updatedLocation);
+
+    then(locationEntityImportMapper).should().mapToLocationEntity(updatedLocation);
+    then(locationJpaRepository).should().saveAndFlush(locationEntity);
+  }
+
+  @Test
+  public void saveAndFlushThrowsNpe() {
+    assertThatThrownBy(() -> locationRepository.save(null))
+        .isInstanceOf(NullPointerException.class)
+        .hasMessageContaining("location is required");
+
+    then(locationJpaRepository).shouldHaveNoInteractions();
+    then(locationEntityImportMapper).shouldHaveNoInteractions();
   }
 
 }

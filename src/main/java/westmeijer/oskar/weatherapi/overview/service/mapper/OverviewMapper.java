@@ -6,7 +6,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.overview.service.model.Overview;
@@ -21,12 +20,12 @@ public interface OverviewMapper {
   @Named("mapToOverview")
   default Overview mapToOverview(Location location) {
     requireNonNull(location, "location is required");
-    requireNonNull(location.getWeather(), "weather is required");
-    checkArgument(location.getWeather().size() == 1, "requires exactly one weather element");
+    requireNonNull(location.weather(), "weather is required");
+    checkArgument(location.weather().size() == 1, "requires exactly one weather element");
 
-    Weather w = location.getWeather().get(0);
-    return new Overview(location.getLocationId(), location.getCityName(), location.getCountryCode(),
-        w.getTemperature(), w.getHumidity(), w.getWindSpeed(), w.getRecordedAt());
+    Weather w = location.weather().getFirst();
+    return new Overview(location.locationId(), location.cityName(), location.countryCode(),
+        w.temperature(), w.humidity(), w.windSpeed(), w.recordedAt());
   }
 
 }

@@ -25,22 +25,6 @@ public class WeatherServiceTest {
   private WeatherService weatherService;
 
   @Test
-  public void shouldSaveWeather() {
-    Weather importedWeather = mock(Weather.class);
-    weatherService.saveAndFlush(importedWeather);
-    then(weatherRepository).should().saveAndFlush(importedWeather);
-  }
-
-  @Test
-  public void saveThrowsNpe() {
-    assertThatThrownBy(() -> weatherService.saveAndFlush(null))
-        .isInstanceOf(NullPointerException.class)
-        .hasMessageContaining("importedWeather is required");
-
-    then(weatherRepository).shouldHaveNoInteractions();
-  }
-
-  @Test
   public void shouldGetLast24h() {
     Weather expectedWeather = mock(Weather.class);
     Integer locationId = 1;

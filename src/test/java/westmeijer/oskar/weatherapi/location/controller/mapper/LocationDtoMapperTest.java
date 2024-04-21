@@ -9,14 +9,12 @@ import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import westmeijer.oskar.weatherapi.TestLocationFactory;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.openapi.server.model.LocationDto;
-import westmeijer.oskar.weatherapi.overview.service.mapper.OverviewMapperImpl;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {
@@ -34,12 +32,12 @@ public class LocationDtoMapperTest {
     LocationDto locationDto = locationDtoMapper.map(location);
 
     assertThat(locationDto)
-        .returns(location.getLocationId(), LocationDto::getLocationId)
-        .returns(location.getLocalZipCode(), LocationDto::getLocalZipCode)
-        .returns(location.getCityName(), LocationDto::getCityName)
-        .returns(location.getCountry(), LocationDto::getCountry)
-        .returns(location.getCountryCode(), LocationDto::getCountryCode)
-        .returns(location.getLastImportAt(), LocationDto::getLastImportAt);
+        .returns(location.locationId(), LocationDto::getLocationId)
+        .returns(location.localZipCode(), LocationDto::getLocalZipCode)
+        .returns(location.cityName(), LocationDto::getCityName)
+        .returns(location.country(), LocationDto::getCountry)
+        .returns(location.countryCode(), LocationDto::getCountryCode)
+        .returns(location.lastImportAt(), LocationDto::getLastImportAt);
   }
 
   @Test
@@ -82,7 +80,7 @@ public class LocationDtoMapperTest {
         .cityName("Lübeck")
         .country("Germany")
         .countryCode("GER")
-        .lastImportAt(luebeck.getLastImportAt());
+        .lastImportAt(luebeck.lastImportAt());
 
     LocationDto expectedHamburg = new LocationDto()
         .locationId(2)
@@ -90,7 +88,7 @@ public class LocationDtoMapperTest {
         .cityName("Hamburg")
         .country("Germany")
         .countryCode("GER")
-        .lastImportAt(hamburg.getLastImportAt());
+        .lastImportAt(hamburg.lastImportAt());
 
     List<LocationDto> locations = locationDtoMapper.mapList(List.of(luebeck, hamburg));
 

@@ -26,12 +26,11 @@ public class WeatherEntityMapperTest {
     WeatherEntity weatherEntity = TestWeatherFactory.weatherEntityWithoutLocation();
     Weather weather = weatherEntityMapper.map(weatherEntity);
 
-    assertThat(weatherEntity.getId()).isEqualTo(weather.getId());
-    assertThat(weatherEntity.getHumidity()).isEqualTo(weather.getHumidity());
-    assertThat(weatherEntity.getWindSpeed()).isEqualTo(weather.getWindSpeed());
-    assertThat(weatherEntity.getTemperature()).isEqualTo(weather.getTemperature());
-    assertThat(weatherEntity.getRecordedAt()).isEqualTo(weather.getRecordedAt());
-    assertThat(weather.getLocation()).isNull();
+    assertThat(weatherEntity.getId()).isEqualTo(weather.id());
+    assertThat(weatherEntity.getHumidity()).isEqualTo(weather.humidity());
+    assertThat(weatherEntity.getWindSpeed()).isEqualTo(weather.windSpeed());
+    assertThat(weatherEntity.getTemperature()).isEqualTo(weather.temperature());
+    assertThat(weatherEntity.getRecordedAt()).isEqualTo(weather.recordedAt());
   }
 
   @Test
@@ -41,15 +40,13 @@ public class WeatherEntityMapperTest {
     List<Weather> actualList = weatherEntityMapper.mapList(List.of(weatherEntity));
 
     assertThat(actualList.size()).isEqualTo(1);
-    Weather actualWeather = actualList.get(0);
+    Weather actualWeather = actualList.getFirst();
     assertThat(actualWeather)
-        .returns(weatherEntity.getId(), Weather::getId)
-        .returns(weatherEntity.getWindSpeed(), Weather::getWindSpeed)
-        .returns(weatherEntity.getTemperature(), Weather::getTemperature)
-        .returns(weatherEntity.getHumidity(), Weather::getHumidity)
-        .returns(weatherEntity.getRecordedAt(), Weather::getRecordedAt)
-        .returns(weatherEntity.getLocation(), Weather::getLocation);
-    assertThat(actualWeather.getLocation()).isNull();
+        .returns(weatherEntity.getId(), Weather::id)
+        .returns(weatherEntity.getWindSpeed(), Weather::windSpeed)
+        .returns(weatherEntity.getTemperature(), Weather::temperature)
+        .returns(weatherEntity.getHumidity(), Weather::humidity)
+        .returns(weatherEntity.getRecordedAt(), Weather::recordedAt);
   }
 
 }

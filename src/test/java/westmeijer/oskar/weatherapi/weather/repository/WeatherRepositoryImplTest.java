@@ -12,8 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import westmeijer.oskar.weatherapi.location.repository.mapper.LocationEntityImportMapper;
 import westmeijer.oskar.weatherapi.weather.repository.jpa.WeatherJpaRepository;
-import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityImportMapper;
 import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityMapper;
 import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
@@ -28,7 +28,7 @@ public class WeatherRepositoryImplTest {
   private WeatherEntityMapper weatherEntityMapper;
 
   @Mock
-  private WeatherEntityImportMapper weatherEntityImportMapper;
+  private LocationEntityImportMapper weatherEntityImportMapper;
 
   @InjectMocks
   private WeatherRepositoryImpl weatherRepository;
@@ -57,29 +57,6 @@ public class WeatherRepositoryImplTest {
         .hasMessageContaining("locationId is required");
 
     then(weatherJpaRepository).shouldHaveNoInteractions();
-    then(weatherEntityMapper).shouldHaveNoInteractions();
-  }
-
-  @Test
-  public void shouldSaveAndFlush() {
-    Weather importedWeather = mock(Weather.class);
-    WeatherEntity mappedWeather = mock(WeatherEntity.class);
-    given(weatherEntityImportMapper.mapToWeatherEntity(importedWeather)).willReturn(mappedWeather);
-
-    weatherRepository.saveAndFlush(importedWeather);
-
-    then(weatherEntityImportMapper).should().mapToWeatherEntity(importedWeather);
-    then(weatherJpaRepository).should().saveAndFlush(mappedWeather);
-  }
-
-  @Test
-  public void saveAndFlushThrowsNpe() {
-    assertThatThrownBy(() -> weatherRepository.saveAndFlush(null))
-        .isInstanceOf(NullPointerException.class)
-        .hasMessageContaining("weather is required");
-
-    then(weatherJpaRepository).shouldHaveNoInteractions();
-    then(weatherEntityImportMapper).shouldHaveNoInteractions();
     then(weatherEntityMapper).shouldHaveNoInteractions();
   }
 

@@ -4,11 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.weather.repository.jpa.WeatherJpaRepository;
-import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityImportMapper;
 import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityMapper;
 import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
@@ -19,8 +16,6 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 
   private final WeatherEntityMapper weatherEntityMapper;
 
-  private final WeatherEntityImportMapper weatherEntityImportMapper;
-
   private final WeatherJpaRepository weatherJpaRepository;
 
 
@@ -29,14 +24,6 @@ public class WeatherRepositoryImpl implements WeatherRepository {
     requireNonNull(locationId, "locationId is required");
     List<WeatherEntity> weatherEntities = weatherJpaRepository.getLast24h(locationId);
     return weatherEntityMapper.mapList(weatherEntities);
-  }
-
-  @Override
-  public Weather saveAndFlush(Weather weather) {
-    requireNonNull(weather, "weather is required");
-    WeatherEntity weatherEntity = weatherEntityImportMapper.mapToWeatherEntity(weather);
-    WeatherEntity savedWeather = weatherJpaRepository.saveAndFlush(weatherEntity);
-    return weatherEntityMapper.map(savedWeather);
   }
 
   @Override
