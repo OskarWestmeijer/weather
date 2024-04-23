@@ -29,10 +29,10 @@ public class LocationEntityMapperTest {
   private WeatherEntityMapper weatherEntityMapper;
 
   @Test
-  public void shouldMapToLocationWithoutWeather() {
+  public void shouldMapToLocationWithEmptyWeather() {
     LocationEntity locationEntity = TestLocationFactory.locationEntityWithoutWeather();
 
-    Location location = locationEntityMapper.mapToLocationWithoutWeather(locationEntity);
+    Location location = locationEntityMapper.mapToLocationWithEmptyWeather(locationEntity);
 
     assertThat(location)
         .returns(locationEntity.getId(), Location::locationId)
@@ -45,17 +45,20 @@ public class LocationEntityMapperTest {
         .returns(locationEntity.getCountry(), Location::country)
         .returns(locationEntity.getCountryCode(), Location::countryCode)
         .returns(locationEntity.getLastImportAt(), Location::lastImportAt)
-        .returns(locationEntity.getWeather(), l -> new ArrayList<Location>());
+        .returns(locationEntity.getWeather(), Location::weather);
+
+    assertThat(location.weather()).isEmpty();
   }
 
   @Test
-  public void mapToLocationListWithoutWeather() {
+  public void mapToLocationListWithEmptyWeather() {
     LocationEntity expectedLocation = TestLocationFactory.locationEntityWithoutWeather();
 
-    List<Location> actualLocationList = locationEntityMapper.mapToLocationListWithoutWeather(List.of(expectedLocation));
+    List<Location> actualLocationList = locationEntityMapper.mapToLocationListWithEmptyWeather(List.of(expectedLocation));
 
     assertThat(actualLocationList).hasSize(1);
-    Location actualLocation = actualLocationList.get(0);
+    Location actualLocation = actualLocationList.getFirst();
+
     assertThat(actualLocation)
         .returns(expectedLocation.getId(), Location::locationId)
         .returns(expectedLocation.getUuid(), Location::uuid)
@@ -68,7 +71,7 @@ public class LocationEntityMapperTest {
         .returns(expectedLocation.getCountryCode(), Location::countryCode)
         .returns(expectedLocation.getLastImportAt(), Location::lastImportAt);
 
-    assertThat(actualLocation.weather()).isNull();
+    assertThat(actualLocation.weather()).isEmpty();
   }
 
   @Test

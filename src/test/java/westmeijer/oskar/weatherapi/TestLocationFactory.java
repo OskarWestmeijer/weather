@@ -24,20 +24,6 @@ public class TestLocationFactory {
         Collections.emptyList());
   }
 
-  public static Location locationWithNullWeather() {
-    return new Location(1,
-        UUID.randomUUID(),
-        "1234",
-        "5678",
-        "Luebeck",
-        "Germany",
-        "GER",
-        "51.659088",
-        "6.966170",
-        Instant.now().truncatedTo(ChronoUnit.MICROS),
-        null);
-  }
-
   public static Location location() {
     return new Location(1,
         UUID.randomUUID(),

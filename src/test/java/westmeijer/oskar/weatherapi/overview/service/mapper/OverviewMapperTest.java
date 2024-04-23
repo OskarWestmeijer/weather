@@ -1,7 +1,7 @@
 package westmeijer.oskar.weatherapi.overview.service.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -50,15 +50,17 @@ public class OverviewMapperTest {
 
     List<Overview> actualOverviewList = overviewMapper.mapToOverviewList(List.of(expectedLocation));
 
-    assertThat(actualOverviewList).hasSize(1);
-    assertThat(actualOverviewList.get(0)).isNotNull();
+    assertThat(actualOverviewList)
+        .hasSize(1)
+        .first()
+        .isNotNull();
   }
 
   @Test
   void throwsNpeOnNoWeather() {
     Location expectedLocation = TestLocationFactory.locationWithoutWeather();
 
-    assertThatThrownBy(() -> overviewMapper.mapToOverviewList(List.of(expectedLocation)))
+    thenThrownBy(() -> overviewMapper.mapToOverviewList(List.of(expectedLocation)))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("requires exactly one weather element");
   }
@@ -77,26 +79,16 @@ public class OverviewMapperTest {
         Instant.now().truncatedTo(ChronoUnit.MICROS),
         List.of(TestWeatherFactory.weather(), TestWeatherFactory.weather()));
 
-    assertThatThrownBy(() -> overviewMapper.mapToOverviewList(List.of(expectedLocation)))
+    thenThrownBy(() -> overviewMapper.mapToOverviewList(List.of(expectedLocation)))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("requires exactly one weather element");
   }
 
   @Test
   void throwsNpeOnMissingLocation() {
-    assertThatThrownBy(() -> overviewMapper.mapToOverview(null))
+    thenThrownBy(() -> overviewMapper.mapToOverview(null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("location is required");
   }
-
-  @Test
-  void throwsIllegalArgumentOnMissingWeather() {
-    Location location = TestLocationFactory.locationWithNullWeather();
-
-    assertThatThrownBy(() -> overviewMapper.mapToOverview(location))
-        .isInstanceOf(NullPointerException.class)
-        .hasMessageContaining("weather is required");
-  }
-
 
 }
