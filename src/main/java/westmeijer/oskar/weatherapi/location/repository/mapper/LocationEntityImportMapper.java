@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import org.apache.commons.collections4.CollectionUtils;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Builder;
 import org.mapstruct.CollectionMappingStrategy;
@@ -24,7 +25,7 @@ public interface LocationEntityImportMapper {
 
   @AfterMapping
   default void setModifiedAt(@MappingTarget LocationEntity locationEntity, Location location) {
-    checkArgument(locationEntity.getWeather().size() == 1, "Only modifying imported weather");
+    checkArgument(CollectionUtils.size(locationEntity.getWeather()) == 1, "Only one weather record can be imported");
     locationEntity.getWeather().getFirst().setModifiedAt(Instant.now().truncatedTo(ChronoUnit.MICROS));
   }
 }

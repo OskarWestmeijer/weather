@@ -19,4 +19,6 @@ public record Location(
     Instant lastImportAt,
     List<Weather> weather) {
 
+  // TODO: add validations
+
 }

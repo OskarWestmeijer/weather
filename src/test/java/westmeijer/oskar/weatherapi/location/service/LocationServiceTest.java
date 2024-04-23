@@ -1,7 +1,7 @@
 package westmeijer.oskar.weatherapi.location.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
@@ -38,7 +38,7 @@ public class LocationServiceTest {
 
   @Test
   public void getByIdOmitWeather_throwExceptionOnNullParam() {
-    assertThatThrownBy(() -> locationService.getByIdOmitWeather(null))
+    thenThrownBy(() -> locationService.getByIdOmitWeather(null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("locationId is required");
 
@@ -76,6 +76,22 @@ public class LocationServiceTest {
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
     then(locationRepository).should().getNextImportLocation();
+  }
+
+  @Test
+  public void shouldSaveLocationWithWeather() {
+    var locationWithWeather = mock(Location.class);
+    locationService.save(locationWithWeather);
+    then(locationRepository).should().save(locationWithWeather);
+  }
+
+  @Test
+  public void saveThrowsNpe() {
+    thenThrownBy(() -> locationService.save(null))
+        .isInstanceOf(NullPointerException.class)
+        .hasMessageContaining("location is required");
+
+    then(locationRepository).shouldHaveNoInteractions();
   }
 
 }

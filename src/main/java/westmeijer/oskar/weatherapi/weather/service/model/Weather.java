@@ -10,4 +10,6 @@ public record Weather(
     Double windSpeed,
     Instant recordedAt) {
 
+  // TODO: add validations
+
 }
