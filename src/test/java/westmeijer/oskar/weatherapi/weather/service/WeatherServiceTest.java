@@ -1,7 +1,7 @@
 package westmeijer.oskar.weatherapi.weather.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
@@ -25,22 +25,6 @@ public class WeatherServiceTest {
   private WeatherService weatherService;
 
   @Test
-  public void shouldSaveWeather() {
-    Weather importedWeather = mock(Weather.class);
-    weatherService.saveAndFlush(importedWeather);
-    then(weatherRepository).should().saveAndFlush(importedWeather);
-  }
-
-  @Test
-  public void saveThrowsNpe() {
-    assertThatThrownBy(() -> weatherService.saveAndFlush(null))
-        .isInstanceOf(NullPointerException.class)
-        .hasMessageContaining("importedWeather is required");
-
-    then(weatherRepository).shouldHaveNoInteractions();
-  }
-
-  @Test
   public void shouldGetLast24h() {
     Weather expectedWeather = mock(Weather.class);
     Integer locationId = 1;
@@ -54,7 +38,7 @@ public class WeatherServiceTest {
 
   @Test
   public void getLast24hThrowsNpe() {
-    assertThatThrownBy(() -> weatherService.getLast24h(null))
+    thenThrownBy(() -> weatherService.getLast24h(null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("locationId is required");
 

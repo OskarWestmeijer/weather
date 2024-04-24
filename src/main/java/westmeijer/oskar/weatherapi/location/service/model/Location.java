@@ -1,35 +1,41 @@
 package westmeijer.oskar.weatherapi.location.service.model;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
+import com.google.common.base.Strings;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-public class Location {
+public record Location(
 
-  Integer locationId;
-  UUID uuid;
-  String localZipCode;
-  String openWeatherApiLocationCode;
-  String cityName;
-  String country;
-  String countryCode;
-  String latitude;
-  String longitude;
-  Instant lastImportAt;
-  List<Weather> weather = new ArrayList<>();
+    Integer locationId,
+    UUID uuid,
+    String localZipCode,
+    String openWeatherApiLocationCode,
+    String cityName,
+    String country,
+    String countryCode,
+    String latitude,
+    String longitude,
+    Instant lastImportAt,
+    List<Weather> weather) {
 
-  public void addWeather(Weather weather) {
-    this.weather.add(weather);
-    weather.setLocation(this);
+  public Location {
+    Objects.requireNonNull(locationId, "locationId is required");
+    Objects.requireNonNull(uuid, "uuid is required");
+    checkArgument(!Strings.isNullOrEmpty(localZipCode), "localZipCode is required", locationId);
+    checkArgument(!Strings.isNullOrEmpty(openWeatherApiLocationCode), "openWeatherApiLocationCode is required", locationId);
+    checkArgument(!Strings.isNullOrEmpty(cityName), "cityName is required", locationId);
+    checkArgument(!Strings.isNullOrEmpty(country), "country is required", locationId);
+    checkArgument(!Strings.isNullOrEmpty(countryCode), "countryCode is required", locationId);
+    // TODO: latitude and longitude can be better validated / value-objects
+    checkArgument(!Strings.isNullOrEmpty(latitude), "latitude is required", locationId);
+    checkArgument(!Strings.isNullOrEmpty(longitude), "longitude is required", locationId);
+    // TODO: lastImportAt is nullable. this can be changed by applying default values in db.
+    Objects.requireNonNull(weather, "weather is required");
   }
+
 }

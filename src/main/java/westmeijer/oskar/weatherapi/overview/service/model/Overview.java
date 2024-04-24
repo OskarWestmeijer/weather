@@ -11,4 +11,5 @@ public record Overview(
     Double windSpeed,
     Instant recordedAt) {
 
+  // TODO: add validations
 }

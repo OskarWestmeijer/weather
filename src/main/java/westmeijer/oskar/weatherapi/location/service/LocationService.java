@@ -31,4 +31,9 @@ public class LocationService {
     return locationRepository.getNextImportLocation();
   }
 
+  public Location save(Location location) {
+    requireNonNull(location, "location is required");
+    return locationRepository.save(location);
+  }
+
 }

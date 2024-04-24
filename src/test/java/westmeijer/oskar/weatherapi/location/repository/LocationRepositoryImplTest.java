@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import westmeijer.oskar.weatherapi.location.exception.LocationNotSupportedException;
 import westmeijer.oskar.weatherapi.location.repository.jpa.LocationJpaRepository;
+import westmeijer.oskar.weatherapi.location.repository.mapper.LocationEntityImportMapper;
 import westmeijer.oskar.weatherapi.location.repository.mapper.LocationEntityMapper;
 import westmeijer.oskar.weatherapi.location.repository.model.LocationEntity;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
@@ -28,6 +29,9 @@ public class LocationRepositoryImplTest {
   @Mock
   private LocationEntityMapper locationEntityMapper;
 
+  @Mock
+  private LocationEntityImportMapper locationEntityImportMapper;
+
   @InjectMocks
   private LocationRepositoryImpl locationRepository;
 
@@ -37,13 +41,13 @@ public class LocationRepositoryImplTest {
     given(locationJpaRepository.findAll()).willReturn(locationEntityList);
 
     List<Location> expectedLocationList = List.of(mock(Location.class));
-    given(locationEntityMapper.mapToLocationListWithoutWeather(locationEntityList)).willReturn(expectedLocationList);
+    given(locationEntityMapper.mapToLocationListWithEmptyWeather(locationEntityList)).willReturn(expectedLocationList);
 
     List<Location> actualLocationList = locationRepository.getAllOmitWeather();
 
     assertThat(actualLocationList).isEqualTo(expectedLocationList);
     then(locationJpaRepository).should().findAll();
-    then(locationEntityMapper).should().mapToLocationListWithoutWeather(locationEntityList);
+    then(locationEntityMapper).should().mapToLocationListWithEmptyWeather(locationEntityList);
   }
 
   @Test
@@ -52,13 +56,13 @@ public class LocationRepositoryImplTest {
     given(locationJpaRepository.getNextImportLocation()).willReturn(locationEntity);
 
     Location expectedLocation = mock(Location.class);
-    given(locationEntityMapper.mapToLocationWithoutWeather(locationEntity)).willReturn(expectedLocation);
+    given(locationEntityMapper.mapToLocationWithEmptyWeather(locationEntity)).willReturn(expectedLocation);
 
     Location actualLocation = locationRepository.getNextImportLocation();
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
     then(locationJpaRepository).should().getNextImportLocation();
-    then(locationEntityMapper).should().mapToLocationWithoutWeather(locationEntity);
+    then(locationEntityMapper).should().mapToLocationWithEmptyWeather(locationEntity);
   }
 
   @Test
@@ -106,13 +110,35 @@ public class LocationRepositoryImplTest {
     Integer locationId = 1;
 
     given(locationJpaRepository.getById(locationId)).willReturn(Optional.of(locationEntity));
-    given(locationEntityMapper.mapToLocationWithoutWeather(locationEntity)).willReturn(expectedLocation);
+    given(locationEntityMapper.mapToLocationWithEmptyWeather(locationEntity)).willReturn(expectedLocation);
 
     Location actualLocation = locationRepository.getByIdOmitWeather(locationId);
 
     assertThat(actualLocation).isEqualTo(expectedLocation);
-    then(locationEntityMapper).should().mapToLocationWithoutWeather(locationEntity);
+    then(locationEntityMapper).should().mapToLocationWithEmptyWeather(locationEntity);
     then(locationJpaRepository).should().getById(locationId);
+  }
+
+  @Test
+  public void shouldSaveAndFlush() {
+    Location updatedLocation = mock(Location.class);
+    LocationEntity locationEntity = mock(LocationEntity.class);
+    given(locationEntityImportMapper.mapToLocationEntity(updatedLocation)).willReturn(locationEntity);
+
+    locationRepository.save(updatedLocation);
+
+    then(locationEntityImportMapper).should().mapToLocationEntity(updatedLocation);
+    then(locationJpaRepository).should().saveAndFlush(locationEntity);
+  }
+
+  @Test
+  public void saveAndFlushThrowsNpe() {
+    assertThatThrownBy(() -> locationRepository.save(null))
+        .isInstanceOf(NullPointerException.class)
+        .hasMessageContaining("location is required");
+
+    then(locationJpaRepository).shouldHaveNoInteractions();
+    then(locationEntityImportMapper).shouldHaveNoInteractions();
   }
 
 }

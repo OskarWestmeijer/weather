@@ -31,28 +31,28 @@ public class WeatherDtoMapperTest {
     Location location = TestLocationFactory.locationWithoutWeather();
 
     List<Weather> weatherList = List.of(
-        new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, location, Instant.now().truncatedTo(ChronoUnit.MICROS)),
-        new Weather(UUID.randomUUID(), 5.00d, 30, 4.00d, location, Instant.now().truncatedTo(ChronoUnit.MICROS)));
+        new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, Instant.now().truncatedTo(ChronoUnit.MICROS)),
+        new Weather(UUID.randomUUID(), 5.00d, 30, 4.00d, Instant.now().truncatedTo(ChronoUnit.MICROS)));
 
     WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherList);
 
-    assertThat(weatherResponse.getCityName()).isEqualTo(location.getCityName());
-    assertThat(weatherResponse.getCountry()).isEqualTo(location.getCountry());
-    assertThat(weatherResponse.getLocationId()).isEqualTo(location.getLocationId());
+    assertThat(weatherResponse.getCityName()).isEqualTo(location.cityName());
+    assertThat(weatherResponse.getCountry()).isEqualTo(location.country());
+    assertThat(weatherResponse.getLocationId()).isEqualTo(location.locationId());
   }
 
   @Test
   public void successfulMappingToWeatherDTO() {
-    Weather weather = new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, TestLocationFactory.locationWithoutWeather(),
+    Weather weather = new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d,
         Instant.now().truncatedTo(ChronoUnit.MICROS));
 
     WeatherDto weatherDTO = weatherDtoMapper.mapTo(weather);
 
     assertThat(weatherDTO)
-        .returns(weather.getHumidity(), WeatherDto::getHumidity)
-        .returns(weather.getTemperature(), WeatherDto::getTemperature)
-        .returns(weather.getWindSpeed(), WeatherDto::getWindSpeed)
-        .returns(weather.getRecordedAt(), WeatherDto::getRecordedAt);
+        .returns(weather.humidity(), WeatherDto::getHumidity)
+        .returns(weather.temperature(), WeatherDto::getTemperature)
+        .returns(weather.windSpeed(), WeatherDto::getWindSpeed)
+        .returns(weather.recordedAt(), WeatherDto::getRecordedAt);
   }
 
 }

@@ -32,17 +32,17 @@ public class OpenWeatherApiClient {
     this.generatedOpenWeatherApi = generatedOpenWeatherApi;
   }
 
-  public Weather requestWithGeneratedClient(Location location) {
+  public Location requestWithGeneratedClient(Location location) {
     try {
       requireNonNull(location, "location is required");
 
       ResponseEntity<GeneratedOpenWeatherApiResponse> response = generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(
-          location.getLatitude(), location.getLongitude(), "metric", appId).block();
+          location.latitude(), location.longitude(), "metric", appId).block();
 
       requireNonNull(response, "response is required");
       GeneratedOpenWeatherApiResponse body = requireNonNull(response.getBody(), "body is required");
 
-      return openWeatherApiMapper.mapToWeather(body, location);
+      return openWeatherApiMapper.mapToLocation(body, location);
     } catch (Exception e) {
       throw new OpenWeatherApiRequestException("Exception during OpenWeatherApi request.", e);
     }

@@ -41,6 +41,30 @@ docker compose up -d
 ./mvnw spring-boot:run
 ```
 
+## Reports
+
+### surefire
+
+Surefire test report.
+
+```
+# target/site/surefire-report.html
+./mvnw clean site
+```
+
+### jacoco
+
+Jacoco code coverage report generated as part of the test verify.
+
+```
+# target/site/jacoco/index.html
+./mvnw clean verify
+```
+
+### checkstyle
+
+TODO: clarify
+
 ## OpenApi Generator
 
 This project uses OpenApi code-generator. The Server interface, client and model classes are generated from OpenApi specification files.

@@ -8,7 +8,5 @@ public interface WeatherRepository {
 
   List<Weather> getLast24h(Integer locationId);
 
-  Weather saveAndFlush(Weather weather);
-
   Weather getLatest(Integer locationId);
 }

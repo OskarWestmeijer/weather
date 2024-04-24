@@ -14,15 +14,14 @@ import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityMapper
 @Mapper(componentModel = "spring", uses = WeatherEntityMapper.class, collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED, builder = @Builder(disableBuilder = true))
 public interface LocationEntityMapper {
 
-  @Named("mapToLocationListWithoutWeather")
-  @IterableMapping(qualifiedByName = "mapToLocationWithoutWeather")
-  List<Location> mapToLocationListWithoutWeather(List<LocationEntity> locationEntityList);
+  @Named("mapToLocationListWithEmptyWeather")
+  @IterableMapping(qualifiedByName = "mapToLocationWithEmptyWeather")
+  List<Location> mapToLocationListWithEmptyWeather(List<LocationEntity> locationEntityList);
 
-  @Named("mapToLocationWithoutWeather")
+  @Named("mapToLocationWithEmptyWeather")
   @Mapping(target = "locationId", source = "id")
-  @Mapping(target = "weather", ignore = true)
-  Location mapToLocationWithoutWeather(LocationEntity locationEntity);
-
+  @Mapping(target = "weather", expression = "java(java.util.Collections.emptyList())")
+  Location mapToLocationWithEmptyWeather(LocationEntity locationEntity);
 
   @Named("mapToLocationList")
   @IterableMapping(qualifiedByName = "mapToLocation")

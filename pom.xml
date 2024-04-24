@@ -115,6 +115,7 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring.boot.plugin}</version>
         <executions>
           <execution>
             <configuration>
@@ -127,6 +128,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${maven.failsafe.plugin}</version>
         <executions>
           <execution>
             <goals>
@@ -241,7 +243,6 @@
           </execution>
           <execution>
             <id>generate-code-coverage-report</id>
-            <phase>test</phase>
             <goals>
               <goal>report</goal>
             </goals>
@@ -269,6 +270,16 @@
     </plugins>
   </build>
 
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>${surefire.report.plugin}</version>
+      </plugin>
+    </plugins>
+  </reporting>
+
   <properties>
     <java.version>21</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -284,10 +295,15 @@
     <postgresql.version>42.7.3</postgresql.version>
     <prometheus.version>1.12.5</prometheus.version>
     <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
-    <jacoco.version>0.8.12</jacoco.version>
-    <checkstyle.version>3.3.1</checkstyle.version>
     <springdoc.version>2.5.0</springdoc.version>
     <jackson-databind.version>0.2.6</jackson-databind.version>
+    <!-- maven plugins -->
+    <maven.compiler.plugin>3.13.0</maven.compiler.plugin>
+    <maven.failsafe.plugin>3.2.5</maven.failsafe.plugin>
+    <surefire.report.plugin>3.2.5</surefire.report.plugin>
+    <spring.boot.plugin>3.2.5</spring.boot.plugin>
+    <jacoco.version>0.8.12</jacoco.version>
+    <checkstyle.version>3.3.1</checkstyle.version>
   </properties>
 
 </project>

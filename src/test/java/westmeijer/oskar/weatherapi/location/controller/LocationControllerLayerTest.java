@@ -94,7 +94,7 @@ public class LocationControllerLayerTest {
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(
-            expectedBody.formatted(luebeck.getLastImportAt(), hamburg.getLastImportAt())));
+            expectedBody.formatted(luebeck.lastImportAt(), hamburg.lastImportAt())));
 
     then(locationService).should().getAllOmitWeather();
   }

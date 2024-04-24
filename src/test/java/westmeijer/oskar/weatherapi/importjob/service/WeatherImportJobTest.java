@@ -1,11 +1,11 @@
 package westmeijer.oskar.weatherapi.importjob.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
@@ -17,8 +17,6 @@ import westmeijer.oskar.weatherapi.importjob.client.OpenWeatherApiClient;
 import westmeijer.oskar.weatherapi.importjob.exception.OpenWeatherApiRequestException;
 import westmeijer.oskar.weatherapi.location.service.LocationService;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
-import westmeijer.oskar.weatherapi.weather.service.WeatherService;
-import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 @ExtendWith(MockitoExtension.class)
 public class WeatherImportJobTest {
@@ -29,14 +27,12 @@ public class WeatherImportJobTest {
 
   private final LocationService locationService = mock(LocationService.class);
 
-  private final WeatherService weatherService = mock(WeatherService.class);
-
   private WeatherImportJob weatherImportJob;
 
   @BeforeEach
   public void init() {
     meterRegistry.clear();
-    weatherImportJob = new WeatherImportJob(meterRegistry, weatherService, locationService, openWeatherApiClient);
+    weatherImportJob = new WeatherImportJob(meterRegistry, locationService, openWeatherApiClient);
   }
 
   @Test
@@ -44,11 +40,11 @@ public class WeatherImportJobTest {
     Location importLocation = mock(Location.class);
     given(locationService.getNextImportLocation()).willReturn(importLocation);
 
-    Weather importedWeather = mock(Weather.class);
-    given(openWeatherApiClient.requestWithGeneratedClient(importLocation)).willReturn(importedWeather);
+    Location updatedLocation = mock(Location.class);
+    given(openWeatherApiClient.requestWithGeneratedClient(importLocation)).willReturn(updatedLocation);
 
-    Weather savedWeather = mock(Weather.class);
-    given(weatherService.saveAndFlush(importedWeather)).willReturn(savedWeather);
+    Location savedLocation = mock(Location.class);
+    given(locationService.save(updatedLocation)).willReturn(savedLocation);
 
     weatherImportJob.refreshWeather();
 
@@ -58,7 +54,7 @@ public class WeatherImportJobTest {
 
     then(locationService).should().getNextImportLocation();
     then(openWeatherApiClient).should().requestWithGeneratedClient(importLocation);
-    then(weatherService).should().saveAndFlush(importedWeather);
+    then(locationService).should().save(updatedLocation);
   }
 
   @Test
@@ -76,7 +72,7 @@ public class WeatherImportJobTest {
 
     then(locationService).should().getNextImportLocation();
     then(openWeatherApiClient).should().requestWithGeneratedClient(importLocation);
-    then(weatherService).shouldHaveNoInteractions();
+    then(locationService).should(times(0)).save(any());
   }
 
   @Test
@@ -91,7 +87,7 @@ public class WeatherImportJobTest {
 
     then(locationService).should().getNextImportLocation();
     then(openWeatherApiClient).shouldHaveNoInteractions();
-    then(weatherService).shouldHaveNoInteractions();
+    then(locationService).should(times(0)).save(any());
   }
 
 
