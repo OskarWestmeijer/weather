@@ -27,10 +27,11 @@ public record Location(
     Objects.requireNonNull(locationId, "locationId is required");
     Objects.requireNonNull(uuid, "uuid is required");
     checkArgument(!Strings.isNullOrEmpty(localZipCode), "localZipCode is required", locationId);
-    checkArgument(!Strings.isNullOrEmpty(openWeatherApiLocationCode), "openWeatherApiLocationCode is required", openWeatherApiLocationCode);
-    checkArgument(!Strings.isNullOrEmpty(cityName), "cityName is required", cityName);
+    checkArgument(!Strings.isNullOrEmpty(openWeatherApiLocationCode), "openWeatherApiLocationCode is required", locationId);
+    checkArgument(!Strings.isNullOrEmpty(cityName), "cityName is required", locationId);
     checkArgument(!Strings.isNullOrEmpty(country), "country is required", locationId);
     checkArgument(!Strings.isNullOrEmpty(countryCode), "countryCode is required", locationId);
+    // TODO: latitude and longitude can be better validated / value-objects
     checkArgument(!Strings.isNullOrEmpty(latitude), "latitude is required", locationId);
     checkArgument(!Strings.isNullOrEmpty(longitude), "longitude is required", locationId);
     // TODO: lastImportAt is nullable. this can be changed by applying default values in db.
