@@ -45,14 +45,21 @@ docker compose up -d
 
 ### surefire
 
+Surefire test report.
+
 ```
 # target/site/surefire-report.html
-./mvnw clean surefire-report:report
+./mvnw clean site
 ```
 
 ### jacoco
 
-TODO: clarify
+Jacoco code coverage report generated as part of the test verify.
+
+```
+# target/site/jacoco/index.html
+./mvnw clean verify
+```
 
 ### checkstyle
 

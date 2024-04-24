@@ -33,7 +33,7 @@ public record Location(
     checkArgument(!Strings.isNullOrEmpty(countryCode), "countryCode is required", locationId);
     checkArgument(!Strings.isNullOrEmpty(latitude), "latitude is required", locationId);
     checkArgument(!Strings.isNullOrEmpty(longitude), "longitude is required", locationId);
-    // TODO: lastImportAt is nullable. apply default values in db.
+    // TODO: lastImportAt is nullable. this can be changed by applying default values in db.
     Objects.requireNonNull(weather, "weather is required");
   }
 
