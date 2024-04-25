@@ -18,7 +18,7 @@ public class LocationTest {
   void shouldThrowOnMissingLocationId() {
     thenThrownBy(
         () -> new Location(null, UUID.randomUUID(), "20535", "1",
-            "cityName", "country", "countryCode", "latitude", "longitude", Instant.now(),
+            "cityName", "country", "FIN", "latitude", "longitude", Instant.now(),
             Collections.emptyList()))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("locationId is required");
@@ -29,7 +29,7 @@ public class LocationTest {
     Integer locationId = 1;
     thenThrownBy(
         () -> new Location(locationId, null, "20535", "1",
-            "cityName", "country", "countryCode", "latitude", "longitude", Instant.now(),
+            "cityName", "country", "FIN", "latitude", "longitude", Instant.now(),
             Collections.emptyList()))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("uuid is required");
@@ -42,7 +42,7 @@ public class LocationTest {
     Integer locationId = 1;
     thenThrownBy(
         () -> new Location(locationId, UUID.randomUUID(), localZipCode, "1",
-            "cityName", "country", "countryCode", "latitude", "longitude", Instant.now(),
+            "cityName", "country", "FIN", "latitude", "longitude", Instant.now(),
             Collections.emptyList()))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("localZipCode is required and must be numeric [%s]".formatted(locationId));
@@ -55,7 +55,7 @@ public class LocationTest {
     Integer locationId = 1;
     thenThrownBy(
         () -> new Location(locationId, UUID.randomUUID(), "20535", openWeatherApiLocationCode,
-            "cityName", "country", "countryCode", "latitude", "longitude", Instant.now(),
+            "cityName", "country", "FIN", "latitude", "longitude", Instant.now(),
             Collections.emptyList()))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("openWeatherApiLocationCode is required and must be numeric [%s]".formatted(locationId));
@@ -67,7 +67,7 @@ public class LocationTest {
     Integer locationId = 1;
     thenThrownBy(
         () -> new Location(locationId, UUID.randomUUID(), "20535", "1",
-            cityName, "country", "countryCode", "latitude", "longitude", Instant.now(),
+            cityName, "country", "FIN", "latitude", "longitude", Instant.now(),
             Collections.emptyList()))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("cityName is required [%s]".formatted(locationId));
@@ -79,7 +79,7 @@ public class LocationTest {
     Integer locationId = 1;
     thenThrownBy(
         () -> new Location(locationId, UUID.randomUUID(), "20535", "1",
-            "cityName", country, "countryCode", "latitude", "longitude", Instant.now(),
+            "cityName", country, "FIN", "latitude", "longitude", Instant.now(),
             Collections.emptyList()))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("country is required [%s]".formatted(locationId));
@@ -104,7 +104,7 @@ public class LocationTest {
     Integer locationId = 1;
     thenThrownBy(
         () -> new Location(locationId, UUID.randomUUID(), "20535", "1",
-            "cityName", "country", "countryCode", latitude, "longitude", Instant.now(),
+            "cityName", "country", "FIN", latitude, "longitude", Instant.now(),
             Collections.emptyList()))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("latitude is required [%s]".formatted(locationId));
@@ -116,7 +116,7 @@ public class LocationTest {
     Integer locationId = 1;
     thenThrownBy(
         () -> new Location(locationId, UUID.randomUUID(), "20535", "1",
-            "cityName", "country", "countryCode", "latitude", longitude, Instant.now(),
+            "cityName", "country", "FIN", "latitude", longitude, Instant.now(),
             Collections.emptyList()))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("longitude is required [%s]".formatted(locationId));
@@ -126,7 +126,7 @@ public class LocationTest {
   void shouldAllowNullableLastImportAt() {
     Integer locationId = 1;
     Location location = assertDoesNotThrow(() -> new Location(locationId, UUID.randomUUID(), "20535", "1",
-        "cityName", "country", "countryCode", "latitude", "longitude", null,
+        "cityName", "country", "FIN", "latitude", "longitude", null,
         Collections.emptyList()));
     then(location.lastImportAt()).isNull();
   }
@@ -136,7 +136,7 @@ public class LocationTest {
     Integer locationId = 1;
     thenThrownBy(
         () -> new Location(locationId, UUID.randomUUID(), "20535", "1",
-            "cityName", "country", "countryCode", "latitude", "longitude", Instant.now(),
+            "cityName", "country", "FIN", "latitude", "longitude", Instant.now(),
             null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("weather is required");
