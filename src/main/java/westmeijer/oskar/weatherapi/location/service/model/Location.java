@@ -7,6 +7,8 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.regex.Pattern;
+import org.apache.commons.lang3.StringUtils;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 public record Location(
@@ -23,14 +25,18 @@ public record Location(
     Instant lastImportAt,
     List<Weather> weather) {
 
+  private static final Pattern countryCodePattern = Pattern.compile("^[A-Z]{3}$");
+
   public Location {
     Objects.requireNonNull(locationId, "locationId is required");
     Objects.requireNonNull(uuid, "uuid is required");
-    checkArgument(!Strings.isNullOrEmpty(localZipCode), "localZipCode is required", locationId);
-    checkArgument(!Strings.isNullOrEmpty(openWeatherApiLocationCode), "openWeatherApiLocationCode is required", locationId);
+    checkArgument(StringUtils.isNumeric(localZipCode), "localZipCode is required and must be numeric", locationId);
+    checkArgument(StringUtils.isNumeric(openWeatherApiLocationCode), "openWeatherApiLocationCode is required and must be numeric",
+        locationId);
     checkArgument(!Strings.isNullOrEmpty(cityName), "cityName is required", locationId);
     checkArgument(!Strings.isNullOrEmpty(country), "country is required", locationId);
-    checkArgument(!Strings.isNullOrEmpty(countryCode), "countryCode is required", locationId);
+    checkArgument(!Strings.isNullOrEmpty(countryCode) && countryCodePattern.matcher(countryCode).matches(),
+        "countryCode is required (ISO 3166-1 alpha-3 code)", locationId);
     // TODO: latitude and longitude can be better validated / value-objects
     checkArgument(!Strings.isNullOrEmpty(latitude), "latitude is required", locationId);
     checkArgument(!Strings.isNullOrEmpty(longitude), "longitude is required", locationId);
