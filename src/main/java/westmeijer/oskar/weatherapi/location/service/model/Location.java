@@ -35,13 +35,14 @@ public record Location(
         locationId);
     checkArgument(!Strings.isNullOrEmpty(cityName), "cityName is required", locationId);
     checkArgument(!Strings.isNullOrEmpty(country), "country is required", locationId);
+    // TODO: create countryCode value object
     checkArgument(!Strings.isNullOrEmpty(countryCode) && countryCodePattern.matcher(countryCode).matches(),
         "countryCode is required (ISO 3166-1 alpha-3 code)", locationId);
     // TODO: latitude and longitude can be better validated / value-objects
     checkArgument(!Strings.isNullOrEmpty(latitude), "latitude is required", locationId);
     checkArgument(!Strings.isNullOrEmpty(longitude), "longitude is required", locationId);
     // TODO: lastImportAt is nullable. this can be changed by applying default values in db.
-    Objects.requireNonNull(weather, "weather is required");
+    weather = List.copyOf(Objects.requireNonNull(weather, "weather is required"));
   }
 
 }

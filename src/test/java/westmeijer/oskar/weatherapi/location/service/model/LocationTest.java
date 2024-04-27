@@ -3,16 +3,20 @@ package westmeijer.oskar.weatherapi.location.service.model;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.mockito.Mockito.mock;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
+import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
-public class LocationTest {
+class LocationTest {
 
   @Test
   void shouldThrowOnMissingLocationId() {
@@ -140,6 +144,36 @@ public class LocationTest {
             null))
         .isInstanceOf(NullPointerException.class)
         .hasMessageContaining("weather is required");
+  }
+
+  @Test
+  void shouldMapWeatherListToUnmodifiableList() {
+    List<Weather> mutableWeatherList = new ArrayList<>();
+    mutableWeatherList.add(mock(Weather.class));
+
+    var location = new Location(1, UUID.randomUUID(), "20535", "1",
+        "cityName", "country", "FIN", "latitude", "longitude", Instant.now(),
+        mutableWeatherList);
+
+    thenThrownBy(() -> location.weather().add(mock(Weather.class)))
+        .isInstanceOf(UnsupportedOperationException.class);
+  }
+
+  @Test
+  void shouldMakeDefensiveCopyOfWeatherList() {
+    List<Weather> mutableWeatherList = new ArrayList<>();
+    var weather1 = mock(Weather.class);
+    mutableWeatherList.add(weather1);
+
+    var location = new Location(1, UUID.randomUUID(), "20535", "1",
+        "cityName", "country", "FIN", "latitude", "longitude", Instant.now(),
+        mutableWeatherList);
+
+    var weather2 = mock(Weather.class);
+    mutableWeatherList.add(weather2);
+
+    then(mutableWeatherList).hasSize(2).containsExactly(weather1, weather2);
+    then(location.weather()).hasSize(1).containsExactly(weather1);
   }
 
 }
