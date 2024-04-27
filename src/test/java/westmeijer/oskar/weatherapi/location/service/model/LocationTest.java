@@ -14,14 +14,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testcontainers.shaded.com.google.common.collect.ImmutableList;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
-public class LocationTest {
-
-  private static final Logger log = LoggerFactory.getLogger(LocationTest.class);
+class LocationTest {
 
   @Test
   void shouldThrowOnMissingLocationId() {
