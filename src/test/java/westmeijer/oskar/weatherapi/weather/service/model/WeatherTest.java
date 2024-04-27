@@ -1,6 +1,7 @@
 package westmeijer.oskar.weatherapi.weather.service.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
 import java.time.Instant;
@@ -19,7 +20,7 @@ class WeatherTest {
 
     Weather weather = new Weather(id, temp, humidity, windSpeed, recordedAt);
 
-    assertThat(weather)
+    then(weather)
         .returns(id, Weather::id)
         .returns(temp, Weather::temperature)
         .returns(humidity, Weather::humidity)
