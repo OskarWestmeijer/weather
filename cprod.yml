@@ -7,9 +7,9 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1G
+          memory: 2G
         reservations:
-          memory: 1G
+          memory: 2G
     expose:
       - "8080"
     restart: always
@@ -25,9 +25,9 @@ services:
     deploy:
       resources:
         limits:
-          memory: 250m
+          memory: 100m
         reservations:
-          memory: 250m
+          memory: 100m
     expose:
       - "80"
     restart: always
