@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   weather-api:
     image: oskarwestmeijer/weather-api:latest
