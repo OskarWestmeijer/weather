@@ -307,7 +307,7 @@
     <!-- maven plugins -->
     <maven.compiler.plugin>3.13.0</maven.compiler.plugin>
     <maven.failsafe.plugin>3.2.5</maven.failsafe.plugin>
-    <surefire.report.plugin>3.2.5</surefire.report.plugin>
+    <surefire.report.plugin>3.3.0</surefire.report.plugin>
     <spring.boot.plugin>3.3.0</spring.boot.plugin>
     <jacoco.version>0.8.12</jacoco.version>
     <checkstyle.version>3.4.0</checkstyle.version>
