@@ -296,7 +296,7 @@
     <liquibase.version>4.28.0</liquibase.version>
     <preliquibase.version>1.5.1</preliquibase.version>
     <commons.csv.version>1.11.0</commons.csv.version>
-    <commons.lang3.version>3.14.0</commons.lang3.version>
+    <commons.lang3.version>3.15.0</commons.lang3.version>
     <testcontainers.version>1.19.8</testcontainers.version>
     <assertj.version>3.26.3</assertj.version>
     <postgresql.version>42.7.3</postgresql.version>
