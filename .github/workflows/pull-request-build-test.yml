@@ -44,7 +44,7 @@ jobs:
           github-sha: ${{ github.sha }}
 
   dependabot-automerge:
-    needs: [ backend-build-and-test, frontend-build-and-test, codeql-check ]
+    needs: [ backend-build-and-test, frontend-build-and-test, codeql-check, trivy-image-check-backend ]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
     if: ${{ github.actor == 'dependabot[bot]' }}
