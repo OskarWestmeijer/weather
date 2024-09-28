@@ -116,6 +116,8 @@ paths:
             format: date-time
             description: UTC
             example: "2022-08-29T21:56:18.602546Z"
+            default: "1970-01-01T00:00:00Z"
+
         - name: limit
           in: query
           required: false
