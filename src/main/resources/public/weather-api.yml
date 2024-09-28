@@ -93,10 +93,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/LocationResponse"
 
-  /locations/{locationId}/weather:
+  /weather/{locationId}:
     get:
-      summary: Get weather feed for location
-      operationId: getWeatherFeedForLocation
+      summary: Get weather of last 24 hours for location
+      operationId: getWeatherLast24Hours
       tags:
         - weather_resource
       parameters:
@@ -107,23 +107,6 @@ paths:
           schema:
             type: integer
             example: 1
-        - name: from
-          in: query
-          required: false
-          description: Weather data starting from this timestamp. If not provided, it defaults to the timestamp of the oldest available record.
-          schema:
-            type: string
-            format: date-time
-            description: UTC
-            example: "2022-08-29T21:56:18.602546Z"
-        - name: limit
-          in: query
-          required: false
-          description: Limit count of weather elements (default is 100)
-          schema:
-            type: integer
-            example: 100
-            default: 100
       responses:
         '200':
           description: Weather results for the location.

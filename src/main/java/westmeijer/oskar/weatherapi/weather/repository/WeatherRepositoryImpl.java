@@ -2,7 +2,6 @@ package westmeijer.oskar.weatherapi.weather.repository;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.Instant;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -19,15 +18,6 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 
   private final WeatherJpaRepository weatherJpaRepository;
 
-
-  @Override
-  public List<Weather> getWeather(Integer locationId, Instant from, Integer limit) {
-    requireNonNull(locationId, "locationId is required");
-    requireNonNull(from, "from is required");
-    requireNonNull(limit, "limit is required");
-    var weatherEntities = weatherJpaRepository.getWeather(locationId, from, limit);
-    return weatherEntityMapper.mapList(weatherEntities);
-  }
 
   @Override
   public List<Weather> getLast24h(Integer locationId) {

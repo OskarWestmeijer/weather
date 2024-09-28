@@ -27,11 +27,6 @@ public class LocationService {
     return locationRepository.getAllOmitWeather();
   }
 
-  public List<Location> getLocationsOmitWeather(List<Integer> locationIds) {
-    requireNonNull(locationIds, "locationIds are required");
-    return locationRepository.getLocationsOmitWeather(locationIds);
-  }
-
   public Location getNextImportLocation() {
     return locationRepository.getNextImportLocation();
   }

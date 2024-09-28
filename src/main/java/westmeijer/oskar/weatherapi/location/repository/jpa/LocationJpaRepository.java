@@ -35,11 +35,4 @@ public interface LocationJpaRepository extends JpaRepository<LocationEntity, Str
       WHERE w.recordedAt = (SELECT MAX(w2.recordedAt) FROM WeatherEntity w2 WHERE w2.location = l)
       ORDER BY l.id ASC""")
   List<LocationEntity> getAllWithLatest();
-
-  @Query("""
-      SELECT l FROM LocationEntity l
-      WHERE l.id IN :locationIds
-      ORDER BY l.id ASC
-      """)
-  List<LocationEntity> getLocationsOmitWeather(@Param("locationIds") List<Integer> locationIds);
 }

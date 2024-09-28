@@ -29,12 +29,6 @@ public class LocationRepositoryImpl implements LocationRepository {
   }
 
   @Override
-  public List<Location> getLocationsOmitWeather(List<Integer> locationIds) {
-    var locations = locationJpaRepository.getLocationsOmitWeather(locationIds);
-    return locationEntityMapper.mapToLocationList(locations);
-  }
-
-  @Override
   public Location getNextImportLocation() {
     LocationEntity location = locationJpaRepository.getNextImportLocation();
     return locationEntityMapper.mapToLocationWithEmptyWeather(location);
