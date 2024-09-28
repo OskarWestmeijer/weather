@@ -1,5 +1,7 @@
 package westmeijer.oskar.weatherapi.weather.controller;
 
+import static java.util.Objects.requireNonNull;
+
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import jakarta.validation.Valid;
@@ -39,6 +41,7 @@ public class WeatherController implements WeatherApi {
       @Parameter(name = "limit", description = "Limit count of weather elements", in = ParameterIn.QUERY) @Valid @RequestParam(value = "limit", required = false) Integer limit
   ) {
     log.info("Received Weather request. locationId: {}, from: {}, limit: {}", locationId, from, limit);
+    requireNonNull(locationId, "locationId is required");
     if (from == null) {
       from = Instant.EPOCH;
     }
