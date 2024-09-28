@@ -93,7 +93,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/LocationResponse"
 
-  /locations/{locationId}/weather:
+  /weather:
     get:
       summary: Get weather feed for location
       operationId: getWeatherFeedForLocation
@@ -101,9 +101,9 @@ paths:
         - weather_resource
       parameters:
         - name: locationId
-          in: path
+          in: query
           required: true
-          description: api locationId
+          description: Location to request weather from
           schema:
             type: integer
             example: 1
