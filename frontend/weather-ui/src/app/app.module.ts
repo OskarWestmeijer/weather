@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { Constants } from './config/constants';
 
@@ -13,10 +13,6 @@ import { DetailsPageModule } from './details-page/details-page.module';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
 
-@NgModule({
-    declarations: [AppComponent, NavigationComponent, FooterComponent],
-    imports: [BrowserModule, AppRoutingModule, HttpClientModule, OverviewPageModule, DetailsPageModule],
-    providers: [Constants],
-    bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [AppComponent, NavigationComponent, FooterComponent],
+    bootstrap: [AppComponent], imports: [BrowserModule, AppRoutingModule, OverviewPageModule, DetailsPageModule], providers: [Constants, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule {}
