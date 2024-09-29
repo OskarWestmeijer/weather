@@ -289,7 +289,7 @@ components:
           example: "2022-08-29T21:56:18.602546Z"
         nextLink:
           type: string
-          example: "api.weather.oskar-westmeijer.com/weather?locationId=1&from=2022-08-29T21:56:18.602546Z&limit=1000"
+          example: "https://api.weather.oskar-westmeijer.com/weather?locationId=1&from=2022-08-29T21:56:18.602546Z&limit=1000"
 
     OverviewDto:
       type: object

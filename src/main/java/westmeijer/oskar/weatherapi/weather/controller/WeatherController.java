@@ -65,7 +65,7 @@ public class WeatherController implements WeatherApi {
         nextFrom = weatherList.getLast().recordedAt();
         weatherList.removeLast();
         hasNewerRecords = true;
-        nextLink = "https://api.weather.oskar-westmeijer/weather?locationId=%s&from=%s&limit=%d".formatted(locationId, nextFrom,
+        nextLink = "https://api.weather.oskar-westmeijer.com/weather?locationId=%s&from=%s&limit=%d".formatted(locationId, nextFrom,
             resultLimit);
       }
     }
