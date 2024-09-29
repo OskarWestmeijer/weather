@@ -25,6 +25,12 @@ public class WeatherService {
     return weatherRepository.getWeather(locationId, from, limit);
   }
 
+  public int getTotalCount(Integer locationId, Instant from) {
+    requireNonNull(locationId, "locationId is required");
+    requireNonNull(from, "from is required");
+    return weatherRepository.getTotalCount(locationId, from);
+  }
+
   public List<Weather> getLast24h(Integer locationId) {
     requireNonNull(locationId, "locationId is required");
     List<Weather> weatherList = weatherRepository.getLast24h(locationId);

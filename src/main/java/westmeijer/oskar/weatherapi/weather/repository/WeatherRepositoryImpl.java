@@ -30,6 +30,13 @@ public class WeatherRepositoryImpl implements WeatherRepository {
   }
 
   @Override
+  public int getTotalCount(Integer locationId, Instant from) {
+    requireNonNull(locationId, "locationId is required");
+    requireNonNull(from, "from is required");
+    return weatherJpaRepository.getTotalCount(locationId, from);
+  }
+
+  @Override
   public List<Weather> getLast24h(Integer locationId) {
     requireNonNull(locationId, "locationId is required");
     List<WeatherEntity> weatherEntities = weatherJpaRepository.getLast24h(locationId);

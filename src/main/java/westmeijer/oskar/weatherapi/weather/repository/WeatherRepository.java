@@ -9,6 +9,8 @@ public interface WeatherRepository {
 
   List<Weather> getWeather(Integer locationId, Instant from, Integer limit);
 
+  int getTotalCount(Integer locationId, Instant from);
+
   List<Weather> getLast24h(Integer locationId);
 
   Weather getLatest(Integer locationId);

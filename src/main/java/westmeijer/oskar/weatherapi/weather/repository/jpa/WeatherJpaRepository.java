@@ -31,4 +31,11 @@ public interface WeatherJpaRepository extends JpaRepository<WeatherEntity, UUID>
       ORDER BY recorded_at DESC LIMIT 1""", nativeQuery = true)
   WeatherEntity getLatest(@Param("location_id") Integer locationId);
 
+  @Query(value = """
+      SELECT COUNT(*)
+      FROM weather.weather
+      WHERE location_id = :locationId
+      AND recorded_at >= :from
+      """, nativeQuery = true)
+  int getTotalCount(Integer locationId, Instant from);
 }
