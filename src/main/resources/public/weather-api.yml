@@ -124,8 +124,8 @@ paths:
           description: Limit count of weather elements (default is 100)
           schema:
             type: integer
-            example: 100
-            default: 100
+            example: 1000
+            default: 1000
       responses:
         '200':
           description: Weather results for the location.
@@ -211,6 +211,7 @@ components:
         - cityName
         - country
         - weatherData
+        - pagingDetails
       properties:
         locationId:
           type: integer
@@ -227,6 +228,9 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/WeatherDto"
+        pagingDetails:
+          type: object
+          $ref: "#/components/schemas/PagingDetails"
 
     WeatherDto:
       type: object
@@ -259,6 +263,33 @@ components:
           type: string
           format: date-time
           example: "2022-08-29T21:56:18.602546Z"
+
+    PagingDetails:
+      type: object
+      description: Details of the paging request
+      required:
+        - pageRecordsCount
+        - totalRecordsCount
+        - hasNewerRecords
+      properties:
+        pageRecordsCount:
+          type: integer
+          format: int32
+          example: 1000
+        totalRecordsCount:
+          type: integer
+          format: int32
+          example: 5000
+        hasNewerRecords:
+          type: boolean
+          example: true
+        nextFrom:
+          type: string
+          format: date-time
+          example: "2022-08-29T21:56:18.602546Z"
+        nextLink:
+          type: string
+          example: "api.weather.oskar-westmeijer.com/weather?locationId=1&from=2022-08-29T21:56:18.602546Z&limit=1000"
 
     OverviewDto:
       type: object

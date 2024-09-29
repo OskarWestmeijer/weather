@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import lombok.SneakyThrows;
+import org.intellij.lang.annotations.Language;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -26,6 +27,7 @@ public class WeatherControllerIT extends IntegrationTestContainers {
   @SneakyThrows
   public void shouldReturnWeather() {
 
+    @Language("json")
     String expectedResponse = """
         {
           "locationId" : 1,
@@ -36,7 +38,12 @@ public class WeatherControllerIT extends IntegrationTestContainers {
             {"id":"a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15","temperature":15.45,"humidity":45,"windSpeed":2.57},
             {"id":"a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a16","temperature":16.45,"humidity":45,"windSpeed":2.57},
             {"id":"a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a17","temperature":17.45,"humidity":45,"windSpeed":2.57}
-          ]
+          ],
+          "pagingDetails": {
+            "pageRecordsCount": 3,
+            "totalRecordsCount": 4,
+            "hasNewerRecords": true
+          }
         }""";
 
     mockMvc.perform(get("/weather?locationId=1&from=%s&limit=3".formatted(Instant.now().minus(1, ChronoUnit.DAYS))))

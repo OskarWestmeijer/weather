@@ -1,6 +1,7 @@
 package westmeijer.oskar.weatherapi.weather.controller.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.BDDAssertions.then;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -13,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import westmeijer.oskar.weatherapi.TestLocationFactory;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.openapi.server.model.PagingDetails;
 import westmeijer.oskar.weatherapi.openapi.server.model.WeatherDto;
 import westmeijer.oskar.weatherapi.openapi.server.model.WeatherResponse;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
@@ -27,22 +29,42 @@ public class WeatherDtoMapperTest {
   private WeatherDtoMapper weatherDtoMapper;
 
   @Test
-  public void successfulMappingToResponse() {
+  void shouldMapToWeatherResponse() {
     Location location = TestLocationFactory.locationWithoutWeather();
 
     List<Weather> weatherList = List.of(
         new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d, Instant.now().truncatedTo(ChronoUnit.MICROS)),
         new Weather(UUID.randomUUID(), 5.00d, 30, 4.00d, Instant.now().truncatedTo(ChronoUnit.MICROS)));
 
-    WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherList);
+    var pagingDetails = new PagingDetails(5, 5, false);
 
-    assertThat(weatherResponse.getCityName()).isEqualTo(location.cityName());
-    assertThat(weatherResponse.getCountry()).isEqualTo(location.country());
-    assertThat(weatherResponse.getLocationId()).isEqualTo(location.locationId());
+    WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherList, pagingDetails);
+
+    then(weatherResponse.getCityName()).isEqualTo(location.cityName());
+    then(weatherResponse.getCountry()).isEqualTo(location.country());
+    then(weatherResponse.getLocationId()).isEqualTo(location.locationId());
+    then(weatherResponse.getPagingDetails()).isEqualTo(pagingDetails);
   }
 
   @Test
-  public void successfulMappingToWeatherDTO() {
+  void shouldMapToPagingDetails() {
+    var pageRecordsCount = 1;
+    var totalRecordsCount = 10;
+    var hasNewerRecords = true;
+    var nextFrom = Instant.now();
+    var nextLink = "nextLink";
+
+    var actual = weatherDtoMapper.mapTo(pageRecordsCount, totalRecordsCount, hasNewerRecords, nextFrom, nextLink);
+    then(actual)
+        .hasFieldOrPropertyWithValue("pageRecordsCount", pageRecordsCount)
+        .hasFieldOrPropertyWithValue("totalRecordsCount", totalRecordsCount)
+        .hasFieldOrPropertyWithValue("hasNewerRecords", hasNewerRecords)
+        .hasFieldOrPropertyWithValue("nextFrom", nextFrom)
+        .hasFieldOrPropertyWithValue("nextLink", nextLink);
+  }
+
+  @Test
+  void shouldMapToWeatherDto() {
     Weather weather = new Weather(UUID.randomUUID(), 12.00d, 45, 10.55d,
         Instant.now().truncatedTo(ChronoUnit.MICROS));
 

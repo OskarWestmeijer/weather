@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import westmeijer.oskar.weatherapi.weather.repository.jpa.WeatherJpaRepository;
 import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityMapper;
-import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 @Component
@@ -18,7 +17,6 @@ public class WeatherRepositoryImpl implements WeatherRepository {
   private final WeatherEntityMapper weatherEntityMapper;
 
   private final WeatherJpaRepository weatherJpaRepository;
-
 
   @Override
   public List<Weather> getWeather(Integer locationId, Instant from, Integer limit) {
@@ -30,18 +28,10 @@ public class WeatherRepositoryImpl implements WeatherRepository {
   }
 
   @Override
-  public List<Weather> getLast24h(Integer locationId) {
+  public int getTotalCount(Integer locationId, Instant from) {
     requireNonNull(locationId, "locationId is required");
-    List<WeatherEntity> weatherEntities = weatherJpaRepository.getLast24h(locationId);
-    return weatherEntityMapper.mapList(weatherEntities);
+    requireNonNull(from, "from is required");
+    return weatherJpaRepository.getTotalCount(locationId, from);
   }
-
-  @Override
-  public Weather getLatest(Integer locationId) {
-    requireNonNull(locationId, "locationId is required");
-    WeatherEntity weatherEntity = weatherJpaRepository.getLatest(locationId);
-    return weatherEntityMapper.map(weatherEntity);
-  }
-
 
 }

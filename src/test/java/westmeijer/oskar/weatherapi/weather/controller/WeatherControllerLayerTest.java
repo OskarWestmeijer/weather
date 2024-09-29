@@ -41,7 +41,7 @@ public class WeatherControllerLayerTest {
 
   @Test
   @SneakyThrows
-  public void shouldGetWeatherForRequestParams() {
+  void shouldGetWeatherForRequestParams() {
     Location location = TestLocationFactory.locationWithoutWeather();
     Weather weather = TestWeatherFactory.weather();
     List<Weather> weatherList = List.of(weather);
@@ -50,7 +50,8 @@ public class WeatherControllerLayerTest {
     var requestLimit = 5;
 
     given(locationService.getByIdOmitWeather(1)).willReturn(location);
-    given(weatherService.getWeather(1, requestFrom, requestLimit)).willReturn(weatherList);
+    given(weatherService.getWeather(1, requestFrom, requestLimit + 1)).willReturn(weatherList);
+    given(weatherService.getTotalCount(1, requestFrom)).willReturn(1);
 
     @Language("json")
     String expectedBody = """
@@ -64,7 +65,14 @@ public class WeatherControllerLayerTest {
               "humidity": 55,
               "windSpeed":10.34
             }
-          ]
+          ],
+          "pagingDetails": {
+            "pageRecordsCount": 1,
+            "totalRecordsCount": 1,
+            "hasNewerRecords": false,
+            "nextFrom": null,
+            "nextLink": null
+          }
         }""";
 
     mockMvc.perform(get("/weather?locationId=1&from=%s&limit=%s".formatted(requestFrom, requestLimit)))
@@ -73,7 +81,8 @@ public class WeatherControllerLayerTest {
         .andExpect(content().json(expectedBody));
 
     then(locationService).should().getByIdOmitWeather(1);
-    then(weatherService).should().getWeather(1, requestFrom, requestLimit);
+    then(weatherService).should().getWeather(1, requestFrom, requestLimit + 1);
+    then(weatherService).should().getTotalCount(1, requestFrom);
   }
 
   @Test
@@ -109,7 +118,8 @@ public class WeatherControllerLayerTest {
     List<Weather> weatherList = List.of(weather);
 
     given(locationService.getByIdOmitWeather(1)).willReturn(location);
-    given(weatherService.getWeather(1, Instant.EPOCH, 1000)).willReturn(weatherList);
+    given(weatherService.getWeather(1, Instant.EPOCH, 1000 + 1)).willReturn(weatherList);
+    given(weatherService.getTotalCount(1, Instant.EPOCH)).willReturn(1);
 
     @Language("json")
     String expectedBody = """
@@ -123,7 +133,14 @@ public class WeatherControllerLayerTest {
               "humidity": 55,
               "windSpeed":10.34
             }
-          ]
+          ],
+          "pagingDetails": {
+            "pageRecordsCount": 1,
+            "totalRecordsCount": 1,
+            "hasNewerRecords": false,
+            "nextFrom": null,
+            "nextLink": null
+          }
         }""";
 
     mockMvc.perform(get("/weather?locationId=1"))
@@ -132,7 +149,8 @@ public class WeatherControllerLayerTest {
         .andExpect(content().json(expectedBody));
 
     then(locationService).should().getByIdOmitWeather(1);
-    then(weatherService).should().getWeather(1, Instant.EPOCH, 1000);
+    then(weatherService).should().getWeather(1, Instant.EPOCH, 1000 + 1);
+    then(weatherService).should().getTotalCount(1, Instant.EPOCH);
   }
 
 

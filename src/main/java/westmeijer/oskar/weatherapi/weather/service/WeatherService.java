@@ -3,7 +3,6 @@ package westmeijer.oskar.weatherapi.weather.service;
 import static java.util.Objects.requireNonNull;
 
 import java.time.Instant;
-import java.util.Comparator;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,13 +24,10 @@ public class WeatherService {
     return weatherRepository.getWeather(locationId, from, limit);
   }
 
-  public List<Weather> getLast24h(Integer locationId) {
+  public int getTotalCount(Integer locationId, Instant from) {
     requireNonNull(locationId, "locationId is required");
-    List<Weather> weatherList = weatherRepository.getLast24h(locationId);
-
-    return weatherList.stream()
-        .sorted(Comparator.comparing(Weather::recordedAt).reversed())
-        .toList();
+    requireNonNull(from, "from is required");
+    return weatherRepository.getTotalCount(locationId, from);
   }
 
 }
