@@ -1,7 +1,8 @@
 package westmeijer.oskar.weatherapi.weather.repository.jpa;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.BDDAssertions.then;
 
+import java.time.Instant;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -20,8 +21,7 @@ public class WeatherJpaRepositoryTest extends IntegrationTestContainers {
   private WeatherJpaRepository weatherJpaRepository;
 
   @Test
-  public void shouldGetLatest() {
-
+  void shouldGetWeather() {
     WeatherEntity expectedWeather = TestWeatherFactory.weatherEntityWithoutLocation();
     LocationEntity expectedLocation = TestLocationFactory.locationEntityWithoutWeather();
     expectedLocation.setId(9999);
@@ -29,29 +29,41 @@ public class WeatherJpaRepositoryTest extends IntegrationTestContainers {
 
     weatherJpaRepository.saveAndFlush(expectedWeather);
 
-    WeatherEntity actualWeather = weatherJpaRepository.getLatest(9999);
+    var actualWeatherList = weatherJpaRepository.getWeather(9999, Instant.EPOCH, 10);
 
-    assertThat(actualWeather).isNotNull();
-    assertThat(expectedWeather)
-        .returns(actualWeather.getId(), WeatherEntity::getId)
-        .returns(actualWeather.getTemperature(), WeatherEntity::getTemperature)
-        .returns(actualWeather.getHumidity(), WeatherEntity::getHumidity)
-        .returns(actualWeather.getWindSpeed(), WeatherEntity::getWindSpeed)
-        .returns(actualWeather.getRecordedAt(), WeatherEntity::getRecordedAt)
-        .returns(actualWeather.getModifiedAt(), WeatherEntity::getModifiedAt);
+    then(actualWeatherList).hasSize(1)
+        .first()
+        .returns(expectedWeather.getId(), WeatherEntity::getId)
+        .returns(expectedWeather.getTemperature(), WeatherEntity::getTemperature)
+        .returns(expectedWeather.getHumidity(), WeatherEntity::getHumidity)
+        .returns(expectedWeather.getWindSpeed(), WeatherEntity::getWindSpeed)
+        .returns(expectedWeather.getRecordedAt(), WeatherEntity::getRecordedAt)
+        .returns(expectedWeather.getModifiedAt(), WeatherEntity::getModifiedAt);
 
-    LocationEntity actualLocation = actualWeather.getLocation();
-    assertThat(actualLocation).isNotNull();
-    assertThat(actualLocation)
+    then(actualWeatherList.getFirst().getLocation())
+        .isNotNull()
         .returns(expectedLocation.getId(), LocationEntity::getId)
-        .returns(actualLocation.getLatitude(), LocationEntity::getLatitude)
-        .returns(actualLocation.getLongitude(), LocationEntity::getLongitude)
-        .returns(actualLocation.getCityName(), LocationEntity::getCityName)
-        .returns(actualLocation.getCountryCode(), LocationEntity::getCountryCode)
-        .returns(actualLocation.getCountry(), LocationEntity::getCountry)
-        .returns(actualLocation.getLocalZipCode(), LocationEntity::getLocalZipCode)
-        .returns(actualLocation.getLastImportAt(), LocationEntity::getLastImportAt)
-        .returns(actualLocation.getOpenWeatherApiLocationCode(), LocationEntity::getOpenWeatherApiLocationCode);
+        .returns(expectedLocation.getLatitude(), LocationEntity::getLatitude)
+        .returns(expectedLocation.getLongitude(), LocationEntity::getLongitude)
+        .returns(expectedLocation.getCityName(), LocationEntity::getCityName)
+        .returns(expectedLocation.getCountryCode(), LocationEntity::getCountryCode)
+        .returns(expectedLocation.getCountry(), LocationEntity::getCountry)
+        .returns(expectedLocation.getLocalZipCode(), LocationEntity::getLocalZipCode)
+        .returns(expectedLocation.getLastImportAt(), LocationEntity::getLastImportAt)
+        .returns(expectedLocation.getOpenWeatherApiLocationCode(), LocationEntity::getOpenWeatherApiLocationCode);
+  }
+
+  @Test
+  void shouldGetTotalCount() {
+    WeatherEntity expectedWeather = TestWeatherFactory.weatherEntityWithoutLocation();
+    LocationEntity expectedLocation = TestLocationFactory.locationEntityWithoutWeather();
+    expectedLocation.setId(9999);
+    expectedLocation.addWeather(expectedWeather);
+
+    weatherJpaRepository.saveAndFlush(expectedWeather);
+
+    var actualTotalCount = weatherJpaRepository.getTotalCount(9999, Instant.EPOCH);
+    then(actualTotalCount).isEqualTo(1);
   }
 
 }

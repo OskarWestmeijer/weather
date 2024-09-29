@@ -2,7 +2,6 @@ package westmeijer.oskar.weatherapi.weather.repository;
 
 import java.time.Instant;
 import java.util.List;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 public interface WeatherRepository {
@@ -11,7 +10,4 @@ public interface WeatherRepository {
 
   int getTotalCount(Integer locationId, Instant from);
 
-  List<Weather> getLast24h(Integer locationId);
-
-  Weather getLatest(Integer locationId);
 }
