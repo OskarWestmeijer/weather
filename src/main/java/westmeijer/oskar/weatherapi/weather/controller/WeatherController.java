@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -42,17 +43,14 @@ public class WeatherController implements WeatherApi {
   ) {
     log.info("Received Weather request. locationId: {}, from: {}, limit: {}", locationId, from, limit);
     requireNonNull(locationId, "locationId is required");
-    if (from == null) {
-      from = Instant.EPOCH;
-    }
-    if (limit == null) {
-      limit = 1000;
-    }
-    log.info("Enriched Weather request. locationId: {}, from: {}, limit: {}", locationId, from, limit);
+    Instant fromTimestamp = Optional.ofNullable(from).orElse(Instant.EPOCH);
+    int resultLimit = Optional.ofNullable(limit).orElse(1000);
+    log.info("Enriched Weather request. locationId: {}, from: {}, limit: {}", locationId, fromTimestamp, resultLimit);
 
     Location location = locationService.getByIdOmitWeather(locationId);
-    List<Weather> weatherList = weatherService.getWeather(locationId, from, limit);
+    List<Weather> weatherList = weatherService.getWeather(locationId, fromTimestamp, resultLimit);
     WeatherResponse weatherResponse = weatherDtoMapper.mapTo(location, weatherList);
+    log.info("Weather response. locationId: {}, weatherCount: {}", locationId, weatherResponse.getWeatherData().size());
     return ResponseEntity.ok(weatherResponse);
   }
 
