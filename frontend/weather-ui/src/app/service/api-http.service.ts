@@ -25,7 +25,10 @@ export class ApiHttpService {
     }
 
     public requestWeather(location: Location): Observable<WeatherResponse> {
-        const url = this.constants.API_ENDPOINT + '/weather/' + location.locationId;
+        const currentTime = new Date().getTime();
+        const fromTime = new Date(currentTime - 24 * 60 * 60 * 1000).toISOString();
+
+        const url = this.constants.API_ENDPOINT + '/weather?locationId=' + location.locationId + '&from=' + fromTime;
         return this.http.get<WeatherResponse>(url);
     }
 }
