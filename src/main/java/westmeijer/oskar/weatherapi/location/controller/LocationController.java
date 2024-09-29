@@ -11,15 +11,12 @@ import westmeijer.oskar.weatherapi.location.service.LocationService;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.openapi.server.api.LocationsApi;
 import westmeijer.oskar.weatherapi.openapi.server.model.LocationResponse;
-import westmeijer.oskar.weatherapi.weather.service.WeatherService;
 
 @Slf4j
 @Controller
 @CrossOrigin
 @RequiredArgsConstructor
 public class LocationController implements LocationsApi {
-
-  private final WeatherService weatherService;
 
   private final LocationService locationService;
 

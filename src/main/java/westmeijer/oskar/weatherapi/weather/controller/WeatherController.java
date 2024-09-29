@@ -48,6 +48,7 @@ public class WeatherController implements WeatherApi {
     if (limit == null) {
       limit = 1000;
     }
+    log.info("Enriched Weather request. locationId: {}, from: {}, limit: {}", locationId, from, limit);
 
     Location location = locationService.getByIdOmitWeather(locationId);
     List<Weather> weatherList = weatherService.getWeather(locationId, from, limit);

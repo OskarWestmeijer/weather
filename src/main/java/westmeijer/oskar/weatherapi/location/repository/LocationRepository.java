@@ -7,8 +7,6 @@ public interface LocationRepository {
 
   List<Location> getAllOmitWeather();
 
-  List<Location> getLocationsOmitWeather(List<Integer> locationIds);
-
   Location getByIdOmitWeather(Integer locationId);
 
   Location getNextImportLocation();
