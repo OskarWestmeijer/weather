@@ -8,8 +8,8 @@
   "scripts": {
     "ng:version": "ng version",
     "ng:update": "ng update @angular/cli @angular/core",
-    "start": "ng serve",
-    "start:dev": "ng serve --configuration=development",
+    "prod": "ng serve",
+    "dev": "ng serve --configuration=development",
     "build": "ng build",
     "build:dev": "ng build --configuration=development",
     "watch": "ng build --watch --configuration development",

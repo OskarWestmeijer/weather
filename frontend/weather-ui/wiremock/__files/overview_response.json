@@ -1,0 +1,49 @@
+{
+    "overview": [
+        {
+            "locationId": 1,
+            "cityName": "Lübeck",
+            "countryCode": "GER",
+            "temperature": 3.25,
+            "humidity": 80,
+            "windSpeed": 2.57,
+            "recordedAt": "2024-11-23T17:33:12.801333Z"
+        },
+        {
+            "locationId": 2,
+            "cityName": "Hamburg",
+            "countryCode": "GER",
+            "temperature": 3.81,
+            "humidity": 84,
+            "windSpeed": 5.66,
+            "recordedAt": "2024-11-23T17:34:14.376545Z"
+        },
+        {
+            "locationId": 3,
+            "cityName": "Dorsten",
+            "countryCode": "GER",
+            "temperature": 5.83,
+            "humidity": 69,
+            "windSpeed": 4.92,
+            "recordedAt": "2024-11-23T17:30:09.070578Z"
+        },
+        {
+            "locationId": 4,
+            "cityName": "Helsinki",
+            "countryCode": "FIN",
+            "temperature": -3.18,
+            "humidity": 91,
+            "windSpeed": 9.39,
+            "recordedAt": "2024-11-23T17:31:10.360982Z"
+        },
+        {
+            "locationId": 5,
+            "cityName": "Kangasala",
+            "countryCode": "FIN",
+            "temperature": -5.11,
+            "humidity": 95,
+            "windSpeed": 3.08,
+            "recordedAt": "2024-11-23T17:32:11.480336Z"
+        }
+    ]
+}

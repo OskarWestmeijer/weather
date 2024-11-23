@@ -1,0 +1,44 @@
+{
+    "locations": [
+        {
+            "locationId": 1,
+            "localZipCode": "23552",
+            "cityName": "Lübeck",
+            "country": "Germany",
+            "countryCode": "GER",
+            "lastImportAt": "2024-11-23T17:48:35.497125Z"
+        },
+        {
+            "locationId": 2,
+            "localZipCode": "20095",
+            "cityName": "Hamburg",
+            "country": "Germany",
+            "countryCode": "GER",
+            "lastImportAt": "2024-11-23T17:49:37.146118Z"
+        },
+        {
+            "locationId": 3,
+            "localZipCode": "46286",
+            "cityName": "Dorsten",
+            "country": "Germany",
+            "countryCode": "GER",
+            "lastImportAt": "2024-11-23T17:50:38.469469Z"
+        },
+        {
+            "locationId": 4,
+            "localZipCode": "00100",
+            "cityName": "Helsinki",
+            "country": "Finland",
+            "countryCode": "FIN",
+            "lastImportAt": "2024-11-23T17:51:39.577489Z"
+        },
+        {
+            "locationId": 5,
+            "localZipCode": "36100",
+            "cityName": "Kangasala",
+            "country": "Finland",
+            "countryCode": "FIN",
+            "lastImportAt": "2024-11-23T17:47:33.765129Z"
+        }
+    ]
+}

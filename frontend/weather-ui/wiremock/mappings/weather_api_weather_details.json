@@ -1,0 +1,23 @@
+{
+    "request": {
+        "method": "GET",
+        "urlPath": "/weather",
+        "queryParameters": {
+            "locationId": {
+                "matches": "\\d+"
+            },
+            "from": {
+                "matches": "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z"
+            }
+        }
+    },
+    "response": {
+        "status": 200,
+        "bodyFileName": "weather_details_response.json",
+        "headers": {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization"
+        }
+    }
+}
