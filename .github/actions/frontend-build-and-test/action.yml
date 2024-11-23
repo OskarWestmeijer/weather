@@ -4,13 +4,17 @@ inputs:
   frontend-directory:
     description: Frontend directory from project root
     required: true
+  node:
+    description: Node version
+    required: true
+
 runs:
   using: "composite"
   steps:
     - name: setup node
       uses: actions/setup-node@v4
       with:
-        node-version: "20.9.0"
+        node-version: ${{ inputs.node }}
         cache: "npm"
         cache-dependency-path: ${{ inputs.frontend-directory }}/package-lock.json
 
