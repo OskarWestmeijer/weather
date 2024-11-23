@@ -48,5 +48,5 @@ runs:
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
-        path: playwright-report/
+        path: ${{ inputs.frontend-directory }}/playwright-report/
         retention-days: 30
