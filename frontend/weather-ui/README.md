@@ -13,7 +13,7 @@ The serve command defaults to a development build.
 
 ```bash
 npm run build:dev
-npm run start:dev
+npm run dev
 ```
 
 ## Nginx in production
@@ -25,7 +25,16 @@ The build command defaults to a production build.
 
 ```bash
 npm run build
-npm run start
+npm run prod
+```
+
+## e2e
+
+```
+npm install
+npx playwright install --with-deps
+docker compose up -d
+npm run e2e
 ```
 
 ## Linter and Prettier
@@ -44,7 +53,6 @@ npm run ng:version
 ```
 
 Use ncu to check on possible versions. `npm install -g npm-check-updates`
-
 
 ```bash
 ncu

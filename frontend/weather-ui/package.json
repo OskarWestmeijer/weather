@@ -15,7 +15,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "test-headless": "ng test --watch=false --browsers=ChromeHeadless"
+    "test-headless": "ng test --watch=false --browsers=ChromeHeadless",
+    "e2e": "npx playwright test"
   },
   "private": true,
   "dependencies": {
@@ -41,7 +42,9 @@
     "@angular-eslint/template-parser": "18.4.2",
     "@angular/cli": "^18.2.12",
     "@angular/compiler-cli": "^18.2.12",
+    "@playwright/test": "^1.49.0",
     "@types/jasmine": "~5.1.4",
+    "@types/node": "^22.9.3",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
     "autoprefixer": "^10.4.20",
