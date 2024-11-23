@@ -37,8 +37,16 @@ npx prettier -w .
 
 ## Updating dependencies
 
+Use angular cli `npm install -g @angular/cli@18`. (adjust to required version)
+
 ```bash
-npm install -g npm-check-updates
+npm run ng:version
+```
+
+Use ncu to check on possible versions. `npm install -g npm-check-updates`
+
+
+```bash
 ncu
 
 # granular updates
