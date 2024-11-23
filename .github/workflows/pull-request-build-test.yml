@@ -4,6 +4,7 @@ on:
   pull_request:
 
 env:
+  JAVA_VERSION: 21.0.5
   NODE_VERSION: 22.11.0
 
 jobs:
@@ -14,6 +15,7 @@ jobs:
       - uses: ./.github/actions/backend-build-and-test
         with:
           code-cov: ${{ secrets.CODECOV_TOKEN }}
+          java: ${{ env.JAVA_VERSION }}
 
   frontend-build-and-test:
     runs-on: ubuntu-latest

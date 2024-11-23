@@ -5,6 +5,9 @@ on:
 
   workflow_call:
 
+env:
+  JAVA_VERSION: 21.0.5
+
 jobs:
   analyze:
     name: Analyze
@@ -37,7 +40,7 @@ jobs:
         if: ${{ matrix.language == 'java' }}
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: ${{ env.JAVA_VERSION }}
           cache: maven
       - name: build java project
         if: ${{ matrix.language == 'java' }}
