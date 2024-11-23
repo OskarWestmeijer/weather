@@ -19,7 +19,7 @@ runs:
       run: |
         docker build -t ${{ inputs.docker-username }}/weather-api:sha-${{ inputs.github-sha }} .
     - name: trivy image scan
-      uses: aquasecurity/trivy-action@0.24.0
+      uses: aquasecurity/trivy-action@0.29.0
       with:
         image-ref: '${{ inputs.docker-username }}/weather-api:sha-${{ inputs.github-sha }}'
         format: 'sarif'
