@@ -4,13 +4,17 @@ inputs:
   code-cov:
     description: code-cov
     required: true
+  java:
+    description: Java version
+    required: true
+
 runs:
   using: "composite"
   steps:
     - uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
-        java-version: '21'
+        java-version: ${{ inputs.java }}
         cache: maven
 
     - shell: bash

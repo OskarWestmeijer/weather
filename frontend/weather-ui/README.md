@@ -3,8 +3,8 @@
 ## Build & Test
 
 ```bash
-ng build --configuration=development
-ng test
+npm run build:dev
+npm run test
 ```
 
 ## Local development
@@ -12,8 +12,8 @@ ng test
 The serve command defaults to a development build.
 
 ```bash
-ng build --configuration=development
-ng serve
+npm run build:dev
+npm run start:dev
 ```
 
 ## Nginx in production
@@ -24,21 +24,29 @@ I assume the proxy routing in production might cause this.
 The build command defaults to a production build.
 
 ```bash
-ng build
-ng serve --configuration=production
+npm run build
+npm run start
 ```
 
 ## Linter and Prettier
 
 ```bash
-ng lint
+npm run lint
 npx prettier -w .
 ```
 
 ## Updating dependencies
 
+Use angular cli `npm install -g @angular/cli@18`. (adjust to required version)
+
 ```bash
-npm install -g npm-check-updates
+npm run ng:version
+```
+
+Use ncu to check on possible versions. `npm install -g npm-check-updates`
+
+
+```bash
 ncu
 
 # granular updates

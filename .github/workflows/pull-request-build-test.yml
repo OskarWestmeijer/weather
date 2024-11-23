@@ -3,6 +3,10 @@ name: pull-request-build-test
 on:
   pull_request:
 
+env:
+  JAVA_VERSION: 21.0.5
+  NODE_VERSION: 22.11.0
+
 jobs:
   backend-build-and-test:
     runs-on: ubuntu-latest
@@ -11,7 +15,7 @@ jobs:
       - uses: ./.github/actions/backend-build-and-test
         with:
           code-cov: ${{ secrets.CODECOV_TOKEN }}
-
+          java: ${{ env.JAVA_VERSION }}
 
   frontend-build-and-test:
     runs-on: ubuntu-latest
@@ -20,6 +24,7 @@ jobs:
       - uses: ./.github/actions/frontend-build-and-test
         with:
           frontend-directory: frontend/weather-ui
+          node: ${{ env.NODE_VERSION }}
 
   codeql-check:
     uses: ./.github/workflows/codeql.yml
