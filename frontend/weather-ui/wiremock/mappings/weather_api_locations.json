@@ -1,0 +1,15 @@
+{
+    "request": {
+        "method": "GET",
+        "urlPath": "/locations"
+    },
+    "response": {
+        "status": 200,
+        "bodyFileName": "locations_response.json",
+        "headers": {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization"
+        }
+    }
+}
