@@ -18,9 +18,9 @@ runs:
         cache-dependency-path: ${{ inputs.frontend-directory }}/package-lock.json
 
     - name: npm ci
-      shell: bash
       working-directory: ${{ inputs.frontend-directory }}
       run: npm ci
+      shell: bash
 
     - name: Cache Playwright Browsers
       uses: actions/cache@v4
@@ -35,10 +35,12 @@ runs:
       shell: bash
 
     - name: Start wiremock backend api
+      working-directory: ${{ inputs.frontend-directory }}
       run: docker compose up -d
       shell: bash
 
     - name: Run Playwright tests
+      working-directory: ${{ inputs.frontend-directory }}
       run: npm run e2e
       shell: bash
 
