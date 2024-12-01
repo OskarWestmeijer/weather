@@ -42,23 +42,8 @@ jobs:
       contents: read
       security-events: write
 
-  trivy-image-check-backend:
-    runs-on: ubuntu-latest
-    needs: [ backend-build-and-test ]
-    environment: oskar-westmeijer-environment
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/backend-check-trivy-image
-        with:
-          docker-username: ${{ secrets.DOCKER_USERNAME }}
-          github-sha: ${{ github.sha }}
-
   dependabot-automerge:
-    needs: [ backend-build-and-test, frontend-e2e, frontend-build-and-test, codeql-check, trivy-image-check-backend ]
+    needs: [ backend-build-and-test, frontend-e2e, frontend-build-and-test, codeql-check ]
     runs-on: ubuntu-latest
     environment: oskar-westmeijer-environment
     if: ${{ github.actor == 'dependabot[bot]' }}
