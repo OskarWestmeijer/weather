@@ -2,3 +2,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+    @apply h-screen m-0 bg-secondary;
+    /* Ensure full height and background color */
+}
+
+.main-comp {
+    @apply flex flex-col flex-1;
+}
+
+.footer-comp {
+    @apply mt-auto;
+    padding-bottom: 10px;
+}
+
+/* Show social links only on wider screens */
+@media (max-width: 700px) {
+    .mobile-hide {
+        display: none;
+    }
+}
