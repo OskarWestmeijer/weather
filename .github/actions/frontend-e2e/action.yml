@@ -23,7 +23,6 @@ runs:
       shell: bash
 
     - name: Cache Playwright Browsers
-      working-directory: ${{ inputs.frontend-directory }}
       uses: actions/cache@v4
       with:
         path: ~/.cache/ms-playwright
