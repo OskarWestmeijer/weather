@@ -23,6 +23,7 @@ runs:
       shell: bash
 
     - name: Cache Playwright Browsers
+      working-directory: ${{ inputs.frontend-directory }}
       uses: actions/cache@v4
       with:
         path: ~/.cache/ms-playwright
@@ -31,6 +32,7 @@ runs:
           playwright-browsers-${{ runner.os }}-
 
     - name: Install Playwright Browsers
+      working-directory: ${{ inputs.frontend-directory }}
       run: npx playwright install --with-deps
       shell: bash
 
