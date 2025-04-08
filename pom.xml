@@ -292,7 +292,7 @@
     <maven.compiler.plugin>3.14.0</maven.compiler.plugin>
     <org.mapstruct.version>1.6.3</org.mapstruct.version>
     <org.projectlombok.version>1.18.38</org.projectlombok.version>
-    <com.google.guava>33.4.0-jre</com.google.guava>
+    <com.google.guava>33.4.6-jre</com.google.guava>
     <liquibase.version>4.31.1</liquibase.version>
     <preliquibase.version>1.6.0</preliquibase.version>
     <commons.csv.version>1.14.0</commons.csv.version>
