@@ -305,7 +305,7 @@
     <springdoc.version>2.8.6</springdoc.version>
     <jackson-databind.version>0.2.6</jackson-databind.version>
     <!-- maven plugins -->
-    <maven.compiler.plugin>3.13.0</maven.compiler.plugin>
+    <maven.compiler.plugin>3.14.0</maven.compiler.plugin>
     <maven.failsafe.plugin>3.5.3</maven.failsafe.plugin>
     <surefire.report.plugin>3.5.2</surefire.report.plugin>
     <spring.boot.plugin>3.4.4</spring.boot.plugin>
