@@ -10,7 +10,8 @@ import { ChartType } from 'src/app/model/chart-type.enum';
 @Component({
     selector: 'app-details-page',
     templateUrl: './details-page.component.html',
-    styleUrls: ['./details-page.component.css']
+    styleUrls: ['./details-page.component.css'],
+    standalone: false
 })
 export class DetailsPageComponent implements OnInit {
     public locationList: Location[] = [];

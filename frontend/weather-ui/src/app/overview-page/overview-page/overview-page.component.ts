@@ -8,7 +8,8 @@ import { ApiHttpService } from 'src/app/service/api-http.service';
 @Component({
     selector: 'app-overview-page',
     templateUrl: './overview-page.component.html',
-    styleUrls: ['./overview-page.component.css']
+    styleUrls: ['./overview-page.component.css'],
+    standalone: false
 })
 export class OverviewPageComponent implements OnInit {
     public overviewLocations: OverviewLocation[] = [];

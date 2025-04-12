@@ -12,6 +12,8 @@ npm run test
 The serve command defaults to a development build.
 
 ```bash
+docker compose up -d
+
 npm run build:dev
 npm run dev
 ```
@@ -30,7 +32,7 @@ npm run prod
 
 ## e2e
 
-```
+```bash
 npm install
 npx playwright install --with-deps
 docker compose up -d
@@ -45,6 +47,19 @@ npx prettier -w .
 ```
 
 ## Updating dependencies
+
+### Updating Angular
+```
+# Print angular cli & projects angular versions
+npm run ng:version
+
+# Possibly install a new version. (optional) Update also installs new version.
+# adjust to correct version
+npm install -g @angular/cli@18
+
+# Update projects angular dependencies
+npm run ng:update
+```
 
 Use angular cli `npm install -g @angular/cli@18`. (adjust to required version)
 

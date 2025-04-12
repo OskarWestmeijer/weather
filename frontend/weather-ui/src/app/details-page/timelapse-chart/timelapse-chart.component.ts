@@ -6,7 +6,8 @@ import { ChartType } from 'src/app/model/chart-type.enum';
 @Component({
     selector: 'app-timelapse-chart',
     templateUrl: './timelapse-chart.component.html',
-    styleUrls: ['./timelapse-chart.component.css']
+    styleUrls: ['./timelapse-chart.component.css'],
+    standalone: false
 })
 export class TimelapseChartComponent implements OnInit, OnChanges {
     @Input({ required: true }) dataMap!: Map<ChartType, ChartData[]>;
