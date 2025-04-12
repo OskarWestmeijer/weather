@@ -49,7 +49,10 @@ npx prettier -w .
 ## Updating dependencies
 
 ### Updating Angular
-```
+
+This update tool gives helpful instructions, for major version upgrades https://angular.dev/update-guide.
+
+```bash
 # Print angular cli & projects angular versions
 npm run ng:version
 
@@ -61,11 +64,7 @@ npm install -g @angular/cli@18
 npm run ng:update
 ```
 
-Use angular cli `npm install -g @angular/cli@18`. (adjust to required version)
-
-```bash
-npm run ng:version
-```
+### Update other dependencies
 
 Use ncu to check on possible versions. `npm install -g npm-check-updates`
 
