@@ -1,7 +1,68 @@
 /* You can add global styles to this file, and also import other style files */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@plugin "daisyui";
+
+/* set theme in index.html: data-theme="customtheme" */
+@plugin "daisyui/theme" {
+    name: "customtheme";
+    default: true;
+    prefersdark: true;
+  
+    /* Base Colors */
+    --color-base-100: #ffffff;         /* oklch(98% 0.02 240) */
+    --color-base-content: #ffffff;     /* oklch(20% 0.05 240) */
+  
+    /* Primary light navy #112240*/
+    --color-primary: #112240;          /* oklch(55% 0.3 240) */
+    --color-primary-content: #112240;  /* oklch(98% 0.01 240) */
+  
+    /* Secondary lightest navy #233554*/
+    --color-secondary: #233554;        /* oklch(70% 0.25 200) */
+    --color-secondary-content: #233554;
+  
+    /* Accent */
+    --color-accent: #ffd200;           /* oklch(65% 0.25 160) */
+    --color-accent-content: #ffd200;
+    --color-accent-focus: #ffffff;
+  
+    /* Neutral */
+    --color-neutral: #191a3e;          /* oklch(50% 0.05 240) */
+    --color-neutral-content: #191a3e;
+  
+    /* Info */
+    --color-info: #cae2e8;             /* oklch(70% 0.2 220) */
+    --color-info-content: #cae2e8;
+  
+    /* Success */
+    --color-success: #dff2a1;          /* oklch(65% 0.25 140) */
+    --color-success-content: #dff2a1;
+  
+    /* Warning */
+    --color-warning: #f7e488;          /* oklch(80% 0.25 80) */
+    --color-warning-content: #f7e488;  /* oklch(20% 0.05 80) */
+  
+    /* Error */
+    --color-error: #f2b6b5;            /* oklch(65% 0.3 30) */
+    --color-error-content: #f2b6b5;
+  }
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 html,
 body {
