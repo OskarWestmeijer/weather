@@ -20,13 +20,6 @@ public class WeatherService {
 
   private final WeatherRepository weatherRepository;
 
-  public List<Weather> getWeather(Integer locationId, Instant from, Integer limit) {
-    requireNonNull(locationId, "locationId is required");
-    requireNonNull(from, "from is required");
-    requireNonNull(limit, "limit is required");
-    return weatherRepository.getWeather(locationId, from, limit);
-  }
-
   public WeatherFeedPage getWeatherFeedPage(Integer locationId, Instant from, Integer limit) {
     Instant fromTimestamp = Optional.ofNullable(from).orElse(Instant.EPOCH);
     int resultLimit = Optional.ofNullable(limit).orElse(1000);
