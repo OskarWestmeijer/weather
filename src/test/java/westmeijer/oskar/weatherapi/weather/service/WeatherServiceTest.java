@@ -28,35 +28,42 @@ public class WeatherServiceTest {
   private WeatherService weatherService;
 
   @Test
-  public void shouldGetWeather() {
-    var locationId = 10;
-    var from = mock(Instant.class);
-    var limit = 1000;
-    Weather expectedWeather = mock(Weather.class);
-    given(weatherRepository.getWeather(locationId, from, limit)).willReturn(List.of(expectedWeather));
+  void shouldReturnWeatherFeedPageWithDefaultsAndPagingDetails() {
+    // Given
+    Integer locationId = 10;
+    Instant from = null;
+    Integer limit = null;
 
-    List<Weather> actualWeather = weatherService.getWeather(locationId, from, limit);
-    then(actualWeather).isEqualTo(List.of(expectedWeather));
+    Instant defaultFrom = Instant.EPOCH;
+    int defaultLimit = 1000;
 
-    BDDMockito.then(weatherRepository).should().getWeather(locationId, from, limit);
-  }
+    Weather weather1 = mock(Weather.class);
+    Weather weather2 = mock(Weather.class);
 
-  @ParameterizedTest
-  @CsvSource({
-      "null, '2023-09-25T10:00:00Z', 10, 'locationId is required'",
-      "1, null, 10, 'from is required'",
-      "1, '2023-09-25T10:00:00Z', null, 'limit is required'"
-  })
-  void getWeatherThrowsNpe(String locationIdStr, String fromStr, String limitStr, String expectedMessage) {
-    var locationId = "null".equals(locationIdStr) ? null : Integer.valueOf(locationIdStr);
-    var from = "null".equals(fromStr) ? null : Instant.parse(fromStr);
-    var limit = "null".equals(limitStr) ? null : Integer.valueOf(limitStr);
+    given(weatherRepository.getWeather(locationId, defaultFrom, defaultLimit + 1))
+        .willReturn(List.of(weather1, weather2));
 
-    thenThrownBy(() -> weatherService.getWeather(locationId, from, limit))
-        .isInstanceOf(NullPointerException.class)
-        .hasMessageContaining(expectedMessage);
+    BDDMockito.willReturn(2)
+        .given(weatherRepository).getTotalCount(locationId, defaultFrom);
 
-    BDDMockito.then(weatherRepository).shouldHaveNoInteractions();
+    // When
+    var result = weatherService.getWeatherFeedPage(locationId, from, limit);
+
+    // Then
+    then(result).isNotNull();
+    then(result.weatherList()).hasSize(2);
+    then(result.weatherList()).containsExactly(weather1, weather2);
+
+    var paging = result.pagingDetails();
+    then(paging).isNotNull();
+    then(paging.totalRecords()).isEqualTo(2);
+    then(paging.pageRecords()).isEqualTo(2);
+    then(paging.hasNewerRecords()).isFalse();
+    then(paging.nextLink()).contains("locationId=10");
+    then(paging.nextLink()).contains("limit=" + defaultLimit);
+
+    BDDMockito.then(weatherRepository).should().getWeather(locationId, defaultFrom, defaultLimit + 1);
+    BDDMockito.then(weatherRepository).should().getTotalCount(locationId, defaultFrom);
   }
 
   @Test
