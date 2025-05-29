@@ -1,24 +1,45 @@
 services:
+  weather-db:
+    image: postgres:17.5-alpine3.21
+    container_name: weather-db
+    deploy:
+      resources:
+        limits:
+          memory: 500m
+        reservations:
+          memory: 500m
+    expose:
+      - "5432"
+    environment:
+      POSTGRES_USER: ${SPRING_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      POSTGRES_DB: weather
   weather-api:
     image: oskarwestmeijer/weather-api:latest
+    depends_on:
+      weather-db:
+        condition: service_started
     container_name: weather-api
     deploy:
       resources:
         limits:
-          memory: 2G
+          memory: 1G
         reservations:
-          memory: 2G
+          memory: 1G
     expose:
       - "8080"
     restart: always
     environment:
-      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
-      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
-      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
-      - OPENWEATHERAPI_APPID=${OPENWEATHERAPI_APPID}
-      - "SPRING_PROFILES_ACTIVE=prod"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://weather-db:5432/weather
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      OPENWEATHERAPI_APPID: ${OPENWEATHERAPI_APPID}
+      SPRING_PROFILES_ACTIVE: prod
   weather-ui:
     image: oskarwestmeijer/weather-ui:latest
+    depends_on:
+      weather-api:
+        condition: service_started
     container_name: weather-ui
     deploy:
       resources:

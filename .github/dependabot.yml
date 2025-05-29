@@ -9,11 +9,15 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-  - package-ecosystem: 'npm'
-    directory: '/frontend/weather-ui'
+  - package-ecosystem: "npm"
+    directory: "/frontend/weather-ui"
     schedule:
-      interval: 'daily'
+      interval: "daily"
   - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "docker-compose"
     directory: "/"
     schedule:
       interval: "daily"

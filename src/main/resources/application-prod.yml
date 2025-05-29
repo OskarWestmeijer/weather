@@ -2,6 +2,7 @@
 spring:
   config.activate.on-profile: prod
   datasource:
+    # values injected from cprod.yml
     url:
     username:
     password:
