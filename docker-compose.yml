@@ -14,7 +14,7 @@ services:
     volumes:
       - ./src/test/resources/wiremock/mappings:/home/wiremock/mappings
   prometheus:
-    image: prom/prometheus:v2.44.0
+    image: prom/prometheus:v3.4.0
     ports:
       - "9090:9090"
     volumes:
