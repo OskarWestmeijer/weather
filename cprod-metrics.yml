@@ -15,7 +15,7 @@ services:
       - '--storage.tsdb.retention.time=6h'
       - '--storage.tsdb.retention.size=200MB'
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus-prod.yml:/etc/prometheus/prometheus.yml
   grafana:
     image: grafana/grafana-oss:12.1.0
     container_name: grafana
