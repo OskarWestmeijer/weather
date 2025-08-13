@@ -12,7 +12,7 @@ services:
       - "9090:9090"
     command:
       - '--config.file=/etc/prometheus/prometheus-prod.yml'
-      - '--web.external-url=/prometheus'
+      - '--web.external-url=https://grafana.oskar-westmeijer.com/prometheus'
       - '--storage.tsdb.retention.time=6h'
       - '--storage.tsdb.retention.size=200MB'
     volumes:
