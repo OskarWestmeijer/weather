@@ -1,30 +1,30 @@
 services:
-  database:
-    image: postgres:17.5-alpine3.21
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: username1
-      POSTGRES_PASSWORD: password1
-      POSTGRES_DB: weather
-  wiremock:
-    image: wiremock/wiremock:3.13.1
-    ports:
-      - "9000:8080"
-    volumes:
-      - ./src/test/resources/wiremock/mappings:/home/wiremock/mappings
   prometheus:
     image: prom/prometheus:v3.5.0
+    container_name: prometheus
+    deploy:
+      resources:
+        limits:
+          memory: 500m
+        reservations:
+          memory: 500m
     ports:
       - "9090:9090"
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--config.file=/etc/prometheus/prometheus-prod.yml'
       - '--storage.tsdb.retention.time=6h'
       - '--storage.tsdb.retention.size=200MB'
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
   grafana:
     image: grafana/grafana-oss:12.1.0
+    container_name: grafana
+    deploy:
+      resources:
+        limits:
+          memory: 300m
+        reservations:
+          memory: 300m
     ports:
       - "3000:3000"
     volumes:
@@ -35,3 +35,7 @@ services:
       - GF_SECURITY_ADMIN_USER=${GRAFANA_USERNAME}
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
       - GF_USERS_ALLOW_SIGN_UP=false
+networks:
+  default:
+    name: proxy
+    external: true
