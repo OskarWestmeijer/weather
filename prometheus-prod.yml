@@ -12,3 +12,7 @@ scrape_configs:
       - targets: [ 'localhost:9090' ]
         labels:
           application: "prometheus"
+
+  - job_name: 'node'
+    static_configs:
+      - targets: [ 'node-exporter:9100' ]
