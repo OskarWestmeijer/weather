@@ -14,5 +14,6 @@ scrape_configs:
           application: "prometheus"
 
   - job_name: 'node'
+    scrape_interval: 60s
     static_configs:
       - targets: [ 'node-exporter:9100' ]
