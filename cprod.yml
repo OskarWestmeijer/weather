@@ -10,10 +10,13 @@ services:
           memory: 500m
     expose:
       - "5432"
+    volumes:
+      - weather_postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${SPRING_DATASOURCE_USERNAME}
       POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       POSTGRES_DB: weather
+
   weather-api:
     image: oskarwestmeijer/weather-api:latest
     depends_on:
@@ -52,6 +55,10 @@ services:
     restart: always
     volumes:
       - ./frontend/weather-ui/nginx/conf.d/:/etc/nginx/conf.d/:ro
+
+volumes:
+  weather_postgres_data:
+
 networks:
   default:
     name: proxy
