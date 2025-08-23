@@ -3,29 +3,25 @@
 
   <appender name="weather-api-logs" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <Pattern>%d{dd-MM-yyyy HH:mm:ss} %blue(%-5level) [%thread] %boldCyan(%logger{36}) - %msg %n
-      </Pattern>
+      <Pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg %n</Pattern>
     </encoder>
   </appender>
 
   <appender name="hikari-logs" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <Pattern>%d{dd-MM-yyyy HH:mm:ss} %blue(%-5level) [%thread] %yellow(%logger{36}) - %msg %n
-      </Pattern>
+      <Pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg %n</Pattern>
     </encoder>
   </appender>
 
   <appender name="hibernate-logs" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <Pattern>%d{dd-MM-yyyy HH:mm:ss} %blue(%-5level) [%thread] %green(%logger{36}) - %msg %n
-      </Pattern>
+      <Pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg %n</Pattern>
     </encoder>
   </appender>
 
   <appender name="other-logs" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <Pattern>%d{dd-MM-yyyy HH:mm:ss} %blue(%-5level) [%thread] %magenta(%logger{36}) - %msg %n
-      </Pattern>
+      <Pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg %n</Pattern>
     </encoder>
   </appender>
 
