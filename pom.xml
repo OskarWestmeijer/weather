@@ -306,7 +306,7 @@
     <jackson-databind.version>0.2.7</jackson-databind.version>
     <!-- maven plugins -->
     <maven.compiler.plugin>3.14.0</maven.compiler.plugin>
-    <maven.failsafe.plugin>3.5.3</maven.failsafe.plugin>
+    <maven.failsafe.plugin>3.5.4</maven.failsafe.plugin>
     <surefire.report.plugin>3.5.3</surefire.report.plugin>
     <spring.boot.plugin>3.5.5</spring.boot.plugin>
     <jacoco.version>0.8.13</jacoco.version>
