@@ -298,7 +298,7 @@
     <commons.csv.version>1.14.1</commons.csv.version>
     <commons.lang3.version>3.18.0</commons.lang3.version>
     <testcontainers.version>1.21.3</testcontainers.version>
-    <assertj.version>3.27.4</assertj.version>
+    <assertj.version>3.27.5</assertj.version>
     <postgresql.version>42.7.7</postgresql.version>
     <prometheus.version>1.15.4</prometheus.version>
     <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
