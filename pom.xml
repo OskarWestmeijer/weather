@@ -289,7 +289,7 @@
   <properties>
     <java.version>21</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.plugin>3.14.0</maven.compiler.plugin>
+    <maven.compiler.plugin>3.14.1</maven.compiler.plugin>
     <org.mapstruct.version>1.6.3</org.mapstruct.version>
     <org.projectlombok.version>1.18.42</org.projectlombok.version>
     <com.google.guava>33.5.0-jre</com.google.guava>
