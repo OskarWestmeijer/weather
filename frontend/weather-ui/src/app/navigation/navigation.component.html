@@ -1,18 +1,49 @@
 <!-- Navbar -->
 <div class="navbar bg-secondary text-white shadow-sm">
+    <!-- START: left side - hamburger (mobile) + brand (desktop) -->
     <div class="navbar-start">
-        <div class="mobile-hide">
-            <a href="https://weather.oskar-westmeijer.com" class="btn rounded-lg text-lg font-bold btn-ghost">⛅
-                Weather</a>
+        <!-- Hamburger menu: mobile only -->
+        <div class="dropdown lg:hidden">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle" aria-label="Open menu">
+                ☰
+            </div>
+            <ul class="menu menu-lg dropdown-content bg-base-100 rounded-box z-50 mt-3 w-56 p-2 shadow text-black">
+                <li><a [routerLink]="['/']">📍 Overview</a></li>
+                <li><a [routerLink]="['/details']">📈 Details</a></li>
+                <li>
+                    <a href="https://github.com/OskarWestmeijer/weather" target="_blank" rel="noopener noreferrer">
+                        <img alt="Github logo" class="size-4 inline" src="assets/images/github.svg" /> Project on Github
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Desktop: brand link on left -->
+        <div class="hidden lg:flex">
+            <a href="https://weather.oskar-westmeijer.com" class="btn btn-ghost rounded-lg text-lg font-bold">
+                ⛅ Weather
+            </a>
         </div>
     </div>
+
+    <!-- CENTER: nav links (desktop) and brand (mobile) -->
     <div class="navbar-center">
-        <a [routerLink]="['/']" class="btn text-lg btn-ghost">📍 Overview</a>
-        <a [routerLink]="['/details']" class="btn text-lg btn-ghost">📈 Details</a>
+        <!-- Mobile: central brand -->
+        <a href="https://weather.oskar-westmeijer.com" class="btn btn-ghost rounded-lg text-lg font-bold lg:hidden">
+            ⛅ Weather
+        </a>
+
+        <!-- Desktop: center navigation links -->
+        <div class="hidden lg:flex gap-2">
+            <a [routerLink]="['/']" class="btn btn-ghost text-lg">📍 Overview</a>
+            <a [routerLink]="['/details']" class="btn btn-ghost text-lg">📈 Details</a>
+        </div>
     </div>
+
+    <!-- END: right side - Github button only on desktop -->
     <div class="navbar-end">
-        <div class="mobile-hide">
-            <a href="https://github.com/OskarWestmeijer/weather"
+        <div class="hidden lg:flex">
+            <a href="https://github.com/OskarWestmeijer/weather" target="_blank" rel="noopener noreferrer"
                 aria-label="Oskar Westmeijer Github weather repository">
                 <button class="btn rounded-lg">
                     <img alt="Github logo" class="size-6" src="assets/images/github.svg" />
