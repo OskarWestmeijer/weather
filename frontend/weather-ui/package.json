@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "engines": {
     "npm": ">=10.9.0 <11.0.0",
-    "node": ">=22.11.0 <23.0.0"
+    "node": ">=22.19.0 <23.0.0"
   },
   "scripts": {
     "ng:version": "ng version",
@@ -35,17 +35,17 @@
     "zone.js": "^0.15.1"
   },
   "devDependencies": {
-    "@angular-eslint/builder": "19.8.1",
-    "@angular-eslint/eslint-plugin": "19.8.1",
-    "@angular-eslint/eslint-plugin-template": "19.8.1",
-    "@angular-eslint/schematics": "19.8.1",
-    "@angular-eslint/template-parser": "19.8.1",
+    "@angular-eslint/builder": "20.3.0",
+    "@angular-eslint/eslint-plugin": "20.3.0",
+    "@angular-eslint/eslint-plugin-template": "20.3.0",
+    "@angular-eslint/schematics": "20.3.0",
+    "@angular-eslint/template-parser": "20.3.0",
     "@angular/build": "^20.3.3",
     "@angular/cli": "^20.3.3",
     "@angular/compiler-cli": "^20.3.2",
     "@playwright/test": "^1.55.1",
     "@types/jasmine": "~5.1.9",
-    "@types/node": "^22.18.6",
+    "@types/node": "^24.5.2",
     "@typescript-eslint/eslint-plugin": "8.44.1",
     "@typescript-eslint/parser": "8.44.1",
     "autoprefixer": "^10.4.21",
