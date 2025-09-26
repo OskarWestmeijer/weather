@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Chart, TooltipItem } from 'chart.js/auto';
+import { Chart } from 'chart.js/auto';
 import { ChartData } from 'src/app/model/chart-data.model';
 import { ChartType } from 'src/app/model/chart-type.enum';
 
@@ -14,8 +14,6 @@ export class TimelapseChartComponent implements OnInit, OnChanges {
     @Input({ required: true }) chartType!: ChartType;
 
     public chart!: Chart;
-    private colorBlack = 'black';
-    private colorOrange = 'rgba(255, 159, 64, 1)';
 
     public ngOnInit(): void {
         this.createChart();
@@ -63,7 +61,7 @@ export class TimelapseChartComponent implements OnInit, OnChanges {
             },
             options: {
                 responsive: true,
-                aspectRatio: 2.7,
+                maintainAspectRatio: false,
                 scales: {
                     y: {
                         type: 'linear',
