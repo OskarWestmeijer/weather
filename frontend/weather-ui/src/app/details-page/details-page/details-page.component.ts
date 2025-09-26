@@ -6,7 +6,7 @@ import { WeatherResponse } from 'src/app/model/weather-response.model';
 import { ChartData } from 'src/app/model/chart-data.model';
 import { DetailsService } from 'src/app/service/details.service';
 import { ChartType } from 'src/app/model/chart-type.enum';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-details-page',

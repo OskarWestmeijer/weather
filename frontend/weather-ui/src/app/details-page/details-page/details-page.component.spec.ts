@@ -8,16 +8,24 @@ import { ChartData } from 'src/app/model/chart-data.model';
 import { ChartType } from 'src/app/model/chart-type.enum';
 import { expectedLocationsResponse } from 'src/mock-api-responses/locations-response';
 import { expectedHelsinkiWeatherResponse } from 'src/mock-api-responses/weather-response';
+import { ActivatedRoute } from '@angular/router';
+import { convertToParamMap } from '@angular/router';
 
 describe('DetailsPageComponent', () => {
     let chartsComponent: DetailsPageComponent;
     let apiHttpServiceSpy: jasmine.SpyObj<ApiHttpService>;
     let weatherServiceSpy: jasmine.SpyObj<DetailsService>;
+    let activatedRouteSpy: jasmine.SpyObj<ActivatedRoute>;
 
     beforeEach(() => {
         apiHttpServiceSpy = jasmine.createSpyObj('ApiHttpService', ['requestLocations', 'requestWeather']);
         weatherServiceSpy = jasmine.createSpyObj('WeatherService', ['toChartDataMap']);
-        chartsComponent = new DetailsPageComponent(apiHttpServiceSpy, weatherServiceSpy);
+
+        activatedRouteSpy = {
+            queryParamMap: of(convertToParamMap({ locationId: '1' }))
+        } as any;
+
+        chartsComponent = new DetailsPageComponent(apiHttpServiceSpy, weatherServiceSpy, activatedRouteSpy);
     });
 
     it('should create component with locations and weather', () => {
