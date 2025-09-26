@@ -11,11 +11,9 @@ import { ChartType } from 'src/app/model/chart-type.enum';
 })
 export class TimelapseChartComponent implements OnInit, OnChanges {
     @Input({ required: true }) dataMap!: Map<ChartType, ChartData[]>;
-    @Input({ required: true }) chartType?: ChartType;
+    @Input({ required: true }) chartType!: ChartType;
 
     public chart!: Chart;
-    private colorWhite = 'white';
-    private colorOrange = 'rgba(255, 159, 64, 1)';
 
     public ngOnInit(): void {
         this.createChart();
@@ -35,50 +33,95 @@ export class TimelapseChartComponent implements OnInit, OnChanges {
     }
 
     private createChartConfig(): any {
+        const windData = this.dataMap.get(ChartType.WIND_SPEED)?.map((item) => item.data) || [];
+        const timeLabels = this.dataMap.get(ChartType.TEMPERATURE)?.map((item) => item.recordedAt) || [];
+
         return {
             data: {
-                labels: this.dataMap.get(ChartType.TEMPERATURE)?.map((item) => item.recordedAt),
+                labels: timeLabels,
                 datasets: [
                     {
                         type: 'line',
-                        label: ChartType.TEMPERATURE,
+                        label: 'Temperature',
                         data: this.dataMap.get(ChartType.TEMPERATURE)?.map((item) => item.data),
-                        backgroundColor: this.colorOrange,
-                        borderColor: this.colorOrange,
-                        tension: 0.25
+                        borderColor: 'rgba(255, 159, 64, 1)', // orange
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        tension: 0.3,
+                        yAxisID: 'y'
+                    },
+                    {
+                        type: 'bar',
+                        label: 'Humidity',
+                        data: this.dataMap.get(ChartType.HUMIDITY)?.map((item) => item.data),
+                        backgroundColor: 'rgba(54, 162, 235, 0.4)', // blue bars
+                        borderWidth: 0,
+                        yAxisID: 'y1'
                     }
                 ]
             },
             options: {
-                datasets: {
-                    line: {
-                        borderWidth: 5
-                    }
-                },
-                aspectRatio: 2.7,
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
-                    x: {
-                        border: {
-                            color: this.colorWhite
-                        },
-                        ticks: {
-                            color: this.colorWhite
-                        }
-                    },
                     y: {
-                        beginAtZero: true,
+                        type: 'linear',
+                        position: 'left',
                         ticks: {
-                            color: this.colorWhite
+                            color: 'black',
+                            callback: (val: number) => `${val}°C`
                         },
-                        border: {
-                            color: this.colorWhite
-                        }
+                        title: {
+                            display: true,
+                            text: 'Temperature (°C)',
+                            color: 'black'
+                        },
+                        grid: { display: false } // remove background grid
+                    },
+                    y1: {
+                        type: 'linear',
+                        position: 'right',
+                        ticks: { color: 'black' },
+                        min: 0,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Humidity (%)',
+                            color: 'black'
+                        },
+                        grid: { drawOnChartArea: false }
+                    },
+                    x: {
+                        position: 'bottom',
+                        offset: true,
+                        ticks: {
+                            color: 'black',
+                            callback: (_val: any, index: number) => `${windData[index] ?? ''} km/h`
+                        },
+                        grid: { display: false }
+                    },
+                    xTop: {
+                        position: 'top',
+                        offset: true,
+                        ticks: {
+                            color: 'black',
+                            callback: (_val: any, index: number) => {
+                                return timeLabels[index]; // already formatted as HH:00 or day label
+                            }
+                        },
+                        grid: { display: false }
                     }
                 },
                 plugins: {
                     legend: {
-                        labels: {
-                            color: this.colorWhite
+                        labels: { color: 'black' },
+                        onClick: () => {} // disables toggle
+                    },
+                    tooltip: {
+                        callbacks: {
+                            afterBody: (tooltipItems: import('chart.js').TooltipItem<'line'>[]) => {
+                                const index = tooltipItems[0].dataIndex;
+                                return `Wind: ${windData[index]} km/h`;
+                            }
                         }
                     }
                 }

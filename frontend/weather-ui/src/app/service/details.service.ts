@@ -14,7 +14,14 @@ export class DetailsService {
      */
     public toChartDataMap(weatherData: Weather[]): Map<ChartType, ChartData[]> {
         const hourlyWeather: Map<string, Weather[]> = this.groupByHour(weatherData);
-        return this.calcHourlyMeanByType(hourlyWeather);
+        const chartDataMap = this.calcHourlyMeanByType(hourlyWeather);
+
+        // Reverse each ChartType array so latest hour comes first
+        chartDataMap.forEach((arr, chartType) => {
+            chartDataMap.set(chartType, arr.reverse());
+        });
+
+        return chartDataMap;
     }
 
     /**
@@ -61,12 +68,18 @@ export class DetailsService {
      * @returns
      */
     private toChartData(hour: string, propertySum: number, propertyCount: number): ChartData {
-        let timeLabel = hour.slice(11, 13).concat(':00');
+        // hour = "2025-09-26T19" (ISO string truncated to hour)
+        const dateObj = new Date(hour + ':00:00Z'); // make a valid UTC Date
+        const hours = dateObj.getUTCHours().toString().padStart(2, '0');
+        const minutes = '00';
 
-        if (timeLabel === '00:00') {
-            const day = hour.slice(8, 10);
-            const month = Intl.DateTimeFormat('en', { month: 'short' }).format(new Date(hour.slice(5, 7)));
-            timeLabel = month.concat(' ').concat(day);
+        let timeLabel = `${hours}:${minutes}`;
+
+        // Add date every 6 hours (00, 06, 12, 18)
+        if (dateObj.getUTCHours() % 6 === 0) {
+            const day = dateObj.getUTCDate().toString().padStart(2, '0');
+            const month = Intl.DateTimeFormat('en', { month: 'short', timeZone: 'UTC' }).format(dateObj);
+            timeLabel = `${hours}:${minutes} ${month} ${day}`;
         }
 
         const propertyMeanAsLabel = (propertySum / propertyCount).toFixed(0).toString();

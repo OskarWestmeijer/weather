@@ -1,15 +1,31 @@
 import { test, expect } from '@playwright/test';
 
-test('navigation links and canvas test', async ({ page }) => {
-    // Navigate to the page
-    await page.goto('./');
+test('overview page location tiles display correct data', async ({ page }) => {
+    await page.goto('/');
 
-    // Verify that the canvas element with the ID "OverviewChart" is present
-    const canvas = await page.locator('#OverviewChart');
-    await expect(canvas).toBeVisible();
+    const firstCard = page.locator('a.block .card').first();
 
-    const box = await canvas.boundingBox();
-    expect(box).not.toBeNull();
-    expect(box?.width).toBeGreaterThan(0);
-    expect(box?.height).toBeGreaterThan(0);
+    // City
+    const cityName = firstCard.locator('div.text-xl.font-bold');
+    await expect(cityName).toHaveText(/Kangasala/);
+
+    // Temperature
+    const temperature = firstCard.locator('div.mt-3.text-5xl');
+    await expect(temperature).toHaveText('-5°C');
+
+    // Humidity
+    const humidity = firstCard.locator('div.mt-4 div.flex-col:has(span:text-is("Humidity")) span').nth(1);
+    await expect(humidity).toHaveText('95%');
+
+    // Wind
+    const wind = firstCard.locator('div.mt-4 div.flex-col:has(span:text-is("Wind")) span').nth(1);
+    await expect(wind).toHaveText('3.08 km/h');
+
+    // Timestamp
+    const timestamp = firstCard.locator('div.mt-4.text-xs');
+    await expect(timestamp).toHaveText(/23\.11\.24, 17:32 UTC/);
+
+    // Click and verify navigation
+    await firstCard.click();
+    await expect(page).toHaveURL(/\/details\?locationId=\d+/);
 });

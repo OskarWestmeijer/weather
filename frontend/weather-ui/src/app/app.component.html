@@ -1,11 +1,11 @@
-<div class="flex flex-col h-screen">
-<div class="main-comp">
+<div class="flex min-h-screen flex-col bg-base-100">
     <app-navigation [title]="title"></app-navigation>
 
-    <router-outlet></router-outlet>
+    <main class="flex-grow">
+        <router-outlet></router-outlet>
+    </main>
 
-</div>
-<div class="footer-comp">
-    <app-footer></app-footer>
-</div>
+    <div class="footer-comp">
+        <app-footer></app-footer>
+    </div>
 </div>

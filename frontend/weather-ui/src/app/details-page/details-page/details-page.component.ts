@@ -6,6 +6,7 @@ import { WeatherResponse } from 'src/app/model/weather-response.model';
 import { ChartData } from 'src/app/model/chart-data.model';
 import { DetailsService } from 'src/app/service/details.service';
 import { ChartType } from 'src/app/model/chart-type.enum';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-details-page',
@@ -23,23 +24,34 @@ export class DetailsPageComponent implements OnInit {
 
     constructor(
         private apiHttpService: ApiHttpService,
-        private weatherService: DetailsService
+        private weatherService: DetailsService,
+        private route: ActivatedRoute
     ) {}
 
-    public ngOnInit() {
-        this.requestLocations();
+    ngOnInit() {
+        this.route.queryParamMap.subscribe((params) => {
+            const locationIdStr = params.get('locationId');
+            const locationId = locationIdStr ? +locationIdStr : undefined;
+            console.log('LocationId from queryParam:', locationId);
+            this.requestLocations(locationId);
+        });
     }
 
     public onSelectChange(selectedLocation: Location): void {
         this.requestWeather(selectedLocation);
     }
 
-    private requestLocations(): void {
+    private requestLocations(preselectId?: number): void {
         this.apiHttpService.requestLocations().subscribe((locationsResponse: LocationsResponse) => {
-            if (locationsResponse != undefined) {
+            if (locationsResponse) {
                 this.locationList = locationsResponse.locations;
-                this.selectedLocation = this.locationList[0];
-                this.requestWeather(this.selectedLocation);
+                // Preselect if param exists, otherwise first location
+                this.selectedLocation = preselectId
+                    ? this.locationList.find((loc) => loc.locationId === preselectId)
+                    : this.locationList[0];
+                if (this.selectedLocation) {
+                    this.requestWeather(this.selectedLocation);
+                }
             }
         });
     }
