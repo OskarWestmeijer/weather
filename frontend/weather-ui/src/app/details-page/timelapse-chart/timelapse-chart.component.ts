@@ -83,6 +83,8 @@ export class TimelapseChartComponent implements OnInit, OnChanges {
                         type: 'linear',
                         position: 'right',
                         ticks: { color: 'black' },
+                        min: 0,
+                        max: 100,
                         title: {
                             display: true,
                             text: 'Humidity (%)',
