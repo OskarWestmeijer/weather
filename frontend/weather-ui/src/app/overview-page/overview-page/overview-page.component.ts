@@ -19,7 +19,7 @@ export class OverviewPageComponent implements OnInit {
     private PHONE_WIDTH_BREAKPOINT: number = 500;
     private FONT_SIZE: number = 25;
 
-    private colorWhite = 'white';
+    private colorWhite = 'black';
     // daisy ui colors copied
     private colorDaisyUiAccent = '#64ffda';
     private colorDaisyUiPrimary = '#112240';
@@ -36,15 +36,15 @@ export class OverviewPageComponent implements OnInit {
 
             if (windowWidth < this.TABLET_WIDTH_BREAKPOINT && windowWidth > this.PHONE_WIDTH_BREAKPOINT) {
                 // tablet
-                console.log('tablet');
+                console.log('screen: tablet');
                 this.FONT_SIZE = 15;
             } else if (windowWidth < this.PHONE_WIDTH_BREAKPOINT) {
                 // mobile phone
-                console.log('phone');
+                console.log('screen: phone');
                 this.FONT_SIZE = 10;
             } else {
                 // regular
-                console.log('regular');
+                console.log('screen: regular desktop');
                 this.FONT_SIZE = 15;
             }
 
