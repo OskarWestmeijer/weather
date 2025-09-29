@@ -51,7 +51,7 @@
     "autoprefixer": "^10.4.21",
     "daisyui": "^5.1.23",
     "eslint": "^9.36.0",
-    "jasmine-core": "~5.10.0",
+    "jasmine-core": "~5.11.0",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.1",
