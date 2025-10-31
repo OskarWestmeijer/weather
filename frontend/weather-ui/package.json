@@ -27,7 +27,7 @@
     "@angular/forms": "^20.3.2",
     "@angular/platform-browser": "^20.3.2",
     "@angular/platform-browser-dynamic": "^20.3.2",
-    "@angular/router": "^20.3.2",
+    "@angular/router": "^20.3.9",
     "@tailwindcss/postcss": "^4.1.13",
     "chart.js": "^4.5.0",
     "rxjs": "~7.8.2",
