@@ -1,6 +1,6 @@
 services:
   weather-db:
-    image: postgres:17.5-alpine3.21
+    image: postgres:18.1-alpine3.21
     container_name: weather-db
     deploy:
       resources:

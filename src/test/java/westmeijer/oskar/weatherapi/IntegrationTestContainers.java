@@ -23,13 +23,13 @@ import org.testcontainers.utility.DockerImageName;
 public abstract class IntegrationTestContainers {
 
   @Container
-  private static final GenericContainer<?> DATABASE = new PostgreSQLContainer<>(DockerImageName.parse("postgres:17.5-alpine3.21"))
+  private static final GenericContainer<?> DATABASE = new PostgreSQLContainer<>(DockerImageName.parse("postgres:18.1-alpine3.21"))
       .withUsername("username1")
       .withPassword("password1")
       .withDatabaseName("weather");
 
   @Container
-  private static final GenericContainer<?> OPEN_WEATHER_API = new GenericContainer<>(DockerImageName.parse("wiremock/wiremock:3.3.1"))
+  private static final GenericContainer<?> OPEN_WEATHER_API = new GenericContainer<>(DockerImageName.parse("wiremock/wiremock:3.13.2"))
       .withClasspathResourceMapping("wiremock/mappings",
           "/home/wiremock/mappings",
           BindMode.READ_ONLY)
