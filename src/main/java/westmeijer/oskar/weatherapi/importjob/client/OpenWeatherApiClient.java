@@ -11,7 +11,6 @@ import westmeijer.oskar.weatherapi.importjob.exception.OpenWeatherApiRequestExce
 import westmeijer.oskar.weatherapi.location.service.model.Location;
 import westmeijer.oskar.weatherapi.openapi.client.api.GeneratedOpenWeatherApi;
 import westmeijer.oskar.weatherapi.openapi.client.model.GeneratedOpenWeatherApiResponse;
-import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 @Component
 @Slf4j
@@ -37,7 +36,7 @@ public class OpenWeatherApiClient {
       requireNonNull(location, "location is required");
 
       ResponseEntity<GeneratedOpenWeatherApiResponse> response = generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(
-          location.latitude(), location.longitude(), "metric", appId).block();
+          location.latitude(), location.longitude(), "metric", appId);
 
       requireNonNull(response, "response is required");
       GeneratedOpenWeatherApiResponse body = requireNonNull(response.getBody(), "body is required");

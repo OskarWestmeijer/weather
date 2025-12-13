@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class WeatherApiApplicationTests extends IntegrationTestContainers {
+public class WeatherApiApplicationIT extends IntegrationTestContainers {
 
   @Test
   void contextLoads() {

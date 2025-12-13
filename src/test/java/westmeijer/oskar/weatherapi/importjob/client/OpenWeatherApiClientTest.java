@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
-import reactor.core.publisher.Mono;
 import westmeijer.oskar.weatherapi.importjob.client.mapper.OpenWeatherApiMapper;
 import westmeijer.oskar.weatherapi.importjob.exception.OpenWeatherApiRequestException;
 import westmeijer.oskar.weatherapi.location.service.model.Location;
@@ -37,14 +36,12 @@ public class OpenWeatherApiClientTest {
   public void shouldRequestWeather() {
     Location requestLocation = mock(Location.class);
 
-    Mono<ResponseEntity<GeneratedOpenWeatherApiResponse>> apiResponseMono = mock(Mono.class);
     ResponseEntity<GeneratedOpenWeatherApiResponse> apiResponseEntity = mock(ResponseEntity.class);
     GeneratedOpenWeatherApiResponse apiResponse = mock(GeneratedOpenWeatherApiResponse.class);
     Location expectedLocation = mock(Location.class);
 
     given(generatedOpenWeatherApi.getCurrentWeatherWithHttpInfo(requestLocation.latitude(),
-        requestLocation.longitude(), "metric", appId)).willReturn(apiResponseMono);
-    given(apiResponseMono.block()).willReturn(apiResponseEntity);
+        requestLocation.longitude(), "metric", appId)).willReturn(apiResponseEntity);
     given(apiResponseEntity.getBody()).willReturn(apiResponse);
     given(openWeatherApiMapper.mapToLocation(apiResponse, requestLocation)).willReturn(expectedLocation);
 

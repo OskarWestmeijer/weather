@@ -15,7 +15,7 @@ import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class WeatherJpaRepositoryTest extends IntegrationTestContainers {
+public class WeatherJpaRepositoryIT extends IntegrationTestContainers {
 
   @Autowired
   private WeatherJpaRepository weatherJpaRepository;

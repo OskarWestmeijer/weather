@@ -23,7 +23,7 @@ import org.testcontainers.utility.DockerImageName;
 public abstract class IntegrationTestContainers {
 
   @Container
-  private static final GenericContainer<?> DATABASE = new PostgreSQLContainer<>(DockerImageName.parse("postgres:16.0"))
+  private static final GenericContainer<?> DATABASE = new PostgreSQLContainer<>(DockerImageName.parse("postgres:17.5-alpine3.21"))
       .withUsername("username1")
       .withPassword("password1")
       .withDatabaseName("weather");
