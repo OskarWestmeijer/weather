@@ -10,7 +10,7 @@ import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 public interface WeatherJpaRepository extends JpaRepository<WeatherEntity, UUID> {
 
   @Query(value = """
-      SELECT * FROM weather.weather
+      SELECT * FROM weather
       WHERE location_id = :locationId
       AND recorded_at >= :from
       ORDER BY recorded_at ASC
@@ -20,7 +20,7 @@ public interface WeatherJpaRepository extends JpaRepository<WeatherEntity, UUID>
 
   @Query(value = """
       SELECT COUNT(*)
-      FROM weather.weather
+      FROM weather
       WHERE location_id = :locationId
       AND recorded_at >= :from
       """, nativeQuery = true)

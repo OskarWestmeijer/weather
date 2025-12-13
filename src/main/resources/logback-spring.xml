@@ -1,44 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-  <appender name="weather-api-logs" class="ch.qos.logback.core.ConsoleAppender">
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <Pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg %n</Pattern>
-    </encoder>
-  </appender>
-
-  <appender name="hikari-logs" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <Pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg %n</Pattern>
-    </encoder>
-  </appender>
-
-  <appender name="hibernate-logs" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <Pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg %n</Pattern>
-    </encoder>
-  </appender>
-
-  <appender name="other-logs" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <Pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg %n</Pattern>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n</pattern>
     </encoder>
   </appender>
 
   <root level="info">
-    <appender-ref ref="other-logs"/>
+    <appender-ref ref="CONSOLE"/>
   </root>
 
-  <logger name="westmeijer.oskar" level="info" additivity="false">
-    <appender-ref ref="weather-api-logs"/>
-  </logger>
-
-  <logger name="com.zaxxer.hikari" level="info" additivity="false">
-    <appender-ref ref="hikari-logs"/>
-  </logger>
-
-  <logger name="org.hibernate.SQL" level="info" additivity="false">
-    <appender-ref ref="hibernate-logs"/>
-  </logger>
+  <!-- Custom logger levels -->
+  <logger name="westmeijer.oskar" level="info"/>
+  <logger name="com.zaxxer.hikari" level="info"/>
+  <logger name="org.hibernate.SQL" level="info"/>
 
 </configuration>

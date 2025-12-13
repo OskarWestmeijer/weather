@@ -15,7 +15,6 @@ spring:
       ddl-auto: none
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.xml
-    default-schema: weather
 springdoc:
   api-docs:
     enabled: false

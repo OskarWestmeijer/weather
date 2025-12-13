@@ -1,4 +1,3 @@
-
 create table location (
     local_zip_code varchar(255) PRIMARY KEY,
     location_code varchar(255) NOT NULL,
