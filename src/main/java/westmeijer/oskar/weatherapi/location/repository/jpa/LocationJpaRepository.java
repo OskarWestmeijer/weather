@@ -18,7 +18,7 @@ public interface LocationJpaRepository extends JpaRepository<LocationEntity, Str
   Optional<LocationEntity> getById(@Param("location_id") Integer locationId);
 
   @Query(value = """
-      SELECT * FROM weather.location
+      SELECT * FROM location
       ORDER BY last_import_at ASC LIMIT 1""", nativeQuery = true)
   LocationEntity getNextImportLocation();
 

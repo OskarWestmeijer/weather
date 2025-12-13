@@ -95,7 +95,7 @@ paths:
 
   /weather:
     get:
-      summary: Get weather feed for location
+      summary: Get weather feed for location by timestamp
       operationId: getWeatherFeedForLocation
       tags:
         - weather_resource
@@ -136,13 +136,13 @@ paths:
 
   /overview:
     get:
-      summary: Get all locations enriched with current weather data
+      summary: Get all locations enriched with latest weather data
       operationId: getOverview
       tags:
         - overview_resource
       responses:
         '200':
-          description: Get all locations enriched with current weather data
+          description: Get all locations enriched with latest weather data
           content:
             application/json:
               schema:

@@ -61,10 +61,6 @@ Jacoco code coverage report generated as part of the test verify.
 ./mvnw clean verify
 ```
 
-### checkstyle
-
-TODO: clarify
-
 ## OpenApi Generator
 
 This project uses OpenApi code-generator. The Server interface, client and model classes are generated from OpenApi specification files.

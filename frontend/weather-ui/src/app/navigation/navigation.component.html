@@ -10,6 +10,7 @@
             <ul class="menu menu-lg dropdown-content bg-base-100 rounded-box z-50 mt-3 w-56 p-2 shadow text-black">
                 <li><a [routerLink]="['/']">📍 Overview</a></li>
                 <li><a [routerLink]="['/details']">📈 Details</a></li>
+                <li><a href="https://api.weather.oskar-westmeijer.com" target="_blank" rel="noopener noreferrer">🚀 API-doc</a></li>
                 <li>
                     <a href="https://github.com/OskarWestmeijer/weather" target="_blank" rel="noopener noreferrer">
                         <img alt="Github logo" class="size-4 inline" src="assets/images/github.svg" /> Project on Github
@@ -42,7 +43,8 @@
 
     <!-- END: right side - Github button only on desktop -->
     <div class="navbar-end">
-        <div class="hidden lg:flex">
+        <div class="hidden lg:flex gap-2">
+            <a href="https://api.weather.oskar-westmeijer.com" target="_blank" rel="noopener noreferrer" class="btn rounded-lg">🚀 API-doc</a>
             <a href="https://github.com/OskarWestmeijer/weather" target="_blank" rel="noopener noreferrer"
                 aria-label="Oskar Westmeijer Github weather repository">
                 <button class="btn rounded-lg">
