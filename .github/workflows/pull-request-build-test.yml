@@ -4,7 +4,7 @@ on:
   pull_request:
 
 env:
-  JAVA_VERSION: 21.0.5
+  JAVA_VERSION: 25.0.1
   NODE_VERSION: 22.19.0
 
 jobs:

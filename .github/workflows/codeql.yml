@@ -6,7 +6,7 @@ on:
   workflow_call:
 
 env:
-  JAVA_VERSION: 21.0.5
+  JAVA_VERSION: 25.0.1
 
 jobs:
   analyze:

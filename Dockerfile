@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21.0.7_6-jre-alpine-3.21
+FROM eclipse-temurin:25.0.1_8-jre-alpine-3.22
 
 COPY target/app.jar /app.jar
 ENV JAVA_OPTS="-Xms750m -Xmx750m"
