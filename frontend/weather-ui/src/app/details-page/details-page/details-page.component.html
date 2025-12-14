@@ -1,11 +1,15 @@
 <div class="mt-10 flex flex-col items-center space-y-6">
-    <select [(ngModel)]="selectedLocation" (ngModelChange)="onSelectChange($event)" name="selectedLocation"
-        class="select w-full max-w-xs" aria-label="Location" id="location-select">
-        <option *ngFor="let location of locationList" [ngValue]="location">
-            {{ location.cityName }}, {{ location.countryCode }}
-        </option>
-    </select>
+  <select [(ngModel)]="selectedLocation" (ngModelChange)="onSelectChange($event)" name="selectedLocation"
+    class="select w-full max-w-xs" aria-label="Location" id="location-select">
+    @for (location of locationList; track location) {
+      <option [ngValue]="location">
+        {{ location.cityName }}, {{ location.countryCode }}
+      </option>
+    }
+  </select>
 
-    <app-timelapse-chart *ngIf="weatherMap" [dataMap]="weatherMap"
-        [chartType]="ChartType.TEMPERATURE"></app-timelapse-chart>
+  @if (weatherMap) {
+    <app-timelapse-chart [dataMap]="weatherMap"
+    [chartType]="ChartType.TEMPERATURE"></app-timelapse-chart>
+  }
 </div>
