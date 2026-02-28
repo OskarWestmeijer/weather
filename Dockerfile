@@ -18,4 +18,4 @@ ENV JAVA_OPTS="-Xms750m -Xmx750m"
 # Add entrypoint script for custom process name
 COPY --chmod=755 entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]

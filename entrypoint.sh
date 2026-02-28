@@ -1,3 +1,3 @@
-#!/bin/sh
+#!/bin/bash
 echo "[INFO] Starting Weather Backend..."
-exec -a weather-backend java ${JAVA_OPTS} -jar /app.jar
+exec -a weather-backend java ${JAVA_OPTS} -jar /app/app.jar
