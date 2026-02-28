@@ -1,0 +1,45 @@
+info:
+  name: Get all locations
+  type: http
+  seq: 1
+  tags:
+    - locations_resource
+
+http:
+  method: GET
+  url: "{{baseUrl}}/locations"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: Request Weather for these locations.
+    request:
+      url: "{{baseUrl}}/locations"
+      method: GET
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "locations": [
+              {
+                "locationId": 1,
+                "localZipCode": "20095",
+                "cityName": "Hamburg",
+                "country": "Germany",
+                "countryCode": "GER",
+                "lastImportAt": "2022-08-29T21:56:18.602546Z"
+              }
+            ]
+          }

@@ -1,0 +1,4 @@
+name: url of production environment
+variables:
+  - name: baseUrl
+    value: https://api.weather.oskar-westmeijer.com

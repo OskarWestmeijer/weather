@@ -1,0 +1,12 @@
+opencollection: 1.0.0
+info:
+  name: "weather"
+  type: workspace
+
+collections:
+  - name: "Weather-Api"
+    path: "collections/Weather-Api"
+
+specs:
+
+docs: ''

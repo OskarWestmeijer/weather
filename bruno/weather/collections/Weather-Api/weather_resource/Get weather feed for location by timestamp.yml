@@ -1,0 +1,80 @@
+info:
+  name: Get weather feed for location by timestamp
+  type: http
+  seq: 1
+  tags:
+    - weather_resource
+
+http:
+  method: GET
+  url: "{{baseUrl}}/weather?locationId=1&from=1970-01-01T00:00:00Z&limit=1000"
+  params:
+    - name: locationId
+      value: "1"
+      type: query
+      description: Location to request weather from
+    - name: from
+      value: 1970-01-01T00:00:00Z
+      type: query
+      description: Weather data starting from this timestamp. If not provided, it defaults to the timestamp of the oldest available record.
+    - name: limit
+      value: "1000"
+      type: query
+      description: Limit count of weather elements (default is 100)
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: Weather results for the location.
+    request:
+      url: "{{baseUrl}}/weather"
+      method: GET
+      params:
+        - name: locationId
+          value: ""
+          type: query
+          description: Location to request weather from
+        - name: from
+          value: 1970-01-01T00:00:00Z
+          type: query
+          description: Weather data starting from this timestamp. If not provided, it defaults to the timestamp of the oldest available record.
+        - name: limit
+          value: "1000"
+          type: query
+          description: Limit count of weather elements (default is 100)
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "locationId": 1,
+            "cityName": "Hamburg",
+            "country": "Germany",
+            "weatherData": [
+              {
+                "id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15",
+                "temperature": 11.45,
+                "humidity": 55,
+                "windSpeed": 2.57,
+                "recordedAt": "2022-08-29T21:56:18.602546Z"
+              }
+            ],
+            "pagingDetails": {
+              "pageRecordsCount": 1000,
+              "totalRecordsCount": 5000,
+              "hasNewerRecords": true,
+              "nextFrom": "2022-08-29T21:56:18.602546Z",
+              "nextLink": "https://api.weather.oskar-westmeijer.com/weather?locationId=1&from=2022-08-29T21:56:18.602546Z&limit=1000"
+            }
+          }

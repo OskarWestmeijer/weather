@@ -1,0 +1,7 @@
+info:
+  name: weather_resource
+  type: folder
+  seq: 1
+
+request:
+  auth: inherit

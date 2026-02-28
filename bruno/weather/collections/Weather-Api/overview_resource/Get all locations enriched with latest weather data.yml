@@ -1,0 +1,46 @@
+info:
+  name: Get all locations enriched with latest weather data
+  type: http
+  seq: 1
+  tags:
+    - overview_resource
+
+http:
+  method: GET
+  url: "{{baseUrl}}/overview"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: Get all locations enriched with latest weather data
+    request:
+      url: "{{baseUrl}}/overview"
+      method: GET
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "overview": [
+              {
+                "locationId": 1,
+                "cityName": "Hamburg",
+                "countryCode": "GER",
+                "temperature": 11.45,
+                "humidity": 55,
+                "windSpeed": 2.57,
+                "recordedAt": "2022-08-29T21:56:18.602546Z"
+              }
+            ]
+          }

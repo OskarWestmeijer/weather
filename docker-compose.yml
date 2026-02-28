@@ -12,4 +12,4 @@ services:
     ports:
       - "9000:8080"
     volumes:
-      - ./src/test/resources/wiremock/mappings:/home/wiremock/mappings
+      - ./src/test/resources/wiremock/mappings:/home/wiremock/mappings:Z
