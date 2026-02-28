@@ -70,7 +70,7 @@ jobs:
             # set latest tag for master branch
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
             type=sha,format=long
-      - name: push image
+      - name: build and push backend image
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -98,7 +98,7 @@ jobs:
             # set latest tag for master branch
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
             type=sha,format=long
-      - name: build and push image
+      - name: build and push frontend image
         uses: docker/build-push-action@v6
         with:
           context: frontend/weather-ui
