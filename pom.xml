@@ -287,7 +287,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.plugin>3.15.0</maven.compiler.plugin>
     <org.mapstruct.version>1.6.3</org.mapstruct.version>
-    <org.projectlombok.version>1.18.42</org.projectlombok.version>
+    <org.projectlombok.version>1.18.44</org.projectlombok.version>
     <com.google.guava>33.5.0-jre</com.google.guava>
     <liquibase.version>5.0.2</liquibase.version>
     <preliquibase.version>1.6.1</preliquibase.version>
