@@ -5,14 +5,14 @@ package westmeijer.oskar.weatherapi.location.exception;
  */
 public class LocationNotSupportedException extends RuntimeException {
 
-  private final Integer locationId;
+    private final Integer locationId;
 
-  public LocationNotSupportedException(Integer locationId) {
-    super(String.format("Location lookup for locationId  failed. locationId: %s)", locationId));
-    this.locationId = locationId;
-  }
+    public LocationNotSupportedException(Integer locationId) {
+        super(String.format("Location lookup for locationId  failed. locationId: %s)", locationId));
+        this.locationId = locationId;
+    }
 
-  public Integer getLocationId() {
-    return locationId;
-  }
+    public Integer getLocationId() {
+        return locationId;
+    }
 }
