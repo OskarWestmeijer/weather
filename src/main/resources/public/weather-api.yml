@@ -100,6 +100,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/LocationResponse"
+        '500':
+          $ref: "./problem-details.json#/components/responses/ServerError"
 
   /weather:
     get:
@@ -145,6 +147,8 @@ paths:
                 $ref: "#/components/schemas/WeatherResponse"
         '404':
           $ref: "./problem-details.json#/components/responses/NotFound"
+        '500':
+          $ref: "./problem-details.json#/components/responses/ServerError"
   /overview:
     get:
       summary: Get all locations enriched with latest weather data
@@ -158,6 +162,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/OverviewResponse"
+        '500':
+          $ref: "./problem-details.json#/components/responses/ServerError"
 
 components:
   schemas:
