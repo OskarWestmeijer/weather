@@ -61,6 +61,12 @@ tags:
       Container for multiple OverviewDto elements
       <SchemaDefinition schemaRef="#/components/schemas/OverviewResponse" />
 
+  - name: problem_details
+    x-displayName: ProblemDetails
+    description: |
+      RFC ProblemDetails
+      <SchemaDefinition schemaRef="#/components/schemas/ProblemDetails" />
+
 
 x-tagGroups:
   - name: Resources
@@ -73,11 +79,13 @@ x-tagGroups:
       - location_response
       - weather_response
       - overview_response
+      - problem_details
   - name: Response elements
     tags:
       - location_dto
       - weather_dto
       - overview_dto
+
 paths:
   /locations:
     get:
@@ -135,7 +143,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/WeatherResponse"
-
+        '404':
+          $ref: "./problem-details.json#/components/responses/NotFound"
   /overview:
     get:
       summary: Get all locations enriched with latest weather data
@@ -231,7 +240,6 @@ components:
           items:
             $ref: "#/components/schemas/WeatherDto"
         pagingDetails:
-          type: object
           $ref: "#/components/schemas/PagingDetails"
 
     WeatherDto:
@@ -345,3 +353,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/OverviewDto"
+
+    ProblemDetails:
+      $ref: "./problem-details.json#/components/schemas/ProblemDetails"
