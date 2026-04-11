@@ -1,12 +1,12 @@
-package westmeijer.oskar.weatherapi.location.service;
+package westmeijer.oskar.weatherapi.application.services;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import westmeijer.oskar.weatherapi.location.repository.LocationRepository;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.application.ports.outbound.LocationRepository;
+import westmeijer.oskar.weatherapi.domain.model.Location;
 
 @Service
 @RequiredArgsConstructor

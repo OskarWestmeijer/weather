@@ -12,8 +12,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import westmeijer.oskar.weatherapi.location.repository.LocationRepository;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.application.services.LocationService;
+import westmeijer.oskar.weatherapi.application.ports.outbound.LocationRepository;
+import westmeijer.oskar.weatherapi.domain.model.Location;
 
 @ExtendWith(MockitoExtension.class)
 public class LocationServiceTest {

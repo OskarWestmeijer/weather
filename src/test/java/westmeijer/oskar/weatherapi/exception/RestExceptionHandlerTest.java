@@ -8,7 +8,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import westmeijer.oskar.weatherapi.location.exception.LocationNotSupportedException;
+import westmeijer.oskar.weatherapi.domain.exception.LocationNotSupportedException;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.RestExceptionHandler;
 import westmeijer.oskar.weatherapi.openapi.server.model.ProblemDetails;
 
 import java.net.URI;

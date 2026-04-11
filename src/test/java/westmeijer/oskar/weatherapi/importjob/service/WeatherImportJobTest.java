@@ -15,8 +15,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import westmeijer.oskar.weatherapi.importjob.client.OpenWeatherApiClient;
 import westmeijer.oskar.weatherapi.importjob.exception.OpenWeatherApiRequestException;
-import westmeijer.oskar.weatherapi.location.service.LocationService;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.application.services.LocationService;
+import westmeijer.oskar.weatherapi.domain.model.Location;
 
 @ExtendWith(MockitoExtension.class)
 public class WeatherImportJobTest {

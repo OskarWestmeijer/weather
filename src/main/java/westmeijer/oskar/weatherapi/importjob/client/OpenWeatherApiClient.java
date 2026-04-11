@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import westmeijer.oskar.weatherapi.importjob.client.mapper.OpenWeatherApiMapper;
 import westmeijer.oskar.weatherapi.importjob.exception.OpenWeatherApiRequestException;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.domain.model.Location;
 import westmeijer.oskar.weatherapi.openapi.client.api.GeneratedOpenWeatherApi;
 import westmeijer.oskar.weatherapi.openapi.client.model.GeneratedOpenWeatherApiResponse;
 

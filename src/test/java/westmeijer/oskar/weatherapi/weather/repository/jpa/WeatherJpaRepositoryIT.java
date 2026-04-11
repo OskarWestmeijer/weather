@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import westmeijer.oskar.weatherapi.IntegrationTestContainers;
 import westmeijer.oskar.weatherapi.TestLocationFactory;
 import westmeijer.oskar.weatherapi.TestWeatherFactory;
-import westmeijer.oskar.weatherapi.location.repository.model.LocationEntity;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.LocationEntity;
 import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 
 @DataJpaTest

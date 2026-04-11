@@ -2,7 +2,7 @@ package westmeijer.oskar.weatherapi.weather.repository.mapper;
 
 import java.util.List;
 import org.mapstruct.Mapper;
-import westmeijer.oskar.weatherapi.location.repository.mapper.LocationEntityMapper;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.mappers.LocationEntityMapper;
 import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 

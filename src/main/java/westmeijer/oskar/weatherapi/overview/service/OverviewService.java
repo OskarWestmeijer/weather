@@ -3,8 +3,8 @@ package westmeijer.oskar.weatherapi.overview.service;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import westmeijer.oskar.weatherapi.location.service.LocationService;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.application.services.LocationService;
+import westmeijer.oskar.weatherapi.domain.model.Location;
 import westmeijer.oskar.weatherapi.overview.service.mapper.OverviewMapper;
 import westmeijer.oskar.weatherapi.overview.service.model.Overview;
 

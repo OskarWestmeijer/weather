@@ -8,7 +8,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.domain.model.Location;
 import westmeijer.oskar.weatherapi.overview.service.model.Overview;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 

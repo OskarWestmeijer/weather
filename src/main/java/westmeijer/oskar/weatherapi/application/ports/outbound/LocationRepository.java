@@ -1,7 +1,7 @@
-package westmeijer.oskar.weatherapi.location.repository;
+package westmeijer.oskar.weatherapi.application.ports.outbound;
 
 import java.util.List;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.domain.model.Location;
 
 public interface LocationRepository {
 

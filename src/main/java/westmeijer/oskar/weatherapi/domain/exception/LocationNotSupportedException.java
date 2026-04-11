@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.location.exception;
+package westmeijer.oskar.weatherapi.domain.exception;
 
 /**
  * Is thrown when weather is requested for a not supported locationId.

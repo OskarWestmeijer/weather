@@ -1,16 +1,16 @@
-package westmeijer.oskar.weatherapi.location.repository;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import westmeijer.oskar.weatherapi.location.exception.LocationNotSupportedException;
-import westmeijer.oskar.weatherapi.location.repository.jpa.LocationJpaRepository;
-import westmeijer.oskar.weatherapi.location.repository.mapper.LocationEntityImportMapper;
-import westmeijer.oskar.weatherapi.location.repository.mapper.LocationEntityMapper;
-import westmeijer.oskar.weatherapi.location.repository.model.LocationEntity;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.application.ports.outbound.LocationRepository;
+import westmeijer.oskar.weatherapi.domain.exception.LocationNotSupportedException;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.mappers.LocationEntityImportMapper;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.mappers.LocationEntityMapper;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.LocationEntity;
+import westmeijer.oskar.weatherapi.domain.model.Location;
 
 @Repository
 @RequiredArgsConstructor

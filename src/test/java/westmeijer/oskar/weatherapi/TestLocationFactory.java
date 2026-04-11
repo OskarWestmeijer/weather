@@ -5,8 +5,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.UUID;
-import westmeijer.oskar.weatherapi.location.repository.model.LocationEntity;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.LocationEntity;
+import westmeijer.oskar.weatherapi.domain.model.Location;
 
 public class TestLocationFactory {
 

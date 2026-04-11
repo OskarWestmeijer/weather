@@ -3,14 +3,14 @@ package westmeijer.oskar.weatherapi.weather.controller;
 import static java.util.Objects.requireNonNull;
 
 import java.time.Instant;
-import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import westmeijer.oskar.weatherapi.location.service.LocationService;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.application.services.LocationService;
+import westmeijer.oskar.weatherapi.domain.model.Location;
 import westmeijer.oskar.weatherapi.openapi.server.api.WeatherApi;
 import westmeijer.oskar.weatherapi.openapi.server.model.WeatherResponse;
 import westmeijer.oskar.weatherapi.weather.controller.mapper.WeatherDtoMapper;

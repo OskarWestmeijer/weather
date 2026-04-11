@@ -15,8 +15,9 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import westmeijer.oskar.weatherapi.TestLocationFactory;
-import westmeijer.oskar.weatherapi.location.repository.model.LocationEntity;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.mappers.LocationEntityImportMapper;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.LocationEntity;
+import westmeijer.oskar.weatherapi.domain.model.Location;
 import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 
 public class LocationEntityImportMapperTest {

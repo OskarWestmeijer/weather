@@ -15,7 +15,7 @@ import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import westmeijer.oskar.weatherapi.location.repository.mapper.LocationEntityImportMapper;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.mappers.LocationEntityImportMapper;
 import westmeijer.oskar.weatherapi.weather.repository.jpa.WeatherJpaRepository;
 import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityMapper;
 import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;

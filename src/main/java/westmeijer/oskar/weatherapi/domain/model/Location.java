@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.location.service.model;
+package westmeijer.oskar.weatherapi.domain.model;
 
 import static com.google.common.base.Preconditions.checkArgument;
 

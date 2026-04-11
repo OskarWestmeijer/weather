@@ -1,11 +1,11 @@
-package westmeijer.oskar.weatherapi.location.repository.jpa;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence;
 
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import westmeijer.oskar.weatherapi.location.repository.model.LocationEntity;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.LocationEntity;
 
 public interface LocationJpaRepository extends JpaRepository<LocationEntity, String> {
 

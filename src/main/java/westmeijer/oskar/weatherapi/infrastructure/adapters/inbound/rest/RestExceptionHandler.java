@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.exception;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import westmeijer.oskar.weatherapi.location.exception.LocationNotSupportedException;
+import westmeijer.oskar.weatherapi.domain.exception.LocationNotSupportedException;
 import westmeijer.oskar.weatherapi.openapi.server.model.ProblemDetails;
 
 import java.net.URI;
@@ -16,7 +16,7 @@ import java.net.URI;
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {LocationNotSupportedException.class})
-    protected ResponseEntity<ProblemDetails> handleLocationNotSupported(LocationNotSupportedException ex, HttpServletRequest request) {
+    public ResponseEntity<ProblemDetails> handleLocationNotSupported(LocationNotSupportedException ex, HttpServletRequest request) {
         logger.error("Exception occurred during weather lookup for request.", ex);
         var responseStatus = HttpStatus.NOT_FOUND;
 
@@ -34,7 +34,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    protected ResponseEntity<ProblemDetails> handleGeneralException(
+    public ResponseEntity<ProblemDetails> handleGeneralException(
             Exception ex,
             HttpServletRequest request) {
 

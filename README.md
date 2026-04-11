@@ -10,6 +10,8 @@ documented with an OpenApi specification.
 
 - [https://weather.oskar-westmeijer.com](https://weather.oskar-westmeijer.com) (Angular frontend)
 - [https://api.weather.oskar-westmeijer.com](https://api.weather.oskar-westmeijer.com) (Spring Boot backend)
+- https://medium.com/@juannegrin/building-a-restful-api-with-spring-boot-integrating-ddd-and-hexagonal-architecture-df50fe24a1ff
+- https://medium.com/ssense-tech/hexagonal-architecture-there-are-always-two-sides-to-every-story-bc0780ed7d9c
 
 ### Technologies
 

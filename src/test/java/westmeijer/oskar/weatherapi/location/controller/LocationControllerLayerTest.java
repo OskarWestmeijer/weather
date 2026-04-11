@@ -21,8 +21,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import westmeijer.oskar.weatherapi.WebMvcMappersTestConfig;
-import westmeijer.oskar.weatherapi.location.service.LocationService;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.application.services.LocationService;
+import westmeijer.oskar.weatherapi.domain.model.Location;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.LocationController;
 
 @WebMvcTest(LocationController.class)
 @Import(WebMvcMappersTestConfig.class)

@@ -13,12 +13,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import westmeijer.oskar.weatherapi.location.exception.LocationNotSupportedException;
-import westmeijer.oskar.weatherapi.location.repository.jpa.LocationJpaRepository;
-import westmeijer.oskar.weatherapi.location.repository.mapper.LocationEntityImportMapper;
-import westmeijer.oskar.weatherapi.location.repository.mapper.LocationEntityMapper;
-import westmeijer.oskar.weatherapi.location.repository.model.LocationEntity;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.domain.exception.LocationNotSupportedException;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.LocationJpaRepository;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.LocationRepositoryImpl;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.mappers.LocationEntityImportMapper;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.mappers.LocationEntityMapper;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.LocationEntity;
+import westmeijer.oskar.weatherapi.domain.model.Location;
 
 @ExtendWith(MockitoExtension.class)
 public class LocationRepositoryImplTest {

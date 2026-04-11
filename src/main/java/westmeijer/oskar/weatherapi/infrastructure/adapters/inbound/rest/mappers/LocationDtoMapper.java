@@ -1,10 +1,9 @@
-package westmeijer.oskar.weatherapi.location.controller.mapper;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.mappers;
 
 import java.util.Comparator;
 import java.util.List;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.domain.model.Location;
 import westmeijer.oskar.weatherapi.openapi.server.model.LocationDto;
 import westmeijer.oskar.weatherapi.openapi.server.model.LocationResponse;
 import westmeijer.oskar.weatherapi.weather.controller.mapper.WeatherDtoMapper;

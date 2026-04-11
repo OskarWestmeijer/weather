@@ -2,8 +2,8 @@ package westmeijer.oskar.weatherapi.weather.controller.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import westmeijer.oskar.weatherapi.location.controller.mapper.LocationDtoMapper;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.mappers.LocationDtoMapper;
+import westmeijer.oskar.weatherapi.domain.model.Location;
 import westmeijer.oskar.weatherapi.openapi.server.model.PagingDetails;
 import westmeijer.oskar.weatherapi.openapi.server.model.WeatherDto;
 import westmeijer.oskar.weatherapi.openapi.server.model.WeatherResponse;

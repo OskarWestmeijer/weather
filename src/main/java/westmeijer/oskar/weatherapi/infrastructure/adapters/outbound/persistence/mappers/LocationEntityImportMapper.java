@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.location.repository.mapper;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.mappers;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -12,8 +12,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
-import westmeijer.oskar.weatherapi.location.repository.model.LocationEntity;
-import westmeijer.oskar.weatherapi.location.service.model.Location;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.LocationEntity;
+import westmeijer.oskar.weatherapi.domain.model.Location;
 
 @Mapper(componentModel = "spring", collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED, builder = @Builder(disableBuilder = true))
 public interface LocationEntityImportMapper {
