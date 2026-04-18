@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.location.repository;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -14,8 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import westmeijer.oskar.weatherapi.domain.exception.LocationNotSupportedException;
-import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.LocationJpaRepository;
-import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.LocationRepositoryImpl;
 import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.mappers.LocationEntityImportMapper;
 import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.mappers.LocationEntityMapper;
 import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.LocationEntity;

@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.location.controller;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
@@ -23,7 +23,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import westmeijer.oskar.weatherapi.WebMvcMappersTestConfig;
 import westmeijer.oskar.weatherapi.application.services.LocationService;
 import westmeijer.oskar.weatherapi.domain.model.Location;
-import westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.LocationController;
 
 @WebMvcTest(LocationController.class)
 @Import(WebMvcMappersTestConfig.class)

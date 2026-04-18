@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.location.service.model;
+package westmeijer.oskar.weatherapi.domain.model;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
-import westmeijer.oskar.weatherapi.domain.model.Location;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 class LocationTest {

@@ -1,39 +1,42 @@
 package westmeijer.oskar.weatherapi.application.services;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import westmeijer.oskar.weatherapi.application.ports.inbound.GetLocationUseCase;
+import westmeijer.oskar.weatherapi.application.ports.inbound.SaveLocationUseCase;
 import westmeijer.oskar.weatherapi.application.ports.outbound.LocationRepository;
 import westmeijer.oskar.weatherapi.domain.model.Location;
 
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
+
 @Service
 @RequiredArgsConstructor
-public class LocationService {
+public class LocationService implements GetLocationUseCase, SaveLocationUseCase {
 
-  private final LocationRepository locationRepository;
+    private final LocationRepository locationRepository;
 
-  public Location getByIdOmitWeather(Integer locationId) {
-    requireNonNull(locationId, "locationId is required");
-    return locationRepository.getByIdOmitWeather(locationId);
-  }
+    public Location getByIdOmitWeather(Integer locationId) {
+        requireNonNull(locationId, "locationId is required");
+        return locationRepository.getByIdOmitWeather(locationId);
+    }
 
-  public List<Location> getAllWithLatest() {
-    return locationRepository.getAllWithLatest();
-  }
+    public List<Location> getAllWithLatest() {
+        return locationRepository.getAllWithLatest();
+    }
 
-  public List<Location> getAllOmitWeather() {
-    return locationRepository.getAllOmitWeather();
-  }
+    public List<Location> getAllOmitWeather() {
+        return locationRepository.getAllOmitWeather();
+    }
 
-  public Location getNextImportLocation() {
-    return locationRepository.getNextImportLocation();
-  }
+    public Location getNextImportLocation() {
+        return locationRepository.getNextImportLocation();
+    }
 
-  public Location save(Location location) {
-    requireNonNull(location, "location is required");
-    return locationRepository.save(location);
-  }
+    public Location save(Location location) {
+        requireNonNull(location, "location is required");
+        return locationRepository.save(location);
+    }
 
 }

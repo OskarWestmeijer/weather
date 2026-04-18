@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.configuration;
+package westmeijer.oskar.weatherapi.infrastructure.configuration;
 
 import static org.mockito.Mockito.mock;
 

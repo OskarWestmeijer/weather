@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.location.repository.mapper;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.mappers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import westmeijer.oskar.weatherapi.TestLocationFactory;
-import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.mappers.LocationEntityMapper;
 import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.LocationEntity;
 import westmeijer.oskar.weatherapi.domain.model.Location;
 import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityMapper;

@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.configuration;
+package westmeijer.oskar.weatherapi.infrastructure.configuration;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;

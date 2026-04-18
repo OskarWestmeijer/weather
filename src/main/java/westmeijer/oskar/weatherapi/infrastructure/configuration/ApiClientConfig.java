@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.configuration;
+package westmeijer.oskar.weatherapi.infrastructure.configuration;
 
 import java.time.Duration;
 import org.springframework.beans.factory.annotation.Value;

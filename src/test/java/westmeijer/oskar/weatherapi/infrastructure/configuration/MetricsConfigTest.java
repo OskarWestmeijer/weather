@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.configuration;
+package westmeijer.oskar.weatherapi.infrastructure.configuration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

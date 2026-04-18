@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.exception;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import westmeijer.oskar.weatherapi.domain.exception.LocationNotSupportedException;
-import westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.RestExceptionHandler;
 import westmeijer.oskar.weatherapi.openapi.server.model.ProblemDetails;
 
 import java.net.URI;

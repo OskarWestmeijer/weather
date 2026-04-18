@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.configuration;
+package westmeijer.oskar.weatherapi.infrastructure.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

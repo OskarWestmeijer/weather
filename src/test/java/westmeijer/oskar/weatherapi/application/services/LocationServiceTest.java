@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.location.service;
+package westmeijer.oskar.weatherapi.application.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
@@ -12,7 +12,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import westmeijer.oskar.weatherapi.application.services.LocationService;
 import westmeijer.oskar.weatherapi.application.ports.outbound.LocationRepository;
 import westmeijer.oskar.weatherapi.domain.model.Location;
 
