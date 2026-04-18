@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.importjob.client.mapper;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.restclient.mappers;
 
 import java.util.Collections;
 import java.util.List;

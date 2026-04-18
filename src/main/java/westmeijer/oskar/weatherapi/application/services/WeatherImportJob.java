@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.importjob.service;
+package westmeijer.oskar.weatherapi.application.services;
 
 import static java.util.Objects.requireNonNull;
 
@@ -8,15 +8,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import westmeijer.oskar.weatherapi.importjob.client.OpenWeatherApiClient;
-import westmeijer.oskar.weatherapi.importjob.exception.OpenWeatherApiRequestException;
-import westmeijer.oskar.weatherapi.application.services.LocationService;
+import westmeijer.oskar.weatherapi.application.ports.inbound.ImportWeatherUseCase;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.restclient.OpenWeatherApiClient;
+import westmeijer.oskar.weatherapi.domain.exception.OpenWeatherApiRequestException;
 import westmeijer.oskar.weatherapi.domain.model.Location;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class WeatherImportJob {
+public class WeatherImportJob implements ImportWeatherUseCase {
 
   private final MeterRegistry meterRegistry;
 

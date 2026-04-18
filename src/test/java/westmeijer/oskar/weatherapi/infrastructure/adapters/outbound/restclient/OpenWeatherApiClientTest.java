@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.importjob.client;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.restclient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
-import westmeijer.oskar.weatherapi.importjob.client.mapper.OpenWeatherApiMapper;
-import westmeijer.oskar.weatherapi.importjob.exception.OpenWeatherApiRequestException;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.restclient.mappers.OpenWeatherApiMapper;
+import westmeijer.oskar.weatherapi.domain.exception.OpenWeatherApiRequestException;
 import westmeijer.oskar.weatherapi.domain.model.Location;
 import westmeijer.oskar.weatherapi.openapi.client.api.GeneratedOpenWeatherApi;
 import westmeijer.oskar.weatherapi.openapi.client.model.GeneratedOpenWeatherApiResponse;

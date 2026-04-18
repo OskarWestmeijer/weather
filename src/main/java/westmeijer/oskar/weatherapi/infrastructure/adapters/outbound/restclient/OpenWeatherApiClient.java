@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.importjob.client;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.restclient;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,15 +6,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import westmeijer.oskar.weatherapi.importjob.client.mapper.OpenWeatherApiMapper;
-import westmeijer.oskar.weatherapi.importjob.exception.OpenWeatherApiRequestException;
+import westmeijer.oskar.weatherapi.application.ports.outbound.GetWeatherUpdates;
+import westmeijer.oskar.weatherapi.domain.exception.OpenWeatherApiRequestException;
 import westmeijer.oskar.weatherapi.domain.model.Location;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.restclient.mappers.OpenWeatherApiMapper;
 import westmeijer.oskar.weatherapi.openapi.client.api.GeneratedOpenWeatherApi;
 import westmeijer.oskar.weatherapi.openapi.client.model.GeneratedOpenWeatherApiResponse;
 
 @Component
 @Slf4j
-public class OpenWeatherApiClient {
+public class OpenWeatherApiClient implements GetWeatherUpdates {
 
   private final OpenWeatherApiMapper openWeatherApiMapper;
 
@@ -23,8 +24,8 @@ public class OpenWeatherApiClient {
   private final GeneratedOpenWeatherApi generatedOpenWeatherApi;
 
   public OpenWeatherApiClient(OpenWeatherApiMapper openWeatherApiMapper,
-      GeneratedOpenWeatherApi generatedOpenWeatherApi,
-      @Value("${openweatherapi.appId}") String appId) {
+                              GeneratedOpenWeatherApi generatedOpenWeatherApi,
+                              @Value("${openweatherapi.appId}") String appId) {
     requireNonNull(appId, "appId is required");
     this.openWeatherApiMapper = openWeatherApiMapper;
     this.appId = appId;

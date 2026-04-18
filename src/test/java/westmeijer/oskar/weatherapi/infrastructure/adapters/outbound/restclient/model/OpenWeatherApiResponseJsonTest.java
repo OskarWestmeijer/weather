@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.importjob.client.model;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.restclient.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
