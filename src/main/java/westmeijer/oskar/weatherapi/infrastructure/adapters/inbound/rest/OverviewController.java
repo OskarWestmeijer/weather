@@ -5,11 +5,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
+import westmeijer.oskar.weatherapi.application.ports.inbound.GetOverviewUseCase;
+import westmeijer.oskar.weatherapi.domain.model.Overview;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.mappers.OverviewDtoMapper;
 import westmeijer.oskar.weatherapi.openapi.server.api.OverviewApi;
 import westmeijer.oskar.weatherapi.openapi.server.model.OverviewResponse;
-import westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.mappers.OverviewDtoMapper;
-import westmeijer.oskar.weatherapi.application.services.OverviewService;
-import westmeijer.oskar.weatherapi.domain.model.Overview;
 
 @CrossOrigin
 @RestController
@@ -18,11 +18,11 @@ public class OverviewController implements OverviewApi {
 
   private final OverviewDtoMapper overviewDtoMapper;
 
-  private final OverviewService overviewService;
+  private final GetOverviewUseCase getOverviewUseCase;
 
   @Override
   public ResponseEntity<OverviewResponse> getOverview() {
-    List<Overview> overviews = overviewService.getOverview();
+    List<Overview> overviews = getOverviewUseCase.getOverview();
     OverviewResponse overviewResponse = overviewDtoMapper.mapToResponse(overviews);
     return ResponseEntity.ok(overviewResponse);
   }

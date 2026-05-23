@@ -12,7 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import westmeijer.oskar.weatherapi.TestLocationFactory;
+import westmeijer.oskar.weatherapi.factory.TestLocationFactory;
 import westmeijer.oskar.weatherapi.domain.model.Location;
 import westmeijer.oskar.weatherapi.openapi.server.model.LocationDto;
 

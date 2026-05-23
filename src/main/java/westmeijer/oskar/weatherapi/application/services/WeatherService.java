@@ -8,6 +8,7 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import westmeijer.oskar.weatherapi.application.ports.inbound.GetWeatherUseCase;
 import westmeijer.oskar.weatherapi.application.ports.outbound.WeatherRepository;
 import westmeijer.oskar.weatherapi.domain.model.Weather;
 import westmeijer.oskar.weatherapi.domain.model.WeatherFeedPage;
@@ -16,7 +17,7 @@ import westmeijer.oskar.weatherapi.domain.model.WeatherFeedPage.PagingDetails;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class WeatherService {
+public class WeatherService implements GetWeatherUseCase {
 
   private final WeatherRepository weatherRepository;
 

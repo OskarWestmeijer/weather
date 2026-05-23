@@ -4,6 +4,6 @@ import westmeijer.oskar.weatherapi.domain.model.Location;
 
 public interface ImportWeatherClient {
 
-    Location requestWithGeneratedClient(Location location);
+    Location importLatestWeather(Location location);
 
 }

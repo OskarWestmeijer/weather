@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import westmeijer.oskar.weatherapi.application.ports.inbound.ImportWeatherUseCase;
-import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.restclient.OpenWeatherApiClient;
+import westmeijer.oskar.weatherapi.application.ports.outbound.ImportWeatherClient;
 import westmeijer.oskar.weatherapi.domain.exception.OpenWeatherApiRequestException;
 import westmeijer.oskar.weatherapi.domain.model.Location;
 
@@ -22,7 +22,7 @@ public class WeatherImportJob implements ImportWeatherUseCase {
 
   private final LocationService locationService;
 
-  private final OpenWeatherApiClient openWeatherApiClient;
+  private final ImportWeatherClient importWeatherClient;
 
   @Scheduled(fixedDelay = 60000)
   @Transactional
@@ -30,10 +30,12 @@ public class WeatherImportJob implements ImportWeatherUseCase {
     try {
       meterRegistry.counter("import.job", "import", "execution").increment();
 
-      Location location = requireNonNull(locationService.getNextImportLocation(), "location is required");
-      log.info("Import weather for location: {}, last_imported_at: {}", location, location.lastImportAt());
+      Location location = requireNonNull(locationService.getNextImportLocation(),
+          "location is required");
+      log.info("Import weather for location: {}, last_imported_at: {}", location,
+          location.lastImportAt());
 
-      Location updatedLocation = openWeatherApiClient.requestWithGeneratedClient(location);
+      Location updatedLocation = importWeatherClient.importLatestWeather(location);
 
       locationService.save(updatedLocation);
     } catch (OpenWeatherApiRequestException requestException) {

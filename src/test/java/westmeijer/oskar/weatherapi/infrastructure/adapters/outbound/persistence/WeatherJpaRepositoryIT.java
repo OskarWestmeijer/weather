@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import westmeijer.oskar.weatherapi.IntegrationTestContainers;
-import westmeijer.oskar.weatherapi.TestLocationFactory;
-import westmeijer.oskar.weatherapi.TestWeatherFactory;
+import westmeijer.oskar.weatherapi.factory.TestLocationFactory;
+import westmeijer.oskar.weatherapi.factory.TestWeatherFactory;
 import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.LocationEntity;
 import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.WeatherEntity;
 

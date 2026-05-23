@@ -3,12 +3,13 @@ package westmeijer.oskar.weatherapi.application.services;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import westmeijer.oskar.weatherapi.application.ports.inbound.GetOverviewUseCase;
 import westmeijer.oskar.weatherapi.domain.model.Location;
 import westmeijer.oskar.weatherapi.domain.model.Overview;
 
 @Service
 @RequiredArgsConstructor
-public class OverviewService {
+public class OverviewService implements GetOverviewUseCase {
 
   private final LocationService locationService;
 

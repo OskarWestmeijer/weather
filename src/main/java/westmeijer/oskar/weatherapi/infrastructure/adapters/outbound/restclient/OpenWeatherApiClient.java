@@ -32,7 +32,7 @@ public class OpenWeatherApiClient implements ImportWeatherClient {
     this.generatedOpenWeatherApi = generatedOpenWeatherApi;
   }
 
-  public Location requestWithGeneratedClient(Location location) {
+  public Location importLatestWeather(Location location) {
     try {
       requireNonNull(location, "location is required");
 

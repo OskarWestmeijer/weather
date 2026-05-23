@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi;
+package westmeijer.oskar.weatherapi.factory;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;

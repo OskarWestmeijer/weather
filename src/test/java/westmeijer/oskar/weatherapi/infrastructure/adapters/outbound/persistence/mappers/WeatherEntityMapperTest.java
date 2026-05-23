@@ -8,10 +8,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import westmeijer.oskar.weatherapi.TestWeatherFactory;
+import westmeijer.oskar.weatherapi.factory.TestWeatherFactory;
 import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.WeatherEntity;
 import westmeijer.oskar.weatherapi.domain.model.Weather;
-import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityMapperImpl;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {
