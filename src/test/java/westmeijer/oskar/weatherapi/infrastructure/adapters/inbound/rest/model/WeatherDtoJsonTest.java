@@ -1,10 +1,9 @@
-package westmeijer.oskar.weatherapi.weather.controller.model;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.model;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 import lombok.SneakyThrows;
-import org.intellij.lang.annotations.Language;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;

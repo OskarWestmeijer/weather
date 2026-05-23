@@ -1,8 +1,8 @@
 package westmeijer.oskar.weatherapi.domain.exception;
 
-/**
- * Is thrown when weather is requested for a not supported locationId.
- */
+import lombok.Getter;
+
+@Getter
 public class LocationNotSupportedException extends RuntimeException {
 
     private final Integer locationId;
@@ -12,7 +12,4 @@ public class LocationNotSupportedException extends RuntimeException {
         this.locationId = locationId;
     }
 
-    public Integer getLocationId() {
-        return locationId;
-    }
 }

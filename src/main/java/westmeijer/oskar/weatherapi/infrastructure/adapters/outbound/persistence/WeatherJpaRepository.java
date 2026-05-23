@@ -1,11 +1,11 @@
-package westmeijer.oskar.weatherapi.weather.repository.jpa;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.WeatherEntity;
 
 public interface WeatherJpaRepository extends JpaRepository<WeatherEntity, UUID> {
 

@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.weather.service;
+package westmeijer.oskar.weatherapi.application.services;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
@@ -15,8 +15,8 @@ import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import westmeijer.oskar.weatherapi.weather.repository.WeatherRepository;
-import westmeijer.oskar.weatherapi.weather.service.model.Weather;
+import westmeijer.oskar.weatherapi.application.ports.outbound.WeatherRepository;
+import westmeijer.oskar.weatherapi.domain.model.Weather;
 
 @ExtendWith(MockitoExtension.class)
 public class WeatherServiceTest {

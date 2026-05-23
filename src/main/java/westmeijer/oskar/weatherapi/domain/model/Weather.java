@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.weather.service.model;
+package westmeijer.oskar.weatherapi.domain.model;
 
 import java.time.Instant;
 import java.util.Objects;

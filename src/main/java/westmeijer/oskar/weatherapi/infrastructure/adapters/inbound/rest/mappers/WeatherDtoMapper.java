@@ -1,14 +1,13 @@
-package westmeijer.oskar.weatherapi.weather.controller.mapper;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.mappers;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.mappers.LocationDtoMapper;
 import westmeijer.oskar.weatherapi.domain.model.Location;
 import westmeijer.oskar.weatherapi.openapi.server.model.PagingDetails;
 import westmeijer.oskar.weatherapi.openapi.server.model.WeatherDto;
 import westmeijer.oskar.weatherapi.openapi.server.model.WeatherResponse;
-import westmeijer.oskar.weatherapi.weather.service.model.Weather;
-import westmeijer.oskar.weatherapi.weather.service.model.WeatherFeedPage;
+import westmeijer.oskar.weatherapi.domain.model.Weather;
+import westmeijer.oskar.weatherapi.domain.model.WeatherFeedPage;
 
 @Mapper(componentModel = "spring", uses = LocationDtoMapper.class)
 public interface WeatherDtoMapper {

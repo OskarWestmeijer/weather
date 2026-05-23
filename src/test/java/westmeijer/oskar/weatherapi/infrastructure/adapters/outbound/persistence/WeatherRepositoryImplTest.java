@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.weather.repository;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
@@ -16,10 +16,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.mappers.LocationEntityImportMapper;
-import westmeijer.oskar.weatherapi.weather.repository.jpa.WeatherJpaRepository;
-import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityMapper;
-import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
-import westmeijer.oskar.weatherapi.weather.service.model.Weather;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.mappers.WeatherEntityMapper;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.WeatherEntity;
+import westmeijer.oskar.weatherapi.domain.model.Weather;
 
 @ExtendWith(MockitoExtension.class)
 public class WeatherRepositoryImplTest {

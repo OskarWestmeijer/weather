@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.weather.repository.model;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -13,7 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.LocationEntity;
 
 
 @Table(name = "weather")

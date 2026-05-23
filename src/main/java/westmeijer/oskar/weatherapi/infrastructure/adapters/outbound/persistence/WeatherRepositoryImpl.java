@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.weather.repository;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,9 +6,9 @@ import java.time.Instant;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import westmeijer.oskar.weatherapi.weather.repository.jpa.WeatherJpaRepository;
-import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityMapper;
-import westmeijer.oskar.weatherapi.weather.service.model.Weather;
+import westmeijer.oskar.weatherapi.application.ports.outbound.WeatherRepository;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.mappers.WeatherEntityMapper;
+import westmeijer.oskar.weatherapi.domain.model.Weather;
 
 @Component
 @RequiredArgsConstructor

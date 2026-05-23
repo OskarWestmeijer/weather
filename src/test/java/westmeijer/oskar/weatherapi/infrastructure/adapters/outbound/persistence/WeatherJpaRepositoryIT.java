@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.weather.repository.jpa;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
@@ -11,7 +11,7 @@ import westmeijer.oskar.weatherapi.IntegrationTestContainers;
 import westmeijer.oskar.weatherapi.TestLocationFactory;
 import westmeijer.oskar.weatherapi.TestWeatherFactory;
 import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.LocationEntity;
-import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.WeatherEntity;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)

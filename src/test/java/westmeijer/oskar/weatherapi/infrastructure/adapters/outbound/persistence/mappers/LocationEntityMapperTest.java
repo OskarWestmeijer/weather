@@ -11,7 +11,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import westmeijer.oskar.weatherapi.TestLocationFactory;
 import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.LocationEntity;
 import westmeijer.oskar.weatherapi.domain.model.Location;
-import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityMapper;
 import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityMapperImpl;
 
 @ExtendWith(SpringExtension.class)

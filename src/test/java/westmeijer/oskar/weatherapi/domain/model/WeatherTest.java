@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.weather.service.model;
+package westmeijer.oskar.weatherapi.domain.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.BDDAssertions.then;

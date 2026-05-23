@@ -17,7 +17,7 @@ import westmeijer.oskar.weatherapi.TestWeatherFactory;
 import westmeijer.oskar.weatherapi.domain.model.Location;
 import westmeijer.oskar.weatherapi.domain.model.Overview;
 import westmeijer.oskar.weatherapi.overview.service.mapper.OverviewMapperImpl;
-import westmeijer.oskar.weatherapi.weather.service.model.Weather;
+import westmeijer.oskar.weatherapi.domain.model.Weather;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {

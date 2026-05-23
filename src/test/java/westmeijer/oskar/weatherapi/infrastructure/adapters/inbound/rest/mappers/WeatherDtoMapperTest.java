@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.weather.controller.mapper;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.mappers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.BDDAssertions.then;
@@ -16,8 +16,9 @@ import westmeijer.oskar.weatherapi.TestLocationFactory;
 import westmeijer.oskar.weatherapi.domain.model.Location;
 import westmeijer.oskar.weatherapi.openapi.server.model.WeatherDto;
 import westmeijer.oskar.weatherapi.openapi.server.model.WeatherResponse;
-import westmeijer.oskar.weatherapi.weather.service.model.Weather;
-import westmeijer.oskar.weatherapi.weather.service.model.WeatherFeedPage;
+import westmeijer.oskar.weatherapi.domain.model.Weather;
+import westmeijer.oskar.weatherapi.domain.model.WeatherFeedPage;
+import westmeijer.oskar.weatherapi.weather.controller.mapper.WeatherDtoMapperImpl;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {

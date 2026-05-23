@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.weather.controller;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest;
 
 import static java.util.Objects.requireNonNull;
 
@@ -13,9 +13,9 @@ import westmeijer.oskar.weatherapi.application.services.LocationService;
 import westmeijer.oskar.weatherapi.domain.model.Location;
 import westmeijer.oskar.weatherapi.openapi.server.api.WeatherApi;
 import westmeijer.oskar.weatherapi.openapi.server.model.WeatherResponse;
-import westmeijer.oskar.weatherapi.weather.controller.mapper.WeatherDtoMapper;
-import westmeijer.oskar.weatherapi.weather.service.WeatherService;
-import westmeijer.oskar.weatherapi.weather.service.model.WeatherFeedPage;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.mappers.WeatherDtoMapper;
+import westmeijer.oskar.weatherapi.application.services.WeatherService;
+import westmeijer.oskar.weatherapi.domain.model.WeatherFeedPage;
 
 @Controller
 @CrossOrigin

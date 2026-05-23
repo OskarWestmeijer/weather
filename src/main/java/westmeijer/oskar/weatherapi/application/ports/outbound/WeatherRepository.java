@@ -1,8 +1,8 @@
-package westmeijer.oskar.weatherapi.weather.repository;
+package westmeijer.oskar.weatherapi.application.ports.outbound;
 
 import java.time.Instant;
 import java.util.List;
-import westmeijer.oskar.weatherapi.weather.service.model.Weather;
+import westmeijer.oskar.weatherapi.domain.model.Weather;
 
 public interface WeatherRepository {
 

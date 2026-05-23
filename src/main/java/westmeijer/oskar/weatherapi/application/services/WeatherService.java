@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.weather.service;
+package westmeijer.oskar.weatherapi.application.services;
 
 import static java.util.Objects.requireNonNull;
 
@@ -8,10 +8,10 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import westmeijer.oskar.weatherapi.weather.repository.WeatherRepository;
-import westmeijer.oskar.weatherapi.weather.service.model.Weather;
-import westmeijer.oskar.weatherapi.weather.service.model.WeatherFeedPage;
-import westmeijer.oskar.weatherapi.weather.service.model.WeatherFeedPage.PagingDetails;
+import westmeijer.oskar.weatherapi.application.ports.outbound.WeatherRepository;
+import westmeijer.oskar.weatherapi.domain.model.Weather;
+import westmeijer.oskar.weatherapi.domain.model.WeatherFeedPage;
+import westmeijer.oskar.weatherapi.domain.model.WeatherFeedPage.PagingDetails;
 
 @Service
 @RequiredArgsConstructor

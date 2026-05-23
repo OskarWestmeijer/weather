@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import westmeijer.oskar.weatherapi.TestLocationFactory;
 import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.LocationEntity;
 import westmeijer.oskar.weatherapi.domain.model.Location;
-import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.WeatherEntity;
 
 public class LocationEntityImportMapperTest {
 

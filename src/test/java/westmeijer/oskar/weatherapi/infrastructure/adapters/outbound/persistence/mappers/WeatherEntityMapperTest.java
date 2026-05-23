@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.weather.repository.mapper;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.mappers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import westmeijer.oskar.weatherapi.TestWeatherFactory;
-import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
-import westmeijer.oskar.weatherapi.weather.service.model.Weather;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.WeatherEntity;
+import westmeijer.oskar.weatherapi.domain.model.Weather;
+import westmeijer.oskar.weatherapi.weather.repository.mapper.WeatherEntityMapperImpl;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {

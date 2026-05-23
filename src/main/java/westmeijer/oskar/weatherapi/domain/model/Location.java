@@ -9,7 +9,6 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
-import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 public record Location(
 

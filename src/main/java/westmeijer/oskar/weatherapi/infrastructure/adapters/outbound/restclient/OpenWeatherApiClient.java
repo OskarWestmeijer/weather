@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import westmeijer.oskar.weatherapi.application.ports.outbound.GetWeatherUpdates;
+import westmeijer.oskar.weatherapi.application.ports.outbound.ImportWeatherClient;
 import westmeijer.oskar.weatherapi.domain.exception.OpenWeatherApiRequestException;
 import westmeijer.oskar.weatherapi.domain.model.Location;
 import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.restclient.mappers.OpenWeatherApiMapper;
@@ -15,7 +15,7 @@ import westmeijer.oskar.weatherapi.openapi.client.model.GeneratedOpenWeatherApiR
 
 @Component
 @Slf4j
-public class OpenWeatherApiClient implements GetWeatherUpdates {
+public class OpenWeatherApiClient implements ImportWeatherClient {
 
   private final OpenWeatherApiMapper openWeatherApiMapper;
 

@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.weather.controller;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;

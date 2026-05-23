@@ -3,8 +3,8 @@ package westmeijer.oskar.weatherapi;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
-import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
-import westmeijer.oskar.weatherapi.weather.service.model.Weather;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.model.WeatherEntity;
+import westmeijer.oskar.weatherapi.domain.model.Weather;
 
 public class TestWeatherFactory {
 

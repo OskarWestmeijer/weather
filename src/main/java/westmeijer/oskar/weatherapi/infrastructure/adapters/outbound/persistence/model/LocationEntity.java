@@ -14,7 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import westmeijer.oskar.weatherapi.weather.repository.model.WeatherEntity;
 
 
 @Table(name = "location")
