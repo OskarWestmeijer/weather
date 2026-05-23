@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.overview.service;
+package westmeijer.oskar.weatherapi.application.services;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,10 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import westmeijer.oskar.weatherapi.application.services.LocationService;
 import westmeijer.oskar.weatherapi.domain.model.Location;
-import westmeijer.oskar.weatherapi.overview.service.mapper.OverviewMapper;
-import westmeijer.oskar.weatherapi.overview.service.model.Overview;
+import westmeijer.oskar.weatherapi.domain.model.Overview;
 
 @ExtendWith(MockitoExtension.class)
 public class OverviewServiceTest {

@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.overview.service.mapper;
+package westmeijer.oskar.weatherapi.application.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
@@ -15,7 +15,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import westmeijer.oskar.weatherapi.TestLocationFactory;
 import westmeijer.oskar.weatherapi.TestWeatherFactory;
 import westmeijer.oskar.weatherapi.domain.model.Location;
-import westmeijer.oskar.weatherapi.overview.service.model.Overview;
+import westmeijer.oskar.weatherapi.domain.model.Overview;
+import westmeijer.oskar.weatherapi.overview.service.mapper.OverviewMapperImpl;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 @ExtendWith(SpringExtension.class)

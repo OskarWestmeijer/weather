@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.overview.controller;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
@@ -19,8 +19,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import westmeijer.oskar.weatherapi.WebMvcMappersTestConfig;
-import westmeijer.oskar.weatherapi.overview.service.OverviewService;
-import westmeijer.oskar.weatherapi.overview.service.model.Overview;
+import westmeijer.oskar.weatherapi.application.services.OverviewService;
+import westmeijer.oskar.weatherapi.domain.model.Overview;
 
 @WebMvcTest(OverviewController.class)
 @Import(WebMvcMappersTestConfig.class)

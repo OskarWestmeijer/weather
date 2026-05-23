@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.overview.controller;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import westmeijer.oskar.weatherapi.openapi.server.api.OverviewApi;
 import westmeijer.oskar.weatherapi.openapi.server.model.OverviewResponse;
-import westmeijer.oskar.weatherapi.overview.controller.mapper.OverviewDtoMapper;
-import westmeijer.oskar.weatherapi.overview.service.OverviewService;
-import westmeijer.oskar.weatherapi.overview.service.model.Overview;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.mappers.OverviewDtoMapper;
+import westmeijer.oskar.weatherapi.application.services.OverviewService;
+import westmeijer.oskar.weatherapi.domain.model.Overview;
 
 @CrossOrigin
 @RestController

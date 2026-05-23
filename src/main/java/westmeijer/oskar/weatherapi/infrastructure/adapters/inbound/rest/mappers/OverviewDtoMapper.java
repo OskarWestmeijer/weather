@@ -1,10 +1,10 @@
-package westmeijer.oskar.weatherapi.overview.controller.mapper;
+package westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.mappers;
 
 import java.util.List;
 import org.mapstruct.Mapper;
 import westmeijer.oskar.weatherapi.openapi.server.model.OverviewDto;
 import westmeijer.oskar.weatherapi.openapi.server.model.OverviewResponse;
-import westmeijer.oskar.weatherapi.overview.service.model.Overview;
+import westmeijer.oskar.weatherapi.domain.model.Overview;
 
 @Mapper(componentModel = "spring")
 public interface OverviewDtoMapper {

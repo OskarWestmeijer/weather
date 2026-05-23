@@ -3,7 +3,7 @@ package westmeijer.oskar.weatherapi;
 import org.mapstruct.factory.Mappers;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import westmeijer.oskar.weatherapi.overview.controller.mapper.OverviewDtoMapper;
+import westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.mappers.OverviewDtoMapper;
 import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.restclient.mappers.OpenWeatherApiMapper;
 import westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.mappers.LocationDtoMapper;
 import westmeijer.oskar.weatherapi.weather.controller.mapper.WeatherDtoMapper;

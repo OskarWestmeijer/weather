@@ -1,4 +1,4 @@
-package westmeijer.oskar.weatherapi.overview.service.mapper;
+package westmeijer.oskar.weatherapi.application.services;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.Objects.requireNonNull;
@@ -9,7 +9,7 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
 import westmeijer.oskar.weatherapi.domain.model.Location;
-import westmeijer.oskar.weatherapi.overview.service.model.Overview;
+import westmeijer.oskar.weatherapi.domain.model.Overview;
 import westmeijer.oskar.weatherapi.weather.service.model.Weather;
 
 @Mapper(componentModel = "spring")
