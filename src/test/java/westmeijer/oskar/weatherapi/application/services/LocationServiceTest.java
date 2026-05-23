@@ -1,0 +1,97 @@
+package westmeijer.oskar.weatherapi.application.services;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.BDDAssertions.thenThrownBy;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.mock;
+
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import westmeijer.oskar.weatherapi.application.ports.outbound.LocationRepository;
+import westmeijer.oskar.weatherapi.domain.model.Location;
+
+@ExtendWith(MockitoExtension.class)
+public class LocationServiceTest {
+
+  @Mock
+  private LocationRepository locationRepository;
+
+  @InjectMocks
+  private LocationService locationService;
+
+  @Test
+  public void shouldGetByIdOmitWeather() {
+    Integer locationId = 1;
+    Location expectedLocation = mock(Location.class);
+    given(locationRepository.getByIdOmitWeather(locationId)).willReturn(expectedLocation);
+
+    Location actualLocation = locationService.getByIdOmitWeather(locationId);
+
+    assertThat(actualLocation).isEqualTo(expectedLocation);
+    then(locationRepository).should().getByIdOmitWeather(locationId);
+  }
+
+  @Test
+  public void getByIdOmitWeather_throwExceptionOnNullParam() {
+    thenThrownBy(() -> locationService.getByIdOmitWeather(null))
+        .isInstanceOf(NullPointerException.class)
+        .hasMessageContaining("locationId is required");
+
+    then(locationRepository).shouldHaveNoInteractions();
+  }
+
+  @Test
+  public void shouldGetAllWithLatest() {
+    Location expectedLocation = mock(Location.class);
+    given(locationRepository.getAllWithLatest()).willReturn(List.of(expectedLocation));
+
+    List<Location> actualLocations = locationService.getAllWithLatest();
+
+    assertThat(actualLocations).isEqualTo(List.of(expectedLocation));
+    then(locationRepository).should().getAllWithLatest();
+  }
+
+  @Test
+  public void shouldGetAllOmitWeather() {
+    Location expectedLocation = mock(Location.class);
+    given(locationRepository.getAllOmitWeather()).willReturn(List.of(expectedLocation));
+
+    List<Location> actualLocations = locationService.getAllOmitWeather();
+
+    assertThat(actualLocations).isEqualTo(List.of(expectedLocation));
+    then(locationRepository).should().getAllOmitWeather();
+  }
+
+  @Test
+  public void shouldGetNextImportLocation() {
+    Location expectedLocation = mock(Location.class);
+    given(locationRepository.getNextImportLocation()).willReturn(expectedLocation);
+
+    Location actualLocation = locationService.getNextImportLocation();
+
+    assertThat(actualLocation).isEqualTo(expectedLocation);
+    then(locationRepository).should().getNextImportLocation();
+  }
+
+  @Test
+  public void shouldSaveLocationWithWeather() {
+    var locationWithWeather = mock(Location.class);
+    locationService.save(locationWithWeather);
+    then(locationRepository).should().save(locationWithWeather);
+  }
+
+  @Test
+  public void saveThrowsNpe() {
+    thenThrownBy(() -> locationService.save(null))
+        .isInstanceOf(NullPointerException.class)
+        .hasMessageContaining("location is required");
+
+    then(locationRepository).shouldHaveNoInteractions();
+  }
+
+}

@@ -1,0 +1,47 @@
+package westmeijer.oskar.weatherapi.application.services;
+
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.mock;
+
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import westmeijer.oskar.weatherapi.domain.model.Location;
+import westmeijer.oskar.weatherapi.domain.model.Overview;
+
+@ExtendWith(MockitoExtension.class)
+public class OverviewServiceTest {
+
+  @Mock
+  private LocationService locationService;
+
+  @Mock
+  private OverviewMapper overviewMapper;
+
+  @InjectMocks
+  OverviewService overviewService;
+
+  @Test
+  void shouldGetOverview() {
+
+    Location location = mock(Location.class);
+    given(locationService.getAllWithLatest()).willReturn(List.of(location));
+
+    Overview expectedOverview = mock(Overview.class);
+    given(overviewMapper.mapToOverviewList(List.of(location))).willReturn(List.of(expectedOverview));
+
+    List<Overview> actualOverviewList = overviewService.getOverview();
+
+    assertThat(actualOverviewList).isEqualTo(List.of(expectedOverview));
+    then(locationService).should().getAllWithLatest();
+    then(overviewMapper).should().mapToOverviewList(List.of(location));
+
+  }
+
+}
