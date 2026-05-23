@@ -1,5 +1,6 @@
 package westmeijer.oskar.weatherapi.archunit;
 
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
 
@@ -91,5 +92,13 @@ public class ArchUnitHexagonalTest {
           .resideInAnyPackage(
               "..application.services.."
           );
+
+  @ArchTest
+  static final ArchRule application_ports_should_only_contain_interfaces =
+      classes()
+          .that()
+          .resideInAPackage("..application.ports..")
+          .should()
+          .beInterfaces();
 
 }
