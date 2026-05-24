@@ -34,7 +34,7 @@ public class RequestMDCTracingFilter implements Filter {
     try {
       log.info("Received request. method: {}, uri: {}, ip: {}",
           req.getMethod(), req.getRequestURI(), req.getHeader("X-Real-IP"));
-      res.setHeader("traceId", traceId);
+      res.setHeader("X-Request-Id", traceId);
 
       chain.doFilter(request, response);
     } finally {
