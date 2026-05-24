@@ -44,7 +44,7 @@ public class RequestMDCTracingFilterTest {
 
     BDDMockito.then(response)
         .should()
-        .setHeader("traceId", traceId);
+        .setHeader("X-Request-Id", traceId);
 
     BDDMockito.then(chain)
         .should(times(1))
