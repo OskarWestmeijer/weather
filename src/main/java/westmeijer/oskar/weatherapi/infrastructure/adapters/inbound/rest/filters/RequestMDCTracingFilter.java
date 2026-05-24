@@ -8,6 +8,7 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.ThreadContext;
@@ -25,12 +26,14 @@ public class RequestMDCTracingFilter implements Filter {
 
     ThreadContext.clearAll();
 
-    var traceId = generateTraceId();
+    var traceId = Optional.ofNullable(req.getHeader("X-Request-Id"))
+        .orElse(generateTraceId());
+
     ThreadContext.put("traceId", traceId);
 
     try {
       log.info("Received request. method: {}, uri: {}, ip: {}",
-          req.getMethod(), req.getRequestURI(), req.getRemoteAddr());
+          req.getMethod(), req.getRequestURI(), req.getHeader("X-Real-IP"));
       res.setHeader("traceId", traceId);
 
       chain.doFilter(request, response);

@@ -1,8 +1,6 @@
 package westmeijer.oskar.weatherapi.infrastructure.adapters.inbound.rest.filters;
 
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -32,9 +30,11 @@ public class RequestMDCTracingFilterTest {
     HttpServletResponse response = mock(HttpServletResponse.class);
     FilterChain chain = mock(FilterChain.class);
 
+    String traceId = "abc";
+    given(request.getHeader("X-Request-Id")).willReturn(traceId);
     given(request.getMethod()).willReturn("GET");
     given(request.getRequestURI()).willReturn("/test");
-    given(request.getRemoteAddr()).willReturn("127.0.0.1");
+    given(request.getHeader("X-Real-IP")).willReturn("127.0.0.1");
 
     // when
     filter.doFilter(request, response, chain);
@@ -44,7 +44,7 @@ public class RequestMDCTracingFilterTest {
 
     BDDMockito.then(response)
         .should()
-        .setHeader(eq("traceId"), anyString());
+        .setHeader("traceId", traceId);
 
     BDDMockito.then(chain)
         .should(times(1))
