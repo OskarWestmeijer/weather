@@ -26,6 +26,7 @@ public class RequestMDCTracingFilter implements Filter {
 
     ThreadContext.clearAll();
 
+    log.info("Received request. Original 'X-Request-Id': {}", req.getHeader("X-Request-Id"));
     var traceId = Optional.ofNullable(req.getHeader("X-Request-Id"))
         .orElse(generateTraceId());
 
