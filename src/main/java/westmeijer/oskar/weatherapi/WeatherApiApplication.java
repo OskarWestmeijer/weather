@@ -13,7 +13,7 @@ import org.springframework.core.env.Environment;
 @SpringBootApplication
 public class WeatherApiApplication {
 
-  public static void main(String[] args) {
+  static void main(String[] args) {
     TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     SpringApplication.run(WeatherApiApplication.class, args);
   }

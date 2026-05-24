@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import jakarta.transaction.Transactional;
+import java.util.concurrent.ThreadLocalRandom;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import westmeijer.oskar.weatherapi.application.ports.inbound.ImportWeatherUseCase;
@@ -28,6 +30,8 @@ public class WeatherImportJob implements ImportWeatherUseCase {
   @Transactional
   public void refreshWeather() {
     try {
+      ThreadContext.clearAll();
+      ThreadContext.put("traceId", generateTraceId());
       meterRegistry.counter("import.job", "import", "execution").increment();
 
       Location location = requireNonNull(locationService.getNextImportLocation(),
@@ -44,8 +48,16 @@ public class WeatherImportJob implements ImportWeatherUseCase {
     } catch (Exception generalException) {
       log.error("Exception during Import job.", generalException);
       meterRegistry.counter("import.job", "error", "process").increment();
+    } finally {
+      ThreadContext.clearAll();
     }
 
+  }
+
+  private String generateTraceId() {
+    return Integer.toHexString(
+        ThreadLocalRandom.current().nextInt()
+    );
   }
 
 }
