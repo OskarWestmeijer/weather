@@ -2,6 +2,11 @@ services:
   weather-db:
     image: postgres:18.1-alpine3.21
     container_name: weather-db
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "25m"
+        max-file: "1"
     deploy:
       resources:
         limits:
@@ -25,6 +30,11 @@ services:
       weather-db:
         condition: service_started
     container_name: weather-api
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "25m"
+        max-file: "1"
     deploy:
       resources:
         limits:
@@ -49,6 +59,11 @@ services:
       weather-api:
         condition: service_started
     container_name: weather-ui
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "25m"
+        max-file: "1"
     deploy:
       resources:
         limits:
