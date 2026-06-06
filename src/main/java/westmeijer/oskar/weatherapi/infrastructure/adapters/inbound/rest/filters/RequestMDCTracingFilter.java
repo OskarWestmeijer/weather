@@ -33,8 +33,8 @@ public class RequestMDCTracingFilter implements Filter {
 
       log.info(
           "Received request. method: {}, uri: {}, real-ip: {}. Received 'X-Request-Id': {}, Resolved trace-id: {}",
-          req.getMethod(), req.getRequestURI(), req.getHeader("X-Real-IP"), resolvedTraceId,
-          receivedRequestId);
+          req.getMethod(), req.getRequestURI(), req.getHeader("X-Real-IP"), receivedRequestId,
+          resolvedTraceId);
       res.setHeader("X-Request-Id", resolvedTraceId);
 
       chain.doFilter(request, response);
@@ -44,7 +44,7 @@ public class RequestMDCTracingFilter implements Filter {
   }
 
   private String generateTraceId() {
-    return "weather_api_%s".formatted(Integer.toHexString(
+    return "weather_request_%s".formatted(Integer.toHexString(
         ThreadLocalRandom.current().nextInt())
     );
   }

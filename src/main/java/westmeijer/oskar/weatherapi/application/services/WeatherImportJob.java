@@ -56,7 +56,7 @@ public class WeatherImportJob implements ImportWeatherUseCase {
   }
 
   private String generateTraceId() {
-    return "weather_api_%s".formatted(Integer.toHexString(
+    return "weather_importjob_%s".formatted(Integer.toHexString(
         ThreadLocalRandom.current().nextInt())
     );
   }
