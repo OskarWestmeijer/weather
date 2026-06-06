@@ -40,6 +40,7 @@ public class WeatherImportJob implements ImportWeatherUseCase {
           location.lastImportAt());
 
       Location updatedLocation = importWeatherClient.importLatestWeather(location);
+      log.info("Imported weather: {}", updatedLocation.weather());
 
       locationService.save(updatedLocation);
     } catch (OpenWeatherApiRequestException requestException) {
@@ -55,8 +56,8 @@ public class WeatherImportJob implements ImportWeatherUseCase {
   }
 
   private String generateTraceId() {
-    return Integer.toHexString(
-        ThreadLocalRandom.current().nextInt()
+    return "weather_api_%s".formatted(Integer.toHexString(
+        ThreadLocalRandom.current().nextInt())
     );
   }
 

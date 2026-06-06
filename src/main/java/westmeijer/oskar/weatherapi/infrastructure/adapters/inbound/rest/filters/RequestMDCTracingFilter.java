@@ -21,21 +21,21 @@ public class RequestMDCTracingFilter implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws ServletException, IOException {
-    HttpServletRequest req = (HttpServletRequest) request;
-    HttpServletResponse res = (HttpServletResponse) response;
-
-    ThreadContext.clearAll();
-
-    log.info("Received request. Original 'X-Request-Id': {}", req.getHeader("X-Request-Id"));
-    var traceId = Optional.ofNullable(req.getHeader("X-Request-Id"))
-        .orElse(generateTraceId());
-
-    ThreadContext.put("traceId", traceId);
-
     try {
-      log.info("Received request. method: {}, uri: {}, ip: {}",
-          req.getMethod(), req.getRequestURI(), req.getHeader("X-Real-IP"));
-      res.setHeader("X-Request-Id", traceId);
+      HttpServletRequest req = (HttpServletRequest) request;
+      HttpServletResponse res = (HttpServletResponse) response;
+
+      ThreadContext.clearAll();
+      var receivedRequestId = req.getHeader("X-Request-Id");
+      var resolvedTraceId = Optional.ofNullable(req.getHeader("X-Request-Id"))
+          .orElse(generateTraceId());
+      ThreadContext.put("traceId", resolvedTraceId);
+
+      log.info(
+          "Received request. method: {}, uri: {}, real-ip: {}. Received 'X-Request-Id': {}, Resolved trace-id: {}",
+          req.getMethod(), req.getRequestURI(), req.getHeader("X-Real-IP"), resolvedTraceId,
+          receivedRequestId);
+      res.setHeader("X-Request-Id", resolvedTraceId);
 
       chain.doFilter(request, response);
     } finally {
@@ -44,8 +44,8 @@ public class RequestMDCTracingFilter implements Filter {
   }
 
   private String generateTraceId() {
-    return Integer.toHexString(
-        ThreadLocalRandom.current().nextInt()
+    return "weather_api_%s".formatted(Integer.toHexString(
+        ThreadLocalRandom.current().nextInt())
     );
   }
 
