@@ -12,8 +12,6 @@
 
 	let weather = $state(page.data.weather ?? null);
 
-	console.log('Initial locations:', locations);
-
 	let canvas;
 	let chart;
 
@@ -30,14 +28,13 @@
 	});
 
 	function createChart() {
-		console.log('Creating chart with weather data: ', weather);
 		chart?.destroy();
 
-		const windData = weather.get('WIND_SPEED')!.map((d) => d.data);
-		const tempData = weather.get('TEMPERATURE')!.map((d) => d.data);
-		const humData = weather.get('HUMIDITY')!.map((d) => d.data);
+		const windData = weather.get('WIND_SPEED').map((d) => d.data);
+		const tempData = weather.get('TEMPERATURE').map((d) => d.data);
+		const humData = weather.get('HUMIDITY').map((d) => d.data);
+		const timeLabels = weather.get('TEMPERATURE').map((d) => d.recordedAt);
 
-		const timeLabels = weather.get('TEMPERATURE')!.map((d) => d.recordedAt);
 		chart = new Chart(canvas, {
 			data: {
 				labels: timeLabels,
@@ -63,7 +60,76 @@
 			},
 			options: {
 				responsive: true,
-				maintainAspectRatio: false
+				maintainAspectRatio: false,
+				scales: {
+					// LEFT Y AXIS (Temperature)
+					y: {
+						type: 'linear',
+						position: 'left',
+						ticks: {
+							color: 'black',
+							callback: (val) => `${val}°C`
+						},
+						title: {
+							display: true,
+							text: 'Temperature (°C)',
+							color: 'black'
+						},
+						grid: { display: false }
+					},
+
+					// RIGHT Y AXIS (Humidity)
+					y1: {
+						type: 'linear',
+						position: 'right',
+						ticks: { color: 'black' },
+						min: 0,
+						max: 100,
+						title: {
+							display: true,
+							text: 'Humidity (%)',
+							color: 'black'
+						},
+						grid: { drawOnChartArea: false }
+					},
+
+					// BOTTOM X AXIS (Wind speed)
+					x: {
+						position: 'bottom',
+						offset: true,
+						ticks: {
+							color: 'black',
+							callback: (_val, index) => `${windData[index]} km/h`
+						},
+						grid: { display: false }
+					},
+
+					// TOP X AXIS (Time labels)
+					xTop: {
+						position: 'top',
+						offset: true,
+						ticks: {
+							color: 'black',
+							callback: (_val, index) => timeLabels[index]
+						},
+						grid: { display: false }
+					}
+				},
+
+				plugins: {
+					legend: {
+						labels: { color: 'black' },
+						onClick: () => {} // disable toggling
+					},
+					tooltip: {
+						callbacks: {
+							afterBody: (items) => {
+								const index = items[0].dataIndex;
+								return `Wind: ${windData[index]} km/h`;
+							}
+						}
+					}
+				}
 			}
 		});
 	}
@@ -84,13 +150,37 @@
 				{/each}
 			</select>
 		</div>
-
-		{#if weather}
-			<div class="relative h-96">
-				<canvas bind:this={canvas}></canvas>
-			</div>
-		{:else}
-			<p class="text-center text-gray-500">Loading weather data...</p>
-		{/if}
 	</div>
+
+	{#if weather}
+		<div class="chart-wrapper">
+			<canvas bind:this={canvas}></canvas>
+		</div>
+	{:else}
+		<p class="text-center text-gray-500">Loading weather data...</p>
+	{/if}
 </div>
+
+<style>
+	.chart-wrapper {
+		width: 95%;
+		max-width: 1200px;
+		aspect-ratio: 2.7 / 1;
+		margin: 2.5rem auto 0 auto; /* same as mt-10 + centering */
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	@media (max-width: 640px) {
+		.chart-wrapper {
+			aspect-ratio: auto;
+			height: 400px;
+		}
+	}
+
+	canvas {
+		width: 100% !important;
+		height: 100% !important;
+	}
+</style>
