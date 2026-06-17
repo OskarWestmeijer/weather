@@ -6,18 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Weather data API + frontend. A Spring Boot backend harvests current weather from
 `openweathermap.org` for a fixed set of locations, stores it in PostgreSQL, and exposes it via a
-REST API documented with OpenAPI. Two frontends exist in `frontend/`:
-
-- `frontend/` (root) — **new SvelteKit UI, currently being migrated to** (branch
-  `feat/migrate-to-sveltekit`). This is mid-migration: some files under `frontend/src/lib` (e.g.
-  `api-client.ts`, `transform.ts`) reference types/paths (`$lib/types/...`, `./types`) that don't
-  exist yet. Don't assume this code is finished or consistent — check before reusing it.
-- `frontend/weather-ui-angular/` — legacy Angular UI being replaced. Don't add new features here.
-
-Note: `.github/workflows` and the composite actions under `.github/actions/` still reference a
-`frontend/weather-ui` directory and `npm run test-headless` / `npm run e2e` scripts that don't
-match the current `frontend/package.json` (`test:unit`, `test:e2e`). CI is stale relative to the
-migration in progress — verify before trusting it as the source of truth for frontend commands.
+REST API documented with OpenAPI. `frontend/` is a SvelteKit app (the previous Angular UI has been
+fully removed — there is only one frontend now).
 
 ## Backend (Spring Boot / Java 25)
 
@@ -122,14 +112,43 @@ npm run test                # vitest run + playwright e2e
 
 - Uses Svelte 5 runes mode (forced via `vite.config.ts` `compilerOptions.runes`, except inside
   `node_modules`).
+- **CSR only, no SSR/prerendering.** There is no `svelte.config.js` — the SvelteKit Vite plugin's
+  options (including the adapter) are passed inline in `vite.config.ts`'s `sveltekit({...})` call
+  instead, which silently takes precedence over `svelte.config.js` if one were ever added back.
+  The adapter is `@sveltejs/adapter-static` with `fallback: 'index.html'` (SPA mode — `/` and
+  `/details` are dynamic and can't be prerendered). `npm run build` writes a single
+  `build/index.html` shell plus hashed `_app/` assets; there is no per-route HTML file.
 - Styling: Tailwind v4 (`@tailwindcss/vite`) + daisyUI.
 - Charts: chart.js (weather data is transformed into hourly-averaged series — see
-  `toChartDataMap` in `src/lib/transform.ts`, which buckets readings by hour and computes mean
-  temperature/humidity/wind speed per bucket, newest first).
+  `toChartDataMap` in `src/lib/transform.ts`, which buckets readings by hour and computes the mean
+  temperature/humidity/wind speed per bucket, in chronological order).
 - Data loading happens in SvelteKit `+page.ts` loaders (`PageLoad`), which call the backend API
-  directly — there is no separate frontend backend-for-frontend layer.
-- Playwright e2e test files must match `**/*.e2e.{ts,js}` (per `playwright.config.ts`); the e2e
-  webServer command is `npm run build && npm run preview` on port 4173.
+  directly via `src/lib/api-client.ts` — there is no separate frontend backend-for-frontend layer.
+  The API base URL is `import.meta.env.VITE_API_BASE_URL`, falling back to the production API —
+  e2e tests override it to point at the local WireMock instance (see below).
+- Svelte 5.25+'s **writable `$derived`** is used in `details/+page.svelte` for state that should
+  both track a prop and be locally overridable (e.g. `selected`, `weather`) — e.g.
+  `let weather = $derived(page.data.weather ?? null)`, then later reassigned directly in an event
+  handler. Don't reintroduce the older `$state` + `$effect` resync workaround for this; ESLint
+  (`svelte/prefer-writable-derived`) flags it.
+
+### Tests
+
+- Unit tests (Vitest): colocated `*.test.ts` files, e.g. `src/lib/transform.test.ts`,
+  `src/lib/api-client.test.ts`, `src/routes/page-load.test.ts` (tests the `+page.ts` loader).
+  Route-loader test files are named `page-load.test.ts`, not `+page.test.ts` — a `+`-prefixed
+  filename gets flagged by the SvelteKit Vite plugin as a reserved name even for non-route
+  suffixes.
+- E2e tests (Playwright): files matching `**/*.e2e.{ts,js}` under `frontend/e2e/`. These run
+  against a **real local WireMock instance**, not browser-level `page.route()` mocking — the app
+  build/preview can execute `load()` outside the browser's network stack in ways Playwright can't
+  intercept, so route-mocking silently doesn't work here. `playwright.config.ts` defines two
+  `webServer` entries: one starts WireMock via `docker compose up` (config/fixtures in
+  `frontend/wiremock/`, originally copied from the old Angular app's wiremock setup), the other
+  builds and previews the app with `VITE_API_BASE_URL` pointed at it. Requires Docker/Podman with
+  compose support; on rootless podman the wiremock volume mount needs the `:Z` SELinux relabel
+  suffix in `frontend/docker-compose.yml` or the mappings silently fail to load (mappings list
+  comes back empty, every request 404s).
 
 ## Deployment
 
@@ -139,3 +158,10 @@ recreates the `weather-db`, `weather-api`, `weather-ui` containers from prebuilt
 `oskarwestmeijer/weather-api:latest` / `weather-ui:latest` images and restarts the
 `reverse-proxy` container. The backend image's entrypoint (`entrypoint.sh`) execs `java` as
 process name `weather-backend`.
+
+`frontend/Dockerfile` builds the SvelteKit static output and serves it with nginx
+(`frontend/nginx/nginx.conf`, which must be explicitly `COPY`'d into the image — it's easy to add
+the file without wiring it in and end up running nginx's stock config instead, which has no SPA
+fallback and 404s on every route but `/`). The nginx config's `try_files $uri /index.html;` is
+what makes client-side routes like `/details` work — it must keep matching whatever `fallback`
+filename `vite.config.ts`'s adapter call uses.
