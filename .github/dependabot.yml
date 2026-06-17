@@ -10,7 +10,7 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "npm"
-    directory: "/frontend/weather-ui"
+    directory: "/frontend"
     schedule:
       interval: "daily"
   - package-ecosystem: "github-actions"
