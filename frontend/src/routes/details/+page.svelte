@@ -1,18 +1,19 @@
 <script lang="ts">
 	import Chart from 'chart.js/auto';
 	import { toChartDataMap } from '$lib/transform';
-	import { getLocations, getWeather } from '$lib/api-client';
+	import { getWeather } from '$lib/api-client';
 
-	// LEGAL: top‑level props initialization
 	let page = $props();
 
-	// SAFE local state
-	let locations = page.data.locations ?? [];
-	let selected = page.data.selected ?? locations[0] ?? null;
+	let locations = $derived(page.data.locations ?? []);
+	let selected = $derived(page.data.selected ?? locations[0] ?? null);
 
-	let weather = $state(page.data.weather ?? null);
+	let weather: any = $state(null);
+	$effect(() => {
+		weather = page.data.weather ?? null;
+	});
 
-	let canvas;
+	let canvas = $state();
 	let chart;
 
 	async function onSelectChange(event: Event) {
@@ -142,7 +143,7 @@
 		</h1>
 
 		<div class="mb-6 flex justify-center">
-			<select class="select select-bordered w-full max-w-xs" on:change={onSelectChange}>
+			<select class="select select-bordered w-full max-w-xs" onchange={onSelectChange}>
 				{#each locations as loc (loc.locationId)}
 					<option value={loc.locationId} selected={loc.locationId === selected?.locationId}>
 						{loc.cityName} ({loc.countryCode})

@@ -1,15 +1,14 @@
 import type { PageLoad } from './$types';
+import { getOverviewLocations } from '$lib/api-client';
 
 export const load: PageLoad = async ({ fetch }) => {
-    const res = await fetch('https://api.weather.oskar-westmeijer.com/overview');
+    let overviewLocations;
 
-    if (!res.ok) {
+    try {
+        overviewLocations = (await getOverviewLocations(fetch)).overview ?? [];
+    } catch {
         return { overviewLocations: [] };
     }
-
-    const data = await res.json();
-
-    let overviewLocations = data.overview ?? [];
 
     // Sort by temperature
     overviewLocations.sort((a, b) => a.temperature - b.temperature);

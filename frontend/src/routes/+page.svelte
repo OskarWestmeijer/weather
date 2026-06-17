@@ -1,6 +1,6 @@
 <script lang="ts">
-	const props = $props();
-	const overviewLocations = props.data.overviewLocations;
+	let { data } = $props();
+	let overviewLocations = $derived(data.overviewLocations);
 
 	function formatDateUTC(timestamp: string) {
 		const d = new Date(timestamp);
