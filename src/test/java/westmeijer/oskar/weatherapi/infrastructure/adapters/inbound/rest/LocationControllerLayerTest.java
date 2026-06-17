@@ -15,10 +15,10 @@ import lombok.SneakyThrows;
 import org.intellij.lang.annotations.Language;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import westmeijer.oskar.weatherapi.WebMvcMappersTestConfig;
 import westmeijer.oskar.weatherapi.application.services.LocationService;
@@ -28,7 +28,7 @@ import westmeijer.oskar.weatherapi.domain.model.Location;
 @Import(WebMvcMappersTestConfig.class)
 public class LocationControllerLayerTest {
 
-  @MockBean
+  @MockitoBean
   private LocationService locationService;
 
   @Autowired

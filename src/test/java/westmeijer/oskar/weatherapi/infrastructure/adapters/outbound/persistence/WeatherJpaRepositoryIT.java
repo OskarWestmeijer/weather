@@ -5,8 +5,10 @@ import static org.assertj.core.api.BDDAssertions.then;
 import java.time.Instant;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
+import org.springframework.boot.liquibase.autoconfigure.LiquibaseAutoConfiguration;
 import westmeijer.oskar.weatherapi.IntegrationTestContainers;
 import westmeijer.oskar.weatherapi.factory.TestLocationFactory;
 import westmeijer.oskar.weatherapi.factory.TestWeatherFactory;
@@ -15,6 +17,7 @@ import westmeijer.oskar.weatherapi.infrastructure.adapters.outbound.persistence.
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ImportAutoConfiguration(LiquibaseAutoConfiguration.class)
 public class WeatherJpaRepositoryIT extends IntegrationTestContainers {
 
   @Autowired

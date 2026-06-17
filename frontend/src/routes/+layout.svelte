@@ -72,6 +72,8 @@
 
 	<!-- FOOTER -->
 	<footer class="footer-center footer py-6 mt-auto">
-		<a href="/" class="text-base"> Created by Oskar Westmeijer 🐨 2025 </a>
+		<a href="https://oskar-westmeijer.com" target="_blank" class="text-base">
+			Created by Oskar Westmeijer 🐨 2026
+		</a>
 	</footer>
 </div>
