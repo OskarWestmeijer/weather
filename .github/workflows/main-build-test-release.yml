@@ -26,7 +26,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/frontend-build-and-test
         with:
-          frontend-directory: frontend/weather-ui
+          frontend-directory: frontend
           node: ${{ env.NODE_VERSION }}
 
 
@@ -36,7 +36,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/frontend-e2e
         with:
-          frontend-directory: frontend/weather-ui
+          frontend-directory: frontend
           node: ${{ env.NODE_VERSION }}
 
   codeql-check:
@@ -102,6 +102,6 @@ jobs:
       - name: build and push frontend image
         uses: docker/build-push-action@v7
         with:
-          context: frontend/weather-ui
+          context: frontend
           push: true
           tags: ${{ steps.meta.outputs.tags }}

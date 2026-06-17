@@ -26,7 +26,7 @@ runs:
     - name: npm test
       shell: bash
       working-directory: ${{ inputs.frontend-directory }}
-      run: npm run test-headless
+      run: npm run test:unit -- --run
 
     - name: npm run build
       shell: bash

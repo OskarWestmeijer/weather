@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/frontend-build-and-test
         with:
-          frontend-directory: frontend/weather-ui
+          frontend-directory: frontend
           node: ${{ env.NODE_VERSION }}
 
   frontend-e2e:
@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/frontend-e2e
         with:
-          frontend-directory: frontend/weather-ui
+          frontend-directory: frontend
           node: ${{ env.NODE_VERSION }}
 
   codeql-check:

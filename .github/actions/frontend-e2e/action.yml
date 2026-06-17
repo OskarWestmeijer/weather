@@ -35,14 +35,9 @@ runs:
       run: npx playwright install --with-deps
       shell: bash
 
-    - name: Start wiremock backend api
-      working-directory: ${{ inputs.frontend-directory }}
-      run: docker compose up -d
-      shell: bash
-
     - name: Run Playwright tests
       working-directory: ${{ inputs.frontend-directory }}
-      run: npm run e2e
+      run: npx playwright test
       shell: bash
 
     - uses: actions/upload-artifact@v4
