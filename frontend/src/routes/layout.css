@@ -1,23 +1,23 @@
 @import 'tailwindcss';
-@plugin "daisyui";
+@plugin 'daisyui';
 
 /* set theme in index.html: data-theme="customtheme" */
-@plugin "daisyui/theme" {
-  name: "customtheme";
-  default: true;
-  prefersdark: false;
-  color-scheme: light;
+@plugin 'daisyui/theme' {
+	name: 'customtheme';
+	default: true;
+	prefersdark: false;
+	color-scheme: light;
 
-  --color-primary: #233554;
-  --color-secondary: #233554;
-  --color-accent: #ffd200;
-  --color-accent-focus: #ffffff;
-  --color-neutral: #191a3e;
-  --color-base-100: #ffffff;
-  --color-info: #cae2e8;
-  --color-success: #dff2a1;
-  --color-warning: #f7e488;
-  --color-error: #f2b6b5;
+	--color-primary: #233554;
+	--color-secondary: #233554;
+	--color-accent: #ffd200;
+	--color-accent-focus: #ffffff;
+	--color-neutral: #191a3e;
+	--color-base-100: #ffffff;
+	--color-info: #cae2e8;
+	--color-success: #dff2a1;
+	--color-warning: #f7e488;
+	--color-error: #f2b6b5;
 }
 
 /*
@@ -29,25 +29,23 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentcolor);
+	}
 }
 
-
 .footer-comp {
-  @apply mt-auto;
-  padding-bottom: 10px;
+	@apply mt-auto;
+	padding-bottom: 10px;
 }
 
 /* Show social links only on wider screens */
 @media (max-width: 700px) {
-  .mobile-hide {
-    display: none;
-  }
+	.mobile-hide {
+		display: none;
+	}
 }

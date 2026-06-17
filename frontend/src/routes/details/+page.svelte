@@ -2,22 +2,22 @@
 	import Chart from 'chart.js/auto';
 	import { toChartDataMap } from '$lib/transform';
 	import { getWeather } from '$lib/api-client';
+	import type { ChartData } from '$lib/types';
+	import type { Location } from '$lib/types/locations';
 
 	let page = $props();
 
-	let locations = $derived(page.data.locations ?? []);
-	let selected = $derived(page.data.selected ?? locations[0] ?? null);
+	let locations: Location[] = $derived(page.data.locations ?? []);
+	let selected: Location | null = $derived(page.data.selected ?? locations[0] ?? null);
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any -- avoids a cascade of unrelated null-safety errors, see chart rendering below
+	let weather: any = $derived(page.data.weather ?? null);
 
-	let weather: any = $state(null);
-	$effect(() => {
-		weather = page.data.weather ?? null;
-	});
-
-	let canvas = $state();
-	let chart;
+	let canvas: HTMLCanvasElement | undefined = $state();
+	let chart: Chart | undefined;
 
 	async function onSelectChange(event: Event) {
 		const id = Number((event.target as HTMLSelectElement).value);
+		selected = locations.find((l) => l.locationId === id) ?? selected;
 
 		const raw = await getWeather(id);
 		weather = toChartDataMap(raw.weatherData);
@@ -29,12 +29,13 @@
 	});
 
 	function createChart() {
+		if (!canvas) return;
 		chart?.destroy();
 
-		const windData = weather.get('WIND_SPEED').map((d) => d.data);
-		const tempData = weather.get('TEMPERATURE').map((d) => d.data);
-		const humData = weather.get('HUMIDITY').map((d) => d.data);
-		const timeLabels = weather.get('TEMPERATURE').map((d) => d.recordedAt);
+		const windData = weather.get('WIND_SPEED').map((d: ChartData) => d.data);
+		const tempData = weather.get('TEMPERATURE').map((d: ChartData) => d.data);
+		const humData = weather.get('HUMIDITY').map((d: ChartData) => d.data);
+		const timeLabels = weather.get('TEMPERATURE').map((d: ChartData) => d.recordedAt);
 
 		chart = new Chart(canvas, {
 			data: {
@@ -143,7 +144,11 @@
 		</h1>
 
 		<div class="mb-6 flex justify-center">
-			<select class="select select-bordered w-full max-w-xs" onchange={onSelectChange}>
+			<select
+				id="location-select"
+				class="select select-bordered w-full max-w-xs"
+				onchange={onSelectChange}
+			>
 				{#each locations as loc (loc.locationId)}
 					<option value={loc.locationId} selected={loc.locationId === selected?.locationId}>
 						{loc.cityName} ({loc.countryCode})

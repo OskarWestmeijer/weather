@@ -35,24 +35,14 @@
 
 			<!-- Desktop brand -->
 			<div class="hidden lg:flex">
-				<a
-					href="/"
-					class="btn btn-ghost rounded-lg text-lg font-bold"
-				>
-					⛅ Weather
-				</a>
+				<a href="/" class="btn btn-ghost rounded-lg text-lg font-bold"> ⛅ Weather </a>
 			</div>
 		</div>
 
 		<!-- CENTER -->
 		<div class="navbar-center">
 			<!-- Mobile brand -->
-			<a
-				href="/"
-				class="btn btn-ghost rounded-lg text-lg font-bold lg:hidden"
-			>
-				⛅ Weather
-			</a>
+			<a href="/" class="btn btn-ghost rounded-lg text-lg font-bold lg:hidden"> ⛅ Weather </a>
 
 			<!-- Desktop links -->
 			<div class="hidden lg:flex gap-2">
@@ -82,8 +72,6 @@
 
 	<!-- FOOTER -->
 	<footer class="footer-center footer py-6 mt-auto">
-		<a href="/" class="text-base">
-			Created by Oskar Westmeijer 🐨 2025
-		</a>
+		<a href="/" class="text-base"> Created by Oskar Westmeijer 🐨 2025 </a>
 	</footer>
 </div>
