@@ -16,9 +16,9 @@
 </script>
 
 <div class="w-full flex justify-center">
-	<div class="mt-10 grid gap-6 px-4 sm:grid-cols-2 lg:grid-cols-3 max-w-4xl w-full">
+	<div class="mt-10 grid gap-6 px-4 sm:grid-cols-2 lg:grid-cols-3">
 		{#each overviewLocations as location (location.locationId)}
-			<a href={`/details?locationId=${location.locationId}`} class="block max-w-sm mx-auto">
+			<a href={`/details?locationId=${location.locationId}`} class="block">
 				<div
 					class="card bg-base-200 shadow-xl rounded-2xl p-6 transition hover:shadow-2xl hover:scale-105 cursor-pointer"
 				>
