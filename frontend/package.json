@@ -41,6 +41,6 @@
 	},
 	"dependencies": {
 		"chart.js": "^4.5.1",
-		"daisyui": "^5.7.14"
+		"daisyui": "^5.7.15"
 	}
 }
