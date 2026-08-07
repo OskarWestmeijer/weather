@@ -15,6 +15,7 @@ services:
           memory: 500m
     expose:
       - "5432"
+    restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
