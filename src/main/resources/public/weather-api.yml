@@ -314,6 +314,8 @@ components:
         - locationId
         - cityName
         - countryCode
+        - latitude
+        - longitude
         - temperature
         - humidity
         - windSpeed
@@ -332,6 +334,14 @@ components:
           type: string
           description: ISO 3166-1 ALPHA-3 codes
           example: "GER"
+        latitude:
+          type: string
+          description: latitude of the location, used to place it on a map
+          example: "53.8689"
+        longitude:
+          type: string
+          description: longitude of the location, used to place it on a map
+          example: "10.6866"
         temperature:
           type: number
           format: double

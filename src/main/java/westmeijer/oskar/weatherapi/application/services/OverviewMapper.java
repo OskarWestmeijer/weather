@@ -25,6 +25,7 @@ public interface OverviewMapper {
 
     Weather w = location.weather().getFirst();
     return new Overview(location.locationId(), location.cityName(), location.countryCode(),
+        location.latitude(), location.longitude(),
         w.temperature(), w.humidity(), w.windSpeed(), w.recordedAt());
   }
 

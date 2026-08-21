@@ -1,20 +1,49 @@
 import { expect, test } from '@playwright/test';
 
-test('shows location tiles sorted by temperature, coldest first', async ({ page }) => {
+const railRows = 'a[href^="/details?locationId="]';
+
+test('ranks locations coldest first in the rail', async ({ page }) => {
 	await page.goto('/');
 
-	const cards = page.locator('a.block .card');
-	await expect(cards).toHaveCount(5);
+	const rows = page.locator(railRows);
+	await expect(rows).toHaveCount(5);
 
-	const firstCard = cards.first();
-	await expect(firstCard.locator('div.text-xl.font-bold')).toContainText('Kangasala');
-	await expect(firstCard.locator('div.mt-3.text-5xl')).toHaveText('-5°C');
+	const firstRow = rows.first();
+	await expect(firstRow).toContainText('Kangasala');
+	await expect(firstRow).toContainText('-5°');
 });
 
-test('navigates to the details page when a tile is clicked', async ({ page }) => {
+test('shows the temperature legend spanning the coldest and warmest reading', async ({ page }) => {
 	await page.goto('/');
 
-	await page.locator('a.block .card').first().click();
+	await expect(page.getByText('Coldest → warmest')).toBeVisible();
+	await expect(page.getByText('-5° → 6°')).toBeVisible();
+});
+
+test('renders the leaflet map with a pin per location', async ({ page }) => {
+	await page.goto('/');
+
+	const map = page.getByTestId('weather-map');
+	await expect(map).toBeVisible();
+	await expect(map).toHaveClass(/leaflet-container/);
+	await expect(map.locator('.wx-pin')).toHaveCount(5);
+	await expect(map.locator('.wx-pin').first()).toHaveText('-5°');
+});
+
+// Leaflet only adds layers once the map has a center/zoom. If that view is ever
+// missing the basemap silently disappears, so assert its attribution is present.
+test('adds the basemap tile layer', async ({ page }) => {
+	await page.goto('/');
+
+	const map = page.getByTestId('weather-map');
+	await expect(map.locator('.leaflet-control-attribution')).toContainText('CARTO');
+	await expect(map.locator('.leaflet-tile-pane .leaflet-layer')).toHaveCount(1);
+});
+
+test('navigates to the details page when a rail row is clicked', async ({ page }) => {
+	await page.goto('/');
+
+	await page.locator(railRows).first().click();
 
 	await expect(page).toHaveURL(/\/details\?locationId=\d+/);
 });

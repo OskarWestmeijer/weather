@@ -15,7 +15,7 @@
 		<div class="navbar-start">
 			<!-- Mobile hamburger -->
 			<div class="dropdown lg:hidden">
-				<div tabindex="0" role="button" class="btn btn-ghost btn-circle" aria-label="Open menu">
+				<div tabindex="0" role="button" class="btn btn-ghost btn-circle text-white hover:text-white" aria-label="Open menu">
 					☰
 				</div>
 
@@ -35,19 +35,23 @@
 
 			<!-- Desktop brand -->
 			<div class="hidden lg:flex">
-				<a href="/" class="btn btn-ghost rounded-lg text-lg font-bold"> ⛅ Weather </a>
+				<a href="/" class="btn btn-ghost rounded-lg text-lg font-bold text-white hover:text-white">
+					⛅ Weather
+				</a>
 			</div>
 		</div>
 
 		<!-- CENTER -->
 		<div class="navbar-center">
 			<!-- Mobile brand -->
-			<a href="/" class="btn btn-ghost rounded-lg text-lg font-bold lg:hidden"> ⛅ Weather </a>
+			<a href="/" class="btn btn-ghost rounded-lg text-lg font-bold text-white hover:text-white lg:hidden">
+				⛅ Weather
+			</a>
 
 			<!-- Desktop links -->
 			<div class="hidden lg:flex gap-2">
-				<a href="/" class="btn btn-ghost text-lg">📍 Overview</a>
-				<a href="/details" class="btn btn-ghost text-lg">📈 Details</a>
+				<a href="/" class="btn btn-ghost text-lg text-white hover:text-white">📍 Overview</a>
+				<a href="/details" class="btn btn-ghost text-lg text-white hover:text-white">📈 Details</a>
 			</div>
 		</div>
 

@@ -35,7 +35,8 @@ public class OverviewControllerLayerTest {
   @Test
   @SneakyThrows
   public void shouldGetOverview() {
-    Overview overview = new Overview(1, "Luebeck", "GER", 15.66, 44, 10.11, Instant.now().truncatedTo(ChronoUnit.MICROS));
+    Overview overview = new Overview(1, "Luebeck", "GER", "53.8689", "10.6866", 15.66, 44, 10.11,
+        Instant.now().truncatedTo(ChronoUnit.MICROS));
 
     given(overviewService.getOverview()).willReturn(List.of(overview));
 
@@ -47,6 +48,8 @@ public class OverviewControllerLayerTest {
               "locationId": 1,
               "cityName":"Luebeck",
               "countryCode":"GER",
+              "latitude":"53.8689",
+              "longitude":"10.6866",
               "temperature":15.66,
               "humidity":44,
               "windSpeed":10.11,
