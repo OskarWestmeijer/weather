@@ -27,7 +27,10 @@ echo "Start deploy weather script (image tag: $WEATHER_IMAGE_TAG)."
 # its contents across deploys — only the containers are recreated.
 compose_down="docker compose -f cprod.yml down"
 compose_pull="docker compose -f cprod.yml pull"
-compose_up="docker compose -f cprod.yml up -d"
+# --wait blocks until every healthcheck passes, so the proxy below is restarted
+# against a stack that is actually serving, and a container that never gets there
+# fails the deploy instead of leaving it half-up.
+compose_up="docker compose -f cprod.yml up -d --wait"
 # Recreated containers join the proxy network with fresh IPs, which the reverse proxy only
 # resolves at startup — without this restart it keeps proxying to the containers that are gone.
 proxy_restart="docker restart reverse-proxy"

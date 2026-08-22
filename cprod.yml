@@ -22,6 +22,13 @@ services:
       POSTGRES_USER: ${SPRING_DATASOURCE_USERNAME}
       POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       POSTGRES_DB: weather
+    healthcheck:
+      # $$ keeps the expansion in the container, at runtime.
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     labels:
       log_category: "infra"
 
@@ -29,7 +36,7 @@ services:
     image: oskarwestmeijer/weather-api:${WEATHER_IMAGE_TAG:-latest}
     depends_on:
       weather-db:
-        condition: service_started
+        condition: service_healthy
     container_name: weather-api
     logging:
       driver: "json-file"
@@ -51,6 +58,14 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       OPENWEATHERAPI_APPID: ${OPENWEATHERAPI_APPID}
       SPRING_PROFILES_ACTIVE: prod
+    healthcheck:
+      # Actuator reports UP only once Liquibase ran and the datasource answers.
+      # 127.0.0.1, not localhost: that resolves to ::1 first, where the JVM is not listening.
+      test: [ "CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:8080/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 90s
     labels:
       log_category: "application"
 
@@ -58,7 +73,7 @@ services:
     image: oskarwestmeijer/weather-ui:${WEATHER_IMAGE_TAG:-latest}
     depends_on:
       weather-api:
-        condition: service_started
+        condition: service_healthy
     container_name: weather-ui
     logging:
       driver: "json-file"
