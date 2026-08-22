@@ -105,3 +105,9 @@ jobs:
           context: frontend
           push: true
           tags: ${{ steps.meta.outputs.tags }}
+
+  deploy:
+    needs: [ release-backend-docker-image, release-frontend-docker-image ]
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit

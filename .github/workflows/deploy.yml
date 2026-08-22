@@ -1,0 +1,34 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'Docker image tag to deploy, e.g. sha-<full-commit-sha> to roll back. Defaults to latest.'
+        required: false
+        default: 'latest'
+        type: string
+  workflow_call:
+    inputs:
+      image_tag:
+        required: false
+        default: 'latest'
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: oskar-westmeijer-environment
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script_stop: true
+          script: |
+            cd /deployments/weather
+            git pull
+            ./deploy.sh ${{ inputs.image_tag }}

@@ -26,7 +26,7 @@ services:
       log_category: "infra"
 
   weather-api:
-    image: oskarwestmeijer/weather-api:latest
+    image: oskarwestmeijer/weather-api:${WEATHER_IMAGE_TAG:-latest}
     depends_on:
       weather-db:
         condition: service_started
@@ -55,7 +55,7 @@ services:
       log_category: "application"
 
   weather-ui:
-    image: oskarwestmeijer/weather-ui:latest
+    image: oskarwestmeijer/weather-ui:${WEATHER_IMAGE_TAG:-latest}
     depends_on:
       weather-api:
         condition: service_started

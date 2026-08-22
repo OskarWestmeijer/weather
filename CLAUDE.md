@@ -152,12 +152,26 @@ npm run test                # vitest run + playwright e2e
 
 ## Deployment
 
+Deploys are automated: every push to `main` runs `main-build-test-release.yml`, and once both
+image-release jobs succeed its final `deploy` job calls the reusable
+`.github/workflows/deploy.yml`, which SSHes to the host, `cd /deployments/weather && git pull`,
+and runs `./deploy.sh <image_tag>`. The same workflow is `workflow_dispatch`-able to deploy or
+roll back by hand — its `image_tag` input defaults to `latest`, and any
+`sha-<full-commit-sha>` tag pushed by `docker/metadata-action` can be given instead (a bare
+40-char SHA is normalised to `sha-<sha>` by `deploy.sh`). It needs `SSH_HOST`, `SSH_USER` and
+`SSH_PRIVATE_KEY` in the `oskar-westmeijer-environment` GitHub environment.
+
 Production uses a separate compose file `cprod.yml` (distinct from the dev `docker-compose.yml`,
-which only provides Postgres + Wiremock for local backend dev). `deploy.sh` tears down and
-recreates the `weather-db`, `weather-api`, `weather-ui` containers from prebuilt
-`oskarwestmeijer/weather-api:latest` / `weather-ui:latest` images and restarts the
-`reverse-proxy` container. The backend image's entrypoint (`entrypoint.sh`) execs `java` as
-process name `weather-backend`.
+which only provides Postgres + Wiremock for local backend dev). Both application images are
+pinned to `${WEATHER_IMAGE_TAG:-latest}` there, which `deploy.sh` exports — that indirection is
+what makes a tagged rollback possible, so keep the images referencing the variable rather than a
+hard-coded `:latest`. `deploy.sh` tears down and recreates the `weather-db`, `weather-api`,
+`weather-ui` containers from the prebuilt `oskarwestmeijer/weather-api` / `weather-ui` images,
+restarts the `reverse-proxy` container (recreated containers get new IPs on the `proxy` network
+and the proxy only resolves upstreams at startup), then prunes the images the deploy orphaned.
+The named `postgres_data` volume survives `docker compose down`, so the database keeps its
+contents. The backend image's entrypoint (`entrypoint.sh`) execs `java` as process name
+`weather-backend`.
 
 `frontend/Dockerfile` builds the SvelteKit static output and serves it with nginx
 (`frontend/nginx/nginx.conf`, which must be explicitly `COPY`'d into the image — it's easy to add
