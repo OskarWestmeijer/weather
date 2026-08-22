@@ -15,19 +15,24 @@
 		<div class="navbar-start">
 			<!-- Mobile hamburger -->
 			<div class="dropdown lg:hidden">
-				<div tabindex="0" role="button" class="btn btn-ghost btn-circle" aria-label="Open menu">
+				<div
+					tabindex="0"
+					role="button"
+					class="btn btn-circle btn-ghost text-white hover:border-transparent hover:bg-white/10 hover:text-white"
+					aria-label="Open menu"
+				>
 					☰
 				</div>
 
 				<ul
-					class="menu menu-lg dropdown-content bg-base-100 rounded-box z-50 mt-3 w-56 p-2 shadow text-black"
+					class="menu dropdown-content z-50 mt-3 w-56 menu-lg rounded-box bg-base-100 p-2 text-black shadow"
 				>
 					<li><a href="/">📍 Overview</a></li>
 					<li><a href="/details">📈 Details</a></li>
 					<li><a href="https://api.weather.oskar-westmeijer.com" target="_blank">🚀 API-doc</a></li>
 					<li>
 						<a href="https://github.com/OskarWestmeijer/weather" target="_blank">
-							<img alt="Github logo" class="size-4 inline" src="/github.svg" /> Project on Github
+							<img alt="Github logo" class="inline size-4" src="/github.svg" /> Project on Github
 						</a>
 					</li>
 				</ul>
@@ -35,24 +40,42 @@
 
 			<!-- Desktop brand -->
 			<div class="hidden lg:flex">
-				<a href="/" class="btn btn-ghost rounded-lg text-lg font-bold"> ⛅ Weather </a>
+				<a
+					href="/"
+					class="btn rounded-lg btn-ghost text-lg font-bold text-white hover:border-transparent hover:bg-white/10 hover:text-white"
+				>
+					⛅ Weather
+				</a>
 			</div>
 		</div>
 
 		<!-- CENTER -->
 		<div class="navbar-center">
 			<!-- Mobile brand -->
-			<a href="/" class="btn btn-ghost rounded-lg text-lg font-bold lg:hidden"> ⛅ Weather </a>
+			<a
+				href="/"
+				class="btn rounded-lg btn-ghost text-lg font-bold text-white hover:border-transparent hover:bg-white/10 hover:text-white lg:hidden"
+			>
+				⛅ Weather
+			</a>
 
 			<!-- Desktop links -->
-			<div class="hidden lg:flex gap-2">
-				<a href="/" class="btn btn-ghost text-lg">📍 Overview</a>
-				<a href="/details" class="btn btn-ghost text-lg">📈 Details</a>
+			<div class="hidden gap-2 lg:flex">
+				<a
+					href="/"
+					class="btn btn-ghost text-lg text-white hover:border-transparent hover:bg-white/10 hover:text-white"
+					>📍 Overview</a
+				>
+				<a
+					href="/details"
+					class="btn btn-ghost text-lg text-white hover:border-transparent hover:bg-white/10 hover:text-white"
+					>📈 Details</a
+				>
 			</div>
 		</div>
 
 		<!-- END -->
-		<div class="navbar-end hidden lg:flex gap-2">
+		<div class="navbar-end hidden gap-2 lg:flex">
 			<a href="https://api.weather.oskar-westmeijer.com" target="_blank" class="btn rounded-lg"
 				>🚀 API-doc</a
 			>
@@ -66,12 +89,12 @@
 	</div>
 
 	<!-- MAIN CONTENT -->
-	<main class="flex-grow">
+	<main class="flex min-h-0 flex-grow flex-col">
 		{@render children()}
 	</main>
 
 	<!-- FOOTER -->
-	<footer class="footer-center footer py-6 mt-auto">
+	<footer class="mt-auto footer footer-center py-6">
 		<a href="https://oskar-westmeijer.com" target="_blank" class="text-base">
 			Created by Oskar Westmeijer 🐨 2026
 		</a>

@@ -38,6 +38,8 @@ public class OverviewMapperTest {
         .returns(expectedLocation.locationId(), Overview::locationId)
         .returns(expectedLocation.countryCode(), Overview::countryCode)
         .returns(expectedLocation.cityName(), Overview::cityName)
+        .returns(expectedLocation.latitude(), Overview::latitude)
+        .returns(expectedLocation.longitude(), Overview::longitude)
         .returns(expectedWeather.temperature(), Overview::temperature)
         .returns(expectedWeather.humidity(), Overview::humidity)
         .returns(expectedWeather.windSpeed(), Overview::windSpeed)
