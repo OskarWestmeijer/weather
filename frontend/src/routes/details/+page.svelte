@@ -138,15 +138,15 @@
 </script>
 
 <div>
-	<div class="max-w-4xl mx-auto mt-10 p-4">
-		<h1 class="text-3xl font-bold mb-6 text-center">
+	<div class="mx-auto mt-10 max-w-4xl p-4">
+		<h1 class="mb-6 text-center text-3xl font-bold">
 			Weather Details for {selected?.cityName}, {selected?.countryCode}
 		</h1>
 
 		<div class="mb-6 flex justify-center">
 			<select
 				id="location-select"
-				class="select select-bordered w-full max-w-xs"
+				class="select-bordered select w-full max-w-xs"
 				onchange={onSelectChange}
 			>
 				{#each locations as loc (loc.locationId)}

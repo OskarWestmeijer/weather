@@ -16,7 +16,8 @@ test('ranks locations coldest first in the rail', async ({ page }) => {
 test('shows the temperature legend spanning the coldest and warmest reading', async ({ page }) => {
 	await page.goto('/');
 
-	await expect(page.getByText('Coldest → warmest')).toBeVisible();
+	await expect(page.getByText('My favourite places')).toBeVisible();
+	await expect(page.getByText('coldest → warmest')).toBeVisible();
 	await expect(page.getByText('-5° → 6°')).toBeVisible();
 });
 
