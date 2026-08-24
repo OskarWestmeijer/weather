@@ -42,7 +42,7 @@
 	},
 	"dependencies": {
 		"chart.js": "^4.5.1",
-		"daisyui": "^5.7.18",
+		"daisyui": "^5.7.20",
 		"leaflet": "^1.9.4"
 	}
 }
