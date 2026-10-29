@@ -344,7 +344,7 @@
     <maven.failsafe.plugin>3.6.1</maven.failsafe.plugin>
     <surefire.report.plugin>3.6.1</surefire.report.plugin>
     <spring.boot.plugin>4.1.2</spring.boot.plugin>
-    <jacoco.version>0.8.15</jacoco.version>
+    <jacoco.version>0.8.16</jacoco.version>
     <checkstyle.version>3.6.0</checkstyle.version>
   </properties>
 
