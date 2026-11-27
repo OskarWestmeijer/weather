@@ -59,11 +59,14 @@
 			// fitBounds overrides it as soon as there is at least one usable coordinate.
 			map.setView([30, 10], 2);
 
-			L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-				attribution: '&copy; OpenStreetMap &middot; &copy; CARTO',
-				subdomains: 'abcd',
-				maxZoom: 19
-			}).addTo(map);
+			L.tileLayer(
+				'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+				{
+					attribution:
+						'Tiles &copy; <a href="https://www.esri.com/">Esri</a> &mdash; Source: Esri, HERE, Garmin, &copy; OpenStreetMap contributors',
+					maxZoom: 19
+				}
+			).addTo(map);
 
 			layer = L.layerGroup().addTo(map);
 
