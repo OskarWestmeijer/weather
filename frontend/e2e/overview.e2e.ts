@@ -37,7 +37,7 @@ test('adds the basemap tile layer', async ({ page }) => {
 	await page.goto('/');
 
 	const map = page.getByTestId('weather-map');
-	await expect(map.locator('.leaflet-control-attribution')).toContainText('CARTO');
+	await expect(map.locator('.leaflet-control-attribution')).toContainText('Esri');
 	await expect(map.locator('.leaflet-tile-pane .leaflet-layer')).toHaveCount(1);
 });
 
